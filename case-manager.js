@@ -1,5 +1,6 @@
 /* ============================================================
    Kamkhadze PA — Case Manager Application
+   Requires: case-manager-auth.js loaded first
    ============================================================ */
 
 // ---- State ----
@@ -12,14 +13,41 @@ const State = {
   emailDraft: null,
 };
 
-// ---- Persistence ----
+// ---- Encrypted Persistence ----
+// All case data is AES-256-GCM encrypted before writing to localStorage.
+// The encryption key is derived from the user's password (never stored).
+const ENC_CASES_KEY = 'km_cases_enc_v1';
+const PLAIN_LEGACY  = 'km_cases'; // unencrypted key from pre-auth version
+
 const Storage = {
-  save() {
-    localStorage.setItem('km_cases', JSON.stringify(State.cases));
-  },
-  load() {
+  async save() {
     try {
-      State.cases = JSON.parse(localStorage.getItem('km_cases') || '[]');
+      const json = JSON.stringify(State.cases);
+      const blob = await Auth.encrypt(json);
+      localStorage.setItem(ENC_CASES_KEY, blob);
+      // Remove any leftover plaintext data
+      localStorage.removeItem(PLAIN_LEGACY);
+    } catch (e) {
+      console.error('Save failed:', e);
+    }
+  },
+  async load() {
+    try {
+      const blob = localStorage.getItem(ENC_CASES_KEY);
+      if (blob) {
+        const json = await Auth.decrypt(blob);
+        State.cases = JSON.parse(json);
+        return;
+      }
+      // Migrate unencrypted legacy data if present
+      const legacy = localStorage.getItem(PLAIN_LEGACY);
+      if (legacy) {
+        State.cases = JSON.parse(legacy);
+        await Storage.save();// async, fire-and-forget // re-save encrypted
+        localStorage.removeItem(PLAIN_LEGACY);
+        return;
+      }
+      State.cases = [];
     } catch {
       State.cases = [];
     }
@@ -1164,7 +1192,7 @@ function logEmailSent(caseId, subject) {
   if (!c.emailLog) c.emailLog = [];
   c.emailLog.push({ subject, date: new Date().toISOString() });
   c.updatedAt = new Date().toISOString();
-  Storage.save();
+  Storage.save();// async, fire-and-forget
   toast('Email marked as sent');
   State.emailDraft = null;
   rerenderTab(caseId);
@@ -1498,7 +1526,7 @@ function updateCaseField(caseId, field, value) {
   if (!c) return;
   c[field] = value;
   c.updatedAt = new Date().toISOString();
-  Storage.save();
+  Storage.save();// async, fire-and-forget
 }
 
 function updatePetitionField(caseId, field, value) {
@@ -1507,7 +1535,7 @@ function updatePetitionField(caseId, field, value) {
   if (!c.petition) c.petition = {};
   c.petition[field] = value;
   c.updatedAt = new Date().toISOString();
-  Storage.save();
+  Storage.save();// async, fire-and-forget
 }
 
 function updateDocStatus(caseId, docId, status) {
@@ -1517,7 +1545,7 @@ function updateDocStatus(caseId, docId, status) {
   if (doc) {
     doc.status = status;
     c.updatedAt = new Date().toISOString();
-    Storage.save();
+    Storage.save();// async, fire-and-forget
     toast(`Document marked as ${status}`);
   }
 }
@@ -1527,7 +1555,7 @@ function removeDocument(caseId, docId) {
   if (!c) return;
   c.documents = (c.documents || []).filter(d => d.id !== docId);
   c.updatedAt = new Date().toISOString();
-  Storage.save();
+  Storage.save();// async, fire-and-forget
   rerenderTab(caseId);
 }
 
@@ -1536,7 +1564,7 @@ function removeExhibit(caseId, exhibitId) {
   if (!c) return;
   c.exhibits = (c.exhibits || []).filter(e => e.id !== exhibitId);
   c.updatedAt = new Date().toISOString();
-  Storage.save();
+  Storage.save();// async, fire-and-forget
   rerenderTab(caseId);
 }
 
@@ -1545,7 +1573,7 @@ function initDocuments(caseId) {
   if (!c) return;
   c.documents = buildDefaultDocs(c.visaType);
   c.updatedAt = new Date().toISOString();
-  Storage.save();
+  Storage.save();// async, fire-and-forget
   toast(`${c.visaType} document checklist initialized`);
   rerenderTab(caseId);
 }
@@ -1560,7 +1588,7 @@ function confirmConsultation(caseId) {
   c.consultationConfirmed = true;
   if (c.stage === 'lead' || c.stage === 'onboarding') c.stage = 'consultation';
   c.updatedAt = new Date().toISOString();
-  Storage.save();
+  Storage.save();// async, fire-and-forget
   toast('Consultation confirmed!');
   rerenderTab(caseId);
 }
@@ -1573,7 +1601,7 @@ function advanceStage(caseId) {
     const nextStage = STAGE_ORDER[idx + 1];
     c.stage = nextStage;
     c.updatedAt = new Date().toISOString();
-    Storage.save();
+    Storage.save();// async, fire-and-forget
     const label = STAGES.find(s => s.value === nextStage)?.label;
     toast(`Stage advanced to: ${label}`);
     render();
@@ -1677,7 +1705,7 @@ function saveNewCase() {
   });
 
   State.cases.push(c);
-  Storage.save();
+  Storage.save();// async, fire-and-forget
   closeModal();
   toast(`Case created: ${firstName} ${lastName}`);
   navigate('case-detail', c.id);
@@ -1763,7 +1791,7 @@ function saveEditCase(caseId) {
   c.notes = document.getElementById('ec-notes')?.value.trim() || '';
   c.updatedAt = new Date().toISOString();
 
-  Storage.save();
+  Storage.save();// async, fire-and-forget
   closeModal();
   toast('Case updated');
   render();
@@ -1789,7 +1817,7 @@ function confirmDeleteCase(caseId) {
 
 function deleteCase(caseId) {
   State.cases = State.cases.filter(c => c.id !== caseId);
-  Storage.save();
+  Storage.save();// async, fire-and-forget
   closeModal();
   toast('Case deleted');
   navigate('cases');
@@ -1847,7 +1875,7 @@ function saveAddDocument(caseId) {
     notes: '',
   });
   c.updatedAt = new Date().toISOString();
-  Storage.save();
+  Storage.save();// async, fire-and-forget
   closeModal();
   toast('Document added');
   rerenderTab(caseId);
@@ -1891,7 +1919,7 @@ function saveAddExhibit(caseId) {
     status: document.getElementById('ne-status')?.value || 'pending',
   });
   c.updatedAt = new Date().toISOString();
-  Storage.save();
+  Storage.save();// async, fire-and-forget
   closeModal();
   toast('Exhibit added');
   rerenderTab(caseId);
@@ -1927,7 +1955,7 @@ function saveStatusUpdate(caseId) {
     status,
   });
   c.updatedAt = new Date().toISOString();
-  Storage.save();
+  Storage.save();// async, fire-and-forget
   closeModal();
   toast('Status update saved');
   rerenderTab(caseId);
@@ -1954,54 +1982,54 @@ function render() {
     </div>`;
 }
 
-// ---- Boot ----
-Storage.load();
+// ---- Boot (waits for Auth.ready, then loads encrypted data) ----
+Auth.ready.then(async () => {
+  await Storage.load();
 
-// Seed demo data if empty
-if (State.cases.length === 0) {
-  const demo1 = newCase({
-    firstName: 'Mikhail', lastName: 'Petrov', email: 'mikhail@startupxyz.com',
-    phone: '+1 (212) 555-0142', nationality: 'Russian', location: 'New York, NY',
-    company: 'StartupXYZ Inc.', visaType: 'O-1A', stage: 'documents',
-    consultationDate: '2026-04-15', consultationTime: '10:00 AM', consultationConfirmed: true,
-    retainerPaid: true, retainerAmount: '8500', retainerDate: '2026-04-20',
-    uscisReceiptNumber: '',
-    notes: 'Strong profile — $3M seed round, 4 press articles in TechCrunch, Wired. Speaking at 2 conferences.',
-    documents: buildDefaultDocs('O-1A'),
-  });
-  // Mark a few docs as uploaded
-  demo1.documents.slice(0, 5).forEach(d => d.status = 'reviewed');
-  demo1.documents.slice(5, 8).forEach(d => d.status = 'uploaded');
+  // Seed demo data on first login (no cases yet)
+  if (State.cases.length === 0) {
+    const demo1 = newCase({
+      firstName: 'Mikhail', lastName: 'Petrov', email: 'mikhail@startupxyz.com',
+      phone: '+1 (212) 555-0142', nationality: 'Russian', location: 'New York, NY',
+      company: 'StartupXYZ Inc.', visaType: 'O-1A', stage: 'documents',
+      consultationDate: '2026-04-15', consultationTime: '10:00 AM', consultationConfirmed: true,
+      retainerPaid: true, retainerAmount: '8500', retainerDate: '2026-04-20',
+      notes: 'Strong profile — $3M seed round, 4 press articles in TechCrunch, Wired. Speaking at 2 conferences.',
+      documents: buildDefaultDocs('O-1A'),
+    });
+    demo1.documents.slice(0, 5).forEach(d => d.status = 'reviewed');
+    demo1.documents.slice(5, 8).forEach(d => d.status = 'uploaded');
 
-  const demo2 = newCase({
-    firstName: 'Priya', lastName: 'Sharma', email: 'priya@biosciresearch.org',
-    phone: '+1 (305) 555-0217', nationality: 'Indian', location: 'Miami, FL',
-    company: 'BioSci Research Institute', visaType: 'EB-1A', stage: 'petition',
-    consultationDate: '2026-03-10', consultationTime: '2:00 PM', consultationConfirmed: true,
-    retainerPaid: true, retainerAmount: '12000', retainerDate: '2026-03-15',
-    uscisReceiptNumber: 'IOE0123456789',
-    notes: 'PhD in molecular biology. 22 publications, 850+ citations. NIH grant recipient.',
-    documents: buildDefaultDocs('EB-1A'),
-  });
-  demo2.documents.slice(0, 12).forEach(d => d.status = 'approved');
-  demo2.documents.slice(12).forEach(d => d.status = 'reviewed');
-  demo2.exhibits = [
-    { id: uuid(), name: 'NIH Grant Award Letter 2024', status: 'approved' },
-    { id: uuid(), name: 'Nature Medicine Publication — Lead Author', status: 'approved' },
-    { id: uuid(), name: 'Citation Report from Google Scholar', status: 'reviewed' },
-    { id: uuid(), name: 'Conference Keynote Invitation — AACR 2025', status: 'pending' },
-  ];
+    const demo2 = newCase({
+      firstName: 'Priya', lastName: 'Sharma', email: 'priya@biosciresearch.org',
+      phone: '+1 (305) 555-0217', nationality: 'Indian', location: 'Miami, FL',
+      company: 'BioSci Research Institute', visaType: 'EB-1A', stage: 'petition',
+      consultationDate: '2026-03-10', consultationTime: '2:00 PM', consultationConfirmed: true,
+      retainerPaid: true, retainerAmount: '12000', retainerDate: '2026-03-15',
+      uscisReceiptNumber: 'IOE0123456789',
+      notes: 'PhD in molecular biology. 22 publications, 850+ citations. NIH grant recipient.',
+      documents: buildDefaultDocs('EB-1A'),
+    });
+    demo2.documents.slice(0, 12).forEach(d => d.status = 'approved');
+    demo2.documents.slice(12).forEach(d => d.status = 'reviewed');
+    demo2.exhibits = [
+      { id: uuid(), name: 'NIH Grant Award Letter 2024', status: 'approved' },
+      { id: uuid(), name: 'Nature Medicine Publication — Lead Author', status: 'approved' },
+      { id: uuid(), name: 'Citation Report from Google Scholar', status: 'reviewed' },
+      { id: uuid(), name: 'Conference Keynote Invitation — AACR 2025', status: 'pending' },
+    ];
 
-  const demo3 = newCase({
-    firstName: 'Lucas', lastName: 'Ferreira', email: 'lucas@digitalagency.co',
-    phone: '+1 (786) 555-0388', nationality: 'Brazilian', location: 'Miami, FL',
-    company: 'Digital Agency Co.', visaType: 'E-2', stage: 'consultation',
-    consultationDate: '2026-05-12', consultationTime: '11:00 AM', consultationConfirmed: false,
-    notes: 'Interested in E-2 investor visa. Business valued at ~$400K.',
-  });
+    const demo3 = newCase({
+      firstName: 'Lucas', lastName: 'Ferreira', email: 'lucas@digitalagency.co',
+      phone: '+1 (786) 555-0388', nationality: 'Brazilian', location: 'Miami, FL',
+      company: 'Digital Agency Co.', visaType: 'E-2', stage: 'consultation',
+      consultationDate: '2026-05-12', consultationTime: '11:00 AM', consultationConfirmed: false,
+      notes: 'Interested in E-2 investor visa. Business valued at ~$400K.',
+    });
 
-  State.cases.push(demo1, demo2, demo3);
-  Storage.save();
-}
+    State.cases.push(demo1, demo2, demo3);
+    await Storage.save();// async, fire-and-forget
+  }
 
-render();
+  render();
+});
