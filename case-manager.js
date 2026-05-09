@@ -1,5 +1,6 @@
 /* ============================================================
    Kamkhadze PA — Case Manager Application
+   Requires: case-manager-auth.js loaded first
    ============================================================ */
 
 // ---- State ----
@@ -12,14 +13,41 @@ const State = {
   emailDraft: null,
 };
 
-// ---- Persistence ----
+// ---- Encrypted Persistence ----
+// All case data is AES-256-GCM encrypted before writing to localStorage.
+// The encryption key is derived from the user's password (never stored).
+const ENC_CASES_KEY = 'km_cases_enc_v1';
+const PLAIN_LEGACY  = 'km_cases'; // unencrypted key from pre-auth version
+
 const Storage = {
-  save() {
-    localStorage.setItem('km_cases', JSON.stringify(State.cases));
-  },
-  load() {
+  async save() {
     try {
-      State.cases = JSON.parse(localStorage.getItem('km_cases') || '[]');
+      const json = JSON.stringify(State.cases);
+      const blob = await Auth.encrypt(json);
+      localStorage.setItem(ENC_CASES_KEY, blob);
+      // Remove any leftover plaintext data
+      localStorage.removeItem(PLAIN_LEGACY);
+    } catch (e) {
+      console.error('Save failed:', e);
+    }
+  },
+  async load() {
+    try {
+      const blob = localStorage.getItem(ENC_CASES_KEY);
+      if (blob) {
+        const json = await Auth.decrypt(blob);
+        State.cases = JSON.parse(json);
+        return;
+      }
+      // Migrate unencrypted legacy data if present
+      const legacy = localStorage.getItem(PLAIN_LEGACY);
+      if (legacy) {
+        State.cases = JSON.parse(legacy);
+        await Storage.save(); // re-save encrypted
+        localStorage.removeItem(PLAIN_LEGACY);
+        return;
+      }
+      State.cases = [];
     } catch {
       State.cases = [];
     }
@@ -696,7 +724,7 @@ function infoRow(label, value, color = '') {
   return `
     <div style="margin-bottom:12px">
       <div style="font-size:10px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-3);margin-bottom:3px">${label}</div>
-      <div style="font-size:13.5px;color:${color || 'var(--text-2)'};">${value || '—'}</div>
+      <div style="font-size:13.5px;color:${color || 'var(--text-2)'}">${value || '—'}</div>
     </div>`;
 }
 
@@ -1954,54 +1982,54 @@ function render() {
     </div>`;
 }
 
-// ---- Boot ----
-Storage.load();
+// ---- Boot (waits for Auth.ready, then loads encrypted data) ----
+Auth.ready.then(async () => {
+  await Storage.load();
 
-// Seed demo data if empty
-if (State.cases.length === 0) {
-  const demo1 = newCase({
-    firstName: 'Mikhail', lastName: 'Petrov', email: 'mikhail@startupxyz.com',
-    phone: '+1 (212) 555-0142', nationality: 'Russian', location: 'New York, NY',
-    company: 'StartupXYZ Inc.', visaType: 'O-1A', stage: 'documents',
-    consultationDate: '2026-04-15', consultationTime: '10:00 AM', consultationConfirmed: true,
-    retainerPaid: true, retainerAmount: '8500', retainerDate: '2026-04-20',
-    uscisReceiptNumber: '',
-    notes: 'Strong profile — $3M seed round, 4 press articles in TechCrunch, Wired. Speaking at 2 conferences.',
-    documents: buildDefaultDocs('O-1A'),
-  });
-  // Mark a few docs as uploaded
-  demo1.documents.slice(0, 5).forEach(d => d.status = 'reviewed');
-  demo1.documents.slice(5, 8).forEach(d => d.status = 'uploaded');
+  // Seed demo data on first login (no cases yet)
+  if (State.cases.length === 0) {
+    const demo1 = newCase({
+      firstName: 'Mikhail', lastName: 'Petrov', email: 'mikhail@startupxyz.com',
+      phone: '+1 (212) 555-0142', nationality: 'Russian', location: 'New York, NY',
+      company: 'StartupXYZ Inc.', visaType: 'O-1A', stage: 'documents',
+      consultationDate: '2026-04-15', consultationTime: '10:00 AM', consultationConfirmed: true,
+      retainerPaid: true, retainerAmount: '8500', retainerDate: '2026-04-20',
+      notes: 'Strong profile — $3M seed round, 4 press articles in TechCrunch, Wired. Speaking at 2 conferences.',
+      documents: buildDefaultDocs('O-1A'),
+    });
+    demo1.documents.slice(0, 5).forEach(d => d.status = 'reviewed');
+    demo1.documents.slice(5, 8).forEach(d => d.status = 'uploaded');
 
-  const demo2 = newCase({
-    firstName: 'Priya', lastName: 'Sharma', email: 'priya@biosciresearch.org',
-    phone: '+1 (305) 555-0217', nationality: 'Indian', location: 'Miami, FL',
-    company: 'BioSci Research Institute', visaType: 'EB-1A', stage: 'petition',
-    consultationDate: '2026-03-10', consultationTime: '2:00 PM', consultationConfirmed: true,
-    retainerPaid: true, retainerAmount: '12000', retainerDate: '2026-03-15',
-    uscisReceiptNumber: 'IOE0123456789',
-    notes: 'PhD in molecular biology. 22 publications, 850+ citations. NIH grant recipient.',
-    documents: buildDefaultDocs('EB-1A'),
-  });
-  demo2.documents.slice(0, 12).forEach(d => d.status = 'approved');
-  demo2.documents.slice(12).forEach(d => d.status = 'reviewed');
-  demo2.exhibits = [
-    { id: uuid(), name: 'NIH Grant Award Letter 2024', status: 'approved' },
-    { id: uuid(), name: 'Nature Medicine Publication — Lead Author', status: 'approved' },
-    { id: uuid(), name: 'Citation Report from Google Scholar', status: 'reviewed' },
-    { id: uuid(), name: 'Conference Keynote Invitation — AACR 2025', status: 'pending' },
-  ];
+    const demo2 = newCase({
+      firstName: 'Priya', lastName: 'Sharma', email: 'priya@biosciresearch.org',
+      phone: '+1 (305) 555-0217', nationality: 'Indian', location: 'Miami, FL',
+      company: 'BioSci Research Institute', visaType: 'EB-1A', stage: 'petition',
+      consultationDate: '2026-03-10', consultationTime: '2:00 PM', consultationConfirmed: true,
+      retainerPaid: true, retainerAmount: '12000', retainerDate: '2026-03-15',
+      uscisReceiptNumber: 'IOE0123456789',
+      notes: 'PhD in molecular biology. 22 publications, 850+ citations. NIH grant recipient.',
+      documents: buildDefaultDocs('EB-1A'),
+    });
+    demo2.documents.slice(0, 12).forEach(d => d.status = 'approved');
+    demo2.documents.slice(12).forEach(d => d.status = 'reviewed');
+    demo2.exhibits = [
+      { id: uuid(), name: 'NIH Grant Award Letter 2024', status: 'approved' },
+      { id: uuid(), name: 'Nature Medicine Publication — Lead Author', status: 'approved' },
+      { id: uuid(), name: 'Citation Report from Google Scholar', status: 'reviewed' },
+      { id: uuid(), name: 'Conference Keynote Invitation — AACR 2025', status: 'pending' },
+    ];
 
-  const demo3 = newCase({
-    firstName: 'Lucas', lastName: 'Ferreira', email: 'lucas@digitalagency.co',
-    phone: '+1 (786) 555-0388', nationality: 'Brazilian', location: 'Miami, FL',
-    company: 'Digital Agency Co.', visaType: 'E-2', stage: 'consultation',
-    consultationDate: '2026-05-12', consultationTime: '11:00 AM', consultationConfirmed: false,
-    notes: 'Interested in E-2 investor visa. Business valued at ~$400K.',
-  });
+    const demo3 = newCase({
+      firstName: 'Lucas', lastName: 'Ferreira', email: 'lucas@digitalagency.co',
+      phone: '+1 (786) 555-0388', nationality: 'Brazilian', location: 'Miami, FL',
+      company: 'Digital Agency Co.', visaType: 'E-2', stage: 'consultation',
+      consultationDate: '2026-05-12', consultationTime: '11:00 AM', consultationConfirmed: false,
+      notes: 'Interested in E-2 investor visa. Business valued at ~$400K.',
+    });
 
-  State.cases.push(demo1, demo2, demo3);
-  Storage.save();
-}
+    State.cases.push(demo1, demo2, demo3);
+    await Storage.save();
+  }
 
-render();
+  render();
+});
