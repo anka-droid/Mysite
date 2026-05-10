@@ -11,6 +11,7 @@ const State = {
   selectedCaseId: null,
   filter: { search: '', stage: '', visaType: '' },
   emailDraft: null,
+  emailLang: 'en',
 };
 
 // ---- Encrypted Persistence ----
@@ -43,7 +44,7 @@ const Storage = {
       const legacy = localStorage.getItem(PLAIN_LEGACY);
       if (legacy) {
         State.cases = JSON.parse(legacy);
-        await Storage.save();// async, fire-and-forget // re-save encrypted
+        await Storage.save(); // re-save encrypted
         localStorage.removeItem(PLAIN_LEGACY);
         return;
       }
@@ -53,6 +54,49 @@ const Storage = {
     }
   },
 };
+
+// ---- Import helpers ----
+function _visaFromCase(s) {
+  const u = (s||'').toUpperCase();
+  if (/EB[- ]?1[1A]|EB11|EB1A/.test(u)) return 'EB-1A';
+  if (/EB[- ]?2|NIW/.test(u)) return 'EB-2 NIW';
+  if (/\bO[- ]?1/.test(u)) return 'O-1A';
+  if (/\bE2\b|E2\s|E-2/.test(u)) return 'E-2';
+  if (/H[- ]?1B/.test(u)) return 'H-1B';
+  if (/\bL[- ]?1/.test(u)) return 'L-1A';
+  if (/\bTN\b/.test(u)) return 'TN';
+  if (/\bP[- ]?1\b/.test(u)) return 'P-1';
+  return 'Other';
+}
+function _stageFromData(fd, r, exp) {
+  const f=(fd||'').toLowerCase(), rx=(r||'').toLowerCase(), ex=(exp||'').toLowerCase();
+  if (/denied/.test(f)||/denied/.test(rx)) return 'denied';
+  if (/withdrawn|noid/.test(f)||/withdrawn/.test(rx)) return 'closed';
+  if (/approved/.test(f)||/approved/.test(rx)||/^approved$/i.test(rx.trim())) return 'approved';
+  if (/\brfe\b/.test(f)||/\brfe\b/.test(rx)) return 'rfe';
+  if (/interview|iv scheduled/.test(f)||/interview/.test(rx)) return 'filed';
+  if (/filed/.test(f)||/^[a-z]{2,3}\d{7}/i.test(rx)) return 'filed';
+  if (/nvc/.test(f)||/nvc/.test(rx)) return 'filed';
+  if (/docs? pending/i.test(rx)) return 'documents';
+  if (/lpr/.test(ex)) return 'approved';
+  return 'lead';
+}
+function _xDate(s) {
+  const m=(s||'').match(/(\d{1,2})[\/\-](\d{1,2})[\/\-](20\d{2})/);
+  return m?`${m[3]}-${m[1].padStart(2,'0')}-${m[2].padStart(2,'0')}`:'';
+}
+function _xApprDate(fd,r) {
+  const src=/approved/i.test(fd)?fd:(/approved/i.test(r)?r:'');
+  return _xDate(src);
+}
+function _xReceipt(s) {
+  const m=(s||'').match(/\b([A-Z]{2,3}\d{7,13})\b/i);
+  return m?m[1].toUpperCase():'';
+}
+function _xAmt(s) {
+  const n=parseFloat((s||'').replace(/[\$,\s]/g,''));
+  return (!isNaN(n)&&n>0)?String(n):'';
+}
 
 // ---- Helpers ----
 function uuid() {
@@ -328,6 +372,9 @@ function renderSidebar() {
         <button class="nav-item" onclick="showAddCase()">
           ${icon('add')} New Case
         </button>
+        <button class="nav-item ${activeView === 'settings' ? 'active' : ''}" onclick="navigate('settings')">
+          ${icon('status')} Settings
+        </button>
       </nav>
     </aside>`;
 }
@@ -360,6 +407,9 @@ function renderDashboard() {
     <div class="topbar">
       <div class="topbar-title">Dashboard</div>
       <div class="topbar-actions">
+        <button class="btn btn-ghost" onclick="showImportCases()" style="margin-right:4px">
+          ${icon('docs')} Import
+        </button>
         <button class="btn btn-gold" onclick="showAddCase()">
           ${icon('add')} New Case
         </button>
@@ -591,7 +641,7 @@ function renderCaseDetail(caseId) {
             ${stageBadge(c.stage)}
             <div class="case-meta-item">${svgIcon('docs').replace('class="','class="nav-icon ')} <span>${c.visaType}</span></div>
             ${c.email ? `<div class="case-meta-item">✉ <span>${c.email}</span></div>` : ''}
-            ${c.phone ? `<div class="case-meta-item">✆ <span>${c.phone}</span></div>` : ''}
+            ${c.phone ? `<div class="case-meta-item">☎ <span>${c.phone}</span></div>` : ''}
             ${c.nationality ? `<div class="case-meta-item">🌐 <span>${c.nationality}</span></div>` : ''}
             ${c.uscisReceiptNumber ? `<div class="case-meta-item">USCIS: <span style="font-family:monospace">${c.uscisReceiptNumber}</span></div>` : ''}
           </div>
@@ -714,6 +764,9 @@ function renderOverviewTab(c, docPct) {
             <a href="https://egov.uscis.gov/casestatus/mycasestatus.do?appReceiptNum=${c.uscisReceiptNumber}" target="_blank" class="btn btn-ghost btn-sm">
               ${icon('status')} Check USCIS Status ↗
             </a>` : ''}
+            <button class="btn btn-ghost btn-sm" onclick="showRepAgreement('${c.id}')">
+              ${icon('petition')} Rep. Agreement
+            </button>
           </div>
         </div>
       </div>
@@ -724,7 +777,7 @@ function infoRow(label, value, color = '') {
   return `
     <div style="margin-bottom:12px">
       <div style="font-size:10px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-3);margin-bottom:3px">${label}</div>
-      <div style="font-size:13.5px;color:${color || 'var(--text-2)'};">${value || '—'}</div>
+      <div style="font-size:13.5px;color:${color || 'var(--text-2)'}">${value || '—'}</div>
     </div>`;
 }
 
@@ -869,7 +922,11 @@ function renderEmailComposer(c, templateId) {
     <div class="email-composer">
       <div class="email-composer-header">
         <span>${draft.templateName}</span>
-        <div style="display:flex;gap:8px">
+        <div style="display:flex;gap:8px;align-items:center">
+          <div style="display:flex;border:1px solid var(--border-2);border-radius:6px;overflow:hidden">
+            <button onclick="State.emailLang='en'; switchTab('emails','${c.id}')" style="padding:4px 10px;font-size:11px;background:${State.emailLang==='en'?'var(--gold)':'transparent'};color:${State.emailLang==='en'?'#000':'var(--text-2)'};border:none;cursor:pointer">EN</button>
+            <button onclick="State.emailLang='ka'; switchTab('emails','${c.id}')" style="padding:4px 10px;font-size:11px;background:${State.emailLang==='ka'?'var(--gold)':'transparent'};color:${State.emailLang==='ka'?'#000':'var(--text-2)'};border:none;cursor:pointer">ქართ</button>
+          </div>
           <button class="copy-btn" onclick="copyEmailToClipboard('${c.id}')">Copy All</button>
           <a class="btn btn-ghost btn-sm" href="${buildMailtoLink(c, draft)}" target="_blank">Open in Mail App ↗</a>
           <button class="btn btn-gold btn-sm" onclick="logEmailSent('${c.id}','${escAttr(draft.subject)}')">
@@ -1168,6 +1225,196 @@ anka@esq.mba | (786) 590-9400`,
     },
   };
 
+  if (State.emailLang === 'ka') {
+    const geo = {
+      'consultation-confirm': {
+        templateName: 'კონსულტაციის დადასტურება',
+        subject: `თქვენი ${visa} სტრატეგიული კონსულტაცია — დადასტურებულია`,
+        body: `ძვირფასო ${name},
+
+სიამოვნებით გიდასტურებთ სტრატეგიულ კონსულტაციას ანა კამხაძესთან, Esq. MBA.
+
+თარიზი: ${consultDate}
+დრო: ${consultTime} (აღმოსავლეთ სტანდარტული დრო)
+ხანგრძლივობა: ${c.consultationDuration || 60} წუთი
+ფორმატი: ვიდეო ზარი (Zoom ბმული მოგვიანებით) / ტელეფონი
+
+კონსულტაციის განმავლობაში განვიხილავთ:
+• თქვენს ${visa} კრიტერიუმებს
+• მტკიცებულებათა სტრუქტურას
+• საქმის სტრატეგიას და ვადებს
+
+გთხოვთ, გადაფასების შემთხვევაში შეგვატყობინოთ 24 საათით ადრე.
+
+პატივისცემით,
+
+ანა კამხაძე, Esq. MBA
+კამხაძე PA
+anka@esq.mba | (786) 590-9400`,
+      },
+      'intro-welcome': {
+        templateName: 'მოგესალმებით',
+        subject: `კეთილი იყოს თქვენი მობრძანება — კამხაძე PA — ${visa}`,
+        body: `ძვირფასო ${name},
+
+კეთილი იყოს თქვენი მობრძანება კამხაძე PA-ში. პატივად მიმაჩნია თქვენი წარმომადგენლობა.
+
+ჩვენ სპეციალიზდებთ ${visa} შუამდგომლობებში. ჩვენი მიზანია ყველაზე ძლიერი საქმის მომზადება.
+
+მომდევნო ნაბიჯები:
+1. წარმომადგენლობის შეთანხმება — გთხოვთ გადახედოთ და ხელი მოაწეროთ.
+2. ავანსის გადახდა — გადახდის ინსტრუქცია გამოეგზავნებათ ცალკე.
+3. დოკუმენტების შეგროვება — მიიღებთ Dropbox-ის ლინკს.
+4. სტრატეგიული სესია — შეხვედრა განვიხილავთ თქვენი საქმის არქიტექტურას.
+
+ნებისმიერ კითხვაზე მიმართეთ: anka@esq.mba | (786) 590-9400
+
+პატივისცემით,
+ანა კამხაძე, Esq. MBA`,
+      },
+      'representation': {
+        templateName: 'წარმომადგენლობის შეთანხმება',
+        subject: `წარმომადგენლობის შეთანხმება — კამხაძე PA × ${fullName}`,
+        body: `ძვირფასო ${name},
+
+თანდართულია თქვენი წარმომადგენლობის შეთანხმება კამხაძე PA-სთან ${visa} შუამდგომლობასთან დაკავშირებით.
+
+გთხოვთ:
+1. გადახედოთ შეთანხმებას
+2. ხელი მოაწეროთ და გამოგვიგზავნოთ anka@esq.mba-ზე
+3. შეინახოთ ასლი
+
+PRIVILEGED & CONFIDENTIAL — ATTORNEY-CLIENT COMMUNICATION
+
+პატივისცემით,
+ანა კამხაძე, Esq. MBA
+კამხაძე PA`,
+      },
+      'bank-info': {
+        templateName: 'გადახდის ინსტრუქცია',
+        subject: `გადახდის ინსტრუქცია — კამხაძე PA`,
+        body: `ძვირფასო ${name},
+
+გიგზავნით გადახდის ინსტრუქციებს ${visa} წარმომადგენლობის ავანსის გადასახდელად.
+
+WIRE TRANSFER / ACH:
+ბანკი: [BANK NAME]
+ანგარიშის სახელი: Kamkhadze PA
+ანგარიშის ნომერი: [ACCOUNT NUMBER]
+Routing: [ROUTING NUMBER]
+დანიშნულება: ${fullName} — ${visa}
+
+ZELLE:
+Email: anka@esq.mba
+დანიშნულება: ${fullName} — ${visa}
+
+CHECK (გამოწერილი):
+Kamkhadze PA
+3800 S Ocean Dr
+Hollywood Beach, FL
+
+ავანსი: $[AMOUNT]
+გადახდის ვადა: [DATE]
+
+გადახდის შემდეგ დაგვიდასტურეთ: anka@esq.mba
+
+პატივისცემით,
+ანა კამხაძე, Esq. MBA`,
+      },
+      'doc-request': {
+        templateName: 'დოკუმენტების მოთხოვნა',
+        subject: `სავალდებულო: დოკუმენტების ატვირთვა — ${visa}`,
+        body: `ძვირფასო ${name},
+
+თქვენი ${visa} საქმის ფაილი გახსნილია. გთხოვთ ატვირთოთ დოკუმენტები Dropbox-ის პირად საქაღალდეში:
+${c.dropboxLink || '[DROPBOX ბმული]'}
+
+საქაღალდის სტრუქტურა:
+• 01_Personal_Documents — პასპორტი, CV, სტატუსი
+• 02_Evidence — ჯილდოები, პრესა, პუბლიკაციები
+• 03_Support_Letters — სარეკომენდაციო წერილები
+• 04_Financial — საგადასახადო, ანაზღაურება
+• 05_Correspondence — სხვა
+
+პრიორიტეტული დოკუმენტები (ჯერ ატვირთეთ):
+• პასპორტი (ყველა გვერდი)
+• განახლებული CV
+• ჯილდოები, პრესა, აღიარება
+
+7 დღის განმავლობაში გთხოვთ ატვირთოთ.
+
+პატივისცემით,
+ანა კამხაძე, Esq. MBA`,
+      },
+      'status-update': {
+        templateName: 'საქმის სტატუსი',
+        subject: `საქმის სტატუსის განახლება — ${receipt}`,
+        body: `ძვირფასო ${name},
+
+გიგზავნთ განახლებას თქვენი ${visa} შუამდგომლობის სტატუსზე.
+
+USCIS-ის მიღების ნომერი: ${receipt}
+მიმდინარე სტატუსი: [სტატუსი]
+განახლების თარიზი: ${fmtDate(new Date().toISOString())}
+
+[სტატუსის დეტალები]
+
+სტატუსის პირდაპირ შემოწმება:
+https://egov.uscis.gov/casestatus/mycasestatus.do?appReceiptNum=${c.uscisReceiptNumber || ''}
+
+მომდევნო ნაბიჯები: [ახსნა]
+
+პატივისცემით,
+ანა კამხაძე, Esq. MBA`,
+      },
+      'rfe-received': {
+        templateName: 'RFE მიღებულია',
+        subject: `მნიშვნელოვანი: მტკიცებულებების მოთხოვნა — ${receipt}`,
+        body: `ძვირფასო ${name},
+
+USCIS-მა გამოაგზავნა Evidence-ის მოთხოვნა (RFE) თქვენს ${visa} შუამდგომლობაზე.
+
+მიღების ნომერი: ${receipt}
+RFE თარიზი: [თარიზი]
+პასუხის ვადა: [ვადა — ჩვეულებრივ 87 დღე]
+
+ეს სტანდარტული პროცედურის ნაწილია. RFE-ის მიღება არ ნიშნავს უარყოფას.
+
+USCIS მოითხოვს: [სია]
+
+ჩვენი სტრატეგია: [მოკლე აღწერა]
+
+დასჭირდება: [კლიენტისაგან საჭირო]
+
+პასუხს მოამზადებ [თარიზამდე].
+
+პატივისცემით,
+ანა კამხაძე, Esq. MBA`,
+      },
+      'approval': {
+        templateName: 'დამტკიცება!',
+        subject: `დამტკიცდა — თქვენი ${visa} შუამდგომლობა`,
+        body: `ძვირფასო ${name},
+
+გილოცავთ! — თქვენი ${visa} შუამდგომლობა USCIS-მა დაამტკიცა!
+
+დამტკიცების დეტალები:
+მიღების ნომერი: ${receipt}
+დამტკიცების თარიზი: ${c.approvalDate ? fmtDate(c.approvalDate) : '[თარიზი]'}
+
+ეს დიდი მიღწევაა! გილოცავთ!
+
+მომდევნო ნაბიჯები: [ახსნა]
+
+იყო დიდი პატივი ამ საქმეზე თქვენთან ერთად მუშაობა.
+
+თბილი მილოცვით,
+ანა კამხაძე, Esq. MBA
+კამხაძე PA`,
+      },
+    };
+    return geo[templateId] || geo['status-update'] || templates[templateId] || templates['status-update'];
+  }
   return templates[templateId] || templates['status-update'];
 }
 
@@ -1192,7 +1439,7 @@ function logEmailSent(caseId, subject) {
   if (!c.emailLog) c.emailLog = [];
   c.emailLog.push({ subject, date: new Date().toISOString() });
   c.updatedAt = new Date().toISOString();
-  Storage.save();// async, fire-and-forget
+  Storage.save();
   toast('Email marked as sent');
   State.emailDraft = null;
   rerenderTab(caseId);
@@ -1526,7 +1773,7 @@ function updateCaseField(caseId, field, value) {
   if (!c) return;
   c[field] = value;
   c.updatedAt = new Date().toISOString();
-  Storage.save();// async, fire-and-forget
+  Storage.save();
 }
 
 function updatePetitionField(caseId, field, value) {
@@ -1535,7 +1782,7 @@ function updatePetitionField(caseId, field, value) {
   if (!c.petition) c.petition = {};
   c.petition[field] = value;
   c.updatedAt = new Date().toISOString();
-  Storage.save();// async, fire-and-forget
+  Storage.save();
 }
 
 function updateDocStatus(caseId, docId, status) {
@@ -1545,7 +1792,7 @@ function updateDocStatus(caseId, docId, status) {
   if (doc) {
     doc.status = status;
     c.updatedAt = new Date().toISOString();
-    Storage.save();// async, fire-and-forget
+    Storage.save();
     toast(`Document marked as ${status}`);
   }
 }
@@ -1555,7 +1802,7 @@ function removeDocument(caseId, docId) {
   if (!c) return;
   c.documents = (c.documents || []).filter(d => d.id !== docId);
   c.updatedAt = new Date().toISOString();
-  Storage.save();// async, fire-and-forget
+  Storage.save();
   rerenderTab(caseId);
 }
 
@@ -1564,7 +1811,7 @@ function removeExhibit(caseId, exhibitId) {
   if (!c) return;
   c.exhibits = (c.exhibits || []).filter(e => e.id !== exhibitId);
   c.updatedAt = new Date().toISOString();
-  Storage.save();// async, fire-and-forget
+  Storage.save();
   rerenderTab(caseId);
 }
 
@@ -1573,7 +1820,7 @@ function initDocuments(caseId) {
   if (!c) return;
   c.documents = buildDefaultDocs(c.visaType);
   c.updatedAt = new Date().toISOString();
-  Storage.save();// async, fire-and-forget
+  Storage.save();
   toast(`${c.visaType} document checklist initialized`);
   rerenderTab(caseId);
 }
@@ -1588,7 +1835,7 @@ function confirmConsultation(caseId) {
   c.consultationConfirmed = true;
   if (c.stage === 'lead' || c.stage === 'onboarding') c.stage = 'consultation';
   c.updatedAt = new Date().toISOString();
-  Storage.save();// async, fire-and-forget
+  Storage.save();
   toast('Consultation confirmed!');
   rerenderTab(caseId);
 }
@@ -1601,7 +1848,7 @@ function advanceStage(caseId) {
     const nextStage = STAGE_ORDER[idx + 1];
     c.stage = nextStage;
     c.updatedAt = new Date().toISOString();
-    Storage.save();// async, fire-and-forget
+    Storage.save();
     const label = STAGES.find(s => s.value === nextStage)?.label;
     toast(`Stage advanced to: ${label}`);
     render();
@@ -1705,7 +1952,7 @@ function saveNewCase() {
   });
 
   State.cases.push(c);
-  Storage.save();// async, fire-and-forget
+  Storage.save();
   closeModal();
   toast(`Case created: ${firstName} ${lastName}`);
   navigate('case-detail', c.id);
@@ -1791,7 +2038,7 @@ function saveEditCase(caseId) {
   c.notes = document.getElementById('ec-notes')?.value.trim() || '';
   c.updatedAt = new Date().toISOString();
 
-  Storage.save();// async, fire-and-forget
+  Storage.save();
   closeModal();
   toast('Case updated');
   render();
@@ -1817,7 +2064,7 @@ function confirmDeleteCase(caseId) {
 
 function deleteCase(caseId) {
   State.cases = State.cases.filter(c => c.id !== caseId);
-  Storage.save();// async, fire-and-forget
+  Storage.save();
   closeModal();
   toast('Case deleted');
   navigate('cases');
@@ -1875,7 +2122,7 @@ function saveAddDocument(caseId) {
     notes: '',
   });
   c.updatedAt = new Date().toISOString();
-  Storage.save();// async, fire-and-forget
+  Storage.save();
   closeModal();
   toast('Document added');
   rerenderTab(caseId);
@@ -1919,7 +2166,7 @@ function saveAddExhibit(caseId) {
     status: document.getElementById('ne-status')?.value || 'pending',
   });
   c.updatedAt = new Date().toISOString();
-  Storage.save();// async, fire-and-forget
+  Storage.save();
   closeModal();
   toast('Exhibit added');
   rerenderTab(caseId);
@@ -1955,10 +2202,368 @@ function saveStatusUpdate(caseId) {
     status,
   });
   c.updatedAt = new Date().toISOString();
-  Storage.save();// async, fire-and-forget
+  Storage.save();
   closeModal();
   toast('Status update saved');
   rerenderTab(caseId);
+}
+
+// ---- Import Cases ----
+function showImportCases() {
+  showModal(`
+    <div class="modal modal-lg">
+      <div class="modal-header">
+        <h3>Import Cases from Excel</h3>
+        <button class="modal-close" onclick="closeModal()">×</button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size:13px;color:var(--text-3);margin-bottom:4px">
+          In Excel: Select All (Ctrl+A) → Copy (Ctrl+C) → Paste below.<br>
+          Columns: # · Last Name · First Name · Case Type · Legal Fee · Filing Fees · Payment · Filing Date · RA · Receipt · Expiration · Priority Date · Officer
+        </p>
+        <div style="background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.2);border-radius:6px;padding:10px 12px;margin-bottom:12px;font-size:12px;color:var(--gold)">
+          ⚠ Data is imported directly into encrypted storage. It will not appear in source code.
+        </div>
+        <div class="field">
+          <label>Paste Excel Data (Tab-Separated)</label>
+          <textarea id="import-data" rows="10" placeholder="Paste rows here — skip or include the header row, it will be auto-detected…" style="font-family:monospace;font-size:11px;line-height:1.4"></textarea>
+        </div>
+        <div id="import-preview" style="font-size:12px;color:var(--text-3);margin-top:4px"></div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-ghost" onclick="closeModal()">Cancel</button>
+        <button class="btn btn-ghost" onclick="_previewImport()">Preview Count</button>
+        <button class="btn btn-ghost" onclick="_executeImport(false)">Add to Existing</button>
+        <button class="btn btn-gold" onclick="_executeImport(true)">Replace All & Import</button>
+      </div>
+    </div>`);
+}
+
+function _previewImport() {
+  const rows = _parseImportRows(document.getElementById('import-data')?.value||'');
+  document.getElementById('import-preview').textContent =
+    rows.length ? `✓ ${rows.length} cases parsed and ready.` : '⚠ No valid rows detected.';
+}
+
+function _parseImportRows(text) {
+  // Supports your spreadsheet layout:
+  // [0]Row# [1]Last Name [2]First Name [3]Case [4]Filing Date [5]RA [6]Receipt [7]Expiration [8]Priority Date [9]Officer
+  return text.trim().split('\n')
+    .map(l => l.split('\t').map(c => c.trim()))
+    .filter(cols => {
+      if (cols.length < 3) return false;
+      // Skip header rows
+      if (/last.?name|^#$|^row/i.test(cols[0]||'') || /last.?name|^name$/i.test(cols[1]||'')) return false;
+      // Both last and first name must have letters
+      if (!/[A-Za-z]/.test(cols[1]||'') || !/[A-Za-z]/.test(cols[2]||'')) return false;
+      return true;
+    })
+    .map(cols => {
+      const caseType   = cols[3]||'';
+      const filingDate = cols[4]||'';
+      const raDate     = cols[5]||'';
+      const receipt    = cols[6]||'';
+      const expiration = cols[7]||'';
+      const priorityDate = cols[8]||'';
+      const officer    = cols[9]||'';
+      const raDateParsed = _xDate(raDate);
+      return newCase({
+        lastName:           cols[1]||'',
+        firstName:          cols[2]||'',
+        visaType:           _visaFromCase(caseType),
+        stage:              _stageFromData(filingDate, receipt, expiration),
+        retainerDate:       raDateParsed,
+        retainerPaid:       !!raDateParsed,
+        filingDate:         _xDate(filingDate),
+        approvalDate:       _xApprDate(filingDate, receipt),
+        uscisReceiptNumber: _xReceipt(receipt),
+        priorityDate:       _xDate(priorityDate),
+        notes: [
+          caseType    ? `Case Type: ${caseType}` : '',
+          raDate      ? `RA Date: ${raDate}` : '',
+          expiration  ? `Status/Expiration: ${expiration}` : '',
+          receipt     ? `Receipt/Notes: ${receipt}` : '',
+          officer     ? `Officer: ${officer}` : '',
+        ].filter(Boolean).join('\n'),
+      });
+    });
+}
+
+async function _executeImport(replace) {
+  const rows = _parseImportRows(document.getElementById('import-data')?.value||'');
+  if (!rows.length) { toast('No valid rows found', 'warn'); return; }
+  if (replace) State.cases = rows;
+  else State.cases = [...State.cases, ...rows];
+  await Storage.save();
+  closeModal();
+  toast(`${rows.length} cases imported successfully`);
+  render();
+}
+
+// ---- Settings / Integrations ----
+function renderSettings() {
+  const integrations = [
+    {
+      id: 'outlook', name: 'Microsoft Outlook', icon: '✉',
+      desc: 'Send emails directly from case manager, log sent mail, sync inbox.',
+      status: sessionStorage.getItem('km_outlook_token') ? 'connected' : 'disconnected',
+      setup: 'Register an app at portal.azure.com → App registrations → Add redirect URI: ' + location.href.split('?')[0],
+      configKey: 'km_outlook_client_id', configLabel: 'Azure App Client ID',
+      connectFn: '_connectOutlook()',
+    },
+    {
+      id: 'dropbox', name: 'Dropbox', icon: '📦',
+      desc: 'Auto-create client folders, generate share links, browse uploaded documents.',
+      status: sessionStorage.getItem('km_dropbox_token') ? 'connected' : 'disconnected',
+      setup: 'Create an app at dropbox.com/developers → Add OAuth2 redirect URI: ' + location.href.split('?')[0],
+      configKey: 'km_dropbox_app_key', configLabel: 'Dropbox App Key',
+      connectFn: '_connectDropbox()',
+    },
+    {
+      id: 'zoom', name: 'Zoom', icon: '📹',
+      desc: 'Auto-create Zoom meetings for consultations, insert link in confirmation emails.',
+      status: sessionStorage.getItem('km_zoom_token') ? 'connected' : 'disconnected',
+      setup: 'Create an app at marketplace.zoom.us → OAuth → Add redirect URI: ' + location.href.split('?')[0],
+      configKey: 'km_zoom_client_id', configLabel: 'Zoom Client ID',
+      connectFn: '_connectZoom()',
+    },
+  ];
+
+  return `
+    <div class="topbar">
+      <div class="topbar-title">Settings & Integrations</div>
+    </div>
+    <div class="content">
+      <div class="panel-title mb-16">Integrations</div>
+      <p style="font-size:13px;color:var(--text-3);margin-bottom:24px">
+        Connect external services to send emails via Outlook, manage documents in Dropbox, and create Zoom meetings automatically.
+        Each integration requires a one-time app registration on the respective platform.
+      </p>
+
+      ${integrations.map(intg => {
+        const connected = intg.status === 'connected';
+        const savedKey = localStorage.getItem(intg.configKey) || '';
+        return `
+        <div class="panel" style="margin-bottom:16px">
+          <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px">
+            <div style="flex:1">
+              <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+                <span style="font-size:22px">${intg.icon}</span>
+                <strong style="font-size:15px;color:var(--text)">${intg.name}</strong>
+                <span class="badge ${connected ? 'badge-approved' : 'badge-lead'}">${connected ? 'Connected' : 'Not Connected'}</span>
+              </div>
+              <p style="font-size:13px;color:var(--text-3);margin-bottom:12px">${intg.desc}</p>
+              ${!connected ? `
+              <details style="margin-bottom:12px">
+                <summary style="font-size:12px;color:var(--gold);cursor:pointer">Setup Instructions</summary>
+                <p style="font-size:12px;color:var(--text-3);margin-top:8px;padding:10px;background:var(--surface-2);border-radius:6px">${intg.setup}</p>
+              </details>
+              <div style="display:flex;gap:8px;align-items:center">
+                <input id="cfg-${intg.id}" placeholder="${intg.configLabel}" value="${escAttr(savedKey)}"
+                  style="flex:1;padding:8px 12px;background:var(--surface-2);border:1px solid var(--border-2);border-radius:6px;color:var(--text);font-size:13px"
+                  onblur="localStorage.setItem('${intg.configKey}',this.value)" />
+                <button class="btn btn-gold btn-sm" onclick="${intg.connectFn}">Connect</button>
+              </div>` : `
+              <button class="btn btn-ghost btn-sm" onclick="sessionStorage.removeItem('km_${intg.id}_token'); render()">Disconnect</button>`}
+            </div>
+          </div>
+        </div>`;
+      }).join('')}
+
+      <div class="panel" style="margin-top:24px">
+        <div class="panel-title">Representation Agreement Template</div>
+        <p style="font-size:13px;color:var(--text-3);margin-bottom:12px">
+          Create a template for your representation agreement. Use placeholders: {{firstName}}, {{lastName}}, {{visaType}}, {{date}}, {{retainerAmount}}, {{email}}.
+        </p>
+        <textarea id="ra-template" rows="14" placeholder="Paste your representation agreement template here…"
+          style="width:100%;box-sizing:border-box"
+          onblur="localStorage.setItem('km_ra_template',this.value)">${escHtml(localStorage.getItem('km_ra_template')||'')}</textarea>
+        <div style="margin-top:8px;display:flex;gap:8px">
+          <button class="btn btn-ghost btn-sm" onclick="localStorage.setItem('km_ra_template',document.getElementById('ra-template').value); toast('Template saved')">Save Template</button>
+        </div>
+      </div>
+
+      <div class="panel" style="margin-top:16px">
+        <div class="panel-title">Petition Templates</div>
+        <p style="font-size:13px;color:var(--text-3);margin-bottom:12px">
+          Paste your attorney letter, table of contents, and exhibit templates. Use {{firstName}}, {{lastName}}, {{visaType}}, {{receiptNumber}} as placeholders.
+        </p>
+        ${['Attorney Cover Letter', 'Table of Contents', 'Exhibit Index'].map((name, i) => `
+        <div style="margin-bottom:16px">
+          <label style="font-size:12px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-3);display:block;margin-bottom:6px">${name}</label>
+          <textarea rows="6" placeholder="Paste ${name} template…"
+            onblur="localStorage.setItem('km_petition_tpl_${i}',this.value)"
+            style="width:100%;box-sizing:border-box">${escHtml(localStorage.getItem(`km_petition_tpl_${i}`)||'')}</textarea>
+        </div>`).join('')}
+        <button class="btn btn-ghost btn-sm" onclick="[0,1,2].forEach(i=>{const el=document.querySelectorAll('#settings-content textarea')[i+1]; if(el) localStorage.setItem('km_petition_tpl_'+i,el.value)}); toast('Petition templates saved')">Save All Templates</button>
+      </div>
+
+      <div class="panel" style="margin-top:16px">
+        <div class="panel-title">Data Management</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button class="btn btn-ghost btn-sm" onclick="showImportCases()">Import Cases from Excel</button>
+          <button class="btn btn-ghost btn-sm" onclick="_exportCases()">Export All Cases (JSON)</button>
+          <button class="btn btn-danger btn-sm" onclick="_confirmClearAll()">Clear All Cases</button>
+        </div>
+      </div>
+    </div>`;
+}
+
+function _connectOutlook() {
+  const clientId = document.getElementById('cfg-outlook')?.value || localStorage.getItem('km_outlook_client_id');
+  if (!clientId) { toast('Enter your Azure App Client ID first', 'warn'); return; }
+  localStorage.setItem('km_outlook_client_id', clientId);
+  const verifier = _pkceVerifier();
+  sessionStorage.setItem('km_pkce_verifier', verifier);
+  sessionStorage.setItem('km_oauth_pending', 'outlook');
+  _pkceChallenge(verifier).then(challenge => {
+    const params = new URLSearchParams({
+      client_id: clientId, response_type: 'code', redirect_uri: location.href.split('?')[0],
+      scope: 'openid email Mail.Send Mail.ReadWrite offline_access', code_challenge: challenge,
+      code_challenge_method: 'S256', state: 'outlook',
+    });
+    location.href = `https://login.microsoftonline.com/common/oauth2/v2.0/authorize?${params}`;
+  });
+}
+
+function _connectDropbox() {
+  const appKey = document.getElementById('cfg-dropbox')?.value || localStorage.getItem('km_dropbox_app_key');
+  if (!appKey) { toast('Enter your Dropbox App Key first', 'warn'); return; }
+  localStorage.setItem('km_dropbox_app_key', appKey);
+  const verifier = _pkceVerifier();
+  sessionStorage.setItem('km_pkce_verifier', verifier);
+  sessionStorage.setItem('km_oauth_pending', 'dropbox');
+  _pkceChallenge(verifier).then(challenge => {
+    const params = new URLSearchParams({
+      client_id: appKey, response_type: 'code', redirect_uri: location.href.split('?')[0],
+      token_access_type: 'offline', code_challenge: challenge, code_challenge_method: 'S256',
+    });
+    location.href = `https://www.dropbox.com/oauth2/authorize?${params}`;
+  });
+}
+
+function _connectZoom() {
+  const clientId = document.getElementById('cfg-zoom')?.value || localStorage.getItem('km_zoom_client_id');
+  if (!clientId) { toast('Enter your Zoom Client ID first', 'warn'); return; }
+  localStorage.setItem('km_zoom_client_id', clientId);
+  const verifier = _pkceVerifier();
+  sessionStorage.setItem('km_pkce_verifier', verifier);
+  sessionStorage.setItem('km_oauth_pending', 'zoom');
+  _pkceChallenge(verifier).then(challenge => {
+    const params = new URLSearchParams({
+      response_type: 'code', client_id: clientId, redirect_uri: location.href.split('?')[0],
+      code_challenge: challenge, code_challenge_method: 'S256',
+    });
+    location.href = `https://zoom.us/oauth/authorize?${params}`;
+  });
+}
+
+function _pkceVerifier() {
+  const arr = new Uint8Array(32);
+  crypto.getRandomValues(arr);
+  return btoa(String.fromCharCode(...arr)).replace(/\+/g,'-').replace(/\//g,'_').replace(/=/g,'');
+}
+async function _pkceChallenge(verifier) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(verifier));
+  return btoa(String.fromCharCode(...new Uint8Array(buf))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=/g,'');
+}
+
+// Handle OAuth callback (token exchange happens server-side for code flow;
+// for implicit/fragment flow tokens appear in hash)
+function _checkOAuthCallback() {
+  const params = new URLSearchParams(location.search);
+  const hash = new URLSearchParams(location.hash.slice(1));
+  const service = params.get('state') || sessionStorage.getItem('km_oauth_pending');
+  const code = params.get('code');
+  const token = hash.get('access_token');
+  if (token && service) {
+    sessionStorage.setItem(`km_${service}_token`, token);
+    sessionStorage.removeItem('km_oauth_pending');
+    history.replaceState({}, '', location.pathname);
+    toast(`${service.charAt(0).toUpperCase()+service.slice(1)} connected!`);
+    return true;
+  }
+  if (code && service) {
+    // Code flow requires token exchange — show instructions
+    toast(`OAuth code received. Token exchange requires a backend redirect URI handler.`, 'warn');
+    history.replaceState({}, '', location.pathname);
+    return true;
+  }
+  return false;
+}
+
+// Create representation agreement for a case
+function showRepAgreement(caseId) {
+  const c = getCase(caseId);
+  if (!c) return;
+  let tmpl = localStorage.getItem('km_ra_template') || '';
+  if (!tmpl) {
+    toast('No template saved. Go to Settings to add your agreement template.', 'warn');
+    navigate('settings');
+    return;
+  }
+  const filled = tmpl
+    .replace(/\{\{firstName\}\}/g, c.firstName)
+    .replace(/\{\{lastName\}\}/g, c.lastName)
+    .replace(/\{\{fullName\}\}/g, `${c.firstName} ${c.lastName}`)
+    .replace(/\{\{visaType\}\}/g, c.visaType)
+    .replace(/\{\{date\}\}/g, fmtDate(new Date().toISOString()))
+    .replace(/\{\{retainerAmount\}\}/g, c.retainerAmount ? `$${c.retainerAmount}` : '[AMOUNT]')
+    .replace(/\{\{email\}\}/g, c.email || '[EMAIL]');
+
+  showModal(`
+    <div class="modal modal-lg">
+      <div class="modal-header">
+        <h3>Representation Agreement — ${c.firstName} ${c.lastName}</h3>
+        <button class="modal-close" onclick="closeModal()">×</button>
+      </div>
+      <div class="modal-body">
+        <textarea id="ra-doc" rows="18" style="font-family:Georgia,serif;font-size:13px;line-height:1.8">${escHtml(filled)}</textarea>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-ghost" onclick="closeModal()">Cancel</button>
+        <button class="btn btn-ghost" onclick="navigator.clipboard.writeText(document.getElementById('ra-doc').value).then(()=>toast('Agreement copied'))">Copy Text</button>
+        <button class="btn btn-ghost" onclick="_emailRepAgreement('${caseId}')">Send via Email</button>
+        <button class="btn btn-gold" onclick="_markRAComplete('${caseId}')">Mark as Sent</button>
+      </div>
+    </div>`);
+}
+
+function _emailRepAgreement(caseId) {
+  const c = getCase(caseId);
+  if (!c) return;
+  const body = document.getElementById('ra-doc')?.value || '';
+  const subject = `Representation Agreement — Kamkhadze PA × ${c.firstName} ${c.lastName}`;
+  window.open(`mailto:${c.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`, '_blank');
+  _markRAComplete(caseId);
+}
+
+function _markRAComplete(caseId) {
+  const c = getCase(caseId);
+  if (!c) return;
+  if (!c.emailLog) c.emailLog = [];
+  c.emailLog.push({ subject: 'Representation Agreement sent', date: new Date().toISOString() });
+  c.updatedAt = new Date().toISOString();
+  Storage.save();
+  closeModal();
+  toast('Representation agreement marked as sent');
+}
+
+function _exportCases() {
+  const blob = new Blob([JSON.stringify(State.cases, null, 2)], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = `kamkhadze-cases-${today()}.json`; a.click();
+  URL.revokeObjectURL(url);
+}
+
+function _confirmClearAll() {
+  if (confirm('Delete ALL cases permanently? This cannot be undone.')) {
+    State.cases = [];
+    Storage.save();
+    toast('All cases cleared');
+    render();
+  }
 }
 
 // ---- Main render ----
@@ -1967,6 +2572,7 @@ function renderMain() {
     case 'dashboard':   return renderDashboard();
     case 'cases':       return renderCasesList();
     case 'case-detail': return renderCaseDetail(State.selectedCaseId);
+    case 'settings':    return renderSettings();
     default:            return renderDashboard();
   }
 }
@@ -1982,54 +2588,14 @@ function render() {
     </div>`;
 }
 
+// Check for OAuth callback before boot
+_checkOAuthCallback();
+
 // ---- Boot (waits for Auth.ready, then loads encrypted data) ----
 Auth.ready.then(async () => {
   await Storage.load();
 
-  // Seed demo data on first login (no cases yet)
-  if (State.cases.length === 0) {
-    const demo1 = newCase({
-      firstName: 'Mikhail', lastName: 'Petrov', email: 'mikhail@startupxyz.com',
-      phone: '+1 (212) 555-0142', nationality: 'Russian', location: 'New York, NY',
-      company: 'StartupXYZ Inc.', visaType: 'O-1A', stage: 'documents',
-      consultationDate: '2026-04-15', consultationTime: '10:00 AM', consultationConfirmed: true,
-      retainerPaid: true, retainerAmount: '8500', retainerDate: '2026-04-20',
-      notes: 'Strong profile — $3M seed round, 4 press articles in TechCrunch, Wired. Speaking at 2 conferences.',
-      documents: buildDefaultDocs('O-1A'),
-    });
-    demo1.documents.slice(0, 5).forEach(d => d.status = 'reviewed');
-    demo1.documents.slice(5, 8).forEach(d => d.status = 'uploaded');
-
-    const demo2 = newCase({
-      firstName: 'Priya', lastName: 'Sharma', email: 'priya@biosciresearch.org',
-      phone: '+1 (305) 555-0217', nationality: 'Indian', location: 'Miami, FL',
-      company: 'BioSci Research Institute', visaType: 'EB-1A', stage: 'petition',
-      consultationDate: '2026-03-10', consultationTime: '2:00 PM', consultationConfirmed: true,
-      retainerPaid: true, retainerAmount: '12000', retainerDate: '2026-03-15',
-      uscisReceiptNumber: 'IOE0123456789',
-      notes: 'PhD in molecular biology. 22 publications, 850+ citations. NIH grant recipient.',
-      documents: buildDefaultDocs('EB-1A'),
-    });
-    demo2.documents.slice(0, 12).forEach(d => d.status = 'approved');
-    demo2.documents.slice(12).forEach(d => d.status = 'reviewed');
-    demo2.exhibits = [
-      { id: uuid(), name: 'NIH Grant Award Letter 2024', status: 'approved' },
-      { id: uuid(), name: 'Nature Medicine Publication — Lead Author', status: 'approved' },
-      { id: uuid(), name: 'Citation Report from Google Scholar', status: 'reviewed' },
-      { id: uuid(), name: 'Conference Keynote Invitation — AACR 2025', status: 'pending' },
-    ];
-
-    const demo3 = newCase({
-      firstName: 'Lucas', lastName: 'Ferreira', email: 'lucas@digitalagency.co',
-      phone: '+1 (786) 555-0388', nationality: 'Brazilian', location: 'Miami, FL',
-      company: 'Digital Agency Co.', visaType: 'E-2', stage: 'consultation',
-      consultationDate: '2026-05-12', consultationTime: '11:00 AM', consultationConfirmed: false,
-      notes: 'Interested in E-2 investor visa. Business valued at ~$400K.',
-    });
-
-    State.cases.push(demo1, demo2, demo3);
-    await Storage.save();// async, fire-and-forget
-  }
+  // No demo data — use Dashboard → Import to load cases from Excel
 
   render();
 });
