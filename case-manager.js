@@ -83,7 +83,7 @@ function _stageFromData(fd, r, exp) {
 }
 function _xDate(s) {
   const m=(s||'').match(/(\d{1,2})[\/\-](\d{1,2})[\/\-](20\d{2})/);
-  return m?`${m[3]}-${m[1].padStart(2,'0')}-${m[2].padStart(2,'0')}`:''
+  return m?`${m[3]}-${m[1].padStart(2,'0')}-${m[2].padStart(2,'0')}`:'';
 }
 function _xApprDate(fd,r) {
   const src=/approved/i.test(fd)?fd:(/approved/i.test(r)?r:'');
