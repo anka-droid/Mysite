@@ -385,6 +385,8 @@ function renderDashboard() {
   const total = cases.length;
   const active = cases.filter(c => !['approved','denied','closed'].includes(c.stage)).length;
   const approved = cases.filter(c => c.stage === 'approved').length;
+  const denied = cases.filter(c => c.stage === 'denied').length;
+  const decided = approved + denied;
   const rfe = cases.filter(c => c.stage === 'rfe').length;
   const filed = cases.filter(c => c.stage === 'filed').length;
 
@@ -435,7 +437,7 @@ function renderDashboard() {
         <div class="stat-card">
           <div class="stat-card-label">Approved</div>
           <div class="stat-card-value" style="color:var(--green)">${approved}</div>
-          <div class="stat-card-sub">Successful outcomes${total ? ` · ${Math.round(approved/total*100)}%` : ''}</div>
+          <div class="stat-card-sub">Approval rate${decided ? ` · ${Math.round(approved/decided*100)}% (${approved}/${decided} decided)` : ''}</div>
         </div>
       </div>
 
