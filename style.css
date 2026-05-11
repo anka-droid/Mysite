@@ -93,7 +93,7 @@ body { font-family: 'Raleway', sans-serif; font-weight: 300; color: var(--text);
 
 /* AREAS GRID */
 .areas-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); }
-.area-card { background: var(--card-bg); padding: 28px 24px 32px; text-decoration: none; display: block; transition: background 0.25s; position: relative; }
+.area-card { background: var(--card-bg); padding: 28px 24px 32px; text-decoration: none; display: block; transition: background 0.25s, box-shadow 0.25s; position: relative; }
 .area-card:hover { background: rgba(201,169,110,0.05); }
 .area-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform 0.3s; box-shadow: 0 0 8px var(--gold); }
 .area-card:hover::before { transform: scaleX(1); }
@@ -310,3 +310,67 @@ footer { background: #030810; padding: 80px 10% 40px; border-top: 1px solid var(
 .awards-grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); margin-top: 48px; }
 @media (max-width: 1100px) { .awards-grid-4 { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 768px) { .awards-grid-4 { grid-template-columns: 1fr; } .reviews-ticker-wrapper::before, .reviews-ticker-wrapper::after { width: 32px; } }
+
+/* BLOG LISTING */
+.blog-featured-post { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); margin-top: 60px; }
+.blog-featured-left { background: rgba(8,15,28,0.5); padding: 64px 56px; text-decoration: none; display: block; border-top: 1px solid rgba(201,169,110,0.22); transition: background 0.3s; position: relative; overflow: hidden; }
+.blog-featured-left:hover { background: rgba(201,169,110,0.04); }
+.blog-featured-left::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 0% 100%, rgba(201,169,110,0.06) 0%, transparent 55%); opacity: 0; transition: opacity 0.4s; }
+.blog-featured-left:hover::before { opacity: 1; }
+.blog-featured-right { background: var(--card-bg); padding: 64px 56px; border-top: 1px solid var(--border); }
+.blog-card-tag { font-family: 'Raleway', sans-serif; font-size: 0.58rem; font-weight: 600; letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; }
+.blog-featured-title { font-family: 'Cormorant', serif; font-size: 2rem; font-weight: 300; color: var(--white); line-height: 1.15; margin-bottom: 20px; }
+.blog-featured-excerpt { font-family: 'Raleway', sans-serif; font-size: 0.86rem; font-weight: 300; color: rgba(255,255,255,0.42); line-height: 1.88; margin-bottom: 28px; }
+.blog-read-more { font-family: 'Raleway', sans-serif; font-size: 0.62rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); position: relative; z-index: 1; }
+.blog-toc { margin-top: 24px; display: flex; flex-direction: column; gap: 1px; background: var(--border); }
+.blog-toc-item { padding: 12px 18px; background: var(--card-bg); font-family: 'Raleway', sans-serif; font-size: 0.74rem; font-weight: 300; color: rgba(255,255,255,0.48); border-left: 1px solid transparent; transition: border-color 0.2s, color 0.2s; }
+.blog-toc-item:hover { border-left-color: var(--gold); color: var(--text); }
+.blog-toc-label { font-family: 'Raleway', sans-serif; font-size: 0.58rem; font-weight: 600; letter-spacing: 0.24em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+.blog-posts-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); margin-top: 1px; }
+.blog-card { background: var(--card-bg); padding: 44px 36px; position: relative; text-decoration: none; display: block; transition: background 0.25s; }
+.blog-card:hover { background: rgba(201,169,110,0.04); }
+.blog-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform 0.35s; box-shadow: 0 0 8px var(--gold); }
+.blog-card:hover::before { transform: scaleX(1); }
+.blog-card-title { font-family: 'Cormorant', serif; font-size: 1.3rem; font-weight: 400; color: var(--white); line-height: 1.25; margin-bottom: 12px; }
+.blog-card-excerpt { font-family: 'Raleway', sans-serif; font-size: 0.78rem; font-weight: 300; color: var(--text-muted); line-height: 1.8; margin-bottom: 20px; }
+.blog-card-meta { font-family: 'Raleway', sans-serif; font-size: 0.58rem; font-weight: 500; color: rgba(255,255,255,0.25); letter-spacing: 0.14em; text-transform: uppercase; }
+@media (max-width: 1100px) { .blog-featured-post { grid-template-columns: 1fr; } }
+@media (max-width: 768px) { .blog-featured-left, .blog-featured-right { padding: 40px 28px; } .blog-posts-grid { grid-template-columns: 1fr; } }
+
+/* ARTICLE */
+.article-wrapper { max-width: 820px; margin: 0 auto; }
+.article-meta { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; margin-bottom: 48px; padding-bottom: 24px; border-bottom: 1px solid var(--border); }
+.article-meta-item { font-family: 'Raleway', sans-serif; font-size: 0.6rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.32); }
+.article-meta-divider { width: 1px; height: 12px; background: var(--border); }
+.article-meta-tag { font-family: 'Raleway', sans-serif; font-size: 0.58rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); background: rgba(201,169,110,0.08); padding: 4px 10px; border: 1px solid rgba(201,169,110,0.2); }
+.article-lead { font-family: 'Cormorant', serif; font-size: 1.45rem; font-weight: 300; font-style: italic; color: rgba(255,255,255,0.75); line-height: 1.6; margin-bottom: 52px; border-left: 1px solid rgba(201,169,110,0.5); padding-left: 28px; }
+.article-body h2 { font-family: 'Cormorant', serif; font-size: 1.85rem; font-weight: 300; color: var(--white); line-height: 1.18; margin: 60px 0 22px; padding-top: 28px; border-top: 1px solid var(--border); letter-spacing: -0.01em; }
+.article-body h2::before { content: ''; display: block; width: 32px; height: 1px; background: var(--gold); margin-bottom: 22px; box-shadow: 0 0 6px rgba(201,169,110,0.4); }
+.article-body h3 { font-family: 'Raleway', sans-serif; font-size: 0.62rem; font-weight: 600; letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold); margin: 32px 0 14px; }
+.article-body p { font-family: 'Raleway', sans-serif; font-size: 0.9rem; font-weight: 300; color: var(--text); line-height: 1.92; margin-bottom: 20px; }
+.article-body p strong { font-weight: 600; color: var(--white); }
+.article-body p em { font-style: italic; color: rgba(255,255,255,0.68); }
+.article-body ul, .article-body ol { margin: 0 0 24px; padding-left: 0; list-style: none; }
+.article-body ul li, .article-body ol li { font-family: 'Raleway', sans-serif; font-size: 0.88rem; font-weight: 300; color: var(--text); line-height: 1.85; margin-bottom: 10px; padding-left: 20px; position: relative; }
+.article-body ul li::before { content: '\2014'; position: absolute; left: 0; color: var(--gold); font-weight: 400; }
+.article-body ol { counter-reset: article-ol; }
+.article-body ol li { counter-increment: article-ol; }
+.article-body ol li::before { content: counter(article-ol) '.'; position: absolute; left: 0; color: var(--gold); font-family: 'Cormorant', serif; font-size: 0.95rem; }
+.insight-box { background: rgba(201,169,110,0.04); border-left: 1px solid rgba(201,169,110,0.45); padding: 24px 28px; margin: 36px 0; }
+.insight-box-label { font-family: 'Raleway', sans-serif; font-size: 0.55rem; font-weight: 600; letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+.insight-box p { font-family: 'Raleway', sans-serif; font-size: 0.86rem; font-weight: 300; color: rgba(255,255,255,0.65); line-height: 1.85; margin-bottom: 0 !important; }
+.insight-box p strong { color: rgba(255,255,255,0.85); }
+.pull-quote { font-family: 'Cormorant', serif; font-size: 1.55rem; font-weight: 300; font-style: italic; color: var(--white); line-height: 1.42; padding: 44px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); margin: 52px 0; text-align: center; }
+.pull-quote span { color: var(--gold-light); }
+.comparison-table { width: 100%; border-collapse: collapse; margin: 32px 0; }
+.comparison-table th { font-family: 'Raleway', sans-serif; font-size: 0.58rem; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); padding: 14px 18px; text-align: left; border-bottom: 1px solid rgba(201,169,110,0.28); background: rgba(201,169,110,0.06); }
+.comparison-table td { font-family: 'Raleway', sans-serif; font-size: 0.82rem; font-weight: 300; color: var(--text); padding: 14px 18px; border-bottom: 1px solid var(--border); vertical-align: top; line-height: 1.72; }
+.comparison-table tr:hover td { background: rgba(201,169,110,0.025); }
+.comparison-table td strong { color: var(--white); font-weight: 500; }
+.article-author-box { display: flex; gap: 32px; align-items: flex-start; padding: 40px; background: var(--card-bg); border: 1px solid var(--border); border-top: 1px solid rgba(201,169,110,0.3); margin-top: 72px; }
+.article-author-img { width: 72px; height: 72px; object-fit: cover; object-position: top; filter: grayscale(10%); flex-shrink: 0; }
+.article-author-name { font-family: 'Cormorant', serif; font-size: 1.15rem; font-weight: 400; color: var(--white); margin-bottom: 4px; }
+.article-author-role { font-family: 'Raleway', sans-serif; font-size: 0.58rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
+.article-author-bio { font-family: 'Raleway', sans-serif; font-size: 0.78rem; font-weight: 300; color: var(--text-muted); line-height: 1.78; }
+.article-disclaimer { font-family: 'Raleway', sans-serif; font-size: 0.65rem; font-weight: 300; color: rgba(255,255,255,0.2); line-height: 1.75; margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--border); }
+@media (max-width: 768px) { .article-author-box { flex-direction: column; } .pull-quote { font-size: 1.2rem; padding: 32px 0; } .article-lead { font-size: 1.15rem; } .article-body h2 { font-size: 1.5rem; margin: 44px 0 18px; } .comparison-table th, .comparison-table td { padding: 10px 12px; font-size: 0.78rem; } }
