@@ -26,8 +26,8 @@ body { font-family: 'Raleway', sans-serif; font-weight: 300; color: var(--text);
 .nav-logo { text-decoration: none; display: flex; flex-direction: row; align-items: center; gap: 12px; }
 .nav-logo-mark { flex-shrink: 0; display: block; }
 .nav-logo-text { display: flex; flex-direction: column; gap: 2px; }
-.nav-logo-name { font-family: 'Cormorant', serif; font-size: 1.35rem; font-weight: 500; color: var(--white); letter-spacing: 0.06em; line-height: 1; }
-.nav-logo-sub { font-family: 'Raleway', sans-serif; font-size: 0.58rem; font-weight: 500; color: var(--gold); letter-spacing: 0.28em; text-transform: uppercase; }
+.nav-logo-name { font-family: 'Cormorant', serif; font-size: 1.35rem; font-weight: 500; color: var(--white); letter-spacing: 0.06em; line-height: 1; white-space: nowrap; }
+.nav-logo-sub { font-family: 'Raleway', sans-serif; font-size: 0.58rem; font-weight: 500; color: var(--gold); letter-spacing: 0.28em; text-transform: uppercase; white-space: nowrap; }
 .nav-links { display: flex; align-items: center; gap: 36px; list-style: none; }
 .nav-links a { text-decoration: none; font-family: 'Raleway', sans-serif; font-size: 0.72rem; font-weight: 500; color: rgba(255,255,255,0.5); letter-spacing: 0.14em; text-transform: uppercase; transition: color 0.25s; position: relative; white-space: nowrap; }
 .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; right: 0; height: 1px; background: var(--gold); transform: scaleX(0); transition: transform 0.3s cubic-bezier(0.4,0,0.2,1); transform-origin: left; box-shadow: 0 0 8px var(--gold); }
