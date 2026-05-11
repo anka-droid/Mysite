@@ -407,3 +407,20 @@ footer { background: #050505; padding: 80px 10% 40px; border-top: 1px solid var(
 .video-card-platform { font-family: 'Raleway', sans-serif; font-size: 0.52rem; font-weight: 600; letter-spacing: 0.26em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
 .video-card-title { font-family: 'Cormorant', serif; font-size: 1.1rem; font-weight: 400; color: var(--white); line-height: 1.42; }
 @media (max-width: 768px) { .press-grid { grid-template-columns: 1fr; } .video-grid { grid-template-columns: 1fr; } .as-seen-in { padding: 32px 24px; } .as-seen-in-strip { gap: 12px 24px; } }
+
+/* FAQ ACCORDION */
+.faq-list { margin-top: 0; }
+.faq-item { border-bottom: 1px solid var(--border); }
+.faq-item:first-child { border-top: 1px solid var(--border); }
+.faq-item summary { font-family: 'Raleway', sans-serif; font-size: 0.86rem; font-weight: 500; color: var(--text); cursor: pointer; padding: 20px 0; list-style: none; display: flex; justify-content: space-between; align-items: center; letter-spacing: 0.01em; gap: 20px; }
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::after { content: '+'; color: var(--gold); font-size: 1.2rem; font-weight: 300; flex-shrink: 0; line-height: 1; }
+.faq-item[open] summary::after { content: '−'; }
+.faq-item > p { font-family: 'Raleway', sans-serif; font-size: 0.84rem; font-weight: 300; color: var(--text-muted); line-height: 1.85; padding: 4px 0 22px; }
+
+/* REPRESENTATIVE MATTERS */
+.matters-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--border); margin-top: 48px; }
+.matter-card { background: var(--card-bg); padding: 36px 32px; border-left: 2px solid var(--gold); }
+.matter-tag { font-family: 'Raleway', sans-serif; font-size: 0.58rem; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
+.matter-card p { font-family: 'Raleway', sans-serif; font-size: 0.84rem; font-weight: 300; color: var(--text-muted); line-height: 1.82; }
+@media (max-width: 768px) { .matters-grid { grid-template-columns: 1fr; } }
