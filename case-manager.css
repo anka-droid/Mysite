@@ -2,20 +2,20 @@
    Kamkhadze PA — Case Manager
    ============================================================ */
 :root {
-  --bg:         #08080f;
-  --bg-2:       #0d0d18;
-  --bg-3:       #111122;
-  --surface:    #16162a;
-  --surface-2:  #1e1e35;
-  --surface-3:  #252540;
-  --border:     rgba(201,168,76,0.18);
-  --border-2:   rgba(255,255,255,0.07);
-  --gold:       #c9a84c;
-  --gold-light: #e2c97e;
-  --gold-dim:   rgba(201,168,76,0.12);
-  --text:       #f0ede8;
-  --text-2:     #a09d98;
-  --text-3:     #5a5760;
+  --bg:         #05080f;
+  --bg-2:       #070b13;
+  --bg-3:       #0a0f1a;
+  --surface:    #0d1520;
+  --surface-2:  #111d2b;
+  --surface-3:  #172335;
+  --border:     rgba(59,130,246,0.2);
+  --border-2:   rgba(255,255,255,0.06);
+  --gold:       #3b82f6;
+  --gold-light: #60a5fa;
+  --gold-dim:   rgba(59,130,246,0.1);
+  --text:       #e8eeff;
+  --text-2:     #8ea3c0;
+  --text-3:     #445570;
   --green:      #4ade80;
   --green-dim:  rgba(74,222,128,0.1);
   --red:        #f87171;
@@ -213,12 +213,12 @@ body {
 
 .btn-gold {
   background: var(--gold);
-  color: var(--bg);
+  color: #fff;
 }
 .btn-gold:hover {
   background: var(--gold-light);
   transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(201,168,76,0.25);
+  box-shadow: 0 6px 24px rgba(59,130,246,0.35);
 }
 
 .btn-ghost {
@@ -227,7 +227,7 @@ body {
   border: 1px solid var(--border-2);
 }
 .btn-ghost:hover {
-  border-color: var(--border);
+  border-color: rgba(59,130,246,0.35);
   color: var(--text);
   background: var(--surface);
 }

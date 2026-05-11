@@ -338,8 +338,17 @@ function renderSidebar() {
   return `
     <aside class="sidebar" id="sidebar">
       <div class="sidebar-logo">
-        <a href="index.html" class="logo">ESQ<span>.</span>MBA</a>
-        <div class="sidebar-sub">Case Manager</div>
+        <a href="index.html" class="logo-brand" style="display:flex;align-items:center;gap:10px;text-decoration:none">
+          <svg width="34" height="34" viewBox="0 0 34 34" xmlns="http://www.w3.org/2000/svg">
+            <rect width="34" height="34" rx="3" fill="#1e3a8a"/>
+            <rect x="2" y="2" width="14" height="30" rx="2" fill="white"/>
+            <polyline points="5,8 12,17 5,26" fill="none" stroke="#2563eb" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            <text x="18.5" y="13" font-family="Arial,sans-serif" font-size="5.2" font-weight="800" fill="white" letter-spacing="0.3">KAMKHADZE</text>
+            <text x="18.5" y="21" font-family="Arial,sans-serif" font-size="5.2" font-weight="800" fill="white" letter-spacing="0.3">PA</text>
+            <text x="18.5" y="29" font-family="Arial,sans-serif" font-size="3.8" fill="rgba(255,255,255,0.6)" letter-spacing="0.1">Immigration Law</text>
+          </svg>
+        </a>
+        <div class="sidebar-sub" style="margin-top:8px">Case Manager</div>
       </div>
       <nav class="sidebar-nav">
         <div class="nav-section-label">Overview</div>

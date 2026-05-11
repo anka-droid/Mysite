@@ -230,14 +230,8 @@ const Auth = (() => {
         margin: 24px;
       }
       .auth-logo {
-        font-family: var(--font-serif);
-        font-size: 26px;
-        font-weight: 600;
-        color: var(--white);
-        letter-spacing: 0.04em;
         margin-bottom: 4px;
       }
-      .auth-logo span { color: var(--gold); }
       .auth-sub {
         font-size: 11px;
         font-weight: 600;
@@ -377,8 +371,8 @@ const Auth = (() => {
       }
       .auth-spinner {
         width: 18px; height: 18px;
-        border: 2px solid rgba(8,8,15,0.3);
-        border-top-color: var(--bg);
+        border: 2px solid rgba(255,255,255,0.25);
+        border-top-color: #fff;
         border-radius: 50%;
         animation: spin 0.7s linear infinite;
         display: none;
@@ -443,7 +437,15 @@ const Auth = (() => {
 
     overlay.innerHTML = `
       <div class="auth-card">
-        <div class="auth-logo">ESQ<span>.</span>MBA</div>
+        <div class="auth-logo">
+          <svg width="160" height="46" viewBox="0 0 160 46" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:4px">
+            <rect width="46" height="46" rx="4" fill="#1e3a8a"/>
+            <rect x="3" y="3" width="19" height="40" rx="2" fill="white"/>
+            <polyline points="7,10 17,23 7,36" fill="none" stroke="#2563eb" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+            <text x="52" y="18" font-family="Arial,sans-serif" font-size="11" font-weight="800" fill="var(--text)" letter-spacing="0.5">KAMKHADZE PA</text>
+            <text x="52" y="35" font-family="Georgia,serif" font-size="10" font-style="italic" fill="var(--text-3)" letter-spacing="0.3">Immigration Law Firm</text>
+          </svg>
+        </div>
         <div class="auth-sub">Secure Case Manager</div>
         <div class="auth-title">Sign In</div>
         <div class="auth-desc">
@@ -504,7 +506,15 @@ const Auth = (() => {
     overlay.id = 'auth-overlay';
     overlay.innerHTML = `
       <div class="auth-card">
-        <div class="auth-logo">ESQ<span>.</span>MBA</div>
+        <div class="auth-logo">
+          <svg width="160" height="46" viewBox="0 0 160 46" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:4px">
+            <rect width="46" height="46" rx="4" fill="#1e3a8a"/>
+            <rect x="3" y="3" width="19" height="40" rx="2" fill="white"/>
+            <polyline points="7,10 17,23 7,36" fill="none" stroke="#2563eb" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+            <text x="52" y="18" font-family="Arial,sans-serif" font-size="11" font-weight="800" fill="var(--text)" letter-spacing="0.5">KAMKHADZE PA</text>
+            <text x="52" y="35" font-family="Georgia,serif" font-size="10" font-style="italic" fill="var(--text-3)" letter-spacing="0.3">Immigration Law Firm</text>
+          </svg>
+        </div>
         <div class="auth-sub">First-Time Setup</div>
         <div class="auth-title">Create Your Credentials</div>
         <div class="auth-desc">
