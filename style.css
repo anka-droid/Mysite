@@ -397,7 +397,7 @@ footer { background: #050505; padding: 80px 10% 40px; border-top: 1px solid var(
 .video-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 28px; margin-top: 48px; }
 .video-card { display: block; text-decoration: none; background: var(--card-bg); border: 1px solid var(--border); overflow: hidden; transition: border-color 0.3s; }
 .video-card:hover { border-color: rgba(37,99,235,0.3); }
-.video-card-thumb { position: relative; width: 100%; padding-bottom: 56.25%; overflow: hidden; background: #080e1c; }
+.video-card-thumb { position: relative; width: 100%; padding-bottom: 56.25%; overflow: hidden; background: #0a0a0a; }
 .video-card-thumb img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: brightness(0.72); transition: filter 0.3s; }
 .video-card:hover .video-card-thumb img { filter: brightness(0.88); }
 .video-play-btn { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
