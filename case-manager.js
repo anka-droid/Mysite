@@ -36,9 +36,16 @@ const Storage = {
     try {
       const blob = localStorage.getItem(ENC_CASES_KEY);
       if (blob) {
-        const json = await Auth.decrypt(blob);
-        State.cases = JSON.parse(json);
-        return;
+        try {
+          const json = await Auth.decrypt(blob);
+          State.cases = JSON.parse(json);
+          return;
+        } catch(e) {
+          console.error('Decryption failed:', e);
+          State._decryptionFailed = true;
+          State.cases = [];
+          return;
+        }
       }
       // Migrate unencrypted legacy data if present
       const legacy = localStorage.getItem(PLAIN_LEGACY);
@@ -49,9 +56,13 @@ const Storage = {
         return;
       }
       State.cases = [];
-    } catch {
+    } catch(e) {
+      console.error('Load failed:', e);
       State.cases = [];
     }
+  },
+  hasEncryptedData() {
+    return !!localStorage.getItem(ENC_CASES_KEY);
   },
 };
 
@@ -449,6 +460,20 @@ function renderDashboard() {
           <div class="stat-card-sub">Approval rate${decided ? ` · ${Math.round(approved/decided*100)}% (${approved}/${decided} decided)` : ''}</div>
         </div>
       </div>
+
+      ${total === 0 ? `
+      <div class="panel" style="border-color:rgba(59,130,246,0.3);background:rgba(59,130,246,0.06)">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
+          <div>
+            <div style="font-weight:600;color:var(--text);margin-bottom:4px">${State._decryptionFailed ? '⚠ Data decryption failed' : 'No cases loaded'}</div>
+            <div style="font-size:13px;color:var(--text-3)">${State._decryptionFailed
+              ? 'Your encrypted data exists but could not be decrypted. Make sure you are using the same browser and password you used when importing.'
+              : 'Your cases are stored in this browser only. If you imported before, you may be on a different browser or device. Re-import from your Excel spreadsheet below.'
+            }</div>
+          </div>
+          <button class="btn btn-gold" onclick="showImportCases()">Import Cases from Excel</button>
+        </div>
+      </div>` : ''}
 
       ${rfe ? `
       <div class="panel" style="border-color:rgba(248,113,113,0.3);background:var(--red-dim)">
@@ -2605,6 +2630,12 @@ _checkOAuthCallback();
 // ---- Boot (waits for Auth.ready, then loads encrypted data) ----
 Auth.ready.then(async () => {
   await Storage.load();
+
+  if (State._decryptionFailed) {
+    setTimeout(() => toast('⚠ Could not decrypt your data. You may be on a different browser or device where data was not saved. Please re-import your cases from Dashboard → Import.', 'warn'), 500);
+  } else if (!Storage.hasEncryptedData() || State.cases.length === 0) {
+    setTimeout(() => toast('No cases found. Use Dashboard → Import to load your cases from Excel.', 'warn'), 500);
+  }
 
   // No demo data — use Dashboard → Import to load cases from Excel
 
