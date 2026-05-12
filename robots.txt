@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://esq.mba/sitemap.xml
+Sitemap: https://www.esq.mba/sitemap.xml
