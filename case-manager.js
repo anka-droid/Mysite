@@ -3,6 +3,52 @@
    Requires: case-manager-auth.js loaded first
    ============================================================ */
 
+// ---- Supabase Cloud Sync ----
+// Stores the AES-256-GCM encrypted blob in Supabase.
+// Supabase only ever sees ciphertext — your password never leaves the browser.
+const SupabaseSync = {
+  _client: null,
+  ROW_ID: 'km_v1',
+
+  init() {
+    const url = localStorage.getItem('km_supabase_url');
+    const key = localStorage.getItem('km_supabase_key');
+    if (url && key && window.supabase) {
+      try {
+        this._client = window.supabase.createClient(url, key);
+        return true;
+      } catch { return false; }
+    }
+    return false;
+  },
+
+  get connected() { return !!this._client; },
+
+  async push(encryptedBlob) {
+    if (!this._client) return false;
+    try {
+      const { error } = await this._client
+        .from('km_cases')
+        .upsert({ id: this.ROW_ID, blob: encryptedBlob, ts: new Date().toISOString() }, { onConflict: 'id' });
+      if (error) { console.warn('Supabase push error:', error.message); return false; }
+      return true;
+    } catch(e) { console.warn('Supabase push failed:', e); return false; }
+  },
+
+  async pull() {
+    if (!this._client) return null;
+    try {
+      const { data, error } = await this._client
+        .from('km_cases')
+        .select('blob')
+        .eq('id', this.ROW_ID)
+        .maybeSingle();
+      if (error) { console.warn('Supabase pull error:', error.message); return null; }
+      return data?.blob || null;
+    } catch(e) { console.warn('Supabase pull failed:', e); return null; }
+  },
+};
+
 // ---- State ----
 const State = {
   cases: [],
@@ -26,19 +72,46 @@ const Storage = {
       const json = JSON.stringify(State.cases);
       const blob = await Auth.encrypt(json);
       localStorage.setItem(ENC_CASES_KEY, blob);
-      // Remove any leftover plaintext data
       localStorage.removeItem(PLAIN_LEGACY);
+      // Mirror to Supabase cloud (non-blocking)
+      if (SupabaseSync.connected) {
+        SupabaseSync.push(blob).then(ok => {
+          if (!ok) console.warn('Cloud sync failed on save');
+        });
+      }
     } catch (e) {
       console.error('Save failed:', e);
     }
   },
+
   async load() {
     try {
+      // 1. Try Supabase cloud first (most up-to-date)
+      if (SupabaseSync.connected) {
+        const remoteBlob = await SupabaseSync.pull();
+        if (remoteBlob) {
+          try {
+            const json = await Auth.decrypt(remoteBlob);
+            State.cases = JSON.parse(json);
+            // Keep localStorage in sync
+            localStorage.setItem(ENC_CASES_KEY, remoteBlob);
+            localStorage.removeItem(PLAIN_LEGACY);
+            State._cloudLoaded = true;
+            return;
+          } catch(e) {
+            console.warn('Cloud data decryption failed, falling back to local:', e);
+          }
+        }
+      }
+
+      // 2. Fall back to localStorage
       const blob = localStorage.getItem(ENC_CASES_KEY);
       if (blob) {
         try {
           const json = await Auth.decrypt(blob);
           State.cases = JSON.parse(json);
+          // Push local data up to cloud if cloud was empty
+          if (SupabaseSync.connected) SupabaseSync.push(blob);
           return;
         } catch(e) {
           console.error('Decryption failed:', e);
@@ -47,20 +120,23 @@ const Storage = {
           return;
         }
       }
-      // Migrate unencrypted legacy data if present
+
+      // 3. Migrate unencrypted legacy data
       const legacy = localStorage.getItem(PLAIN_LEGACY);
       if (legacy) {
         State.cases = JSON.parse(legacy);
-        await Storage.save(); // re-save encrypted
+        await Storage.save();
         localStorage.removeItem(PLAIN_LEGACY);
         return;
       }
+
       State.cases = [];
     } catch(e) {
       console.error('Load failed:', e);
       State.cases = [];
     }
   },
+
   hasEncryptedData() {
     return !!localStorage.getItem(ENC_CASES_KEY);
   },
@@ -2434,6 +2510,51 @@ function renderSettings() {
         <button class="btn btn-ghost btn-sm" onclick="[0,1,2].forEach(i=>{const el=document.querySelectorAll('#settings-content textarea')[i+1]; if(el) localStorage.setItem('km_petition_tpl_'+i,el.value)}); toast('Petition templates saved')">Save All Templates</button>
       </div>
 
+      <div class="panel" style="margin-top:16px;border-color:${SupabaseSync.connected ? 'rgba(74,222,128,0.3)' : 'var(--border-2)'}">
+        <div class="panel-title">
+          ☁ Cloud Sync (Supabase)
+          <span class="badge ${SupabaseSync.connected ? 'badge-approved' : 'badge-lead'}">${SupabaseSync.connected ? '● Connected' : '○ Not Connected'}</span>
+        </div>
+        <p style="font-size:13px;color:var(--text-3);margin-bottom:16px;line-height:1.7">
+          Connect Supabase to store your encrypted cases in the cloud — accessible from any browser or device, never lost.
+          Your data is encrypted with your password before leaving this browser. Supabase never sees plaintext.
+        </p>
+        ${!SupabaseSync.connected ? `
+        <details style="margin-bottom:16px">
+          <summary style="font-size:12px;color:var(--gold);cursor:pointer;font-weight:600">▸ How to set up Supabase (free, 2 minutes)</summary>
+          <div style="font-size:12px;color:var(--text-3);margin-top:10px;padding:12px;background:var(--surface-2);border-radius:6px;line-height:1.9">
+            1. Go to <strong style="color:var(--text)">supabase.com</strong> → New project<br>
+            2. Copy your <strong style="color:var(--text)">Project URL</strong> and <strong style="color:var(--text)">anon public key</strong> from Project Settings → API<br>
+            3. In the SQL Editor, run:<br>
+            <code style="display:block;margin:8px 0;padding:10px;background:var(--bg);border-radius:4px;color:var(--gold);font-size:11px;white-space:pre">create table km_cases (
+  id text primary key,
+  blob text,
+  ts timestamptz default now()
+);
+alter table km_cases enable row level security;
+create policy "allow_all" on km_cases for all using (true) with check (true);</code>
+            4. Paste your URL and key below and click Connect
+          </div>
+        </details>
+        <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:12px">
+          <input id="sb-url" placeholder="https://xxxxxxxxxxxx.supabase.co"
+            value="${escAttr(localStorage.getItem('km_supabase_url')||'')}"
+            style="padding:9px 12px;background:var(--bg-2);border:1px solid var(--border-2);border-radius:var(--radius);color:var(--text);font-size:13px;font-family:monospace"
+            onblur="localStorage.setItem('km_supabase_url',this.value)" />
+          <input id="sb-key" placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9…" type="password"
+            value="${escAttr(localStorage.getItem('km_supabase_key')||'')}"
+            style="padding:9px 12px;background:var(--bg-2);border:1px solid var(--border-2);border-radius:var(--radius);color:var(--text);font-size:13px;font-family:monospace"
+            onblur="localStorage.setItem('km_supabase_key',this.value)" />
+        </div>
+        <button class="btn btn-gold" onclick="_connectSupabase()">Connect & Sync Now</button>
+        ` : `
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <button class="btn btn-ghost btn-sm" onclick="_syncNow()">↺ Sync Now</button>
+          <button class="btn btn-ghost btn-sm" onclick="_disconnectSupabase()">Disconnect</button>
+        </div>
+        `}
+      </div>
+
       <div class="panel" style="margin-top:16px">
         <div class="panel-title">Data Management</div>
         <div style="display:flex;gap:8px;flex-wrap:wrap">
@@ -2443,6 +2564,42 @@ function renderSettings() {
         </div>
       </div>
     </div>`;
+}
+
+async function _connectSupabase() {
+  const url = document.getElementById('sb-url')?.value.trim();
+  const key = document.getElementById('sb-key')?.value.trim();
+  if (!url || !key) { toast('Enter both URL and key', 'warn'); return; }
+  localStorage.setItem('km_supabase_url', url);
+  localStorage.setItem('km_supabase_key', key);
+  const ok = SupabaseSync.init();
+  if (!ok) { toast('Failed to initialize Supabase client', 'warn'); return; }
+  // Push current local data to cloud
+  const blob = localStorage.getItem(ENC_CASES_KEY);
+  if (blob) {
+    const pushed = await SupabaseSync.push(blob);
+    if (pushed) toast('Connected! Cases synced to cloud ✓');
+    else toast('Connected but sync failed — check your SQL table setup', 'warn');
+  } else {
+    toast('Connected! No local data to push yet. Import your cases.');
+  }
+  navigate('settings');
+}
+
+async function _syncNow() {
+  if (!SupabaseSync.connected) { toast('Supabase not connected', 'warn'); return; }
+  const blob = localStorage.getItem(ENC_CASES_KEY);
+  if (!blob) { toast('No local data to sync', 'warn'); return; }
+  const ok = await SupabaseSync.push(blob);
+  toast(ok ? 'Synced to cloud ✓' : 'Sync failed — check connection', ok ? 'success' : 'warn');
+}
+
+function _disconnectSupabase() {
+  localStorage.removeItem('km_supabase_url');
+  localStorage.removeItem('km_supabase_key');
+  SupabaseSync._client = null;
+  toast('Supabase disconnected');
+  navigate('settings');
 }
 
 function _connectOutlook() {
@@ -2629,10 +2786,15 @@ _checkOAuthCallback();
 
 // ---- Boot (waits for Auth.ready, then loads encrypted data) ----
 Auth.ready.then(async () => {
+  // Init Supabase before loading so cloud sync works on first load
+  SupabaseSync.init();
+
   await Storage.load();
 
   if (State._decryptionFailed) {
-    setTimeout(() => toast('⚠ Could not decrypt your data. You may be on a different browser or device where data was not saved. Please re-import your cases from Dashboard → Import.', 'warn'), 500);
+    setTimeout(() => toast('⚠ Could not decrypt your data. Wrong password or data cleared. Re-import from Excel or use the same browser you used before.', 'warn'), 500);
+  } else if (State._cloudLoaded) {
+    setTimeout(() => toast('✓ Cases loaded from cloud sync', 'success'), 500);
   } else if (!Storage.hasEncryptedData() || State.cases.length === 0) {
     setTimeout(() => toast('No cases found. Use Dashboard → Import to load your cases from Excel.', 'warn'), 500);
   }
