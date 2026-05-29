@@ -148,6 +148,4 @@ function DirectionSwitch({ value, onChange }) {
 }
 
 // apply imagery wireframe via global class on body
-window.addEventListener('DOMContentLoaded', () => {
-  ReactDOM.createRoot(document.getElementById('root')).render(<App />);
-});
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
