@@ -5,540 +5,594 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Brand Identity · Kamkhadze PA</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;0,500;0,600;1,300&family=Raleway:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Raleway:wght@200;300;400;500;600&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Raleway',sans-serif;background:#020912;-webkit-font-smoothing:antialiased}
+body{font-family:'Raleway',sans-serif;background:#00080F;-webkit-font-smoothing:antialiased}
 
-/* ── PAGE HEADER ───────────────────────── */
-.ph{background:#010710;padding:72px 24px 52px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.03)}
-.ph-studio{font-size:.52rem;letter-spacing:.42em;text-transform:uppercase;color:rgba(255,255,255,0.16);margin-bottom:20px}
-.ph-title{font-family:'Cormorant',serif;font-weight:300;font-size:2.6rem;color:#fff;letter-spacing:.06em;margin-bottom:10px}
-.ph-sub{font-size:.55rem;letter-spacing:.26em;color:rgba(255,255,255,0.12);text-transform:uppercase}
+/* ═══════════════════════ PAGE HEADER */
+.ph{
+  padding:100px 32px 80px;text-align:center;
+  background:linear-gradient(180deg,#000610 0%,#00080F 100%);
+  border-bottom:1px solid rgba(255,255,255,0.03)
+}
+.ph-pre{
+  font-size:.46rem;letter-spacing:.52em;text-transform:uppercase;
+  color:rgba(255,255,255,0.12);margin-bottom:26px
+}
+.ph-name{
+  font-family:'Cormorant',serif;font-weight:300;font-size:3.4rem;
+  color:#fff;letter-spacing:.12em;line-height:1;margin-bottom:16px
+}
+.ph-desc{
+  font-family:'Cormorant',serif;font-style:italic;font-weight:300;
+  font-size:1.12rem;color:rgba(255,255,255,0.22);letter-spacing:.06em;margin-bottom:44px
+}
+.ph-vr{width:1px;height:44px;background:rgba(255,255,255,0.07);margin:0 auto 36px}
+.ph-meta{
+  font-size:.44rem;letter-spacing:.40em;text-transform:uppercase;
+  color:rgba(255,255,255,0.1)
+}
 
-/* ── LOGO SECTION ──────────────────────── */
-.logo-sec{background:#030C1A;padding:96px 24px 108px;border-bottom:1px solid rgba(255,255,255,0.03)}
-.sec-label{text-align:center;font-size:.5rem;letter-spacing:.40em;text-transform:uppercase;color:rgba(255,255,255,0.11);margin-bottom:88px}
-.logo-row{display:flex;justify-content:center;max-width:1080px;margin:0 auto;flex-wrap:wrap}
-.lbox{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 88px;flex:1;min-width:300px;border:1px solid rgba(255,255,255,0.04)}
+/* ═══════════════════════ LOGO SECTION */
+.logo-sec{
+  background:#020B1A;
+  padding:104px 32px 120px;
+  border-bottom:1px solid rgba(255,255,255,0.03)
+}
+.sec-eyebrow{
+  text-align:center;font-size:.46rem;letter-spacing:.46em;
+  text-transform:uppercase;color:rgba(255,255,255,0.09);margin-bottom:96px
+}
+.logo-row{
+  display:flex;justify-content:center;max-width:1120px;
+  margin:0 auto;flex-wrap:wrap
+}
+.lbox{
+  display:flex;flex-direction:column;align-items:center;
+  justify-content:center;padding:96px 104px;flex:1;min-width:300px;
+  border:1px solid rgba(255,255,255,0.04)
+}
 .lbox+.lbox{border-left:none}
-.lbox-note{font-size:.44rem;letter-spacing:.34em;text-transform:uppercase;margin-top:44px;opacity:.15}
-
-/* mark svg */
-.mark{display:block;flex-shrink:0}
+.lbox-label{
+  font-size:.4rem;letter-spacing:.36em;text-transform:uppercase;
+  margin-top:52px;opacity:.11
+}
 
 /* wordmark */
-.wm{display:flex;flex-direction:column;align-items:center;margin-top:24px;gap:0}
-.wm-name{font-family:'Cormorant',serif;font-weight:500;font-size:1.12rem;letter-spacing:.22em;text-transform:uppercase;line-height:1}
-.wm-line{height:.5px;width:100%;margin:12px 0}
-.wm-tag{font-family:'Raleway',sans-serif;font-weight:300;font-size:.33rem;letter-spacing:.50em;text-transform:uppercase}
+.wm{display:flex;flex-direction:column;align-items:center;margin-top:28px}
+.wm-firm{
+  font-family:'Cormorant',serif;font-weight:500;font-size:1.14rem;
+  letter-spacing:.24em;text-transform:uppercase;line-height:1
+}
+.wm-rule{height:.5px;width:100%;margin:14px 0}
+.wm-sub{
+  font-family:'Raleway',sans-serif;font-weight:200;
+  font-size:.31rem;letter-spacing:.56em;text-transform:uppercase
+}
 
-/* logo box – dark bg */
-.ld{background:#030C1A}
-.ld .wm-name{color:#fff}
-.ld .wm-line{background:rgba(255,255,255,0.1)}
-.ld .wm-tag{color:rgba(255,255,255,0.24)}
-.ld .lbox-note{color:rgba(255,255,255,1)}
+/* dark logo context */
+.lb-dk{background:#020B1A}
+.lb-dk .wm-firm{color:#fff}
+.lb-dk .wm-rule{background:rgba(255,255,255,0.1)}
+.lb-dk .wm-sub{color:rgba(255,255,255,0.2)}
+.lb-dk .lbox-label{color:#fff}
 
-/* logo box – sapphire bg */
-.ls{background:#1D4ED8}
-.ls .wm-name{color:#fff}
-.ls .wm-line{background:rgba(255,255,255,0.38)}
-.ls .wm-tag{color:rgba(255,255,255,0.65)}
-.ls .lbox-note{color:rgba(255,255,255,1)}
+/* sapphire logo context */
+.lb-sp{background:#1948B8}
+.lb-sp .wm-firm{color:#fff}
+.lb-sp .wm-rule{background:rgba(255,255,255,0.4)}
+.lb-sp .wm-sub{color:rgba(255,255,255,0.68)}
+.lb-sp .lbox-label{color:#fff}
 
-/* logo box – white bg */
-.lw{background:#FFFFFF}
-.lw .wm-name{color:#071428}
-.lw .wm-line{background:rgba(7,20,40,0.14)}
-.lw .wm-tag{color:rgba(7,20,40,0.30)}
-.lw .lbox-note{color:rgba(0,0,0,1)}
+/* white logo context */
+.lb-wh{background:#FFFFFF}
+.lb-wh .wm-firm{color:#060F20}
+.lb-wh .wm-rule{background:rgba(6,15,32,0.14)}
+.lb-wh .wm-sub{color:rgba(6,15,32,0.28)}
+.lb-wh .lbox-label{color:rgba(0,0,0,1)}
 
-/* ── SCHEMES GRID ──────────────────────── */
+/* ═══════════════════════ SCHEMES GRID */
 .grid{display:grid;grid-template-columns:repeat(5,1fr)}
 .col{display:flex;flex-direction:column;border-right:1px solid rgba(0,0,0,0.2)}
 .col:last-child{border-right:none}
 
-.col-head{padding:26px 20px 20px;border-bottom:1px solid rgba(0,0,0,0.08)}
-.opt-n{font-size:.44rem;letter-spacing:.3em;text-transform:uppercase;margin-bottom:6px;opacity:.28}
-.sch-name{font-family:'Cormorant',serif;font-weight:400;font-size:1.25rem;line-height:1.1;margin-bottom:4px}
-.sch-sub{font-size:.48rem;letter-spacing:.14em;text-transform:uppercase;opacity:.3}
+/* column header */
+.ch{padding:28px 20px 22px;border-bottom:1px solid rgba(0,0,0,0.08)}
+.ch-opt{font-size:.43rem;letter-spacing:.3em;text-transform:uppercase;margin-bottom:7px;opacity:.26}
+.ch-name{font-family:'Cormorant',serif;font-weight:400;font-size:1.28rem;line-height:1.1;margin-bottom:5px}
+.ch-desc{font-size:.46rem;letter-spacing:.14em;text-transform:uppercase;opacity:.28}
+.rec{
+  display:inline-block;margin-top:10px;font-size:.38rem;
+  letter-spacing:.2em;text-transform:uppercase;padding:3px 8px;font-weight:600
+}
 
-/* colour strip */
+/* swatch strip */
 .strip{display:flex;height:5px}
-.strip div{flex:1}
-.strip div:nth-child(3){flex:2}
+.strip>div{flex:1}
+.strip>div:nth-child(3){flex:2}
 
-/* preview panel */
-.pv{flex:1;padding:20px 16px 26px}
+/* preview */
+.pv{flex:1;padding:22px 18px 28px}
 
 /* mini nav */
-.mn{display:flex;align-items:center;justify-content:space-between;padding:10px 13px;margin-bottom:22px;border-bottom:1px solid}
-.mn-l{display:flex;align-items:center;gap:9px}
-.mn-ico{width:22px;height:22px;display:block;flex-shrink:0}
-.mn-firm{font-family:'Cormorant',serif;font-weight:500;font-size:.76rem;letter-spacing:.13em;line-height:1.1}
-.mn-small{font-size:.29rem;letter-spacing:.28em;text-transform:uppercase;margin-top:2px}
-.mn-btn{font-size:.4rem;letter-spacing:.16em;text-transform:uppercase;padding:5px 12px;font-weight:600;border:none;cursor:pointer}
+.nav{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:10px 13px;margin-bottom:24px;border-bottom:1px solid
+}
+.nav-l{display:flex;align-items:center;gap:9px}
+.nav-ico{width:22px;height:22px;display:block;flex-shrink:0}
+.nav-firm{font-family:'Cormorant',serif;font-weight:500;font-size:.76rem;letter-spacing:.13em;line-height:1.1}
+.nav-tg{font-size:.28rem;letter-spacing:.26em;text-transform:uppercase;margin-top:2px}
+.nav-btn{font-size:.4rem;letter-spacing:.15em;text-transform:uppercase;padding:5px 12px;font-weight:600;border:none;cursor:pointer}
 
-/* hero content */
-.eyebrow{font-size:.4rem;letter-spacing:.32em;text-transform:uppercase;margin-bottom:10px}
-.headline{font-family:'Cormorant',serif;font-weight:300;font-size:1.7rem;line-height:1.04;margin-bottom:9px}
-.rule{width:28px;height:.6px;margin-bottom:13px}
-.body-text{font-size:.57rem;font-weight:300;line-height:1.92;margin-bottom:18px;opacity:.4}
-.cta{display:inline-block;font-size:.42rem;letter-spacing:.18em;text-transform:uppercase;font-weight:600;padding:9px 18px;margin-bottom:22px;border:none;cursor:pointer}
+/* hero */
+.ey{font-size:.39rem;letter-spacing:.32em;text-transform:uppercase;margin-bottom:10px}
+.h1{font-family:'Cormorant',serif;font-weight:300;font-size:1.75rem;line-height:1.03;margin-bottom:10px}
+.hr{width:28px;height:.6px;margin-bottom:14px}
+.bd{font-size:.54rem;font-weight:300;line-height:1.96;margin-bottom:18px;opacity:.37}
+.cta{
+  display:inline-block;font-size:.41rem;letter-spacing:.18em;text-transform:uppercase;
+  font-weight:600;padding:9px 20px;margin-bottom:24px;border:none;cursor:pointer
+}
 
 /* stats */
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;margin-bottom:1px}
-.stat{padding:10px 4px;text-align:center}
-.stat-n{font-family:'Cormorant',serif;font-size:1.42rem;font-weight:300;line-height:1}
-.stat-l{font-size:.32rem;letter-spacing:.18em;text-transform:uppercase;margin-top:4px}
+.sts{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;margin-bottom:1px}
+.st{padding:11px 4px;text-align:center}
+.sn{font-family:'Cormorant',serif;font-size:1.44rem;font-weight:300;line-height:1}
+.sl{font-size:.3rem;letter-spacing:.17em;text-transform:uppercase;margin-top:4px}
 
-/* practice cards */
-.cards{display:grid;grid-template-columns:1fr 1fr;gap:1px;margin-top:1px}
-.card{padding:12px 10px}
-.card-tag{font-size:.33rem;letter-spacing:.22em;text-transform:uppercase;margin-bottom:4px}
-.card-name{font-family:'Cormorant',serif;font-size:.92rem;font-weight:400}
+/* cards */
+.cds{display:grid;grid-template-columns:1fr 1fr;gap:1px;margin-top:1px}
+.cd{padding:13px 10px}
+.ct{font-size:.31rem;letter-spacing:.2em;text-transform:uppercase;margin-bottom:5px}
+.cn{font-family:'Cormorant',serif;font-size:.9rem;font-weight:400;line-height:1.2}
 
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   A  OBSIDIAN + ELECTRIC SAPPHIRE
-   bg #030C1A  accent #2563EB
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-.A{background:#030C1A;color:#E8F1FF}
-.A .col-head{background:#02070F}
-.A .sch-name{color:#5B9CF6}
-.A .strip div:nth-child(1){background:#030C1A}
-.A .strip div:nth-child(2){background:#071428}
-.A .strip div:nth-child(3){background:#2563EB}
-.A .strip div:nth-child(4){background:#5B9CF6}
-.A .mn{border-color:rgba(37,99,235,0.14);background:#030C1A}
-.A .mn-firm{color:#fff}
-.A .mn-small{color:#5B9CF6}
-.A .mn-btn{background:#2563EB;color:#fff}
-.A .eyebrow{color:#5B9CF6}
-.A .headline{color:#fff}
-.A .rule{background:#2563EB}
-.A .cta{background:#2563EB;color:#fff}
-.A .stat{background:rgba(37,99,235,0.08);border:1px solid rgba(37,99,235,0.18)}
-.A .stat-n{color:#5B9CF6}
-.A .stat-l{color:rgba(255,255,255,0.28)}
-.A .card{background:rgba(37,99,235,0.07);border:1px solid rgba(37,99,235,0.14)}
-.A .card-tag{color:#5B9CF6}
-.A .card-name{color:#fff}
+/* ══════════════════════════════════════════════════
+   A — VELVET MIDNIGHT · SOVEREIGN SAPPHIRE
+   bg #020A1A   accent #1948B8   ★ Recommended
+   ══════════════════════════════════════════════════ */
+.A{background:#020A1A;color:#EBF2FF}
+.A .ch{background:#010710}
+.A .ch-opt{color:rgba(235,242,255,.22)}
+.A .ch-name{color:#5880D4}
+.A .ch-desc{color:rgba(235,242,255,.26)}
+.A .rec{background:rgba(25,72,184,.22);color:#5880D4}
+.A .strip>div:nth-child(1){background:#020A1A}
+.A .strip>div:nth-child(2){background:#071628}
+.A .strip>div:nth-child(3){background:#1948B8}
+.A .strip>div:nth-child(4){background:#5880D4}
+.A .nav{border-color:rgba(25,72,184,.13);background:#020A1A}
+.A .nav-firm{color:#fff}
+.A .nav-tg{color:#5880D4}
+.A .nav-btn{background:#1948B8;color:#fff}
+.A .ey{color:#5880D4}
+.A .h1{color:#fff}
+.A .hr{background:#1948B8}
+.A .cta{background:#1948B8;color:#fff}
+.A .st{background:rgba(25,72,184,.08);border:1px solid rgba(25,72,184,.17)}
+.A .sn{color:#5880D4}
+.A .sl{color:rgba(255,255,255,.25)}
+.A .cd{background:rgba(25,72,184,.07);border:1px solid rgba(25,72,184,.13)}
+.A .ct{color:#5880D4}
+.A .cn{color:#fff}
 
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   B  ADMIRALTY NAVY + ROYAL
-   bg #071428  accent #1E4FCC
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-.B{background:#071428;color:#E4EEFF}
-.B .col-head{background:#040E1E}
-.B .sch-name{color:#4B7EF5}
-.B .strip div:nth-child(1){background:#071428}
-.B .strip div:nth-child(2){background:#0D1E3C}
-.B .strip div:nth-child(3){background:#1E4FCC}
-.B .strip div:nth-child(4){background:#4B7EF5}
-.B .mn{border-color:rgba(30,79,204,0.18);background:#071428}
-.B .mn-firm{color:#fff}
-.B .mn-small{color:#4B7EF5}
-.B .mn-btn{background:#1E4FCC;color:#fff}
-.B .eyebrow{color:#4B7EF5}
-.B .headline{color:#fff}
-.B .rule{background:#1E4FCC}
-.B .cta{background:#1E4FCC;color:#fff}
-.B .stat{background:rgba(30,79,204,0.09);border:1px solid rgba(30,79,204,0.2)}
-.B .stat-n{color:#4B7EF5}
-.B .stat-l{color:rgba(255,255,255,0.26)}
-.B .card{background:rgba(30,79,204,0.08);border:1px solid rgba(30,79,204,0.16)}
-.B .card-tag{color:#4B7EF5}
-.B .card-name{color:#fff}
+/* ══════════════════════════════════════════════════
+   B — INK NAVY · ELECTRIC SAPPHIRE
+   bg #060F1E   accent #2354C8
+   ══════════════════════════════════════════════════ */
+.B{background:#060F1E;color:#E6F0FF}
+.B .ch{background:#030C18}
+.B .ch-opt{color:rgba(230,240,255,.2)}
+.B .ch-name{color:#5888E0}
+.B .ch-desc{color:rgba(230,240,255,.25)}
+.B .strip>div:nth-child(1){background:#060F1E}
+.B .strip>div:nth-child(2){background:#0C1A34}
+.B .strip>div:nth-child(3){background:#2354C8}
+.B .strip>div:nth-child(4){background:#5888E0}
+.B .nav{border-color:rgba(35,84,200,.15);background:#060F1E}
+.B .nav-firm{color:#fff}
+.B .nav-tg{color:#5888E0}
+.B .nav-btn{background:#2354C8;color:#fff}
+.B .ey{color:#5888E0}
+.B .h1{color:#fff}
+.B .hr{background:#2354C8}
+.B .cta{background:#2354C8;color:#fff}
+.B .st{background:rgba(35,84,200,.09);border:1px solid rgba(35,84,200,.18)}
+.B .sn{color:#5888E0}
+.B .sl{color:rgba(255,255,255,.24)}
+.B .cd{background:rgba(35,84,200,.08);border:1px solid rgba(35,84,200,.14)}
+.B .ct{color:#5888E0}
+.B .cn{color:#fff}
 
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   C  PRUSSIAN BLUE + CERULEAN
-   bg #08182D  accent #2E6AC8
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-.C{background:#08182D;color:#E2ECFF}
-.C .col-head{background:#060F1F}
-.C .sch-name{color:#7AAEE6}
-.C .strip div:nth-child(1){background:#08182D}
-.C .strip div:nth-child(2){background:#102240}
-.C .strip div:nth-child(3){background:#2E6AC8}
-.C .strip div:nth-child(4){background:#7AAEE6}
-.C .mn{border-color:rgba(46,106,200,0.2);background:#08182D}
-.C .mn-firm{color:#fff}
-.C .mn-small{color:#7AAEE6}
-.C .mn-btn{background:#2E6AC8;color:#fff}
-.C .eyebrow{color:#7AAEE6}
-.C .headline{color:#fff}
-.C .rule{background:#2E6AC8}
-.C .cta{background:#2E6AC8;color:#fff}
-.C .stat{background:rgba(46,106,200,0.09);border:1px solid rgba(46,106,200,0.2)}
-.C .stat-n{color:#7AAEE6}
-.C .stat-l{color:rgba(255,255,255,0.27)}
-.C .card{background:rgba(46,106,200,0.08);border:1px solid rgba(46,106,200,0.16)}
-.C .card-tag{color:#7AAEE6}
-.C .card-name{color:#fff}
+/* ══════════════════════════════════════════════════
+   C — PRUSSIAN DEEP · COBALT
+   bg #081527   accent #2864C4
+   ══════════════════════════════════════════════════ */
+.C{background:#081527;color:#E2ECFF}
+.C .ch{background:#050E1C}
+.C .ch-opt{color:rgba(226,236,255,.2)}
+.C .ch-name{color:#76A8E0}
+.C .ch-desc{color:rgba(226,236,255,.24)}
+.C .strip>div:nth-child(1){background:#081527}
+.C .strip>div:nth-child(2){background:#102040}
+.C .strip>div:nth-child(3){background:#2864C4}
+.C .strip>div:nth-child(4){background:#76A8E0}
+.C .nav{border-color:rgba(40,100,196,.17);background:#081527}
+.C .nav-firm{color:#fff}
+.C .nav-tg{color:#76A8E0}
+.C .nav-btn{background:#2864C4;color:#fff}
+.C .ey{color:#76A8E0}
+.C .h1{color:#fff}
+.C .hr{background:#2864C4}
+.C .cta{background:#2864C4;color:#fff}
+.C .st{background:rgba(40,100,196,.09);border:1px solid rgba(40,100,196,.19)}
+.C .sn{color:#76A8E0}
+.C .sl{color:rgba(255,255,255,.24)}
+.C .cd{background:rgba(40,100,196,.08);border:1px solid rgba(40,100,196,.15)}
+.C .ct{color:#76A8E0}
+.C .cn{color:#fff}
 
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   D  WHITE + DEEP SAPPHIRE (LIGHT)
-   bg #FFFFFF  accent #1D4ED8
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-.D{background:#FFFFFF;color:#071428}
-.D .col-head{background:#EEF3FF}
-.D .sch-name{color:#1D4ED8}
-.D .strip div:nth-child(1){background:#FFFFFF}
-.D .strip div:nth-child(2){background:#DBEAFE}
-.D .strip div:nth-child(3){background:#1D4ED8}
-.D .strip div:nth-child(4){background:#3B70F0}
-.D .mn{border-color:rgba(29,78,216,0.1);background:#fff}
-.D .mn-firm{color:#071428}
-.D .mn-small{color:#1D4ED8}
-.D .mn-btn{background:#1D4ED8;color:#fff}
-.D .eyebrow{color:#1D4ED8}
-.D .headline{color:#071428}
-.D .rule{background:#1D4ED8}
-.D .cta{background:#1D4ED8;color:#fff}
-.D .stat{background:rgba(29,78,216,0.04);border:1px solid rgba(29,78,216,0.1)}
-.D .stat-n{color:#1D4ED8}
-.D .stat-l{color:rgba(7,20,40,0.38)}
-.D .card{background:rgba(29,78,216,0.03);border:1px solid rgba(29,78,216,0.09)}
-.D .card-tag{color:#1D4ED8}
-.D .card-name{color:#071428}
+/* ══════════════════════════════════════════════════
+   D — PORCELAIN · DEEP SAPPHIRE  (light)
+   bg #F9FAFF   accent #1840A8
+   ══════════════════════════════════════════════════ */
+.D{background:#F9FAFF;color:#060F20}
+.D .ch{background:#EEF2FF}
+.D .ch-opt{color:rgba(6,15,32,.26)}
+.D .ch-name{color:#1840A8}
+.D .ch-desc{color:rgba(6,15,32,.26)}
+.D .strip>div:nth-child(1){background:#F9FAFF}
+.D .strip>div:nth-child(2){background:#DDE6FF}
+.D .strip>div:nth-child(3){background:#1840A8}
+.D .strip>div:nth-child(4){background:#2B56CC}
+.D .nav{border-color:rgba(24,64,168,.1);background:#F9FAFF}
+.D .nav-firm{color:#060F20}
+.D .nav-tg{color:#1840A8}
+.D .nav-btn{background:#1840A8;color:#fff}
+.D .ey{color:#1840A8}
+.D .h1{color:#060F20}
+.D .hr{background:#1840A8}
+.D .cta{background:#1840A8;color:#fff}
+.D .st{background:rgba(24,64,168,.04);border:1px solid rgba(24,64,168,.1)}
+.D .sn{color:#1840A8}
+.D .sl{color:rgba(6,15,32,.34)}
+.D .cd{background:rgba(24,64,168,.03);border:1px solid rgba(24,64,168,.08)}
+.D .ct{color:#1840A8}
+.D .cn{color:#060F20}
 
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   E  ALABASTER + MIDNIGHT INDIGO (LIGHT)
-   bg #F4F7FF  accent #1A3B8F
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-.E{background:#F4F7FF;color:#071428}
-.E .col-head{background:#EAF0FD}
-.E .sch-name{color:#1A3B8F}
-.E .strip div:nth-child(1){background:#F4F7FF}
-.E .strip div:nth-child(2){background:#DBE7FA}
-.E .strip div:nth-child(3){background:#1A3B8F}
-.E .strip div:nth-child(4){background:#3B5FD8}
-.E .mn{border-color:rgba(26,59,143,0.1);background:#F4F7FF}
-.E .mn-firm{color:#071428}
-.E .mn-small{color:#1A3B8F}
-.E .mn-btn{background:#1A3B8F;color:#fff}
-.E .eyebrow{color:#1A3B8F}
-.E .headline{color:#071428}
-.E .rule{background:#1A3B8F}
-.E .cta{background:#1A3B8F;color:#fff}
-.E .stat{background:rgba(26,59,143,0.05);border:1px solid rgba(26,59,143,0.1)}
-.E .stat-n{color:#1A3B8F}
-.E .stat-l{color:rgba(7,20,40,0.36)}
-.E .card{background:rgba(26,59,143,0.04);border:1px solid rgba(26,59,143,0.09)}
-.E .card-tag{color:#1A3B8F}
-.E .card-name{color:#071428}
+/* ══════════════════════════════════════════════════
+   E — WARM IVORY · MIDNIGHT BLUE  (light)
+   bg #F5F2EC   accent #1A3B8A
+   ══════════════════════════════════════════════════ */
+.E{background:#F5F2EC;color:#07090E}
+.E .ch{background:#ECE8DF}
+.E .ch-opt{color:rgba(7,9,14,.24)}
+.E .ch-name{color:#1A3B8A}
+.E .ch-desc{color:rgba(7,9,14,.24)}
+.E .strip>div:nth-child(1){background:#F5F2EC}
+.E .strip>div:nth-child(2){background:#E3DECE}
+.E .strip>div:nth-child(3){background:#1A3B8A}
+.E .strip>div:nth-child(4){background:#3358B0}
+.E .nav{border-color:rgba(26,59,138,.09);background:#F5F2EC}
+.E .nav-firm{color:#07090E}
+.E .nav-tg{color:#1A3B8A}
+.E .nav-btn{background:#1A3B8A;color:#fff}
+.E .ey{color:#1A3B8A}
+.E .h1{color:#07090E}
+.E .hr{background:#1A3B8A}
+.E .cta{background:#1A3B8A;color:#fff}
+.E .st{background:rgba(26,59,138,.05);border:1px solid rgba(26,59,138,.1)}
+.E .sn{color:#1A3B8A}
+.E .sl{color:rgba(7,9,14,.32)}
+.E .cd{background:rgba(26,59,138,.04);border:1px solid rgba(26,59,138,.08)}
+.E .ct{color:#1A3B8A}
+.E .cn{color:#07090E}
 
-/* ── FOOTER ───────────────────────────── */
-.foot{background:#010710;padding:52px 24px;text-align:center;border-top:1px solid rgba(255,255,255,0.03)}
-.foot p{font-size:.55rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,0.18);line-height:2.2}
+/* ═══════════════════════ FOOTER */
+.foot{
+  background:#000508;padding:64px 24px;text-align:center;
+  border-top:1px solid rgba(255,255,255,0.03)
+}
+.foot-line{
+  font-size:.5rem;letter-spacing:.3em;text-transform:uppercase;
+  color:rgba(255,255,255,0.15);line-height:2.6
+}
 
-/* ── RESPONSIVE ───────────────────────── */
-@media(max-width:1100px){.grid{grid-template-columns:repeat(3,1fr)}}
+/* ═══════════════════════ RESPONSIVE */
+@media(max-width:1200px){.grid{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:760px){
   .grid{grid-template-columns:1fr 1fr}
   .logo-row{flex-direction:column;align-items:center}
   .lbox+.lbox{border-left:1px solid rgba(255,255,255,0.04);border-top:none}
+  .ph-name{font-size:2.4rem}
 }
 @media(max-width:480px){.grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 
-<!-- PAGE HEADER -->
+<!-- ══ PAGE HEADER ══════════════════════════════ -->
 <div class="ph">
-  <div class="ph-studio">Kamkhadze PA &mdash; Brand Identity</div>
-  <div class="ph-title">Logo &amp; Colour Direction</div>
-  <div class="ph-sub">New mark &nbsp;&middot;&nbsp; Premium sapphire palette &nbsp;&middot;&nbsp; Five options</div>
+  <div class="ph-pre">Brand Identity Presentation</div>
+  <div class="ph-name">Kamkhadze PA</div>
+  <div class="ph-desc">Boutique U.S. Immigration Law &nbsp;&mdash;&nbsp; Extraordinary Talent Practice</div>
+  <div class="ph-vr"></div>
+  <div class="ph-meta">New Mark &nbsp;&middot;&nbsp; Premium Sapphire Palette &nbsp;&middot;&nbsp; Five Colour Directions</div>
 </div>
 
-<!-- ══ LOGO SHOWCASE ══════════════════════════════════ -->
+<!-- ══ LOGO SHOWCASE ════════════════════════════ -->
 <div class="logo-sec">
-  <div class="sec-label">Logotype &amp; Mark</div>
+  <div class="sec-eyebrow">New Logotype Mark</div>
   <div class="logo-row">
 
-    <!-- On dark -->
-    <div class="lbox ld">
-      <svg class="mark" width="96" height="96" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <!-- Filled sapphire square — the primary brand mark -->
-        <rect width="96" height="96" fill="#2563EB"/>
-        <!-- K — optically centered, stem at 30% left, arms span to 73% right -->
-        <!-- Stem: x=29, top y=17, bottom y=79, midpoint y=48 -->
-        <line x1="29" y1="17" x2="29" y2="79" stroke="white" stroke-width="5.5" stroke-linecap="butt"/>
-        <!-- Upper arm: from midpoint (29,48) to top-right (72,17) -->
-        <line x1="29" y1="48" x2="72" y2="17" stroke="white" stroke-width="4.5" stroke-linecap="butt"/>
-        <!-- Lower arm: from midpoint (29,48) to bottom-right (72,79) -->
-        <line x1="29" y1="48" x2="72" y2="79" stroke="white" stroke-width="4.5" stroke-linecap="butt"/>
+    <!-- Mark on dark background -->
+    <div class="lbox lb-dk">
+      <svg width="96" height="96" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="96" height="96" fill="#1948B8"/>
+        <!-- K: heavy stem, refined arms with subtle 6px junction notch -->
+        <line x1="28" y1="16" x2="28" y2="80" stroke="white" stroke-width="5.5" stroke-linecap="butt"/>
+        <line x1="28" y1="44" x2="71" y2="16" stroke="white" stroke-width="3.5" stroke-linecap="butt"/>
+        <line x1="28" y1="50" x2="71" y2="80" stroke="white" stroke-width="3.5" stroke-linecap="butt"/>
       </svg>
       <div class="wm">
-        <div class="wm-name">Kamkhadze PA</div>
-        <div class="wm-line"></div>
-        <div class="wm-tag">U.S. Immigration Law</div>
+        <div class="wm-firm">Kamkhadze PA</div>
+        <div class="wm-rule"></div>
+        <div class="wm-sub">U.S. Immigration Law</div>
       </div>
-      <div class="lbox-note">Dark Background</div>
+      <div class="lbox-label">Dark Background</div>
     </div>
 
-    <!-- On sapphire -->
-    <div class="lbox ls">
-      <svg class="mark" width="96" height="96" viewBox="0 0 96 96" fill="none">
-        <!-- Open square outline on coloured bg -->
-        <rect x=".6" y=".6" width="94.8" height="94.8" stroke="rgba(255,255,255,0.45)" stroke-width="1.2"/>
-        <line x1="29" y1="17" x2="29" y2="79" stroke="white" stroke-width="5.5" stroke-linecap="butt"/>
-        <line x1="29" y1="48" x2="72" y2="17" stroke="white" stroke-width="4.5" stroke-linecap="butt"/>
-        <line x1="29" y1="48" x2="72" y2="79" stroke="white" stroke-width="4.5" stroke-linecap="butt"/>
+    <!-- Mark on sapphire background -->
+    <div class="lbox lb-sp">
+      <svg width="96" height="96" viewBox="0 0 96 96" fill="none">
+        <rect x=".6" y=".6" width="94.8" height="94.8" stroke="rgba(255,255,255,0.42)" stroke-width="1.2"/>
+        <line x1="28" y1="16" x2="28" y2="80" stroke="white" stroke-width="5.5" stroke-linecap="butt"/>
+        <line x1="28" y1="44" x2="71" y2="16" stroke="white" stroke-width="3.5" stroke-linecap="butt"/>
+        <line x1="28" y1="50" x2="71" y2="80" stroke="white" stroke-width="3.5" stroke-linecap="butt"/>
       </svg>
       <div class="wm">
-        <div class="wm-name">Kamkhadze PA</div>
-        <div class="wm-line"></div>
-        <div class="wm-tag">U.S. Immigration Law</div>
+        <div class="wm-firm">Kamkhadze PA</div>
+        <div class="wm-rule"></div>
+        <div class="wm-sub">U.S. Immigration Law</div>
       </div>
-      <div class="lbox-note">Sapphire Background</div>
+      <div class="lbox-label">Sapphire Background</div>
     </div>
 
-    <!-- On white -->
-    <div class="lbox lw">
-      <svg class="mark" width="96" height="96" viewBox="0 0 96 96" fill="none">
-        <!-- Navy square on white -->
-        <rect width="96" height="96" fill="#071428"/>
-        <line x1="29" y1="17" x2="29" y2="79" stroke="white" stroke-width="5.5" stroke-linecap="butt"/>
-        <line x1="29" y1="48" x2="72" y2="17" stroke="white" stroke-width="4.5" stroke-linecap="butt"/>
-        <line x1="29" y1="48" x2="72" y2="79" stroke="white" stroke-width="4.5" stroke-linecap="butt"/>
+    <!-- Mark on white background -->
+    <div class="lbox lb-wh">
+      <svg width="96" height="96" viewBox="0 0 96 96" fill="none">
+        <rect width="96" height="96" fill="#060F20"/>
+        <line x1="28" y1="16" x2="28" y2="80" stroke="white" stroke-width="5.5" stroke-linecap="butt"/>
+        <line x1="28" y1="44" x2="71" y2="16" stroke="white" stroke-width="3.5" stroke-linecap="butt"/>
+        <line x1="28" y1="50" x2="71" y2="80" stroke="white" stroke-width="3.5" stroke-linecap="butt"/>
       </svg>
       <div class="wm">
-        <div class="wm-name">Kamkhadze PA</div>
-        <div class="wm-line"></div>
-        <div class="wm-tag">U.S. Immigration Law</div>
+        <div class="wm-firm">Kamkhadze PA</div>
+        <div class="wm-rule"></div>
+        <div class="wm-sub">U.S. Immigration Law</div>
       </div>
-      <div class="lbox-note">White Background</div>
+      <div class="lbox-label">White Background</div>
     </div>
 
   </div>
 </div>
 
-<!-- ══ COLOUR SCHEMES GRID ════════════════════════════ -->
+<!-- ══ COLOUR SCHEMES ═══════════════════════════ -->
 <div class="grid">
 
-  <!-- ── A — OBSIDIAN + ELECTRIC SAPPHIRE ── -->
+  <!-- ── A — VELVET MIDNIGHT ── -->
   <div class="col A">
-    <div class="col-head">
-      <div class="opt-n">Option A</div>
-      <div class="sch-name">Obsidian &amp; Sapphire</div>
-      <div class="sch-sub">Near-black &middot; Electric blue</div>
+    <div class="ch">
+      <div class="ch-opt">Option A</div>
+      <div class="ch-name">Velvet Midnight</div>
+      <div class="ch-desc">Near-black &middot; Sovereign blue</div>
+      <div class="rec">&#9733; Recommended</div>
     </div>
-    <div class="strip">
-      <div></div><div></div><div></div><div></div>
-    </div>
+    <div class="strip"><div></div><div></div><div></div><div></div></div>
     <div class="pv">
-      <div class="mn">
-        <div class="mn-l">
-          <svg class="mn-ico" viewBox="0 0 96 96" fill="none">
-            <rect width="96" height="96" fill="#2563EB"/>
-            <line x1="29" y1="17" x2="29" y2="79" stroke="white" stroke-width="5.5"/>
-            <line x1="29" y1="48" x2="72" y2="17" stroke="white" stroke-width="4.5"/>
-            <line x1="29" y1="48" x2="72" y2="79" stroke="white" stroke-width="4.5"/>
+      <div class="nav">
+        <div class="nav-l">
+          <svg class="nav-ico" viewBox="0 0 96 96" fill="none">
+            <rect width="96" height="96" fill="#1948B8"/>
+            <line x1="28" y1="16" x2="28" y2="80" stroke="white" stroke-width="5.5"/>
+            <line x1="28" y1="44" x2="71" y2="16" stroke="white" stroke-width="3.5"/>
+            <line x1="28" y1="50" x2="71" y2="80" stroke="white" stroke-width="3.5"/>
           </svg>
           <div>
-            <div class="mn-firm">Kamkhadze PA</div>
-            <div class="mn-small">Immigration Law</div>
+            <div class="nav-firm">Kamkhadze PA</div>
+            <div class="nav-tg">Immigration Law</div>
           </div>
         </div>
-        <div class="mn-btn">Consult</div>
+        <div class="nav-btn">Consult</div>
       </div>
-      <div class="eyebrow">O-1 &middot; EB-1A &middot; NIW</div>
-      <div class="headline">Elite<br>Immigration<br>Counsel</div>
-      <div class="rule"></div>
-      <div class="body-text">Extraordinary talent deserves extraordinary counsel.</div>
-      <div class="cta">Schedule Now</div>
-      <div class="stats">
-        <div class="stat"><div class="stat-n">98%</div><div class="stat-l">Approved</div></div>
-        <div class="stat"><div class="stat-n">500+</div><div class="stat-l">Cases</div></div>
-        <div class="stat"><div class="stat-n">5★</div><div class="stat-l">Rating</div></div>
+      <div class="ey">O-1A &middot; EB-1A &middot; EB-2 NIW</div>
+      <div class="h1">Extraordinary<br>Immigration<br>Counsel</div>
+      <div class="hr"></div>
+      <div class="bd">Representing the world&rsquo;s most exceptional talent — athletes, artists, scientists and executives.</div>
+      <div class="cta">Schedule Consultation</div>
+      <div class="sts">
+        <div class="st"><div class="sn">98%</div><div class="sl">Approved</div></div>
+        <div class="st"><div class="sn">12+</div><div class="sl">Years</div></div>
+        <div class="st"><div class="sn">5★</div><div class="sl">Rated</div></div>
       </div>
-      <div class="cards">
-        <div class="card"><div class="card-tag">Visa</div><div class="card-name">O-1A</div></div>
-        <div class="card"><div class="card-tag">Green Card</div><div class="card-name">EB-1A</div></div>
+      <div class="cds">
+        <div class="cd"><div class="ct">Visa</div><div class="cn">O-1A Extraordinary Ability</div></div>
+        <div class="cd"><div class="ct">Green Card</div><div class="cn">EB-1A Distinguished</div></div>
       </div>
     </div>
   </div>
 
-  <!-- ── B — ADMIRALTY NAVY + ROYAL ── -->
+  <!-- ── B — INK NAVY ── -->
   <div class="col B">
-    <div class="col-head">
-      <div class="opt-n">Option B</div>
-      <div class="sch-name">Admiralty &amp; Royal</div>
-      <div class="sch-sub">Deep navy &middot; Rich blue</div>
+    <div class="ch">
+      <div class="ch-opt">Option B</div>
+      <div class="ch-name">Ink Navy</div>
+      <div class="ch-desc">Rich ink &middot; Electric sapphire</div>
     </div>
-    <div class="strip">
-      <div></div><div></div><div></div><div></div>
-    </div>
+    <div class="strip"><div></div><div></div><div></div><div></div></div>
     <div class="pv">
-      <div class="mn">
-        <div class="mn-l">
-          <svg class="mn-ico" viewBox="0 0 96 96" fill="none">
-            <rect width="96" height="96" fill="#1E4FCC"/>
-            <line x1="29" y1="17" x2="29" y2="79" stroke="white" stroke-width="5.5"/>
-            <line x1="29" y1="48" x2="72" y2="17" stroke="white" stroke-width="4.5"/>
-            <line x1="29" y1="48" x2="72" y2="79" stroke="white" stroke-width="4.5"/>
+      <div class="nav">
+        <div class="nav-l">
+          <svg class="nav-ico" viewBox="0 0 96 96" fill="none">
+            <rect width="96" height="96" fill="#2354C8"/>
+            <line x1="28" y1="16" x2="28" y2="80" stroke="white" stroke-width="5.5"/>
+            <line x1="28" y1="44" x2="71" y2="16" stroke="white" stroke-width="3.5"/>
+            <line x1="28" y1="50" x2="71" y2="80" stroke="white" stroke-width="3.5"/>
           </svg>
           <div>
-            <div class="mn-firm">Kamkhadze PA</div>
-            <div class="mn-small">Immigration Law</div>
+            <div class="nav-firm">Kamkhadze PA</div>
+            <div class="nav-tg">Immigration Law</div>
           </div>
         </div>
-        <div class="mn-btn">Consult</div>
+        <div class="nav-btn">Consult</div>
       </div>
-      <div class="eyebrow">O-1 &middot; EB-1A &middot; NIW</div>
-      <div class="headline">Elite<br>Immigration<br>Counsel</div>
-      <div class="rule"></div>
-      <div class="body-text">Extraordinary talent deserves extraordinary counsel.</div>
-      <div class="cta">Schedule Now</div>
-      <div class="stats">
-        <div class="stat"><div class="stat-n">98%</div><div class="stat-l">Approved</div></div>
-        <div class="stat"><div class="stat-n">500+</div><div class="stat-l">Cases</div></div>
-        <div class="stat"><div class="stat-n">5★</div><div class="stat-l">Rating</div></div>
+      <div class="ey">O-1A &middot; EB-1A &middot; EB-2 NIW</div>
+      <div class="h1">Extraordinary<br>Immigration<br>Counsel</div>
+      <div class="hr"></div>
+      <div class="bd">Representing the world&rsquo;s most exceptional talent — athletes, artists, scientists and executives.</div>
+      <div class="cta">Schedule Consultation</div>
+      <div class="sts">
+        <div class="st"><div class="sn">98%</div><div class="sl">Approved</div></div>
+        <div class="st"><div class="sn">12+</div><div class="sl">Years</div></div>
+        <div class="st"><div class="sn">5★</div><div class="sl">Rated</div></div>
       </div>
-      <div class="cards">
-        <div class="card"><div class="card-tag">Visa</div><div class="card-name">O-1A</div></div>
-        <div class="card"><div class="card-tag">Green Card</div><div class="card-name">EB-1A</div></div>
+      <div class="cds">
+        <div class="cd"><div class="ct">Visa</div><div class="cn">O-1A Extraordinary Ability</div></div>
+        <div class="cd"><div class="ct">Green Card</div><div class="cn">EB-1A Distinguished</div></div>
       </div>
     </div>
   </div>
 
-  <!-- ── C — PRUSSIAN + CERULEAN ── -->
+  <!-- ── C — PRUSSIAN DEEP ── -->
   <div class="col C">
-    <div class="col-head">
-      <div class="opt-n">Option C</div>
-      <div class="sch-name">Prussian &amp; Cerulean</div>
-      <div class="sch-sub">Blue-black &middot; Refined</div>
+    <div class="ch">
+      <div class="ch-opt">Option C</div>
+      <div class="ch-name">Prussian &amp; Cobalt</div>
+      <div class="ch-desc">Blue-black &middot; Trust &amp; depth</div>
     </div>
-    <div class="strip">
-      <div></div><div></div><div></div><div></div>
-    </div>
+    <div class="strip"><div></div><div></div><div></div><div></div></div>
     <div class="pv">
-      <div class="mn">
-        <div class="mn-l">
-          <svg class="mn-ico" viewBox="0 0 96 96" fill="none">
-            <rect width="96" height="96" fill="#2E6AC8"/>
-            <line x1="29" y1="17" x2="29" y2="79" stroke="white" stroke-width="5.5"/>
-            <line x1="29" y1="48" x2="72" y2="17" stroke="white" stroke-width="4.5"/>
-            <line x1="29" y1="48" x2="72" y2="79" stroke="white" stroke-width="4.5"/>
+      <div class="nav">
+        <div class="nav-l">
+          <svg class="nav-ico" viewBox="0 0 96 96" fill="none">
+            <rect width="96" height="96" fill="#2864C4"/>
+            <line x1="28" y1="16" x2="28" y2="80" stroke="white" stroke-width="5.5"/>
+            <line x1="28" y1="44" x2="71" y2="16" stroke="white" stroke-width="3.5"/>
+            <line x1="28" y1="50" x2="71" y2="80" stroke="white" stroke-width="3.5"/>
           </svg>
           <div>
-            <div class="mn-firm">Kamkhadze PA</div>
-            <div class="mn-small">Immigration Law</div>
+            <div class="nav-firm">Kamkhadze PA</div>
+            <div class="nav-tg">Immigration Law</div>
           </div>
         </div>
-        <div class="mn-btn">Consult</div>
+        <div class="nav-btn">Consult</div>
       </div>
-      <div class="eyebrow">O-1 &middot; EB-1A &middot; NIW</div>
-      <div class="headline">Elite<br>Immigration<br>Counsel</div>
-      <div class="rule"></div>
-      <div class="body-text">Extraordinary talent deserves extraordinary counsel.</div>
-      <div class="cta">Schedule Now</div>
-      <div class="stats">
-        <div class="stat"><div class="stat-n">98%</div><div class="stat-l">Approved</div></div>
-        <div class="stat"><div class="stat-n">500+</div><div class="stat-l">Cases</div></div>
-        <div class="stat"><div class="stat-n">5★</div><div class="stat-l">Rating</div></div>
+      <div class="ey">O-1A &middot; EB-1A &middot; EB-2 NIW</div>
+      <div class="h1">Extraordinary<br>Immigration<br>Counsel</div>
+      <div class="hr"></div>
+      <div class="bd">Representing the world&rsquo;s most exceptional talent — athletes, artists, scientists and executives.</div>
+      <div class="cta">Schedule Consultation</div>
+      <div class="sts">
+        <div class="st"><div class="sn">98%</div><div class="sl">Approved</div></div>
+        <div class="st"><div class="sn">12+</div><div class="sl">Years</div></div>
+        <div class="st"><div class="sn">5★</div><div class="sl">Rated</div></div>
       </div>
-      <div class="cards">
-        <div class="card"><div class="card-tag">Visa</div><div class="card-name">O-1A</div></div>
-        <div class="card"><div class="card-tag">Green Card</div><div class="card-name">EB-1A</div></div>
+      <div class="cds">
+        <div class="cd"><div class="ct">Visa</div><div class="cn">O-1A Extraordinary Ability</div></div>
+        <div class="cd"><div class="ct">Green Card</div><div class="cn">EB-1A Distinguished</div></div>
       </div>
     </div>
   </div>
 
-  <!-- ── D — WHITE + DEEP SAPPHIRE ── -->
+  <!-- ── D — PORCELAIN ── -->
   <div class="col D">
-    <div class="col-head">
-      <div class="opt-n">Option D</div>
-      <div class="sch-name">White &amp; Sapphire</div>
-      <div class="sch-sub">Clean light &middot; Professional</div>
+    <div class="ch">
+      <div class="ch-opt">Option D</div>
+      <div class="ch-name">Porcelain &amp; Sapphire</div>
+      <div class="ch-desc">Clean light &middot; Deep authority</div>
     </div>
-    <div class="strip">
-      <div></div><div></div><div></div><div></div>
-    </div>
+    <div class="strip"><div></div><div></div><div></div><div></div></div>
     <div class="pv">
-      <div class="mn">
-        <div class="mn-l">
-          <svg class="mn-ico" viewBox="0 0 96 96" fill="none">
-            <rect width="96" height="96" fill="#1D4ED8"/>
-            <line x1="29" y1="17" x2="29" y2="79" stroke="white" stroke-width="5.5"/>
-            <line x1="29" y1="48" x2="72" y2="17" stroke="white" stroke-width="4.5"/>
-            <line x1="29" y1="48" x2="72" y2="79" stroke="white" stroke-width="4.5"/>
+      <div class="nav">
+        <div class="nav-l">
+          <svg class="nav-ico" viewBox="0 0 96 96" fill="none">
+            <rect width="96" height="96" fill="#1840A8"/>
+            <line x1="28" y1="16" x2="28" y2="80" stroke="white" stroke-width="5.5"/>
+            <line x1="28" y1="44" x2="71" y2="16" stroke="white" stroke-width="3.5"/>
+            <line x1="28" y1="50" x2="71" y2="80" stroke="white" stroke-width="3.5"/>
           </svg>
           <div>
-            <div class="mn-firm">Kamkhadze PA</div>
-            <div class="mn-small">Immigration Law</div>
+            <div class="nav-firm">Kamkhadze PA</div>
+            <div class="nav-tg">Immigration Law</div>
           </div>
         </div>
-        <div class="mn-btn">Consult</div>
+        <div class="nav-btn">Consult</div>
       </div>
-      <div class="eyebrow">O-1 &middot; EB-1A &middot; NIW</div>
-      <div class="headline">Elite<br>Immigration<br>Counsel</div>
-      <div class="rule"></div>
-      <div class="body-text">Extraordinary talent deserves extraordinary counsel.</div>
-      <div class="cta">Schedule Now</div>
-      <div class="stats">
-        <div class="stat"><div class="stat-n">98%</div><div class="stat-l">Approved</div></div>
-        <div class="stat"><div class="stat-n">500+</div><div class="stat-l">Cases</div></div>
-        <div class="stat"><div class="stat-n">5★</div><div class="stat-l">Rating</div></div>
+      <div class="ey">O-1A &middot; EB-1A &middot; EB-2 NIW</div>
+      <div class="h1">Extraordinary<br>Immigration<br>Counsel</div>
+      <div class="hr"></div>
+      <div class="bd">Representing the world&rsquo;s most exceptional talent — athletes, artists, scientists and executives.</div>
+      <div class="cta">Schedule Consultation</div>
+      <div class="sts">
+        <div class="st"><div class="sn">98%</div><div class="sl">Approved</div></div>
+        <div class="st"><div class="sn">12+</div><div class="sl">Years</div></div>
+        <div class="st"><div class="sn">5★</div><div class="sl">Rated</div></div>
       </div>
-      <div class="cards">
-        <div class="card"><div class="card-tag">Visa</div><div class="card-name">O-1A</div></div>
-        <div class="card"><div class="card-tag">Green Card</div><div class="card-name">EB-1A</div></div>
+      <div class="cds">
+        <div class="cd"><div class="ct">Visa</div><div class="cn">O-1A Extraordinary Ability</div></div>
+        <div class="cd"><div class="ct">Green Card</div><div class="cn">EB-1A Distinguished</div></div>
       </div>
     </div>
   </div>
 
-  <!-- ── E — ALABASTER + MIDNIGHT INDIGO ── -->
+  <!-- ── E — WARM IVORY ── -->
   <div class="col E">
-    <div class="col-head">
-      <div class="opt-n">Option E</div>
-      <div class="sch-name">Alabaster &amp; Indigo</div>
-      <div class="sch-sub">Soft ivory &middot; Deep blue</div>
+    <div class="ch">
+      <div class="ch-opt">Option E</div>
+      <div class="ch-name">Warm Ivory</div>
+      <div class="ch-desc">Cream paper &middot; Midnight blue</div>
     </div>
-    <div class="strip">
-      <div></div><div></div><div></div><div></div>
-    </div>
+    <div class="strip"><div></div><div></div><div></div><div></div></div>
     <div class="pv">
-      <div class="mn">
-        <div class="mn-l">
-          <svg class="mn-ico" viewBox="0 0 96 96" fill="none">
-            <rect width="96" height="96" fill="#1A3B8F"/>
-            <line x1="29" y1="17" x2="29" y2="79" stroke="white" stroke-width="5.5"/>
-            <line x1="29" y1="48" x2="72" y2="17" stroke="white" stroke-width="4.5"/>
-            <line x1="29" y1="48" x2="72" y2="79" stroke="white" stroke-width="4.5"/>
+      <div class="nav">
+        <div class="nav-l">
+          <svg class="nav-ico" viewBox="0 0 96 96" fill="none">
+            <rect width="96" height="96" fill="#1A3B8A"/>
+            <line x1="28" y1="16" x2="28" y2="80" stroke="white" stroke-width="5.5"/>
+            <line x1="28" y1="44" x2="71" y2="16" stroke="white" stroke-width="3.5"/>
+            <line x1="28" y1="50" x2="71" y2="80" stroke="white" stroke-width="3.5"/>
           </svg>
           <div>
-            <div class="mn-firm">Kamkhadze PA</div>
-            <div class="mn-small">Immigration Law</div>
+            <div class="nav-firm">Kamkhadze PA</div>
+            <div class="nav-tg">Immigration Law</div>
           </div>
         </div>
-        <div class="mn-btn">Consult</div>
+        <div class="nav-btn">Consult</div>
       </div>
-      <div class="eyebrow">O-1 &middot; EB-1A &middot; NIW</div>
-      <div class="headline">Elite<br>Immigration<br>Counsel</div>
-      <div class="rule"></div>
-      <div class="body-text">Extraordinary talent deserves extraordinary counsel.</div>
-      <div class="cta">Schedule Now</div>
-      <div class="stats">
-        <div class="stat"><div class="stat-n">98%</div><div class="stat-l">Approved</div></div>
-        <div class="stat"><div class="stat-n">500+</div><div class="stat-l">Cases</div></div>
-        <div class="stat"><div class="stat-n">5★</div><div class="stat-l">Rating</div></div>
+      <div class="ey">O-1A &middot; EB-1A &middot; EB-2 NIW</div>
+      <div class="h1">Extraordinary<br>Immigration<br>Counsel</div>
+      <div class="hr"></div>
+      <div class="bd">Representing the world&rsquo;s most exceptional talent — athletes, artists, scientists and executives.</div>
+      <div class="cta">Schedule Consultation</div>
+      <div class="sts">
+        <div class="st"><div class="sn">98%</div><div class="sl">Approved</div></div>
+        <div class="st"><div class="sn">12+</div><div class="sl">Years</div></div>
+        <div class="st"><div class="sn">5★</div><div class="sl">Rated</div></div>
       </div>
-      <div class="cards">
-        <div class="card"><div class="card-tag">Visa</div><div class="card-name">O-1A</div></div>
-        <div class="card"><div class="card-tag">Green Card</div><div class="card-name">EB-1A</div></div>
+      <div class="cds">
+        <div class="cd"><div class="ct">Visa</div><div class="cn">O-1A Extraordinary Ability</div></div>
+        <div class="cd"><div class="ct">Green Card</div><div class="cn">EB-1A Distinguished</div></div>
       </div>
     </div>
   </div>
 
 </div>
 
-<!-- FOOTER -->
+<!-- ══ FOOTER ════════════════════════════════════ -->
 <div class="foot">
-  <p>Reply with A, B, C, D, or E to apply your choice across the full site.</p>
-  <p style="margin-top:6px">Dark schemes: A &nbsp;·&nbsp; B &nbsp;·&nbsp; C &nbsp;&nbsp;|&nbsp;&nbsp; Light schemes: D &nbsp;·&nbsp; E</p>
+  <div class="foot-line">Reply A · B · C · D · E to apply your choice across the full site</div>
+  <div class="foot-line" style="margin-top:6px;opacity:.6">Dark premium: A &nbsp;&middot;&nbsp; B &nbsp;&middot;&nbsp; C &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; Light premium: D &nbsp;&middot;&nbsp; E</div>
 </div>
 
 </body>
