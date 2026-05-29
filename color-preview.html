@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Color Scheme Preview — Kamkhadze PA</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@300;400;500&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Raleway', sans-serif; background: #111; color: #fff; }
+
+.page-header {
+  text-align: center;
+  padding: 60px 20px 40px;
+  background: #0a0a0a;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.page-header h1 { font-family: 'Cormorant', serif; font-size: 2.4rem; font-weight: 300; color: #fff; margin-bottom: 10px; }
+.page-header p { font-size: 0.78rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.35); }
+
+.schemes { display: grid; grid-template-columns: repeat(3, 1fr); min-height: 100vh; }
+
+.scheme { display: flex; flex-direction: column; border-right: 1px solid rgba(255,255,255,0.06); }
+.scheme:last-child { border-right: none; }
+
+.scheme-label {
+  padding: 28px 32px 20px;
+  background: rgba(255,255,255,0.03);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.scheme-number { font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; opacity: 0.35; margin-bottom: 6px; }
+.scheme-name { font-family: 'Cormorant', serif; font-size: 1.5rem; font-weight: 400; margin-bottom: 4px; }
+.scheme-tagline { font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.45; }
+
+.swatch-row { display: flex; gap: 0; height: 10px; }
+.swatch { flex: 1; }
+
+.demo { flex: 1; padding: 40px 32px; }
+
+.mock-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 24px; margin-bottom: 32px; border-bottom: 1px solid;
+}
+.mock-logo-name { font-family: 'Cormorant', serif; font-size: 1.1rem; font-weight: 500; letter-spacing: 0.06em; }
+.mock-logo-sub { font-size: 0.5rem; font-weight: 600; letter-spacing: 0.28em; text-transform: uppercase; }
+.mock-cta { font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase; padding: 8px 18px; border: 1px solid; font-weight: 600; }
+
+.mock-eyebrow { font-size: 0.58rem; letter-spacing: 0.3em; text-transform: uppercase; margin-bottom: 14px; }
+.mock-h1 { font-family: 'Cormorant', serif; font-size: clamp(2rem, 3vw, 3.2rem); font-weight: 300; line-height: 1.08; margin-bottom: 14px; }
+.mock-body { font-size: 0.78rem; font-weight: 300; line-height: 1.9; margin-bottom: 24px; max-width: 360px; }
+.mock-rule { width: 40px; height: 1px; margin-bottom: 24px; }
+.mock-btn { display: inline-block; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; padding: 12px 28px; border: 1px solid; font-weight: 600; margin-right: 12px; }
+
+.mock-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; margin-top: 32px; }
+.mock-card { padding: 24px 20px; border: 1px solid; }
+.mock-card-label { font-size: 0.52rem; letter-spacing: 0.24em; text-transform: uppercase; margin-bottom: 8px; }
+.mock-card-title { font-family: 'Cormorant', serif; font-size: 1.15rem; font-weight: 400; margin-bottom: 8px; }
+.mock-card-text { font-size: 0.7rem; line-height: 1.7; }
+
+.mock-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; margin-top: 1px; }
+.mock-stat { padding: 20px 16px; text-align: center; border: 1px solid; }
+.mock-stat-num { font-family: 'Cormorant', serif; font-size: 2rem; font-weight: 300; margin-bottom: 4px; }
+.mock-stat-label { font-size: 0.52rem; letter-spacing: 0.2em; text-transform: uppercase; }
+
+.s1 { background: #080808; color: #fff; }
+.s1 .swatch-row .s-bg { background: #080808; }
+.s1 .swatch-row .s-mid { background: #141414; }
+.s1 .swatch-row .s-acc { background: #B8941F; flex: 2; }
+.s1 .swatch-row .s-acc2 { background: #D4AC3A; }
+.s1 .scheme-label { background: #0d0d0d; }
+.s1 .scheme-name { color: #B8941F; }
+.s1 .mock-nav { background: rgba(8,8,8,0.96); border-color: rgba(184,148,31,0.2); }
+.s1 .mock-logo-name { color: #fff; }
+.s1 .mock-logo-sub { color: #B8941F; }
+.s1 .mock-cta { color: #B8941F; border-color: rgba(184,148,31,0.4); background: rgba(184,148,31,0.07); }
+.s1 .mock-eyebrow { color: #B8941F; }
+.s1 .mock-h1 { color: #fff; }
+.s1 .mock-body { color: rgba(255,255,255,0.4); }
+.s1 .mock-rule { background: #B8941F; box-shadow: 0 0 8px rgba(184,148,31,0.5); }
+.s1 .mock-btn { color: #B8941F; border-color: rgba(184,148,31,0.4); }
+.s1 .mock-btn.filled { background: #B8941F; color: #080808; border-color: #B8941F; }
+.s1 .mock-card { background: rgba(255,255,255,0.02); border-color: rgba(184,148,31,0.15); }
+.s1 .mock-card-label { color: #B8941F; }
+.s1 .mock-card-title { color: #fff; }
+.s1 .mock-card-text { color: rgba(255,255,255,0.35); }
+.s1 .mock-stat { background: rgba(184,148,31,0.05); border-color: rgba(184,148,31,0.12); }
+.s1 .mock-stat-num { color: #B8941F; }
+.s1 .mock-stat-label { color: rgba(255,255,255,0.38); }
+
+.s2 { background: #06080F; color: #fff; }
+.s2 .swatch-row .s-bg { background: #06080F; }
+.s2 .swatch-row .s-mid { background: #0C0F1C; }
+.s2 .swatch-row .s-acc { background: #3B82F6; flex: 2; }
+.s2 .swatch-row .s-acc2 { background: #60A5FA; }
+.s2 .scheme-label { background: #080B16; }
+.s2 .scheme-name { color: #3B82F6; }
+.s2 .mock-nav { background: rgba(6,8,15,0.97); border-color: rgba(59,130,246,0.18); }
+.s2 .mock-logo-name { color: #fff; }
+.s2 .mock-logo-sub { color: #3B82F6; }
+.s2 .mock-cta { color: #3B82F6; border-color: rgba(59,130,246,0.35); background: rgba(59,130,246,0.08); }
+.s2 .mock-eyebrow { color: #3B82F6; }
+.s2 .mock-h1 { color: #fff; }
+.s2 .mock-body { color: rgba(255,255,255,0.4); }
+.s2 .mock-rule { background: #3B82F6; box-shadow: 0 0 10px rgba(59,130,246,0.5); }
+.s2 .mock-btn { color: #3B82F6; border-color: rgba(59,130,246,0.4); }
+.s2 .mock-btn.filled { background: #3B82F6; color: #fff; border-color: #3B82F6; }
+.s2 .mock-card { background: rgba(59,130,246,0.04); border-color: rgba(59,130,246,0.13); }
+.s2 .mock-card-label { color: #3B82F6; }
+.s2 .mock-card-title { color: #fff; }
+.s2 .mock-card-text { color: rgba(255,255,255,0.35); }
+.s2 .mock-stat { background: rgba(59,130,246,0.06); border-color: rgba(59,130,246,0.14); }
+.s2 .mock-stat-num { color: #3B82F6; }
+.s2 .mock-stat-label { color: rgba(255,255,255,0.38); }
+
+.s3 { background: #060606; color: #fff; }
+.s3 .swatch-row .s-bg { background: #060606; }
+.s3 .swatch-row .s-mid { background: #100F0D; }
+.s3 .swatch-row .s-acc { background: #C8B090; flex: 2; }
+.s3 .swatch-row .s-acc2 { background: #E2D0B4; }
+.s3 .scheme-label { background: #0a0908; }
+.s3 .scheme-name { color: #C8B090; }
+.s3 .mock-nav { background: rgba(6,6,6,0.97); border-color: rgba(200,176,144,0.15); }
+.s3 .mock-logo-name { color: #fff; }
+.s3 .mock-logo-sub { color: #C8B090; }
+.s3 .mock-cta { color: #C8B090; border-color: rgba(200,176,144,0.35); background: rgba(200,176,144,0.07); }
+.s3 .mock-eyebrow { color: #C8B090; }
+.s3 .mock-h1 { color: #fff; }
+.s3 .mock-body { color: rgba(255,255,255,0.38); }
+.s3 .mock-rule { background: #C8B090; box-shadow: 0 0 8px rgba(200,176,144,0.4); }
+.s3 .mock-btn { color: #C8B090; border-color: rgba(200,176,144,0.38); }
+.s3 .mock-btn.filled { background: #C8B090; color: #060606; border-color: #C8B090; }
+.s3 .mock-card { background: rgba(200,176,144,0.03); border-color: rgba(200,176,144,0.12); }
+.s3 .mock-card-label { color: #C8B090; }
+.s3 .mock-card-title { color: #fff; }
+.s3 .mock-card-text { color: rgba(255,255,255,0.33); }
+.s3 .mock-stat { background: rgba(200,176,144,0.05); border-color: rgba(200,176,144,0.11); }
+.s3 .mock-stat-num { color: #C8B090; }
+.s3 .mock-stat-label { color: rgba(255,255,255,0.36); }
+
+@media (max-width: 900px) {
+  .schemes { grid-template-columns: 1fr; }
+  .scheme { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.06); }
+}
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <h1>Kamkhadze PA — Color Preview</h1>
+  <p>Three premium two-color schemes · Pick your favourite</p>
+</div>
+
+<div class="schemes">
+
+  <div class="scheme s1">
+    <div class="scheme-label">
+      <div class="scheme-number">Option 01</div>
+      <div class="scheme-name">Midnight &amp; Gold</div>
+      <div class="scheme-tagline">Classic prestige · Law firm authority</div>
+    </div>
+    <div class="swatch-row"><div class="swatch s-bg"></div><div class="swatch s-mid"></div><div class="swatch s-acc"></div><div class="swatch s-acc2"></div></div>
+    <div class="demo s1">
+      <div class="mock-nav s1"><div><div class="mock-logo-name">KAMKHADZE PA</div><div class="mock-logo-sub">U.S. Immigration Law</div></div><div class="mock-cta">Consultation</div></div>
+      <div class="mock-eyebrow">Immigration · Extraordinary Ability</div>
+      <div class="mock-h1">Elite<br>Immigration<br>Law</div>
+      <div class="mock-rule"></div>
+      <div class="mock-body">O-1 · EB-1A · EB-2 NIW · Representing extraordinary talent worldwide.</div>
+      <div><span class="mock-btn filled">Schedule</span><span class="mock-btn">Learn More</span></div>
+      <div class="mock-cards"><div class="mock-card s1"><div class="mock-card-label">Employment</div><div class="mock-card-title">O-1 Visa</div><div class="mock-card-text">Extraordinary ability in science, arts, business.</div></div><div class="mock-card s1"><div class="mock-card-label">Green Card</div><div class="mock-card-title">EB-1A</div><div class="mock-card-text">Permanent residency for exceptional talent.</div></div></div>
+      <div class="mock-stats" style="margin-top:1px"><div class="mock-stat s1"><div class="mock-stat-num">98%</div><div class="mock-stat-label">Approval Rate</div></div><div class="mock-stat s1"><div class="mock-stat-num">500+</div><div class="mock-stat-label">Cases Won</div></div><div class="mock-stat s1"><div class="mock-stat-num">5★</div><div class="mock-stat-label">42 Reviews</div></div></div>
+    </div>
+  </div>
+
+  <div class="scheme s2">
+    <div class="scheme-label">
+      <div class="scheme-number">Option 02</div>
+      <div class="scheme-name">Abyss &amp; Sapphire</div>
+      <div class="scheme-tagline">Modern international · Blue accent</div>
+    </div>
+    <div class="swatch-row"><div class="swatch s-bg"></div><div class="swatch s-mid"></div><div class="swatch s-acc"></div><div class="swatch s-acc2"></div></div>
+    <div class="demo s2">
+      <div class="mock-nav s2"><div><div class="mock-logo-name">KAMKHADZE PA</div><div class="mock-logo-sub">U.S. Immigration Law</div></div><div class="mock-cta">Consultation</div></div>
+      <div class="mock-eyebrow">Immigration · Extraordinary Ability</div>
+      <div class="mock-h1">Elite<br>Immigration<br>Law</div>
+      <div class="mock-rule"></div>
+      <div class="mock-body">O-1 · EB-1A · EB-2 NIW · Representing extraordinary talent worldwide.</div>
+      <div><span class="mock-btn filled">Schedule</span><span class="mock-btn">Learn More</span></div>
+      <div class="mock-cards"><div class="mock-card s2"><div class="mock-card-label">Employment</div><div class="mock-card-title">O-1 Visa</div><div class="mock-card-text">Extraordinary ability in science, arts, business.</div></div><div class="mock-card s2"><div class="mock-card-label">Green Card</div><div class="mock-card-title">EB-1A</div><div class="mock-card-text">Permanent residency for exceptional talent.</div></div></div>
+      <div class="mock-stats" style="margin-top:1px"><div class="mock-stat s2"><div class="mock-stat-num">98%</div><div class="mock-stat-label">Approval Rate</div></div><div class="mock-stat s2"><div class="mock-stat-num">500+</div><div class="mock-stat-label">Cases Won</div></div><div class="mock-stat s2"><div class="mock-stat-num">5★</div><div class="mock-stat-label">42 Reviews</div></div></div>
+    </div>
+  </div>
+
+  <div class="scheme s3">
+    <div class="scheme-label">
+      <div class="scheme-number">Option 03</div>
+      <div class="scheme-name">Obsidian &amp; Champagne</div>
+      <div class="scheme-tagline">Ultra-luxury · Warm platinum</div>
+    </div>
+    <div class="swatch-row"><div class="swatch s-bg"></div><div class="swatch s-mid"></div><div class="swatch s-acc"></div><div class="swatch s-acc2"></div></div>
+    <div class="demo s3">
+      <div class="mock-nav s3"><div><div class="mock-logo-name">KAMKHADZE PA</div><div class="mock-logo-sub">U.S. Immigration Law</div></div><div class="mock-cta">Consultation</div></div>
+      <div class="mock-eyebrow">Immigration · Extraordinary Ability</div>
+      <div class="mock-h1">Elite<br>Immigration<br>Law</div>
+      <div class="mock-rule"></div>
+      <div class="mock-body">O-1 · EB-1A · EB-2 NIW · Representing extraordinary talent worldwide.</div>
+      <div><span class="mock-btn filled">Schedule</span><span class="mock-btn">Learn More</span></div>
+      <div class="mock-cards"><div class="mock-card s3"><div class="mock-card-label">Employment</div><div class="mock-card-title">O-1 Visa</div><div class="mock-card-text">Extraordinary ability in science, arts, business.</div></div><div class="mock-card s3"><div class="mock-card-label">Green Card</div><div class="mock-card-title">EB-1A</div><div class="mock-card-text">Permanent residency for exceptional talent.</div></div></div>
+      <div class="mock-stats" style="margin-top:1px"><div class="mock-stat s3"><div class="mock-stat-num">98%</div><div class="mock-stat-label">Approval Rate</div></div><div class="mock-stat s3"><div class="mock-stat-num">500+</div><div class="mock-stat-label">Cases Won</div></div><div class="mock-stat s3"><div class="mock-stat-num">5★</div><div class="mock-stat-label">42 Reviews</div></div></div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
