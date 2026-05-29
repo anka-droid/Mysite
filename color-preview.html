@@ -3,527 +3,475 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Logo & Color Preview — Kamkhadze PA</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Raleway:wght@200;300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+<title>Logo & Color — Kamkhadze PA</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;0,500;0,600;1,300&family=Raleway:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: 'Raleway', sans-serif; background: #1a1a1a; }
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Raleway',sans-serif;background:#07111F}
 
-.page-header {
-  text-align: center; padding: 52px 20px 36px;
-  background: #111; border-bottom: 1px solid rgba(255,255,255,0.07);
+/* ── PAGE HEADER ── */
+.ph{text-align:center;padding:56px 20px 40px;background:#050C18;border-bottom:1px solid rgba(255,255,255,0.05)}
+.ph h1{font-family:'Cormorant',serif;font-size:1.9rem;font-weight:300;color:#fff;margin-bottom:8px;letter-spacing:0.04em}
+.ph p{font-size:0.64rem;letter-spacing:0.28em;text-transform:uppercase;color:rgba(255,255,255,0.22)}
+
+/* ── LOGO SECTION ── */
+.logo-sec{background:#040B16;padding:72px 5% 80px;border-bottom:1px solid rgba(255,255,255,0.05)}
+.sec-label{text-align:center;font-size:0.58rem;letter-spacing:0.32em;text-transform:uppercase;color:rgba(255,255,255,0.2);margin-bottom:64px}
+.logo-row{display:flex;gap:0;justify-content:center;flex-wrap:wrap}
+
+.lbox{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:52px 56px;gap:0;
+  border:1px solid rgba(255,255,255,0.06);
+  min-width:260px;
 }
-.page-header h1 { font-family: 'Cormorant', serif; font-size: 2rem; font-weight: 300; color: #fff; margin-bottom: 8px; }
-.page-header p { font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(255,255,255,0.3); }
+.lbox+.lbox{border-left:none}
+.lbox-tag{font-size:0.5rem;letter-spacing:0.3em;text-transform:uppercase;margin-top:28px;opacity:0.25}
 
-/* ── LOGO SHOWCASE ── */
-.logo-section {
-  background: #0d0d0d; border-bottom: 1px solid rgba(255,255,255,0.06);
-  padding: 60px 5%;
-}
-.logo-section-title {
-  text-align: center; font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase;
-  color: rgba(255,255,255,0.25); margin-bottom: 48px;
-}
-.logo-variants { display: flex; gap: 48px; justify-content: center; flex-wrap: wrap; align-items: center; }
-.logo-box {
-  display: flex; flex-direction: column; align-items: center; gap: 20px;
-  padding: 40px 48px; border: 1px solid rgba(255,255,255,0.07); background: rgba(255,255,255,0.02);
-}
-.logo-box-label { font-size: 0.55rem; letter-spacing: 0.25em; text-transform: uppercase; color: rgba(255,255,255,0.22); }
-.logo-box.on-light { background: #F5F0E8; }
-.logo-box.on-navy { background: #0E1B35; }
-.logo-box.on-white { background: #fff; }
+/* ── THE LOGO ── */
+/* Mark: thin precision frame + architectural K */
+.logo{display:flex;flex-direction:column;align-items:center}
+.logo svg.mark{display:block}
+.logo-wm{display:flex;flex-direction:column;align-items:center;margin-top:18px}
+.logo-firm{font-family:'Cormorant',serif;font-weight:500;font-size:1.05rem;letter-spacing:0.18em;text-transform:uppercase;line-height:1}
+.logo-divider{width:100%;height:1px;margin:9px 0;opacity:0.22}
+.logo-sub{font-family:'Raleway',sans-serif;font-weight:500;font-size:0.38rem;letter-spacing:0.42em;text-transform:uppercase}
 
-/* ── SVG LOGO ── */
-.kpa-logo { display: flex; flex-direction: column; align-items: center; gap: 0; }
-.kpa-mark { width: 64px; height: 64px; }
-.kpa-wordmark { display: flex; flex-direction: column; align-items: center; margin-top: 12px; }
-.kpa-name { font-family: 'Cormorant', serif; font-weight: 500; font-size: 1.15rem; letter-spacing: 0.14em; line-height: 1; }
-.kpa-sub { font-family: 'Raleway', sans-serif; font-weight: 500; font-size: 0.42rem; letter-spacing: 0.38em; text-transform: uppercase; margin-top: 5px; }
-.kpa-rule { width: 28px; height: 0.5px; margin: 8px 0; }
+/* on-dark */
+.ld .logo-firm{color:#fff}
+.ld .logo-divider{background:#fff}
+.ld .logo-sub{color:rgba(255,255,255,0.4)}
+.ld .lbox-tag{color:rgba(255,255,255,0.2)}
+/* on-light */
+.ll{background:#F4F6FA}
+.ll .logo-firm{color:#0A1628}
+.ll .logo-divider{background:#0A1628}
+.ll .logo-sub{color:rgba(10,22,40,0.38)}
+.ll .lbox-tag{color:rgba(0,0,0,0.22)}
+/* on-white */
+.lw{background:#fff}
+.lw .logo-firm{color:#0A1628}
+.lw .logo-divider{background:#0A1628}
+.lw .logo-sub{color:rgba(10,22,40,0.36)}
+.lw .lbox-tag{color:rgba(0,0,0,0.2)}
+/* on-navy */
+.ln{background:#0A1628}
+.ln .logo-firm{color:#fff}
+.ln .logo-divider{background:rgba(255,255,255,0.2)}
+.ln .logo-sub{color:rgba(255,255,255,0.38)}
+.ln .lbox-tag{color:rgba(255,255,255,0.18)}
 
-/* on dark */
-.logo-box.on-dark .kpa-name { color: #fff; }
-.logo-box.on-dark .kpa-sub { color: rgba(255,255,255,0.45); }
-.logo-box.on-dark .kpa-rule { background: rgba(255,255,255,0.25); }
-/* on light */
-.logo-box.on-light .kpa-name { color: #1A1A1A; }
-.logo-box.on-light .kpa-sub { color: rgba(0,0,0,0.4); }
-.logo-box.on-light .kpa-rule { background: rgba(0,0,0,0.2); }
-/* on navy */
-.logo-box.on-navy .kpa-name { color: #fff; }
-.logo-box.on-navy .kpa-sub { color: rgba(255,255,255,0.45); }
-.logo-box.on-navy .kpa-rule { background: rgba(255,255,255,0.25); }
-/* on white */
-.logo-box.on-white .kpa-name { color: #1A1A1A; }
-.logo-box.on-white .kpa-sub { color: rgba(0,0,0,0.38); }
-.logo-box.on-white .kpa-rule { background: rgba(0,0,0,0.18); }
+/* ── SCHEMES GRID ── */
+.grid{display:grid;grid-template-columns:repeat(5,1fr)}
+.col{display:flex;flex-direction:column;border-right:1px solid rgba(0,0,0,0.15)}
+.col:last-child{border-right:none}
 
-/* ── COLOR SCHEMES GRID ── */
-.schemes { display: grid; grid-template-columns: repeat(5, 1fr); }
+.col-head{padding:22px 20px 16px;border-bottom:1px solid rgba(0,0,0,0.08)}
+.cn{font-size:0.5rem;letter-spacing:0.28em;text-transform:uppercase;margin-bottom:4px;opacity:0.32}
+.cname{font-family:'Cormorant',serif;font-size:1.15rem;font-weight:400;margin-bottom:3px;line-height:1.2}
+.cdesc{font-size:0.56rem;letter-spacing:0.1em;text-transform:uppercase;opacity:0.38}
 
-.scheme { display: flex; flex-direction: column; border-right: 1px solid rgba(0,0,0,0.12); }
-.scheme:last-child { border-right: none; }
+.sw-row{display:flex;height:7px}
+.sw{flex:1}
 
-.scheme-header { padding: 22px 24px 16px; border-bottom: 1px solid rgba(0,0,0,0.08); }
-.scheme-num { font-size: 0.52rem; letter-spacing: 0.28em; text-transform: uppercase; opacity: 0.35; margin-bottom: 4px; }
-.scheme-name { font-family: 'Cormorant', serif; font-size: 1.2rem; font-weight: 400; margin-bottom: 3px; }
-.scheme-desc { font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.42; }
-
-.swatches { display: flex; height: 8px; }
-.sw { flex: 1; }
-
-.preview { flex: 1; padding: 28px 22px; }
+.pv{flex:1;padding:24px 18px}
 
 /* mini nav */
-.mn { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; margin-bottom: 24px; border-bottom: 1px solid; }
-.mn-logo { display: flex; flex-direction: column; }
-.mn-name { font-family: 'Cormorant', serif; font-weight: 500; font-size: 0.85rem; letter-spacing: 0.1em; }
-.mn-sub { font-size: 0.38rem; letter-spacing: 0.28em; text-transform: uppercase; margin-top: 2px; }
-.mn-btn { font-size: 0.5rem; letter-spacing: 0.15em; text-transform: uppercase; padding: 6px 14px; border: 1px solid; font-weight: 600; }
+.nav{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;margin-bottom:20px;border-bottom:1px solid}
+.nav-l{display:flex;align-items:center;gap:10px}
+.nav-mark{width:26px;height:26px;flex-shrink:0}
+.nav-txt{}
+.nav-name{font-family:'Cormorant',serif;font-weight:500;font-size:0.78rem;letter-spacing:0.12em}
+.nav-sub{font-size:0.36rem;letter-spacing:0.28em;text-transform:uppercase;margin-top:2px}
+.nav-btn{font-size:0.46rem;letter-spacing:0.16em;text-transform:uppercase;padding:6px 12px;border:1px solid;font-weight:600}
 
-/* mini logo mark */
-.mini-mark { width: 32px; height: 32px; margin-bottom: 16px; }
+/* hero content */
+.ey{font-size:0.46rem;letter-spacing:0.3em;text-transform:uppercase;margin-bottom:9px}
+.h1{font-family:'Cormorant',serif;font-weight:300;font-size:1.55rem;line-height:1.08;margin-bottom:9px}
+.rul{width:24px;height:1px;margin-bottom:11px}
+.bt{font-size:0.6rem;font-weight:300;line-height:1.8;margin-bottom:16px}
+.btn{font-size:0.46rem;letter-spacing:0.17em;text-transform:uppercase;padding:8px 16px;border:1px solid;font-weight:600;display:inline-block;margin-bottom:18px}
 
-/* content */
-.eyebrow { font-size: 0.5rem; letter-spacing: 0.28em; text-transform: uppercase; margin-bottom: 10px; }
-.headline { font-family: 'Cormorant', serif; font-weight: 300; font-size: 1.6rem; line-height: 1.1; margin-bottom: 10px; }
-.rule { width: 28px; height: 1px; margin-bottom: 12px; }
-.body-txt { font-size: 0.65rem; line-height: 1.85; margin-bottom: 18px; }
-.cta { font-size: 0.5rem; letter-spacing: 0.18em; text-transform: uppercase; padding: 9px 20px; border: 1px solid; font-weight: 600; display: inline-block; margin-bottom: 22px; }
-
-/* stat bar */
-.stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; }
-.stat { padding: 12px 8px; text-align: center; border: 1px solid; }
-.stat-n { font-family: 'Cormorant', serif; font-size: 1.4rem; font-weight: 300; }
-.stat-l { font-size: 0.42rem; letter-spacing: 0.16em; text-transform: uppercase; }
+/* stats */
+.sts{display:grid;grid-template-columns:repeat(3,1fr);gap:1px}
+.st{padding:10px 6px;text-align:center;border:1px solid}
+.sn{font-family:'Cormorant',serif;font-size:1.3rem;font-weight:300}
+.sl{font-size:0.38rem;letter-spacing:0.15em;text-transform:uppercase}
 
 /* cards */
-.cards { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; margin-top: 1px; }
-.card { padding: 16px 14px; border: 1px solid; }
-.card-lbl { font-size: 0.44rem; letter-spacing: 0.22em; text-transform: uppercase; margin-bottom: 5px; }
-.card-title { font-family: 'Cormorant', serif; font-size: 0.95rem; font-weight: 400; }
+.cds{display:grid;grid-template-columns:1fr 1fr;gap:1px;margin-top:1px}
+.cd{padding:12px 10px;border:1px solid}
+.cl{font-size:0.4rem;letter-spacing:0.2em;text-transform:uppercase;margin-bottom:4px}
+.ct{font-family:'Cormorant',serif;font-size:0.88rem;font-weight:400}
 
 
-/* ══ SCHEME A — DEEP NAVY + VENETIAN GOLD ══
-   bg:#0E1B35  accent:#C4913A  */
-.a { background:#0E1B35; color:#fff; }
-.a .scheme-header { background:#0a1628; }
-.a .scheme-name { color:#C4913A; }
-.a .swatches .sw1 { background:#0E1B35; }
-.a .swatches .sw2 { background:#162444; }
-.a .swatches .sw3 { background:#C4913A; flex:2; }
-.a .swatches .sw4 { background:#DBA84F; }
-.a .mn { border-color:rgba(196,145,58,0.18); background:rgba(14,27,53,0.97); }
-.a .mn-name { color:#fff; }
-.a .mn-sub { color:#C4913A; }
-.a .mn-btn { color:#C4913A; border-color:rgba(196,145,58,0.38); }
-.a .eyebrow { color:#C4913A; }
-.a .headline { color:#fff; }
-.a .rule { background:#C4913A; }
-.a .body-txt { color:rgba(255,255,255,0.42); }
-.a .cta { color:#C4913A; border-color:rgba(196,145,58,0.4); }
-.a .stat { border-color:rgba(196,145,58,0.12); background:rgba(196,145,58,0.05); }
-.a .stat-n { color:#C4913A; }
-.a .stat-l { color:rgba(255,255,255,0.36); }
-.a .card { border-color:rgba(196,145,58,0.12); background:rgba(196,145,58,0.04); }
-.a .card-lbl { color:#C4913A; }
-.a .card-title { color:#fff; }
+/* ══════════════════════════════
+   A — INK NAVY + ROYAL SAPPHIRE
+   bg #060F22  accent #2563EB
+   ══════════════════════════════ */
+.A{background:#060F22;color:#fff}
+.A .col-head{background:#040C1C}
+.A .cname{color:#4B84F5}
+.A .sw-row .s1{background:#060F22}.A .sw-row .s2{background:#0D1A38}.A .sw-row .s3{background:#2563EB;flex:2}.A .sw-row .s4{background:#4B84F5}
+.A .nav{border-color:rgba(37,99,235,0.18);background:rgba(6,15,34,0.97)}
+.A .nav-name{color:#fff}.A .nav-sub{color:#4B84F5}.A .nav-btn{color:#4B84F5;border-color:rgba(75,132,245,0.38)}
+.A .ey{color:#4B84F5}.A .h1{color:#fff}.A .rul{background:#2563EB}
+.A .bt{color:rgba(255,255,255,0.4)}.A .btn{color:#4B84F5;border-color:rgba(75,132,245,0.38)}
+.A .st{border-color:rgba(37,99,235,0.16);background:rgba(37,99,235,0.07)}.A .sn{color:#4B84F5}.A .sl{color:rgba(255,255,255,0.36)}
+.A .cd{border-color:rgba(37,99,235,0.15);background:rgba(37,99,235,0.06)}.A .cl{color:#4B84F5}.A .ct{color:#fff}
 
-/* ══ SCHEME B — IVORY + DEEP BURGUNDY ══
-   bg:#F5F0E8  accent:#7B1D2E  */
-.b { background:#F5F0E8; color:#1a1a1a; }
-.b .scheme-header { background:#EDE8DF; }
-.b .scheme-name { color:#7B1D2E; }
-.b .swatches .sw1 { background:#F5F0E8; }
-.b .swatches .sw2 { background:#EDE8DF; }
-.b .swatches .sw3 { background:#7B1D2E; flex:2; }
-.b .swatches .sw4 { background:#A02840; }
-.b .mn { border-color:rgba(123,29,46,0.18); background:rgba(245,240,232,0.97); }
-.b .mn-name { color:#1a1a1a; }
-.b .mn-sub { color:#7B1D2E; }
-.b .mn-btn { color:#7B1D2E; border-color:rgba(123,29,46,0.4); }
-.b .eyebrow { color:#7B1D2E; }
-.b .headline { color:#1a1a1a; }
-.b .rule { background:#7B1D2E; }
-.b .body-txt { color:rgba(0,0,0,0.48); }
-.b .cta { color:#7B1D2E; border-color:rgba(123,29,46,0.45); }
-.b .stat { border-color:rgba(123,29,46,0.15); background:rgba(123,29,46,0.06); }
-.b .stat-n { color:#7B1D2E; }
-.b .stat-l { color:rgba(0,0,0,0.42); }
-.b .card { border-color:rgba(123,29,46,0.14); background:rgba(123,29,46,0.04); }
-.b .card-lbl { color:#7B1D2E; }
-.b .card-title { color:#1a1a1a; }
+/* ══════════════════════════════
+   B — DEEP SLATE + ELECTRIC BLUE
+   bg #111C30  accent #60A5FA
+   ══════════════════════════════ */
+.B{background:#111C30;color:#fff}
+.B .col-head{background:#0C1628}
+.B .cname{color:#60A5FA}
+.B .sw-row .s1{background:#111C30}.B .sw-row .s2{background:#182440}.B .sw-row .s3{background:#60A5FA;flex:2}.B .sw-row .s4{background:#93C5FD}
+.B .nav{border-color:rgba(96,165,250,0.16);background:rgba(17,28,48,0.97)}
+.B .nav-name{color:#fff}.B .nav-sub{color:#60A5FA}.B .nav-btn{color:#60A5FA;border-color:rgba(96,165,250,0.36)}
+.B .ey{color:#60A5FA}.B .h1{color:#fff}.B .rul{background:#60A5FA}
+.B .bt{color:rgba(255,255,255,0.4)}.B .btn{color:#60A5FA;border-color:rgba(96,165,250,0.36)}
+.B .st{border-color:rgba(96,165,250,0.14);background:rgba(96,165,250,0.07)}.B .sn{color:#60A5FA}.B .sl{color:rgba(255,255,255,0.36)}
+.B .cd{border-color:rgba(96,165,250,0.13);background:rgba(96,165,250,0.06)}.B .cl{color:#60A5FA}.B .ct{color:#fff}
 
-/* ══ SCHEME C — SLATE + SAPPHIRE BLUE ══
-   bg:#1C2333  accent:#4F8EF7  */
-.c { background:#1C2333; color:#fff; }
-.c .scheme-header { background:#161D2C; }
-.c .scheme-name { color:#4F8EF7; }
-.c .swatches .sw1 { background:#1C2333; }
-.c .swatches .sw2 { background:#232D42; }
-.c .swatches .sw3 { background:#4F8EF7; flex:2; }
-.c .swatches .sw4 { background:#7AAEFA; }
-.c .mn { border-color:rgba(79,142,247,0.18); background:rgba(28,35,51,0.97); }
-.c .mn-name { color:#fff; }
-.c .mn-sub { color:#4F8EF7; }
-.c .mn-btn { color:#4F8EF7; border-color:rgba(79,142,247,0.38); }
-.c .eyebrow { color:#4F8EF7; }
-.c .headline { color:#fff; }
-.c .rule { background:#4F8EF7; }
-.c .body-txt { color:rgba(255,255,255,0.42); }
-.c .cta { color:#4F8EF7; border-color:rgba(79,142,247,0.4); }
-.c .stat { border-color:rgba(79,142,247,0.14); background:rgba(79,142,247,0.07); }
-.c .stat-n { color:#4F8EF7; }
-.c .stat-l { color:rgba(255,255,255,0.38); }
-.c .card { border-color:rgba(79,142,247,0.14); background:rgba(79,142,247,0.05); }
-.c .card-lbl { color:#4F8EF7; }
-.c .card-title { color:#fff; }
+/* ══════════════════════════════
+   C — PRUSSIAN + COBALT
+   bg #0C1934  accent #3B6FD4
+   ══════════════════════════════ */
+.C{background:#0C1934;color:#fff}
+.C .col-head{background:#081228}
+.C .cname{color:#6B96E8}
+.C .sw-row .s1{background:#0C1934}.C .sw-row .s2{background:#142244}.C .sw-row .s3{background:#3B6FD4;flex:2}.C .sw-row .s4{background:#6B96E8}
+.C .nav{border-color:rgba(59,111,212,0.2);background:rgba(12,25,52,0.97)}
+.C .nav-name{color:#fff}.C .nav-sub{color:#6B96E8}.C .nav-btn{color:#6B96E8;border-color:rgba(107,150,232,0.36)}
+.C .ey{color:#6B96E8}.C .h1{color:#fff}.C .rul{background:#3B6FD4}
+.C .bt{color:rgba(255,255,255,0.4)}.C .btn{color:#6B96E8;border-color:rgba(107,150,232,0.36)}
+.C .st{border-color:rgba(59,111,212,0.16);background:rgba(59,111,212,0.08)}.C .sn{color:#6B96E8}.C .sl{color:rgba(255,255,255,0.36)}
+.C .cd{border-color:rgba(59,111,212,0.14);background:rgba(59,111,212,0.07)}.C .cl{color:#6B96E8}.C .ct{color:#fff}
 
-/* ══ SCHEME D — WARM WHITE + DEEP TEAL ══
-   bg:#F8F5F0  accent:#1B6266  */
-.d { background:#F8F5F0; color:#1a1a1a; }
-.d .scheme-header { background:#EEE9E3; }
-.d .scheme-name { color:#1B6266; }
-.d .swatches .sw1 { background:#F8F5F0; }
-.d .swatches .sw2 { background:#EEE9E3; }
-.d .swatches .sw3 { background:#1B6266; flex:2; }
-.d .swatches .sw4 { background:#24818A; }
-.d .mn { border-color:rgba(27,98,102,0.16); background:rgba(248,245,240,0.97); }
-.d .mn-name { color:#1a1a1a; }
-.d .mn-sub { color:#1B6266; }
-.d .mn-btn { color:#1B6266; border-color:rgba(27,98,102,0.42); }
-.d .eyebrow { color:#1B6266; }
-.d .headline { color:#1a1a1a; }
-.d .rule { background:#1B6266; }
-.d .body-txt { color:rgba(0,0,0,0.46); }
-.d .cta { color:#1B6266; border-color:rgba(27,98,102,0.44); }
-.d .stat { border-color:rgba(27,98,102,0.15); background:rgba(27,98,102,0.06); }
-.d .stat-n { color:#1B6266; }
-.d .stat-l { color:rgba(0,0,0,0.42); }
-.d .card { border-color:rgba(27,98,102,0.14); background:rgba(27,98,102,0.05); }
-.d .card-lbl { color:#1B6266; }
-.d .card-title { color:#1a1a1a; }
+/* ══════════════════════════════
+   D — WHITE + DEEP NAVY (LIGHT)
+   bg #FFFFFF  accent #0F2350
+   ══════════════════════════════ */
+.D{background:#FFFFFF;color:#0A1628}
+.D .col-head{background:#F2F4F8}
+.D .cn{color:rgba(0,0,0,0.3)}
+.D .cname{color:#0F2350}
+.D .cdesc{color:rgba(0,0,0,0.35)}
+.D .sw-row .s1{background:#FFFFFF}.D .sw-row .s2{background:#E8EDF5}.D .sw-row .s3{background:#0F2350;flex:2}.D .sw-row .s4{background:#1B3A7A}
+.D .nav{border-color:rgba(15,35,80,0.12);background:#fff}
+.D .nav-name{color:#0A1628}.D .nav-sub{color:#0F2350}.D .nav-btn{color:#0F2350;border-color:rgba(15,35,80,0.35)}
+.D .ey{color:#0F2350}.D .h1{color:#0A1628}.D .rul{background:#0F2350}
+.D .bt{color:rgba(0,0,0,0.45)}.D .btn{color:#0F2350;border-color:rgba(15,35,80,0.38)}
+.D .st{border-color:rgba(15,35,80,0.12);background:rgba(15,35,80,0.05)}.D .sn{color:#0F2350}.D .sl{color:rgba(0,0,0,0.4)}
+.D .cd{border-color:rgba(15,35,80,0.12);background:rgba(15,35,80,0.04)}.D .cl{color:#0F2350}.D .ct{color:#0A1628}
 
-/* ══ SCHEME E — DEEP FOREST + CHAMPAGNE ══
-   bg:#0F1F18  accent:#C8B090  */
-.e { background:#0F1F18; color:#fff; }
-.e .scheme-header { background:#0a1812; }
-.e .scheme-name { color:#C8B090; }
-.e .swatches .sw1 { background:#0F1F18; }
-.e .swatches .sw2 { background:#162A20; }
-.e .swatches .sw3 { background:#C8B090; flex:2; }
-.e .swatches .sw4 { background:#E2CBA8; }
-.e .mn { border-color:rgba(200,176,144,0.16); background:rgba(15,31,24,0.97); }
-.e .mn-name { color:#fff; }
-.e .mn-sub { color:#C8B090; }
-.e .mn-btn { color:#C8B090; border-color:rgba(200,176,144,0.38); }
-.e .eyebrow { color:#C8B090; }
-.e .headline { color:#fff; }
-.e .rule { background:#C8B090; }
-.e .body-txt { color:rgba(255,255,255,0.4); }
-.e .cta { color:#C8B090; border-color:rgba(200,176,144,0.4); }
-.e .stat { border-color:rgba(200,176,144,0.12); background:rgba(200,176,144,0.06); }
-.e .stat-n { color:#C8B090; }
-.e .stat-l { color:rgba(255,255,255,0.36); }
-.e .card { border-color:rgba(200,176,144,0.12); background:rgba(200,176,144,0.04); }
-.e .card-lbl { color:#C8B090; }
-.e .card-title { color:#fff; }
+/* ══════════════════════════════
+   E — MIST + SAPPHIRE (LIGHT)
+   bg #EEF2FA  accent #1D4ED8
+   ══════════════════════════════ */
+.E{background:#EEF2FA;color:#0A1628}
+.E .col-head{background:#E4E9F5}
+.E .cn{color:rgba(0,0,0,0.28)}
+.E .cname{color:#1D4ED8}
+.E .cdesc{color:rgba(0,0,0,0.35)}
+.E .sw-row .s1{background:#EEF2FA}.E .sw-row .s2{background:#D8E2F4}.E .sw-row .s3{background:#1D4ED8;flex:2}.E .sw-row .s4{background:#3B70F0}
+.E .nav{border-color:rgba(29,78,216,0.14);background:rgba(238,242,250,0.97)}
+.E .nav-name{color:#0A1628}.E .nav-sub{color:#1D4ED8}.E .nav-btn{color:#1D4ED8;border-color:rgba(29,78,216,0.38)}
+.E .ey{color:#1D4ED8}.E .h1{color:#0A1628}.E .rul{background:#1D4ED8}
+.E .bt{color:rgba(0,0,0,0.44)}.E .btn{color:#1D4ED8;border-color:rgba(29,78,216,0.38)}
+.E .st{border-color:rgba(29,78,216,0.13);background:rgba(29,78,216,0.06)}.E .sn{color:#1D4ED8}.E .sl{color:rgba(0,0,0,0.4)}
+.E .cd{border-color:rgba(29,78,216,0.12);background:rgba(29,78,216,0.05)}.E .cl{color:#1D4ED8}.E .ct{color:#0A1628}
 
-@media (max-width: 1200px) { .schemes { grid-template-columns: repeat(3,1fr); } }
-@media (max-width: 800px) { .schemes { grid-template-columns: 1fr 1fr; } .logo-variants { flex-direction: column; } }
-@media (max-width: 500px) { .schemes { grid-template-columns: 1fr; } }
+@media(max-width:1100px){.grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:750px){.grid{grid-template-columns:1fr 1fr}.logo-row{flex-direction:column;align-items:center}.lbox+.lbox{border-left:1px solid rgba(255,255,255,0.06);border-top:none}}
+@media(max-width:480px){.grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 
-<div class="page-header">
-  <h1>Kamkhadze PA — Logo &amp; Color Preview</h1>
-  <p>New logo · 5 premium schemes · Tell me which number you want</p>
+<div class="ph">
+  <h1>Kamkhadze PA — Logo &amp; Sapphire Palette</h1>
+  <p>Premium redesign · 5 blue variations · No green, no burgundy</p>
 </div>
 
-<!-- ── LOGO SHOWCASE ── -->
-<div class="logo-section">
-  <div class="logo-section-title">New Logo — Kamkhadze PA</div>
-  <div class="logo-variants">
+<!-- ══ LOGO SECTION ══ -->
+<div class="logo-sec">
+  <div class="sec-label">New Logo — Premium Architectural Mark</div>
+  <div class="logo-row">
 
-    <!-- Dark background -->
-    <div class="logo-box on-dark">
-      <div class="kpa-logo">
-        <svg class="kpa-mark" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="1" y="1" width="62" height="62" stroke="rgba(255,255,255,0.18)" stroke-width="0.75"/>
-          <rect x="5" y="5" width="54" height="54" stroke="rgba(255,255,255,0.07)" stroke-width="0.5"/>
-          <!-- K letterform -->
-          <line x1="20" y1="16" x2="20" y2="48" stroke="white" stroke-width="2.2" stroke-linecap="square"/>
-          <line x1="20" y1="31.5" x2="44" y2="16" stroke="white" stroke-width="2" stroke-linecap="square"/>
-          <line x1="20" y1="31.5" x2="44" y2="48" stroke="white" stroke-width="2" stroke-linecap="square"/>
-          <!-- corner accents -->
-          <line x1="1" y1="8" x2="8" y2="1" stroke="rgba(255,255,255,0.35)" stroke-width="0.75"/>
-          <line x1="56" y1="1" x2="63" y2="8" stroke="rgba(255,255,255,0.35)" stroke-width="0.75"/>
-          <line x1="1" y1="56" x2="8" y2="63" stroke="rgba(255,255,255,0.35)" stroke-width="0.75"/>
-          <line x1="56" y1="63" x2="63" y2="56" stroke="rgba(255,255,255,0.35)" stroke-width="0.75"/>
+    <!-- DARK bg -->
+    <div class="lbox ld">
+      <div class="logo">
+        <svg class="mark" width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- outer frame — hairline -->
+          <rect x="0.5" y="0.5" width="71" height="71" stroke="rgba(255,255,255,0.14)" stroke-width="0.6"/>
+          <!-- inner frame inset -->
+          <rect x="5.5" y="5.5" width="61" height="61" stroke="rgba(255,255,255,0.06)" stroke-width="0.5"/>
+          <!-- corner accent marks — top left -->
+          <polyline points="0.5,14 0.5,0.5 14,0.5" stroke="rgba(255,255,255,0.35)" stroke-width="1" fill="none"/>
+          <!-- corner accent marks — top right -->
+          <polyline points="58,0.5 71.5,0.5 71.5,14" stroke="rgba(255,255,255,0.35)" stroke-width="1" fill="none"/>
+          <!-- corner accent marks — bottom left -->
+          <polyline points="0.5,58 0.5,71.5 14,71.5" stroke="rgba(255,255,255,0.35)" stroke-width="1" fill="none"/>
+          <!-- corner accent marks — bottom right -->
+          <polyline points="58,71.5 71.5,71.5 71.5,58" stroke="rgba(255,255,255,0.35)" stroke-width="1" fill="none"/>
+          <!-- K — precision drawn, optically centered -->
+          <line x1="24" y1="18" x2="24" y2="54" stroke="white" stroke-width="1.8" stroke-linecap="butt"/>
+          <line x1="24" y1="35" x2="48" y2="18" stroke="white" stroke-width="1.6" stroke-linecap="butt"/>
+          <line x1="33" y1="27.5" x2="48" y2="54" stroke="white" stroke-width="1.6" stroke-linecap="butt"/>
+          <!-- center dot accent -->
+          <circle cx="24" cy="35" r="1.2" fill="white" opacity="0.5"/>
         </svg>
-        <div class="kpa-wordmark">
-          <div class="kpa-name">KAMKHADZE PA</div>
-          <div class="kpa-rule"></div>
-          <div class="kpa-sub">U.S. Immigration Law</div>
+        <div class="logo-wm">
+          <div class="logo-firm">Kamkhadze PA</div>
+          <div class="logo-divider"></div>
+          <div class="logo-sub">U.S. Immigration Law</div>
         </div>
       </div>
-      <div class="logo-box-label">On Dark</div>
+      <div class="lbox-tag">Dark Background</div>
     </div>
 
-    <!-- Navy background -->
-    <div class="logo-box on-navy">
-      <div class="kpa-logo">
-        <svg class="kpa-mark" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="1" y="1" width="62" height="62" stroke="#C4913A" stroke-width="0.75"/>
-          <rect x="5" y="5" width="54" height="54" stroke="rgba(196,145,58,0.2)" stroke-width="0.5"/>
-          <line x1="20" y1="16" x2="20" y2="48" stroke="white" stroke-width="2.2" stroke-linecap="square"/>
-          <line x1="20" y1="31.5" x2="44" y2="16" stroke="white" stroke-width="2" stroke-linecap="square"/>
-          <line x1="20" y1="31.5" x2="44" y2="48" stroke="white" stroke-width="2" stroke-linecap="square"/>
-          <line x1="1" y1="8" x2="8" y2="1" stroke="#C4913A" stroke-width="0.75"/>
-          <line x1="56" y1="1" x2="63" y2="8" stroke="#C4913A" stroke-width="0.75"/>
-          <line x1="1" y1="56" x2="8" y2="63" stroke="#C4913A" stroke-width="0.75"/>
-          <line x1="56" y1="63" x2="63" y2="56" stroke="#C4913A" stroke-width="0.75"/>
+    <!-- NAVY + SAPPHIRE bg -->
+    <div class="lbox ln">
+      <div class="logo">
+        <svg class="mark" width="72" height="72" viewBox="0 0 72 72" fill="none">
+          <rect x="0.5" y="0.5" width="71" height="71" stroke="rgba(75,132,245,0.35)" stroke-width="0.6"/>
+          <rect x="5.5" y="5.5" width="61" height="61" stroke="rgba(75,132,245,0.12)" stroke-width="0.5"/>
+          <polyline points="0.5,14 0.5,0.5 14,0.5" stroke="#4B84F5" stroke-width="1" fill="none"/>
+          <polyline points="58,0.5 71.5,0.5 71.5,14" stroke="#4B84F5" stroke-width="1" fill="none"/>
+          <polyline points="0.5,58 0.5,71.5 14,71.5" stroke="#4B84F5" stroke-width="1" fill="none"/>
+          <polyline points="58,71.5 71.5,71.5 71.5,58" stroke="#4B84F5" stroke-width="1" fill="none"/>
+          <line x1="24" y1="18" x2="24" y2="54" stroke="white" stroke-width="1.8" stroke-linecap="butt"/>
+          <line x1="24" y1="35" x2="48" y2="18" stroke="white" stroke-width="1.6" stroke-linecap="butt"/>
+          <line x1="33" y1="27.5" x2="48" y2="54" stroke="white" stroke-width="1.6" stroke-linecap="butt"/>
+          <circle cx="24" cy="35" r="1.2" fill="#4B84F5" opacity="0.7"/>
         </svg>
-        <div class="kpa-wordmark">
-          <div class="kpa-name" style="color:#fff">KAMKHADZE PA</div>
-          <div class="kpa-rule" style="background:#C4913A"></div>
-          <div class="kpa-sub" style="color:#C4913A">U.S. Immigration Law</div>
+        <div class="logo-wm">
+          <div class="logo-firm" style="color:#fff">Kamkhadze PA</div>
+          <div class="logo-divider" style="background:#4B84F5;opacity:0.5"></div>
+          <div class="logo-sub" style="color:#4B84F5">U.S. Immigration Law</div>
         </div>
       </div>
-      <div class="logo-box-label" style="color:rgba(255,255,255,0.2)">On Navy + Gold</div>
+      <div class="lbox-tag" style="color:rgba(255,255,255,0.18)">Navy + Sapphire</div>
     </div>
 
-    <!-- Ivory background -->
-    <div class="logo-box on-light">
-      <div class="kpa-logo">
-        <svg class="kpa-mark" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="1" y="1" width="62" height="62" stroke="rgba(0,0,0,0.25)" stroke-width="0.75"/>
-          <rect x="5" y="5" width="54" height="54" stroke="rgba(0,0,0,0.08)" stroke-width="0.5"/>
-          <line x1="20" y1="16" x2="20" y2="48" stroke="#1a1a1a" stroke-width="2.2" stroke-linecap="square"/>
-          <line x1="20" y1="31.5" x2="44" y2="16" stroke="#1a1a1a" stroke-width="2" stroke-linecap="square"/>
-          <line x1="20" y1="31.5" x2="44" y2="48" stroke="#1a1a1a" stroke-width="2" stroke-linecap="square"/>
-          <line x1="1" y1="8" x2="8" y2="1" stroke="rgba(0,0,0,0.3)" stroke-width="0.75"/>
-          <line x1="56" y1="1" x2="63" y2="8" stroke="rgba(0,0,0,0.3)" stroke-width="0.75"/>
-          <line x1="1" y1="56" x2="8" y2="63" stroke="rgba(0,0,0,0.3)" stroke-width="0.75"/>
-          <line x1="56" y1="63" x2="63" y2="56" stroke="rgba(0,0,0,0.3)" stroke-width="0.75"/>
+    <!-- WHITE bg -->
+    <div class="lbox lw">
+      <div class="logo">
+        <svg class="mark" width="72" height="72" viewBox="0 0 72 72" fill="none">
+          <rect x="0.5" y="0.5" width="71" height="71" stroke="rgba(10,22,40,0.2)" stroke-width="0.6"/>
+          <rect x="5.5" y="5.5" width="61" height="61" stroke="rgba(10,22,40,0.06)" stroke-width="0.5"/>
+          <polyline points="0.5,14 0.5,0.5 14,0.5" stroke="rgba(10,22,40,0.38)" stroke-width="1" fill="none"/>
+          <polyline points="58,0.5 71.5,0.5 71.5,14" stroke="rgba(10,22,40,0.38)" stroke-width="1" fill="none"/>
+          <polyline points="0.5,58 0.5,71.5 14,71.5" stroke="rgba(10,22,40,0.38)" stroke-width="1" fill="none"/>
+          <polyline points="58,71.5 71.5,71.5 71.5,58" stroke="rgba(10,22,40,0.38)" stroke-width="1" fill="none"/>
+          <line x1="24" y1="18" x2="24" y2="54" stroke="#0A1628" stroke-width="1.8" stroke-linecap="butt"/>
+          <line x1="24" y1="35" x2="48" y2="18" stroke="#0A1628" stroke-width="1.6" stroke-linecap="butt"/>
+          <line x1="33" y1="27.5" x2="48" y2="54" stroke="#0A1628" stroke-width="1.6" stroke-linecap="butt"/>
+          <circle cx="24" cy="35" r="1.2" fill="#1D4ED8" opacity="0.5"/>
         </svg>
-        <div class="kpa-wordmark">
-          <div class="kpa-name">KAMKHADZE PA</div>
-          <div class="kpa-rule"></div>
-          <div class="kpa-sub">U.S. Immigration Law</div>
+        <div class="logo-wm">
+          <div class="logo-firm" style="color:#0A1628">Kamkhadze PA</div>
+          <div class="logo-divider" style="background:#0A1628"></div>
+          <div class="logo-sub" style="color:rgba(10,22,40,0.38)">U.S. Immigration Law</div>
         </div>
       </div>
-      <div class="logo-box-label" style="color:rgba(0,0,0,0.28)">On Ivory</div>
+      <div class="lbox-tag" style="color:rgba(0,0,0,0.2)">White Background</div>
     </div>
 
-    <!-- White background -->
-    <div class="logo-box on-white">
-      <div class="kpa-logo">
-        <svg class="kpa-mark" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="1" y="1" width="62" height="62" stroke="#7B1D2E" stroke-width="0.75"/>
-          <rect x="5" y="5" width="54" height="54" stroke="rgba(123,29,46,0.15)" stroke-width="0.5"/>
-          <line x1="20" y1="16" x2="20" y2="48" stroke="#1a1a1a" stroke-width="2.2" stroke-linecap="square"/>
-          <line x1="20" y1="31.5" x2="44" y2="16" stroke="#1a1a1a" stroke-width="2" stroke-linecap="square"/>
-          <line x1="20" y1="31.5" x2="44" y2="48" stroke="#1a1a1a" stroke-width="2" stroke-linecap="square"/>
-          <line x1="1" y1="8" x2="8" y2="1" stroke="#7B1D2E" stroke-width="0.75"/>
-          <line x1="56" y1="1" x2="63" y2="8" stroke="#7B1D2E" stroke-width="0.75"/>
-          <line x1="1" y1="56" x2="8" y2="63" stroke="#7B1D2E" stroke-width="0.75"/>
-          <line x1="56" y1="63" x2="63" y2="56" stroke="#7B1D2E" stroke-width="0.75"/>
+    <!-- MIST bg -->
+    <div class="lbox ll">
+      <div class="logo">
+        <svg class="mark" width="72" height="72" viewBox="0 0 72 72" fill="none">
+          <rect x="0.5" y="0.5" width="71" height="71" stroke="rgba(29,78,216,0.28)" stroke-width="0.6"/>
+          <rect x="5.5" y="5.5" width="61" height="61" stroke="rgba(29,78,216,0.08)" stroke-width="0.5"/>
+          <polyline points="0.5,14 0.5,0.5 14,0.5" stroke="#1D4ED8" stroke-width="1" fill="none"/>
+          <polyline points="58,0.5 71.5,0.5 71.5,14" stroke="#1D4ED8" stroke-width="1" fill="none"/>
+          <polyline points="0.5,58 0.5,71.5 14,71.5" stroke="#1D4ED8" stroke-width="1" fill="none"/>
+          <polyline points="58,71.5 71.5,71.5 71.5,58" stroke="#1D4ED8" stroke-width="1" fill="none"/>
+          <line x1="24" y1="18" x2="24" y2="54" stroke="#0A1628" stroke-width="1.8" stroke-linecap="butt"/>
+          <line x1="24" y1="35" x2="48" y2="18" stroke="#0A1628" stroke-width="1.6" stroke-linecap="butt"/>
+          <line x1="33" y1="27.5" x2="48" y2="54" stroke="#0A1628" stroke-width="1.6" stroke-linecap="butt"/>
+          <circle cx="24" cy="35" r="1.2" fill="#1D4ED8" opacity="0.6"/>
         </svg>
-        <div class="kpa-wordmark">
-          <div class="kpa-name">KAMKHADZE PA</div>
-          <div class="kpa-rule" style="background:#7B1D2E"></div>
-          <div class="kpa-sub" style="color:#7B1D2E">U.S. Immigration Law</div>
+        <div class="logo-wm">
+          <div class="logo-firm" style="color:#0A1628">Kamkhadze PA</div>
+          <div class="logo-divider" style="background:#1D4ED8;opacity:0.45"></div>
+          <div class="logo-sub" style="color:#1D4ED8">U.S. Immigration Law</div>
         </div>
       </div>
-      <div class="logo-box-label" style="color:rgba(0,0,0,0.28)">On White + Burgundy</div>
+      <div class="lbox-tag" style="color:rgba(0,0,0,0.18)">Mist + Sapphire</div>
     </div>
 
   </div>
 </div>
 
-<!-- ── SCHEMES ── -->
-<div class="schemes">
+<!-- ══ SCHEMES ══ -->
+<div class="grid">
 
-  <!-- A: Navy + Gold -->
-  <div class="scheme a">
-    <div class="scheme-header a">
-      <div class="scheme-num">Option A</div>
-      <div class="scheme-name">Navy &amp; Gold</div>
-      <div class="scheme-desc">Classic prestige</div>
+  <!-- A -->
+  <div class="col A">
+    <div class="col-head A">
+      <div class="cn">Option A</div>
+      <div class="cname">Ink &amp; Royal</div>
+      <div class="cdesc">Dark navy · Vivid blue</div>
     </div>
-    <div class="swatches a"><div class="sw sw1"></div><div class="sw sw2"></div><div class="sw sw3"></div><div class="sw sw4"></div></div>
-    <div class="preview a">
-      <div class="mn a">
-        <div class="mn-logo">
-          <svg class="mini-mark" viewBox="0 0 64 64" fill="none"><rect x="1" y="1" width="62" height="62" stroke="#C4913A" stroke-width="1"/><line x1="20" y1="16" x2="20" y2="48" stroke="white" stroke-width="2.5"/><line x1="20" y1="31.5" x2="44" y2="16" stroke="white" stroke-width="2.2"/><line x1="20" y1="31.5" x2="44" y2="48" stroke="white" stroke-width="2.2"/></svg>
+    <div class="sw-row A"><div class="sw s1"></div><div class="sw s2"></div><div class="sw s3"></div><div class="sw s4"></div></div>
+    <div class="pv A">
+      <div class="nav A">
+        <div class="nav-l">
+          <svg class="nav-mark" viewBox="0 0 72 72" fill="none"><rect x="0.5" y="0.5" width="71" height="71" stroke="#4B84F5" stroke-width="0.8"/><polyline points="0.5,10 0.5,0.5 10,0.5" stroke="#4B84F5" stroke-width="1.2" fill="none"/><polyline points="62,0.5 71.5,0.5 71.5,10" stroke="#4B84F5" stroke-width="1.2" fill="none"/><polyline points="0.5,62 0.5,71.5 10,71.5" stroke="#4B84F5" stroke-width="1.2" fill="none"/><polyline points="62,71.5 71.5,71.5 71.5,62" stroke="#4B84F5" stroke-width="1.2" fill="none"/><line x1="24" y1="18" x2="24" y2="54" stroke="white" stroke-width="1.8"/><line x1="24" y1="35" x2="48" y2="18" stroke="white" stroke-width="1.6"/><line x1="33" y1="27.5" x2="48" y2="54" stroke="white" stroke-width="1.6"/></svg>
+          <div class="nav-txt"><div class="nav-name A">Kamkhadze PA</div><div class="nav-sub A">U.S. Immigration Law</div></div>
         </div>
-        <div>
-          <div class="mn-name a">KAMKHADZE PA</div>
-          <div class="mn-sub a">U.S. Immigration Law</div>
-        </div>
-        <div class="mn-btn a">Consult</div>
+        <div class="nav-btn A">Consult</div>
       </div>
-      <div class="eyebrow a">O-1 · EB-1A · NIW</div>
-      <div class="headline a">Elite<br>Immigration<br>Law</div>
-      <div class="rule a"></div>
-      <div class="body-txt a">Representing extraordinary talent. Hollywood Beach, Florida.</div>
-      <div class="cta a">Schedule</div>
-      <div class="stats a">
-        <div class="stat a"><div class="stat-n">98%</div><div class="stat-l">Approved</div></div>
-        <div class="stat a"><div class="stat-n">500+</div><div class="stat-l">Cases</div></div>
-        <div class="stat a"><div class="stat-n">5★</div><div class="stat-l">Reviews</div></div>
+      <div class="ey A">O-1 · EB-1A · NIW</div>
+      <div class="h1 A">Elite<br>Immigration<br>Law</div>
+      <div class="rul A"></div>
+      <div class="bt A">Representing extraordinary talent. Hollywood Beach, Florida.</div>
+      <div class="btn A">Schedule Now</div>
+      <div class="sts A">
+        <div class="st A"><div class="sn">98%</div><div class="sl">Approved</div></div>
+        <div class="st A"><div class="sn">500+</div><div class="sl">Cases</div></div>
+        <div class="st A"><div class="sn">5★</div><div class="sl">Reviews</div></div>
       </div>
-      <div class="cards">
-        <div class="card a"><div class="card-lbl a">Visa</div><div class="card-title a">O-1A</div></div>
-        <div class="card a"><div class="card-lbl a">Green Card</div><div class="card-title a">EB-1A</div></div>
+      <div class="cds">
+        <div class="cd A"><div class="cl A">Visa</div><div class="ct A">O-1A</div></div>
+        <div class="cd A"><div class="cl A">Green Card</div><div class="ct A">EB-1A</div></div>
       </div>
     </div>
   </div>
 
-  <!-- B: Ivory + Burgundy -->
-  <div class="scheme b">
-    <div class="scheme-header b">
-      <div class="scheme-num" style="color:rgba(0,0,0,0.35)">Option B</div>
-      <div class="scheme-name">Ivory &amp; Burgundy</div>
-      <div class="scheme-desc">Luxury editorial</div>
+  <!-- B -->
+  <div class="col B">
+    <div class="col-head B">
+      <div class="cn">Option B</div>
+      <div class="cname">Slate &amp; Sky</div>
+      <div class="cdesc">Mid-navy · Light blue</div>
     </div>
-    <div class="swatches b"><div class="sw sw1"></div><div class="sw sw2"></div><div class="sw sw3"></div><div class="sw sw4"></div></div>
-    <div class="preview b">
-      <div class="mn b">
-        <div class="mn-logo">
-          <svg class="mini-mark" viewBox="0 0 64 64" fill="none"><rect x="1" y="1" width="62" height="62" stroke="#7B1D2E" stroke-width="1"/><line x1="20" y1="16" x2="20" y2="48" stroke="#1a1a1a" stroke-width="2.5"/><line x1="20" y1="31.5" x2="44" y2="16" stroke="#1a1a1a" stroke-width="2.2"/><line x1="20" y1="31.5" x2="44" y2="48" stroke="#1a1a1a" stroke-width="2.2"/></svg>
+    <div class="sw-row B"><div class="sw s1"></div><div class="sw s2"></div><div class="sw s3"></div><div class="sw s4"></div></div>
+    <div class="pv B">
+      <div class="nav B">
+        <div class="nav-l">
+          <svg class="nav-mark" viewBox="0 0 72 72" fill="none"><rect x="0.5" y="0.5" width="71" height="71" stroke="#60A5FA" stroke-width="0.8"/><polyline points="0.5,10 0.5,0.5 10,0.5" stroke="#60A5FA" stroke-width="1.2" fill="none"/><polyline points="62,0.5 71.5,0.5 71.5,10" stroke="#60A5FA" stroke-width="1.2" fill="none"/><polyline points="0.5,62 0.5,71.5 10,71.5" stroke="#60A5FA" stroke-width="1.2" fill="none"/><polyline points="62,71.5 71.5,71.5 71.5,62" stroke="#60A5FA" stroke-width="1.2" fill="none"/><line x1="24" y1="18" x2="24" y2="54" stroke="white" stroke-width="1.8"/><line x1="24" y1="35" x2="48" y2="18" stroke="white" stroke-width="1.6"/><line x1="33" y1="27.5" x2="48" y2="54" stroke="white" stroke-width="1.6"/></svg>
+          <div class="nav-txt"><div class="nav-name B">Kamkhadze PA</div><div class="nav-sub B">U.S. Immigration Law</div></div>
         </div>
-        <div>
-          <div class="mn-name b">KAMKHADZE PA</div>
-          <div class="mn-sub b">U.S. Immigration Law</div>
-        </div>
-        <div class="mn-btn b">Consult</div>
+        <div class="nav-btn B">Consult</div>
       </div>
-      <div class="eyebrow b">O-1 · EB-1A · NIW</div>
-      <div class="headline b">Elite<br>Immigration<br>Law</div>
-      <div class="rule b"></div>
-      <div class="body-txt b">Representing extraordinary talent. Hollywood Beach, Florida.</div>
-      <div class="cta b">Schedule</div>
-      <div class="stats b">
-        <div class="stat b"><div class="stat-n">98%</div><div class="stat-l">Approved</div></div>
-        <div class="stat b"><div class="stat-n">500+</div><div class="stat-l">Cases</div></div>
-        <div class="stat b"><div class="stat-n">5★</div><div class="stat-l">Reviews</div></div>
+      <div class="ey B">O-1 · EB-1A · NIW</div>
+      <div class="h1 B">Elite<br>Immigration<br>Law</div>
+      <div class="rul B"></div>
+      <div class="bt B">Representing extraordinary talent. Hollywood Beach, Florida.</div>
+      <div class="btn B">Schedule Now</div>
+      <div class="sts B">
+        <div class="st B"><div class="sn">98%</div><div class="sl">Approved</div></div>
+        <div class="st B"><div class="sn">500+</div><div class="sl">Cases</div></div>
+        <div class="st B"><div class="sn">5★</div><div class="sl">Reviews</div></div>
       </div>
-      <div class="cards">
-        <div class="card b"><div class="card-lbl b">Visa</div><div class="card-title b">O-1A</div></div>
-        <div class="card b"><div class="card-lbl b">Green Card</div><div class="card-title b">EB-1A</div></div>
+      <div class="cds">
+        <div class="cd B"><div class="cl B">Visa</div><div class="ct B">O-1A</div></div>
+        <div class="cd B"><div class="cl B">Green Card</div><div class="ct B">EB-1A</div></div>
       </div>
     </div>
   </div>
 
-  <!-- C: Slate + Sapphire -->
-  <div class="scheme c">
-    <div class="scheme-header c">
-      <div class="scheme-num">Option C</div>
-      <div class="scheme-name">Slate &amp; Sapphire</div>
-      <div class="scheme-desc">Modern · Blue</div>
+  <!-- C -->
+  <div class="col C">
+    <div class="col-head C">
+      <div class="cn">Option C</div>
+      <div class="cname">Prussian &amp; Cobalt</div>
+      <div class="cdesc">Deep blue · Muted</div>
     </div>
-    <div class="swatches c"><div class="sw sw1"></div><div class="sw sw2"></div><div class="sw sw3"></div><div class="sw sw4"></div></div>
-    <div class="preview c">
-      <div class="mn c">
-        <div class="mn-logo">
-          <svg class="mini-mark" viewBox="0 0 64 64" fill="none"><rect x="1" y="1" width="62" height="62" stroke="#4F8EF7" stroke-width="1"/><line x1="20" y1="16" x2="20" y2="48" stroke="white" stroke-width="2.5"/><line x1="20" y1="31.5" x2="44" y2="16" stroke="white" stroke-width="2.2"/><line x1="20" y1="31.5" x2="44" y2="48" stroke="white" stroke-width="2.2"/></svg>
+    <div class="sw-row C"><div class="sw s1"></div><div class="sw s2"></div><div class="sw s3"></div><div class="sw s4"></div></div>
+    <div class="pv C">
+      <div class="nav C">
+        <div class="nav-l">
+          <svg class="nav-mark" viewBox="0 0 72 72" fill="none"><rect x="0.5" y="0.5" width="71" height="71" stroke="#6B96E8" stroke-width="0.8"/><polyline points="0.5,10 0.5,0.5 10,0.5" stroke="#6B96E8" stroke-width="1.2" fill="none"/><polyline points="62,0.5 71.5,0.5 71.5,10" stroke="#6B96E8" stroke-width="1.2" fill="none"/><polyline points="0.5,62 0.5,71.5 10,71.5" stroke="#6B96E8" stroke-width="1.2" fill="none"/><polyline points="62,71.5 71.5,71.5 71.5,62" stroke="#6B96E8" stroke-width="1.2" fill="none"/><line x1="24" y1="18" x2="24" y2="54" stroke="white" stroke-width="1.8"/><line x1="24" y1="35" x2="48" y2="18" stroke="white" stroke-width="1.6"/><line x1="33" y1="27.5" x2="48" y2="54" stroke="white" stroke-width="1.6"/></svg>
+          <div class="nav-txt"><div class="nav-name C">Kamkhadze PA</div><div class="nav-sub C">U.S. Immigration Law</div></div>
         </div>
-        <div>
-          <div class="mn-name c">KAMKHADZE PA</div>
-          <div class="mn-sub c">U.S. Immigration Law</div>
-        </div>
-        <div class="mn-btn c">Consult</div>
+        <div class="nav-btn C">Consult</div>
       </div>
-      <div class="eyebrow c">O-1 · EB-1A · NIW</div>
-      <div class="headline c">Elite<br>Immigration<br>Law</div>
-      <div class="rule c"></div>
-      <div class="body-txt c">Representing extraordinary talent. Hollywood Beach, Florida.</div>
-      <div class="cta c">Schedule</div>
-      <div class="stats c">
-        <div class="stat c"><div class="stat-n">98%</div><div class="stat-l">Approved</div></div>
-        <div class="stat c"><div class="stat-n">500+</div><div class="stat-l">Cases</div></div>
-        <div class="stat c"><div class="stat-n">5★</div><div class="stat-l">Reviews</div></div>
+      <div class="ey C">O-1 · EB-1A · NIW</div>
+      <div class="h1 C">Elite<br>Immigration<br>Law</div>
+      <div class="rul C"></div>
+      <div class="bt C">Representing extraordinary talent. Hollywood Beach, Florida.</div>
+      <div class="btn C">Schedule Now</div>
+      <div class="sts C">
+        <div class="st C"><div class="sn">98%</div><div class="sl">Approved</div></div>
+        <div class="st C"><div class="sn">500+</div><div class="sl">Cases</div></div>
+        <div class="st C"><div class="sn">5★</div><div class="sl">Reviews</div></div>
       </div>
-      <div class="cards">
-        <div class="card c"><div class="card-lbl c">Visa</div><div class="card-title c">O-1A</div></div>
-        <div class="card c"><div class="card-lbl c">Green Card</div><div class="card-title c">EB-1A</div></div>
+      <div class="cds">
+        <div class="cd C"><div class="cl C">Visa</div><div class="ct C">O-1A</div></div>
+        <div class="cd C"><div class="cl C">Green Card</div><div class="ct C">EB-1A</div></div>
       </div>
     </div>
   </div>
 
-  <!-- D: Warm White + Teal -->
-  <div class="scheme d">
-    <div class="scheme-header d">
-      <div class="scheme-num" style="color:rgba(0,0,0,0.35)">Option D</div>
-      <div class="scheme-name">Warm &amp; Teal</div>
-      <div class="scheme-desc">Clean · International</div>
+  <!-- D -->
+  <div class="col D">
+    <div class="col-head D">
+      <div class="cn">Option D</div>
+      <div class="cname">White &amp; Navy</div>
+      <div class="cdesc">Light · Classic · Clean</div>
     </div>
-    <div class="swatches d"><div class="sw sw1"></div><div class="sw sw2"></div><div class="sw sw3"></div><div class="sw sw4"></div></div>
-    <div class="preview d">
-      <div class="mn d">
-        <div class="mn-logo">
-          <svg class="mini-mark" viewBox="0 0 64 64" fill="none"><rect x="1" y="1" width="62" height="62" stroke="#1B6266" stroke-width="1"/><line x1="20" y1="16" x2="20" y2="48" stroke="#1a1a1a" stroke-width="2.5"/><line x1="20" y1="31.5" x2="44" y2="16" stroke="#1a1a1a" stroke-width="2.2"/><line x1="20" y1="31.5" x2="44" y2="48" stroke="#1a1a1a" stroke-width="2.2"/></svg>
+    <div class="sw-row D"><div class="sw s1"></div><div class="sw s2"></div><div class="sw s3"></div><div class="sw s4"></div></div>
+    <div class="pv D">
+      <div class="nav D">
+        <div class="nav-l">
+          <svg class="nav-mark" viewBox="0 0 72 72" fill="none"><rect x="0.5" y="0.5" width="71" height="71" stroke="rgba(15,35,80,0.35)" stroke-width="0.8"/><polyline points="0.5,10 0.5,0.5 10,0.5" stroke="#0F2350" stroke-width="1.2" fill="none"/><polyline points="62,0.5 71.5,0.5 71.5,10" stroke="#0F2350" stroke-width="1.2" fill="none"/><polyline points="0.5,62 0.5,71.5 10,71.5" stroke="#0F2350" stroke-width="1.2" fill="none"/><polyline points="62,71.5 71.5,71.5 71.5,62" stroke="#0F2350" stroke-width="1.2" fill="none"/><line x1="24" y1="18" x2="24" y2="54" stroke="#0A1628" stroke-width="1.8"/><line x1="24" y1="35" x2="48" y2="18" stroke="#0A1628" stroke-width="1.6"/><line x1="33" y1="27.5" x2="48" y2="54" stroke="#0A1628" stroke-width="1.6"/></svg>
+          <div class="nav-txt"><div class="nav-name D">Kamkhadze PA</div><div class="nav-sub D">U.S. Immigration Law</div></div>
         </div>
-        <div>
-          <div class="mn-name d">KAMKHADZE PA</div>
-          <div class="mn-sub d">U.S. Immigration Law</div>
-        </div>
-        <div class="mn-btn d">Consult</div>
+        <div class="nav-btn D">Consult</div>
       </div>
-      <div class="eyebrow d">O-1 · EB-1A · NIW</div>
-      <div class="headline d">Elite<br>Immigration<br>Law</div>
-      <div class="rule d"></div>
-      <div class="body-txt d">Representing extraordinary talent. Hollywood Beach, Florida.</div>
-      <div class="cta d">Schedule</div>
-      <div class="stats d">
-        <div class="stat d"><div class="stat-n">98%</div><div class="stat-l">Approved</div></div>
-        <div class="stat d"><div class="stat-n">500+</div><div class="stat-l">Cases</div></div>
-        <div class="stat d"><div class="stat-n">5★</div><div class="stat-l">Reviews</div></div>
+      <div class="ey D">O-1 · EB-1A · NIW</div>
+      <div class="h1 D">Elite<br>Immigration<br>Law</div>
+      <div class="rul D"></div>
+      <div class="bt D">Representing extraordinary talent. Hollywood Beach, Florida.</div>
+      <div class="btn D">Schedule Now</div>
+      <div class="sts D">
+        <div class="st D"><div class="sn">98%</div><div class="sl">Approved</div></div>
+        <div class="st D"><div class="sn">500+</div><div class="sl">Cases</div></div>
+        <div class="st D"><div class="sn">5★</div><div class="sl">Reviews</div></div>
       </div>
-      <div class="cards">
-        <div class="card d"><div class="card-lbl d">Visa</div><div class="card-title d">O-1A</div></div>
-        <div class="card d"><div class="card-lbl d">Green Card</div><div class="card-title d">EB-1A</div></div>
+      <div class="cds">
+        <div class="cd D"><div class="cl D">Visa</div><div class="ct D">O-1A</div></div>
+        <div class="cd D"><div class="cl D">Green Card</div><div class="ct D">EB-1A</div></div>
       </div>
     </div>
   </div>
 
-  <!-- E: Forest + Champagne -->
-  <div class="scheme e">
-    <div class="scheme-header e">
-      <div class="scheme-num">Option E</div>
-      <div class="scheme-name">Forest &amp; Champagne</div>
-      <div class="scheme-desc">Most distinctive</div>
+  <!-- E -->
+  <div class="col E">
+    <div class="col-head E">
+      <div class="cn">Option E</div>
+      <div class="cname">Mist &amp; Sapphire</div>
+      <div class="cdesc">Light · Modern · Airy</div>
     </div>
-    <div class="swatches e"><div class="sw sw1"></div><div class="sw sw2"></div><div class="sw sw3"></div><div class="sw sw4"></div></div>
-    <div class="preview e">
-      <div class="mn e">
-        <div class="mn-logo">
-          <svg class="mini-mark" viewBox="0 0 64 64" fill="none"><rect x="1" y="1" width="62" height="62" stroke="#C8B090" stroke-width="1"/><line x1="20" y1="16" x2="20" y2="48" stroke="white" stroke-width="2.5"/><line x1="20" y1="31.5" x2="44" y2="16" stroke="white" stroke-width="2.2"/><line x1="20" y1="31.5" x2="44" y2="48" stroke="white" stroke-width="2.2"/></svg>
+    <div class="sw-row E"><div class="sw s1"></div><div class="sw s2"></div><div class="sw s3"></div><div class="sw s4"></div></div>
+    <div class="pv E">
+      <div class="nav E">
+        <div class="nav-l">
+          <svg class="nav-mark" viewBox="0 0 72 72" fill="none"><rect x="0.5" y="0.5" width="71" height="71" stroke="rgba(29,78,216,0.3)" stroke-width="0.8"/><polyline points="0.5,10 0.5,0.5 10,0.5" stroke="#1D4ED8" stroke-width="1.2" fill="none"/><polyline points="62,0.5 71.5,0.5 71.5,10" stroke="#1D4ED8" stroke-width="1.2" fill="none"/><polyline points="0.5,62 0.5,71.5 10,71.5" stroke="#1D4ED8" stroke-width="1.2" fill="none"/><polyline points="62,71.5 71.5,71.5 71.5,62" stroke="#1D4ED8" stroke-width="1.2" fill="none"/><line x1="24" y1="18" x2="24" y2="54" stroke="#0A1628" stroke-width="1.8"/><line x1="24" y1="35" x2="48" y2="18" stroke="#0A1628" stroke-width="1.6"/><line x1="33" y1="27.5" x2="48" y2="54" stroke="#0A1628" stroke-width="1.6"/></svg>
+          <div class="nav-txt"><div class="nav-name E">Kamkhadze PA</div><div class="nav-sub E">U.S. Immigration Law</div></div>
         </div>
-        <div>
-          <div class="mn-name e">KAMKHADZE PA</div>
-          <div class="mn-sub e">U.S. Immigration Law</div>
-        </div>
-        <div class="mn-btn e">Consult</div>
+        <div class="nav-btn E">Consult</div>
       </div>
-      <div class="eyebrow e">O-1 · EB-1A · NIW</div>
-      <div class="headline e">Elite<br>Immigration<br>Law</div>
-      <div class="rule e"></div>
-      <div class="body-txt e">Representing extraordinary talent. Hollywood Beach, Florida.</div>
-      <div class="cta e">Schedule</div>
-      <div class="stats e">
-        <div class="stat e"><div class="stat-n">98%</div><div class="stat-l">Approved</div></div>
-        <div class="stat e"><div class="stat-n">500+</div><div class="stat-l">Cases</div></div>
-        <div class="stat e"><div class="stat-n">5★</div><div class="stat-l">Reviews</div></div>
+      <div class="ey E">O-1 · EB-1A · NIW</div>
+      <div class="h1 E">Elite<br>Immigration<br>Law</div>
+      <div class="rul E"></div>
+      <div class="bt E">Representing extraordinary talent. Hollywood Beach, Florida.</div>
+      <div class="btn E">Schedule Now</div>
+      <div class="sts E">
+        <div class="st E"><div class="sn">98%</div><div class="sl">Approved</div></div>
+        <div class="st E"><div class="sn">500+</div><div class="sl">Cases</div></div>
+        <div class="st E"><div class="sn">5★</div><div class="sl">Reviews</div></div>
       </div>
-      <div class="cards">
-        <div class="card e"><div class="card-lbl e">Visa</div><div class="card-title e">O-1A</div></div>
-        <div class="card e"><div class="card-lbl e">Green Card</div><div class="card-title e">EB-1A</div></div>
+      <div class="cds">
+        <div class="cd E"><div class="cl E">Visa</div><div class="ct E">O-1A</div></div>
+        <div class="cd E"><div class="cl E">Green Card</div><div class="ct E">EB-1A</div></div>
       </div>
     </div>
   </div>
