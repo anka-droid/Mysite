@@ -48,7 +48,7 @@ const NAV_HTML = `
     </li>
     <li><a href="blog.html">Insights</a></li>
     <li><a href="press.html">Press</a></li>
-    <li><a href="../contact.html" class="nav-cta">Schedule Consultation</a></li>
+    <li><a href="contact.html" class="nav-cta">Schedule Consultation</a></li>
   </ul>
   <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
     <span></span><span></span><span></span>
@@ -92,7 +92,7 @@ const FOOTER_HTML = `
         <li><a href="about.html">About Ana Kamkhadze</a></li>
         <li><a href="blog.html">Insights &amp; Analysis</a></li>
         <li><a href="press.html">In the Spotlight</a></li>
-        <li><a href="../contact.html">Contact &amp; Location</a></li>
+        <li><a href="contact.html">Contact &amp; Location</a></li>
       </ul>
     </div>
     <div class="footer-col">
@@ -100,8 +100,8 @@ const FOOTER_HTML = `
       <ul>
         <li><a href="mailto:anka@esq.mba">anka@esq.mba</a></li>
         <li><a href="tel:+17865909400">+1 (786) 590-9400</a></li>
-        <li><a href="../contact.html">Hollywood Beach, FL</a></li>
-        <li><a href="../contact.html">Consultations Worldwide</a></li>
+        <li><a href="contact.html">Hollywood Beach, FL</a></li>
+        <li><a href="contact.html">Consultations Worldwide</a></li>
       </ul>
     </div>
   </div>
