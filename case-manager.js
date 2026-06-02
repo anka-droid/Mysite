@@ -437,6 +437,13 @@ function renderSidebar() {
           ${icon('status')} Settings
         </button>
       </nav>
+      <div style="padding:10px 12px;border-top:1px solid var(--border-2);margin-top:auto">
+        <div id="sb-sync-status" style="font-size:11px;color:var(--text-3)">
+          ${typeof SupabaseSync !== 'undefined' && SupabaseSync.isConfigured()
+            ? '<span style="color:var(--green)">● Cloud synced</span>'
+            : '<span>☁ <a href="#" onclick="navigate(\'settings\')" style="color:var(--gold)">Enable cloud sync</a></span>'}
+        </div>
+      </div>
     </aside>`;
 }
 
