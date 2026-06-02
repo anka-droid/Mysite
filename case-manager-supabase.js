@@ -5,20 +5,28 @@
    Load AFTER case-manager-auth.js and case-manager.js
    ============================================================ */
 
+// Pre-configured Supabase credentials (baked in — no manual setup needed)
+const _SB_URL = 'https://nqcgfiicirlqvnmkzehy.supabase.co';
+const _SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5xY2dmaWljaXJscXZubWt6ZWh5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk5NDQ0NDAsImV4cCI6MjA5NTUyMDQ0MH0.WPZbZNidW99ZlXUjKOQ9yXro12sev9cYp2Px2pkgKQI';
+
+// Seed localStorage on first load so Settings panel shows them
+if (!localStorage.getItem('km_supabase_url')) localStorage.setItem('km_supabase_url', _SB_URL);
+if (!localStorage.getItem('km_supabase_anon_key')) localStorage.setItem('km_supabase_anon_key', _SB_KEY);
+
 const SupabaseSync = (() => {
   const CFG_URL = 'km_supabase_url';
   const CFG_KEY = 'km_supabase_anon_key';
 
   function cfg() {
     return {
-      url: (localStorage.getItem(CFG_URL) || '').replace(/\/$/, ''),
-      key: localStorage.getItem(CFG_KEY) || '',
+      url: (localStorage.getItem(CFG_URL) || _SB_URL).replace(/\/$/, ''),
+      key: localStorage.getItem(CFG_KEY) || _SB_KEY,
     };
   }
 
   function isConfigured() {
-    const c = cfg();
-    return !!(c.url && c.key);
+    // Always configured — credentials are baked in
+    return true;
   }
 
   async function _req(method, path, body) {
