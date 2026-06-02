@@ -1434,15 +1434,24 @@ renderMain = function() {
   if (State.view === 'zoom')    return renderZoomMeetings();
   return _v2_origRenderMain();
 };
+// ================================================================
+// ---- PATCH: renderMain & navigate to stay in sync ----
+// ================================================================
+const _v2_origRenderMain = renderMain;
+renderMain = function() {
+  if (State.view === 'dropbox') return renderDropboxSection();
+  if (State.view === 'zoom')    return renderZoomMeetings();
+  return _v2_origRenderMain();
+};
 
 console.info('[Kamkhadze PA v2] Patch loaded: Zoom fix ✓ Timezone search ✓ Dropbox overhaul ✓ Excel import ✓ Backend hooks ✓');
+
 // ================================================================
-// ---- PATCH: renderSidebar to add Dropbox, Zoom, Email nav ----
+// ---- PATCH: renderSidebar to add Dropbox, Zoom nav ----
 // ================================================================
 const _v2_origRenderSidebar = renderSidebar;
 renderSidebar = function() {
   const html = _v2_origRenderSidebar();
-  // Insert new nav section before the closing </nav>
   const newSection = `
         <div class="nav-section-label" style="margin-top:16px">Tools</div>
         <button class="nav-item ${State.view === 'dropbox' ? 'active' : ''}" onclick="navigate('dropbox')">
@@ -1450,12 +1459,6 @@ renderSidebar = function() {
         </button>
         <button class="nav-item ${State.view === 'zoom' ? 'active' : ''}" onclick="navigate('zoom')">
           ${icon('calendar')} Zoom Meetings
-        </button>
-        <button class="nav-item ${State.view === 'email' ? 'active' : ''}" onclick="navigate('email')">
-          ${icon('email')} Email
-        </button>
-        <button class="nav-item ${State.view === 'chat' ? 'active' : ''}" onclick="navigate('chat')">
-          ${icon('chat')} Chat
         </button>`;
   return html.replace('</nav>', newSection + '\n      </nav>');
 };
@@ -1463,7 +1466,7 @@ renderSidebar = function() {
 // Override navigate to handle new views
 const _v2_origNavigate = navigate;
 navigate = function(view, caseId) {
-  if (['dropbox','zoom','email','chat'].includes(view)) {
+  if (['dropbox','zoom'].includes(view)) {
     State.view = view;
     State.selectedCaseId = caseId || null;
     render();
