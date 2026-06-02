@@ -5,24 +5,22 @@
    ============================================================ */
 
 const Auth = (() => {
-  const STORAGE_KEY   = 'km_auth_v1';      // auth config (salt + verifier)
-  const SESSION_KEY   = 'km_session_v1';   // derived key in sessionStorage
-  const LOCKOUT_KEY   = 'km_lockout_v1';   // failed attempts
-  const PBKDF2_ITERS  = 600000;            // OWASP 2023 recommendation
-  const SESSION_MINS  = 30;               // auto-logout after 30 min idle
+  const STORAGE_KEY   = 'km_auth_v1';
+  const SESSION_KEY   = 'km_session_v1';
+  const LOCKOUT_KEY   = 'km_lockout_v1';
+  const PBKDF2_ITERS  = 600000;
+  const SESSION_MINS  = 30;
   const MAX_ATTEMPTS  = 5;
   const LOCKOUT_MINS  = 5;
   const VERIFY_PLAIN  = 'kamkhadze-pa-auth-ok-v1';
 
-  let _key = null;          // CryptoKey (in memory only)
+  let _key = null;
   let _username = '';
   let _idleTimer = null;
   let _resolve = null;
 
-  // Public promise that resolves when fully authenticated
   const ready = new Promise(res => { _resolve = res; });
 
-  // ---- Utility ----
   const enc = v => new TextEncoder().encode(v);
   const toB64 = buf => btoa(String.fromCharCode(...new Uint8Array(buf)));
   const fromB64 = b64 => Uint8Array.from(atob(b64), c => c.charCodeAt(0));
@@ -31,7 +29,6 @@ const Auth = (() => {
     return crypto.getRandomValues(new Uint8Array(n));
   }
 
-  // ---- PBKDF2 key derivation ----
   async function deriveKey(password, salt) {
     const raw = await crypto.subtle.importKey('raw', enc(password), 'PBKDF2', false, ['deriveKey']);
     return crypto.subtle.deriveKey(
@@ -43,7 +40,6 @@ const Auth = (() => {
     );
   }
 
-  // ---- AES-GCM encrypt/decrypt ----
   async function _encrypt(key, plaintext) {
     const iv = randBytes(12);
     const ct = await crypto.subtle.encrypt({ name: 'AES-GCM', iv }, key, enc(plaintext));
@@ -61,7 +57,6 @@ const Auth = (() => {
     return new TextDecoder().decode(pt);
   }
 
-  // ---- Public encrypt/decrypt (uses active session key) ----
   async function encrypt(plaintext) {
     if (!_key) throw new Error('Not authenticated');
     return _encrypt(_key, plaintext);
@@ -72,7 +67,6 @@ const Auth = (() => {
     return _decrypt(_key, b64);
   }
 
-  // ---- Session persistence (survives page refresh, cleared on tab close) ----
   async function storeSession(key, username) {
     const jwk = await crypto.subtle.exportKey('jwk', key);
     sessionStorage.setItem(SESSION_KEY, JSON.stringify({ jwk, username, ts: Date.now() }));
@@ -83,7 +77,6 @@ const Auth = (() => {
     if (!raw) return false;
     try {
       const { jwk, username, ts } = JSON.parse(raw);
-      // Reject if session is older than SESSION_MINS
       if (Date.now() - ts > SESSION_MINS * 60 * 1000) {
         sessionStorage.removeItem(SESSION_KEY);
         return false;
@@ -107,7 +100,6 @@ const Auth = (() => {
     } catch {}
   }
 
-  // ---- Brute-force lockout ----
   function getLockout() {
     try { return JSON.parse(localStorage.getItem(LOCKOUT_KEY) || '{}'); } catch { return {}; }
   }
@@ -135,7 +127,6 @@ const Auth = (() => {
     localStorage.removeItem(LOCKOUT_KEY);
   }
 
-  // ---- Idle auto-logout ----
   function resetIdleTimer() {
     touchSession();
     clearTimeout(_idleTimer);
@@ -149,7 +140,6 @@ const Auth = (() => {
       document.addEventListener(e, resetIdleTimer, { passive: true })
     );
     resetIdleTimer();
-    // Update the idle indicator every 60s
     setInterval(updateIdleIndicator, 60000);
   }
 
@@ -167,7 +157,6 @@ const Auth = (() => {
     } catch {}
   }
 
-  // ---- Auth storage ----
   function getAuthConfig() {
     try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null'); } catch { return null; }
   }
@@ -176,13 +165,11 @@ const Auth = (() => {
     return !!getAuthConfig();
   }
 
-  // ---- Logout ----
   function logout(idle = false) {
     _key = null;
     _username = '';
     sessionStorage.removeItem(SESSION_KEY);
     clearTimeout(_idleTimer);
-    // Re-render login screen
     if (idle) {
       showLoginScreen('Your session expired due to inactivity.');
     } else {
@@ -190,7 +177,6 @@ const Auth = (() => {
     }
   }
 
-  // ---- Password strength ----
   function passwordStrength(pw) {
     let score = 0;
     const checks = {
@@ -202,13 +188,12 @@ const Auth = (() => {
       long:     pw.length >= 16,
     };
     score = Object.values(checks).filter(Boolean).length;
-    if (score <= 2) return { label: 'Weak', color: 'var(--red)',    pct: 20 };
-    if (score <= 3) return { label: 'Fair', color: 'var(--yellow)', pct: 45 };
-    if (score <= 4) return { label: 'Good', color: 'var(--blue)',   pct: 70 };
-    return               { label: 'Strong', color: 'var(--green)', pct: 100 };
+    if (score <= 2) return { label: 'Weak',   color: 'var(--red)',    pct: 20 };
+    if (score <= 3) return { label: 'Fair',   color: 'var(--yellow)', pct: 45 };
+    if (score <= 4) return { label: 'Good',   color: 'var(--blue)',   pct: 70 };
+    return               { label: 'Strong', color: 'var(--green)',  pct: 100 };
   }
 
-  // ---- UI ----
   function authCSS() {
     return `
       #auth-overlay {
@@ -230,6 +215,7 @@ const Auth = (() => {
         margin: 24px;
       }
       .auth-logo {
+        display: block;
         margin-bottom: 4px;
       }
       .auth-sub {
@@ -334,7 +320,7 @@ const Auth = (() => {
         width: 100%;
         padding: 13px;
         background: var(--gold);
-        color: var(--bg);
+        color: #fff;
         border: none;
         border-radius: var(--radius);
         font-family: var(--font-sans);
@@ -417,6 +403,14 @@ const Auth = (() => {
     `;
   }
 
+  const LOGO_SVG = `<svg width="140" height="36" viewBox="0 0 140 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect width="36" height="36" rx="6" fill="#3b82f6"/>
+    <path d="M10 8 L18 18 L10 28" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <path d="M18 8 L26 18 L18 28" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.6"/>
+    <text x="44" y="14" font-family="Georgia,serif" font-size="11" font-weight="700" letter-spacing="0.12em" fill="#e8eeff">KAMKHADZE</text>
+    <text x="44" y="28" font-family="Georgia,serif" font-size="10" font-weight="400" letter-spacing="0.18em" fill="#3b82f6">PA</text>
+  </svg>`;
+
   function injectStyles() {
     if (document.getElementById('auth-styles')) return;
     const s = document.createElement('style');
@@ -437,15 +431,7 @@ const Auth = (() => {
 
     overlay.innerHTML = `
       <div class="auth-card">
-        <div class="auth-logo">
-          <svg width="160" height="46" viewBox="0 0 160 46" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:4px">
-            <rect width="46" height="46" rx="4" fill="#1e3a8a"/>
-            <rect x="3" y="3" width="19" height="40" rx="2" fill="white"/>
-            <polyline points="7,10 17,23 7,36" fill="none" stroke="#2563eb" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-            <text x="52" y="18" font-family="Arial,sans-serif" font-size="11" font-weight="800" fill="var(--text)" letter-spacing="0.5">KAMKHADZE PA</text>
-            <text x="52" y="35" font-family="Georgia,serif" font-size="10" font-style="italic" fill="var(--text-3)" letter-spacing="0.3">Immigration Law Firm</text>
-          </svg>
-        </div>
+        <div class="auth-logo">${LOGO_SVG}</div>
         <div class="auth-sub">Secure Case Manager</div>
         <div class="auth-title">Sign In</div>
         <div class="auth-desc">
@@ -479,10 +465,16 @@ const Auth = (() => {
             <span id="auth-btn-text">Sign In</span>
             <div class="auth-spinner" id="auth-spinner"></div>
           </button>
+          <div style="text-align:center;margin-top:14px">
+            <button type="button" onclick="Auth._showForgotPassword()"
+              style="background:none;border:none;color:var(--text-3);font-size:12px;
+                     cursor:pointer;text-decoration:underline;padding:4px 8px;">
+              Forgot password?
+            </button>
+          </div>
         `}
         <div class="auth-footer">
-          🔒 Encrypted with AES-256-GCM · PBKDF2 key derivation<br/>
-          Data never leaves your device.
+          🔒 Protected by AES-256-GCM encryption &amp; bcrypt &middot; Attorney-client privileged data
         </div>
       </div>`;
 
@@ -506,15 +498,7 @@ const Auth = (() => {
     overlay.id = 'auth-overlay';
     overlay.innerHTML = `
       <div class="auth-card">
-        <div class="auth-logo">
-          <svg width="160" height="46" viewBox="0 0 160 46" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:4px">
-            <rect width="46" height="46" rx="4" fill="#1e3a8a"/>
-            <rect x="3" y="3" width="19" height="40" rx="2" fill="white"/>
-            <polyline points="7,10 17,23 7,36" fill="none" stroke="#2563eb" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-            <text x="52" y="18" font-family="Arial,sans-serif" font-size="11" font-weight="800" fill="var(--text)" letter-spacing="0.5">KAMKHADZE PA</text>
-            <text x="52" y="35" font-family="Georgia,serif" font-size="10" font-style="italic" fill="var(--text-3)" letter-spacing="0.3">Immigration Law Firm</text>
-          </svg>
-        </div>
+        <div class="auth-logo">${LOGO_SVG}</div>
         <div class="auth-sub">First-Time Setup</div>
         <div class="auth-title">Create Your Credentials</div>
         <div class="auth-desc">
@@ -555,7 +539,9 @@ const Auth = (() => {
         <div class="auth-footer">
           🔒 Your password is used to derive an AES-256 encryption key via PBKDF2.<br/>
           It is <strong>never stored</strong> — only a cryptographic verifier is saved.<br/>
-          <span style="color:var(--red);font-weight:600">If you forget your password, all data will be unrecoverable.</span>
+          <span style="color:var(--gold);font-weight:500">
+            Once the backend is configured, password recovery is available via email.
+          </span>
         </div>
       </div>`;
 
@@ -601,7 +587,6 @@ const Auth = (() => {
     if (txt)  txt.style.display  = on ? 'none'  : 'inline';
   }
 
-  // ---- Session bar (injected into sidebar) ----
   function injectSessionBar() {
     const sidebar = document.getElementById('sidebar');
     if (!sidebar || document.getElementById('auth-session-bar')) return;
@@ -615,7 +600,6 @@ const Auth = (() => {
     sidebar.appendChild(bar);
   }
 
-  // ---- Login handler ----
   async function _handleLogin() {
     const username = document.getElementById('auth-username')?.value.trim();
     const password = document.getElementById('auth-password')?.value;
@@ -640,8 +624,7 @@ const Auth = (() => {
     try {
       const salt = fromB64(cfg.salt);
       const key  = await deriveKey(password, salt);
-      // Verify by decrypting the stored verifier
-      await _decrypt(key, cfg.verifier); // throws if wrong password
+      await _decrypt(key, cfg.verifier);
       _key = key;
       _username = username;
       clearLockout();
@@ -659,7 +642,6 @@ const Auth = (() => {
     }
   }
 
-  // ---- Setup handler ----
   async function _handleSetup() {
     const username = document.getElementById('setup-username')?.value.trim();
     const password = document.getElementById('setup-password')?.value;
@@ -688,7 +670,6 @@ const Auth = (() => {
     try {
       const salt = randBytes(16);
       const key  = await deriveKey(password, salt);
-      // Store a verifier (encrypted known plaintext)
       const verifier = await _encrypt(key, VERIFY_PLAIN);
       localStorage.setItem(STORAGE_KEY, JSON.stringify({
         username,
@@ -713,16 +694,12 @@ const Auth = (() => {
     if (label) { label.textContent = s.label; label.style.color = s.color; }
   }
 
-  // ---- Boot app after authentication ----
   function bootApp() {
-    // Re-create the app DOM
     document.body.innerHTML = '<div id="app"></div><div id="modal-root"></div>';
     const el = document.getElementById('auth-overlay');
     if (el) el.remove();
     attachIdleListeners();
-    // Signal that auth is complete — app will load
     if (_resolve) { _resolve(); _resolve = null; }
-    // Inject session bar once sidebar is rendered
     const observer = new MutationObserver(() => {
       if (document.getElementById('sidebar')) {
         injectSessionBar();
@@ -732,10 +709,298 @@ const Auth = (() => {
     observer.observe(document.body, { childList: true, subtree: true });
   }
 
-  // ---- Init ----
+  // ── Backend-aware login ──────────────────────────────────────────────────────
+  async function _handleLoginBackendAware() {
+    const username = document.getElementById('auth-username')?.value.trim();
+    const password = document.getElementById('auth-password')?.value;
+    if (!username || !password) {
+      showAuthError('Please enter your username and password.');
+      return;
+    }
+
+    if (window.API) {
+      setLoading(true);
+      try {
+        const data = await window.API.post('/api/auth/login', { username, password });
+        if (data && data.token) {
+          window.API.setToken(data.token);
+          _username = data.user?.name || data.user?.username || username;
+          clearLockout();
+          bootApp();
+          return;
+        }
+      } catch (err) {
+        if (err.message && err.message.includes('401')) {
+          setLoading(false);
+          const remaining = recordFailedAttempt();
+          const lo = isLockedOut();
+          if (lo) { showLoginScreen(); return; }
+          showAuthError(`Invalid username or password. ${remaining} attempt${remaining!==1?'s':''} remaining.`);
+          return;
+        }
+        console.warn('[Auth] Backend unavailable, trying local auth:', err.message);
+      }
+      setLoading(false);
+    }
+
+    await _handleLogin();
+  }
+
+  // ── Forgot Password screen ──────────────────────────────────────────────────
+  function _showForgotPassword() {
+    injectStyles();
+    const overlay = document.getElementById('auth-overlay');
+    if (!overlay) return;
+
+    overlay.querySelector('.auth-card').innerHTML = `
+      <div class="auth-logo">${LOGO_SVG}</div>
+      <div class="auth-sub">Password Recovery</div>
+      <div class="auth-title">Reset Password</div>
+      <div class="auth-desc">
+        Enter your account email address. If it exists, we'll send a reset link.
+        The link expires in <strong style="color:var(--gold)">1 hour</strong>.
+      </div>
+      <div class="auth-error"  id="auth-error"></div>
+      <div class="auth-info"   id="auth-info"></div>
+      <div class="auth-field">
+        <label>Email Address</label>
+        <input type="email" id="forgot-email" autocomplete="email"
+          placeholder="your-email@example.com" autofocus />
+      </div>
+      <button class="auth-btn" id="auth-submit-btn" onclick="Auth._handleForgotSubmit()">
+        <span id="auth-btn-text">Send Reset Link</span>
+        <div class="auth-spinner" id="auth-spinner"></div>
+      </button>
+      <div style="text-align:center;margin-top:14px">
+        <button type="button" onclick="Auth._backToLogin()"
+          style="background:none;border:none;color:var(--text-3);font-size:12px;
+                 cursor:pointer;text-decoration:underline;padding:4px 8px;">
+          ← Back to Sign In
+        </button>
+      </div>
+      <div class="auth-footer">
+        🔒 If your account exists, a secure link will be emailed to you.
+      </div>`;
+
+    document.getElementById('forgot-email')?.addEventListener('keydown', e => {
+      if (e.key === 'Enter') Auth._handleForgotSubmit();
+    });
+  }
+
+  async function _handleForgotSubmit() {
+    const email = document.getElementById('forgot-email')?.value.trim();
+    if (!email) { showAuthError('Please enter your email address.'); return; }
+    if (!window.API) {
+      showAuthError('Backend not connected. Contact your administrator to reset your password.');
+      return;
+    }
+    setLoading(true);
+    try {
+      await window.API.post('/api/auth/forgot-password', { username: email });
+      const btn = document.getElementById('auth-submit-btn');
+      if (btn) btn.style.display = 'none';
+      const info = document.getElementById('auth-info');
+      if (info) {
+        info.textContent = '✅ If that account exists, a reset email has been sent. Check your inbox (and spam folder).';
+        info.style.display = 'block';
+      }
+    } catch (err) {
+      setLoading(false);
+      showAuthError('Could not send reset email. Please try again or contact your administrator.');
+    }
+  }
+
+  function _backToLogin() {
+    showLoginScreen();
+  }
+
+  // ── Reset Password screen (from email link) ────────────────────────────────────
+  function _showResetPassword(token) {
+    injectStyles();
+    document.body.innerHTML = '';
+    const overlay = document.createElement('div');
+    overlay.id = 'auth-overlay';
+    overlay.innerHTML = `
+      <div class="auth-card">
+        <div class="auth-logo">${LOGO_SVG}</div>
+        <div class="auth-sub">Password Reset</div>
+        <div class="auth-title">Set New Password</div>
+        <div class="auth-desc">Choose a strong new password for your account.</div>
+        <div class="auth-error" id="auth-error"></div>
+        <div class="auth-info"  id="auth-info"></div>
+        <div class="auth-field" id="reset-fields">
+          <label>New Password</label>
+          <div class="auth-input-wrap">
+            <input type="password" id="reset-password" autocomplete="new-password"
+              placeholder="Minimum 8 characters" oninput="Auth._updateStrength(this.value)" autofocus />
+            <button type="button" class="auth-show-pw" onclick="togglePwVisibility('reset-password',this)">👁</button>
+          </div>
+          <div class="pw-strength-bar">
+            <div class="pw-strength-fill" id="pw-strength-fill" style="width:0%;background:var(--red)"></div>
+          </div>
+          <div class="pw-strength-label" id="pw-strength-label" style="color:var(--text-3)">Enter a password</div>
+        </div>
+        <div class="auth-field" id="reset-confirm-field">
+          <label>Confirm Password</label>
+          <div class="auth-input-wrap">
+            <input type="password" id="reset-confirm" autocomplete="new-password" placeholder="Repeat password" />
+            <button type="button" class="auth-show-pw" onclick="togglePwVisibility('reset-confirm',this)">👁</button>
+          </div>
+        </div>
+        <button class="auth-btn" id="auth-submit-btn" onclick="Auth._handleResetSubmit('${token}')">
+          <span id="auth-btn-text">Set New Password</span>
+          <div class="auth-spinner" id="auth-spinner"></div>
+        </button>
+        <div class="auth-footer">
+          🔒 This link is single-use and expires 1 hour after it was sent.
+        </div>
+      </div>`;
+    document.body.appendChild(overlay);
+    document.getElementById('reset-confirm')?.addEventListener('keydown', e => {
+      if (e.key === 'Enter') Auth._handleResetSubmit(token);
+    });
+  }
+
+  async function _handleResetSubmit(token) {
+    const pw      = document.getElementById('reset-password')?.value;
+    const confirm = document.getElementById('reset-confirm')?.value;
+    if (!pw || pw.length < 8) { showAuthError('Password must be at least 8 characters.'); return; }
+    if (pw !== confirm)       { showAuthError('Passwords do not match.'); return; }
+    if (!window.API) { showAuthError('Backend not connected.'); return; }
+    setLoading(true);
+    try {
+      const data = await window.API.post('/api/auth/reset-password', { token, newPassword: pw });
+      document.getElementById('reset-fields').style.display = 'none';
+      document.getElementById('reset-confirm-field').style.display = 'none';
+      document.getElementById('auth-submit-btn').style.display = 'none';
+      const info = document.getElementById('auth-info');
+      if (info) {
+        info.textContent = '✅ ' + (data?.message || 'Password updated! You can now sign in.');
+        info.style.display = 'block';
+      }
+      setTimeout(() => showLoginScreen('Your password has been reset. Please sign in.'), 2500);
+    } catch (err) {
+      setLoading(false);
+      showAuthError(err.message || 'Could not reset password. The link may have expired.');
+    }
+  }
+
+  // ── Accept Invite screen (from email link) ────────────────────────────────────
+  function _showAcceptInvite(token, name) {
+    injectStyles();
+    document.body.innerHTML = '';
+    const overlay = document.createElement('div');
+    overlay.id = 'auth-overlay';
+    overlay.innerHTML = `
+      <div class="auth-card">
+        <div class="auth-logo">${LOGO_SVG}</div>
+        <div class="auth-sub">Team Invitation</div>
+        <div class="auth-title">Welcome${name ? ', ' + name : ''}!</div>
+        <div class="auth-desc">
+          You've been invited to join the Kamkhadze PA Case Management System.
+          Set your password to activate your account.
+        </div>
+        <div class="auth-error" id="auth-error"></div>
+        <div class="auth-field">
+          <label>Your Name</label>
+          <input type="text" id="invite-name" autocomplete="name"
+            placeholder="Your full name" value="${name || ''}" autofocus />
+        </div>
+        <div class="auth-field">
+          <label>Password</label>
+          <div class="auth-input-wrap">
+            <input type="password" id="invite-password" autocomplete="new-password"
+              placeholder="Minimum 8 characters" oninput="Auth._updateStrength(this.value)" />
+            <button type="button" class="auth-show-pw" onclick="togglePwVisibility('invite-password',this)">👁</button>
+          </div>
+          <div class="pw-strength-bar">
+            <div class="pw-strength-fill" id="pw-strength-fill" style="width:0%;background:var(--red)"></div>
+          </div>
+          <div class="pw-strength-label" id="pw-strength-label" style="color:var(--text-3)">Enter a password</div>
+        </div>
+        <div class="auth-field">
+          <label>Confirm Password</label>
+          <div class="auth-input-wrap">
+            <input type="password" id="invite-confirm" autocomplete="new-password" placeholder="Repeat password" />
+            <button type="button" class="auth-show-pw" onclick="togglePwVisibility('invite-confirm',this)">👁</button>
+          </div>
+        </div>
+        <button class="auth-btn" id="auth-submit-btn" onclick="Auth._handleInviteSubmit('${token}')">
+          <span id="auth-btn-text">Activate Account</span>
+          <div class="auth-spinner" id="auth-spinner"></div>
+        </button>
+        <div class="auth-footer">
+          🔒 Attorney-client privileged system. Do not share your credentials.
+        </div>
+      </div>`;
+    document.body.appendChild(overlay);
+  }
+
+  async function _handleInviteSubmit(token) {
+    const name    = document.getElementById('invite-name')?.value.trim();
+    const pw      = document.getElementById('invite-password')?.value;
+    const confirm = document.getElementById('invite-confirm')?.value;
+    if (!pw || pw.length < 8) { showAuthError('Password must be at least 8 characters.'); return; }
+    if (pw !== confirm)       { showAuthError('Passwords do not match.'); return; }
+    if (!window.API) { showAuthError('Backend not connected.'); return; }
+    setLoading(true);
+    try {
+      const data = await window.API.post('/api/auth/accept-invite', {
+        token, password: pw, displayName: name || undefined,
+      });
+      if (data?.token) {
+        window.API.setToken(data.token);
+        _username = data.user?.name || data.user?.username || '';
+        bootApp();
+      }
+    } catch (err) {
+      setLoading(false);
+      showAuthError(err.message || 'Could not activate account. The invitation may have expired.');
+    }
+  }
+
   async function init() {
     injectStyles();
+
+    const params = new URLSearchParams(window.location.search);
+    const resetToken  = params.get('reset_token');
+    const inviteToken = params.get('invite_token');
+
+    if (resetToken) {
+      if (window.API) {
+        try {
+          const data = await window.API.get(`/api/auth/validate-token?type=reset&token=${resetToken}`);
+          if (data?.valid) {
+            _showResetPassword(resetToken);
+            return;
+          }
+        } catch {}
+      }
+      showLoginScreen('This password reset link is invalid or has expired. Please request a new one.');
+      return;
+    }
+
+    if (inviteToken) {
+      if (window.API) {
+        try {
+          const data = await window.API.get(`/api/auth/validate-token?type=invite&token=${inviteToken}`);
+          if (data?.valid) {
+            _showAcceptInvite(inviteToken, data.name);
+            return;
+          }
+        } catch {}
+      }
+      showLoginScreen('This invitation link is invalid or has expired. Ask an admin to re-send it.');
+      return;
+    }
+
     if (!isSetup()) {
+      if (window.API) {
+        try {
+          const health = await window.API.get('/api/health');
+          if (health?.ok) { showLoginScreen(); return; }
+        } catch {}
+      }
       showSetupScreen();
       return;
     }
@@ -747,23 +1012,28 @@ const Auth = (() => {
     }
   }
 
-  // ---- Public API ----
   return {
     ready,
     init,
     encrypt,
     decrypt,
     logout,
+    bootApp,
     get username() { return _username; },
     get isAuthenticated() { return !!_key; },
-    // Exposed for inline handlers
-    _handleLogin,
+    _handleLogin: _handleLoginBackendAware,
     _handleSetup,
     _updateStrength,
+    _showForgotPassword,
+    _handleForgotSubmit,
+    _backToLogin,
+    _showResetPassword,
+    _handleResetSubmit,
+    _showAcceptInvite,
+    _handleInviteSubmit,
   };
 })();
 
-// ---- Global helpers for inline HTML handlers ----
 function togglePwVisibility(inputId, btn) {
   const el = document.getElementById(inputId);
   if (!el) return;
@@ -772,5 +1042,5 @@ function togglePwVisibility(inputId, btn) {
   btn.textContent = isHidden ? '🙈' : '👁';
 }
 
-// Boot
-Auth.init();
+// Defer init until ALL scripts (including backend-adapter.js) have loaded
+window.addEventListener('load', () => Auth.init());
