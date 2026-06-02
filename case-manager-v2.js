@@ -1425,6 +1425,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // ================================================================
 
+// Override renderSidebar to include Dropbox and Zoom navigation
+const _v2_origRenderSidebar = renderSidebar;
+renderSidebar = function() {
+  let html = _v2_origRenderSidebar();
+  // Insert Tools section before </nav>
+  const toolsSection = `
+        <div class="nav-section-label" style="margin-top:16px">Tools</div>
+        <button class="nav-item ${State.view === 'dropbox' ? 'active' : ''}" onclick="navigate('dropbox')">
+          ${icon('dropbox')} Document Vault
+        </button>
+        <button class="nav-item ${State.view === 'zoom' ? 'active' : ''}" onclick="navigate('zoom')">
+          ${icon('calendar')} Zoom Meetings
+        </button>
+  `;
+  html = html.replace('</nav>', toolsSection + '</nav>');
+  return html;
+};
+
 // Override renderMain to support Dropbox and Zoom views
 const _v2_origRenderMain = renderMain;
 renderMain = function() {
