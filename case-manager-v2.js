@@ -1424,31 +1424,13 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // ================================================================
-// ---- PATCH: renderMain & navigate to stay in sync ----
-// ================================================================
-const _v2_origRenderMain = renderMain;
-renderMain = function() {
-  return _v2_origRenderMain();
-};
 
-console.info('[Kamkhadze PA v2] Patch loaded: Zoom fix ✓ Timezone search ✓ Dropbox overhaul ✓ Excel import ✓ Backend hooks ✓');
-// Fixed renderMain - only include views that exist
+// Override renderMain to support Dropbox and Zoom views
+const _v2_origRenderMain = renderMain;
 renderMain = function() {
   if (State.view === 'dropbox') return renderDropboxSection();
   if (State.view === 'zoom')    return renderZoomMeetings();
   return _v2_origRenderMain();
 };
 
-// Add sidebar navigation for the new views
-const _v2_origRenderSidebar = renderSidebar;
-renderSidebar = function() {
-  const html = _v2_origRenderSidebar();
-  const newNav = `        <div class="nav-section-label" style="margin-top:16px">Tools</div>
-        <button class="nav-item ${State.view === 'dropbox' ? 'active' : ''}" onclick="State.view='dropbox';render()">
-          ${typeof icon !== 'undefined' ? icon('dropbox') : '📂'} Document Vault
-        </button>
-        <button class="nav-item ${State.view === 'zoom' ? 'active' : ''}" onclick="State.view='zoom';render()">
-          ${typeof icon !== 'undefined' ? icon('calendar') : '📅'} Zoom Meetings
-        </button>`;
-  return html.replace('</nav>', newNav + '\n      </nav>');
-};
+console.info('[Kamkhadze PA v2] Loaded: Zoom ✓ Dropbox ✓ Excel ✓');
