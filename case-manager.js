@@ -6,12 +6,45 @@
 // ---- State ----
 const State = {
   cases: [],
-  view: 'dashboard',    // dashboard | cases | case-detail
+  view: 'dashboard',    // dashboard | cases | case-detail | dropbox | zoom
   activeTab: 'overview',
   selectedCaseId: null,
   filter: { search: '', stage: '', visaType: '' },
   emailDraft: null,
   emailLang: 'en',
+  // Dropbox vault state (loaded by case-manager-v2.js)
+  dropbox: {
+    files: [],
+    tab: 'all',
+    search: '',
+    activeFileId: null,
+    viewMode: 'grid',
+    sortBy: 'name',
+    sortDir: 'asc',
+    filterStatus: '',
+    notes: {},
+  },
+  // Zoom meetings state (loaded by case-manager-v2.js)
+  zoom: {
+    meetings: [],
+    showScheduleForm: false,
+    scheduleTopic: '',
+    scheduleDate: '',
+    scheduleTime: '10:00',
+    scheduleDuration: '30',
+    scheduleClient: '',
+    scheduleCase: '',
+    timezone: 'America/New_York',
+    tzSearch: '',
+    clientSearch: '',
+  },
+  // Email state (loaded by case-manager-v2.js)
+  email: {
+    tab: 'inbox',
+    composeData: { to: '', subject: '', body: '' },
+    sent: [],
+    activeEmailId: null,
+  },
 };
 
 // ---- Encrypted Persistence ----
@@ -2573,6 +2606,21 @@ function _confirmClearAll() {
     toast('All cases cleared');
     render();
   }
+}
+
+// Email sending (can be patched by case-manager-v2.js)
+function emailSend() {
+  const to = State.email.composeData.to;
+  const subject = State.email.composeData.subject;
+  const body = State.email.composeData.body;
+  if (!to || !subject) {
+    toast('Please fill in recipient and subject', 'warn');
+    return;
+  }
+  window.open(`mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`, '_blank');
+  State.email.composeData = { to: '', subject: '', body: '' };
+  toast('Email opened in your mail client');
+  render();
 }
 
 // ---- Main render ----
