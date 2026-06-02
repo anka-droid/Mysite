@@ -368,6 +368,13 @@ function renderSidebar() {
             ${icon('overview')} ${c.firstName} ${c.lastName}
           </button>` : '';
         })() : ''}
+        <div class="nav-section-label" style="margin-top:16px">Tools</div>
+        <button class="nav-item ${activeView === 'dropbox' ? 'active' : ''}" onclick="navigate('dropbox')">
+          ${icon('dropbox')} Document Vault
+        </button>
+        <button class="nav-item ${activeView === 'zoom' ? 'active' : ''}" onclick="navigate('zoom')">
+          ${icon('calendar')} Zoom Meetings
+        </button>
         <div class="nav-section-label" style="margin-top:16px">Actions</div>
         <button class="nav-item" onclick="showAddCase()">
           ${icon('add')} New Case
