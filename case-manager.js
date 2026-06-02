@@ -46,6 +46,9 @@ const State = {
     sent: JSON.parse(localStorage.getItem('km_email_sent') || '[]'),
     activeEmailId: null,
   },
+  teamChat: {
+    currentChannel: 'general',
+  },
   invoices: null, // loaded lazily from localStorage
 };
 
@@ -2730,17 +2733,38 @@ function dropboxOpenFile(id) { State.dropbox.activeFileId = id; render(); }
 
 // ---- Email view ----
 function renderEmailView() {
+  const tab = State.email.tab || 'inbox';
+  const inbox = JSON.parse(localStorage.getItem('km_email_inbox') || '[]');
   const sent = State.email.sent || [];
+  const drafts = JSON.parse(localStorage.getItem('km_email_drafts') || '[]');
+  const templates = JSON.parse(localStorage.getItem('km_email_templates') || JSON.stringify([
+    { id: 'welcome', name: 'Welcome to Case', subject: 'Welcome to [FIRM]', body: 'Dear [CLIENT],\n\nWe are pleased to represent you...' },
+    { id: 'rfe', name: 'RFE Response', subject: 'RFE Response Submitted', body: 'Dear [CLIENT],\n\nWe have submitted your RFE response to USCIS...' },
+    { id: 'approval', name: 'Approval Notification', subject: 'Your Case Approved!', body: 'Dear [CLIENT],\n\nGreat news! Your case has been approved...' },
+    { id: 'status', name: 'Status Update', subject: 'Case Status Update', body: 'Dear [CLIENT],\n\nHere is an update on your case...' },
+  ]));
+
   const composing = State.email.composing || false;
   const to = (State.email.composeData && State.email.composeData.to) || '';
   const subject = (State.email.composeData && State.email.composeData.subject) || '';
   const body = (State.email.composeData && State.email.composeData.body) || '';
 
+  const getList = () => {
+    switch(tab) {
+      case 'inbox': return inbox;
+      case 'sent': return sent;
+      case 'drafts': return drafts;
+      case 'templates': return templates;
+      default: return [];
+    }
+  };
+  const list = getList();
+
   return `
     <div class="topbar">
       <div class="topbar-title">Email</div>
       <div class="topbar-actions">
-        <button class="btn btn-gold" onclick="State.email.composing=!State.email.composing;render()">
+        <button class="btn btn-gold" onclick="State.email.composing=!State.email.composing;State.email.tab='inbox';render()">
           ${icon('email')} ${composing ? 'Close' : 'Compose'}
         </button>
       </div>
@@ -2748,52 +2772,108 @@ function renderEmailView() {
     <div class="content">
       ${composing ? `
       <div class="panel" style="margin-bottom:24px;border-color:rgba(92,199,181,0.25)">
-        <div class="panel-title" style="margin-bottom:16px">${icon('email')} New Email</div>
+        <div class="panel-title" style="margin-bottom:16px">${icon('email')} Compose Email</div>
         <div class="field">
           <label>To *</label>
-          <input type="email" placeholder="email@example.com" id="email-to"
-            value="${escAttr(to)}"
-            onchange="State.email.composeData.to=this.value" />
+          <input type="email" placeholder="email@example.com" id="email-to" value="${escAttr(to)}" />
         </div>
         <div class="field">
           <label>Subject *</label>
-          <input type="text" placeholder="Subject…" id="email-subj"
-            value="${escAttr(subject)}"
-            onchange="State.email.composeData.subject=this.value" />
+          <input type="text" placeholder="Subject…" id="email-subj" value="${escAttr(subject)}" />
         </div>
         <div class="field">
           <label>Message</label>
-          <textarea rows="8" placeholder="Your message…" id="email-body"
-            onchange="State.email.composeData.body=this.value"
-            style="font-family:var(--font-body)">${escHtml(body)}</textarea>
+          <textarea rows="8" id="email-body" placeholder="Your message…" style="font-family:var(--font-body)">${escHtml(body)}</textarea>
         </div>
-        <button class="btn btn-gold" onclick="_emailSend()">Send Email</button>
+        <div style="display:flex;gap:8px">
+          <button class="btn btn-gold" onclick="_emailSend()">Send</button>
+          <button class="btn btn-ghost" onclick="_emailSaveDraft()">Save Draft</button>
+          <button class="btn btn-ghost" onclick="State.email.composing=false;render()">Cancel</button>
+        </div>
       </div>` : ''}
+
+      <div style="display:flex;gap:8px;margin-bottom:16px;border-bottom:1px solid var(--border-2);padding-bottom:12px">
+        ${['inbox', 'sent', 'drafts', 'templates'].map(t => `
+          <button class="btn ${tab===t ? 'btn-gold' : 'btn-ghost'}" onclick="State.email.tab='${t}';render()">
+            ${t.charAt(0).toUpperCase()+t.slice(1)}
+          </button>`).join('')}
+      </div>
+
       <div class="panel">
-        <div class="panel-title">${icon('email')} Sent</div>
-        ${sent.length ? sent.map(e => `
-          <div style="padding:12px 0;border-bottom:1px solid var(--border-2);font-size:12.5px">
-            <strong>${escHtml(e.subject)}</strong><br>
-            <span style="color:var(--text-3)">To: ${escHtml(e.to)} · ${escHtml(e.date)}</span><br>
-            <span style="color:var(--text-2)">${escHtml((e.body||'').slice(0,100))}</span>
-          </div>`).join('') : '<p style="color:var(--text-3)">No emails yet</p>'}
+        <div class="panel-title">${tab.charAt(0).toUpperCase()+tab.slice(1)}</div>
+        ${list.length ? list.map((e,i) => `
+          <div style="padding:12px 0;border-bottom:${i===list.length-1?'none':'1px solid var(--border-2)'};font-size:12.5px">
+            <div style="display:flex;justify-content:space-between;gap:8px">
+              <div style="flex:1">
+                <strong style="color:var(--text)">${escHtml(e.subject)}</strong><br>
+                <span style="color:var(--text-3)">${tab==='templates' ? escHtml(e.name) : 'To: '+escHtml(e.to||'—')} · ${escHtml(e.date||'')}</span><br>
+                <span style="color:var(--text-2)">${escHtml((e.body||'').slice(0,80))}</span>
+              </div>
+              ${tab==='templates' ? `<button class="btn btn-ghost btn-sm" onclick="_emailUseTemplate('${e.id}')">Use</button>` : ''}
+              ${tab==='drafts' ? `<button class="btn btn-ghost btn-sm" onclick="_emailEditDraft('${i}')">Edit</button>` : ''}
+            </div>
+          </div>`).join('') : '<p style="color:var(--text-3)">Empty</p>'}
       </div>
     </div>`;
+}
+
+function _emailUseTemplate(tplId) {
+  const templates = JSON.parse(localStorage.getItem('km_email_templates') || '[]');
+  const tpl = templates.find(t => t.id === tplId);
+  if (!tpl) return;
+  State.email.composeData.subject = tpl.subject;
+  State.email.composeData.body = tpl.body;
+  State.email.composing = true;
+  State.email.tab = 'inbox';
+  render();
+  setTimeout(() => document.getElementById('email-to')?.focus(), 50);
+}
+
+function _emailEditDraft(idx) {
+  const drafts = JSON.parse(localStorage.getItem('km_email_drafts') || '[]');
+  const draft = drafts[idx];
+  if (!draft) return;
+  State.email.composeData = { to: draft.to, subject: draft.subject, body: draft.body };
+  State.email.composing = true;
+  State.email.tab = 'inbox';
+  render();
 }
 
 function _emailSend() {
   const to = document.getElementById('email-to')?.value.trim();
   const subject = document.getElementById('email-subj')?.value.trim();
   const body = document.getElementById('email-body')?.value.trim();
-  if (!to) { toast('Email required', 'warn'); return; }
+
+  if (!to) { toast('Recipient email required', 'warn'); return; }
   if (!subject) { toast('Subject required', 'warn'); return; }
+
   const e = { id: uuid(), to, subject, body, date: new Date().toLocaleDateString() };
   State.email.sent.unshift(e);
   localStorage.setItem('km_email_sent', JSON.stringify(State.email.sent));
+
   window.open(`mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`);
   State.email.composing = false;
   State.email.composeData = { to: '', subject: '', body: '' };
+  State.email.tab = 'sent';
   toast('Email sent!');
+  render();
+}
+
+function _emailSaveDraft() {
+  const to = document.getElementById('email-to')?.value.trim();
+  const subject = document.getElementById('email-subj')?.value.trim();
+  const body = document.getElementById('email-body')?.value.trim();
+
+  if (!to && !subject && !body) { toast('Nothing to save', 'warn'); return; }
+
+  let drafts = JSON.parse(localStorage.getItem('km_email_drafts') || '[]');
+  drafts.unshift({ id: uuid(), to, subject, body, date: new Date().toLocaleDateString() });
+  localStorage.setItem('km_email_drafts', JSON.stringify(drafts));
+
+  State.email.composing = false;
+  State.email.composeData = { to: '', subject: '', body: '' };
+  State.email.tab = 'drafts';
+  toast('Draft saved!');
   render();
 }
 
@@ -3138,28 +3218,64 @@ function uscisFormChecklist(code) {
 
 // ---- Team Chat view ----
 function renderTeamChat() {
-  let msgs = JSON.parse(localStorage.getItem('km_team_chat') || '[]');
-  const msgInput = document.getElementById('team-chat-input')?.value || '';
+  const currentChannel = State.teamChat?.currentChannel || 'general';
+  let allMsgs = JSON.parse(localStorage.getItem('km_team_chat') || '[]');
+  const msgs = allMsgs.filter(m => (m.channel || 'general') === currentChannel);
+  const channels = JSON.parse(localStorage.getItem('km_chat_channels') || JSON.stringify([
+    { id: 'general', name: 'General', description: 'General discussion' },
+    { id: 'cases', name: 'Cases', description: 'Case updates & status' },
+    { id: 'announcements', name: 'Announcements', description: 'Team announcements' },
+    { id: 'random', name: 'Random', description: 'Off-topic chat' },
+  ]));
+  const members = JSON.parse(localStorage.getItem('km_chat_members') || JSON.stringify([
+    { id: '1', name: 'You (Attorney)', status: 'online', role: 'Admin' },
+    { id: '2', name: 'Team Member 1', status: 'online', role: 'Member' },
+    { id: '3', name: 'Team Member 2', status: 'offline', role: 'Member' },
+    { id: '4', name: 'Team Member 3', status: 'online', role: 'Member' },
+  ]));
+
+  if (!State.teamChat) State.teamChat = { currentChannel: 'general' };
 
   return `
     <div class="topbar">
       <div class="topbar-title">Team Chat</div>
     </div>
-    <div class="content" style="display:flex;flex-direction:column;gap:0;height:calc(100vh - 180px)">
-      <div class="panel" style="flex:1;overflow-y:auto;margin-bottom:0;border-radius:8px 8px 0 0">
-        <div class="panel-title" style="margin-bottom:12px">Messages</div>
-        ${msgs.length ? msgs.map(m => `
-          <div style="padding:8px;margin-bottom:8px;background:var(--surface-2);border-radius:6px;border-left:3px solid var(--gold)">
-            <div style="font-weight:600;font-size:12px;color:var(--gold)">${escHtml(m.from)}</div>
-            <div style="font-size:13px;margin-top:4px;color:var(--text)">${escHtml(m.text)}</div>
-            <div style="font-size:10px;color:var(--text-3);margin-top:4px">${escHtml(m.time)}</div>
-          </div>`).join('') : '<p style="color:var(--text-3)">No messages yet</p>'}
+    <div class="content" style="display:flex;gap:16px;height:calc(100vh - 200px)">
+      <div style="width:180px;border-right:1px solid var(--border-2);overflow-y:auto">
+        <div style="font-weight:600;color:var(--text-3);font-size:11px;padding:8px;text-transform:uppercase">Channels</div>
+        ${channels.map(ch => `
+          <button class="nav-item" onclick="State.teamChat.currentChannel='${ch.id}';render()"
+            style="width:calc(100% - 16px);margin:4px 8px;background:${currentChannel===ch.id?'var(--gold-dim)':'transparent'};justify-content:flex-start;text-align:left">
+            # ${escHtml(ch.name)}
+          </button>`).join('')}
+        <div style="border-top:1px solid var(--border-2);margin-top:12px;padding-top:12px;font-weight:600;color:var(--text-3);font-size:11px;padding-left:8px;text-transform:uppercase">Members (${members.length})</div>
+        ${members.map(m => `
+          <div style="padding:8px;display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-2)">
+            <span style="width:8px;height:8px;border-radius:50%;background:${m.status==='online'?'var(--green)':'var(--text-3)'}"></span>
+            ${escHtml(m.name.replace('You (Attorney)','You'))}
+          </div>`).join('')}
       </div>
-      <div style="background:var(--surface-2);padding:12px;border-radius:0 0 8px 8px;border-top:1px solid var(--border-2);display:flex;gap:8px">
-        <input type="text" id="team-chat-input" placeholder="Type message…"
-          onkeydown="if(event.key==='Enter') _teamChatSend()"
-          style="flex:1;background:var(--surface);border:1px solid var(--border-2);border-radius:6px;padding:8px 12px;font-size:13px" />
-        <button class="btn btn-gold btn-sm" onclick="_teamChatSend()">Send</button>
+      <div style="flex:1;display:flex;flex-direction:column">
+        <div style="margin-bottom:12px">
+          <div style="font-size:16px;font-weight:600;color:var(--text)"># ${escHtml(channels.find(c=>c.id===currentChannel)?.name||'—')}</div>
+          <div style="font-size:12px;color:var(--text-3)">${escHtml(channels.find(c=>c.id===currentChannel)?.description||'')}</div>
+        </div>
+        <div style="flex:1;border:1px solid var(--border-2);border-radius:8px;overflow-y:auto;padding:12px;margin-bottom:12px">
+          ${msgs.length ? msgs.map(m => `
+            <div style="margin-bottom:12px">
+              <div style="display:flex;gap:8px;align-items:baseline">
+                <div style="font-weight:600;font-size:12px;color:var(--gold)">${escHtml(m.from)}</div>
+                <div style="font-size:10px;color:var(--text-3)">${escHtml(m.time)}</div>
+              </div>
+              <div style="color:var(--text);margin-top:2px">${escHtml(m.text)}</div>
+            </div>`).join('') : '<p style="color:var(--text-3);text-align:center">No messages yet. Start the conversation!</p>'}
+        </div>
+        <div style="display:flex;gap:8px">
+          <input type="text" id="team-chat-input" placeholder="Send a message…"
+            onkeydown="if(event.key==='Enter') _teamChatSend()"
+            style="flex:1;background:var(--surface);border:1px solid var(--border-2);border-radius:6px;padding:8px 12px;font-size:13px;color:var(--text)" />
+          <button class="btn btn-gold btn-sm" onclick="_teamChatSend()">Send</button>
+        </div>
       </div>
     </div>`;
 }
@@ -3169,11 +3285,14 @@ function _teamChatSend() {
   if (!input) return;
   const msg = input.value.trim();
   if (!msg) { toast('Message cannot be empty', 'warn'); return; }
+
   let msgs = JSON.parse(localStorage.getItem('km_team_chat') || '[]');
+  const channel = State.teamChat?.currentChannel || 'general';
   msgs.push({
     id: uuid(),
-    from: 'You (Attorney)',
+    from: 'You',
     text: msg,
+    channel: channel,
     time: new Date().toLocaleTimeString('en-US', {hour:'2-digit',minute:'2-digit'}),
   });
   localStorage.setItem('km_team_chat', JSON.stringify(msgs));
