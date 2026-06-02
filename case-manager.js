@@ -2577,6 +2577,14 @@ function _confirmClearAll() {
 
 // ---- Main render ----
 function renderMain() {
+  // v2 views (handled by case-manager-v2.js)
+  if (typeof renderDropboxSection !== 'undefined' && State.view === 'dropbox') {
+    return renderDropboxSection();
+  }
+  if (typeof renderZoomMeetings !== 'undefined' && State.view === 'zoom') {
+    return renderZoomMeetings();
+  }
+
   switch (State.view) {
     case 'dashboard':   return renderDashboard();
     case 'cases':       return renderCasesList();

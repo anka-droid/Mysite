@@ -1425,12 +1425,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // ================================================================
 
-// Override renderMain to support Dropbox and Zoom views
-const _v2_origRenderMain = renderMain;
-renderMain = function() {
-  if (State.view === 'dropbox') return renderDropboxSection();
-  if (State.view === 'zoom')    return renderZoomMeetings();
-  return _v2_origRenderMain();
-};
-
 console.info('[Kamkhadze PA v2] Loaded: Zoom ✓ Dropbox ✓ Excel ✓');
