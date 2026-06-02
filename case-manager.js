@@ -2729,121 +2729,72 @@ function dropboxSearchInput(val) { State.dropbox.search = val; render(); }
 function dropboxOpenFile(id) { State.dropbox.activeFileId = id; render(); }
 
 // ---- Email view ----
-function emailToggleCompose() {
-  State.email.composing = !State.email.composing;
-  if (State.email.composing) State.email.composeData = { to: '', subject: '', body: '' };
-  render();
-}
-
-function emailInputTo(val) { State.email.composeData.to = val; }
-function emailInputSubject(val) { State.email.composeData.subject = val; }
-function emailInputBody(val) { State.email.composeData.body = val; }
-
 function renderEmailView() {
   const sent = State.email.sent || [];
+  const composing = State.email.composing || false;
+  const to = (State.email.composeData && State.email.composeData.to) || '';
+  const subject = (State.email.composeData && State.email.composeData.subject) || '';
+  const body = (State.email.composeData && State.email.composeData.body) || '';
+
   return `
     <div class="topbar">
       <div class="topbar-title">Email</div>
       <div class="topbar-actions">
-        <button class="btn btn-gold" onclick="emailToggleCompose()">
-          ${icon('email')} ${State.email.composing ? 'Cancel' : 'Compose'}
+        <button class="btn btn-gold" onclick="State.email.composing=!State.email.composing;render()">
+          ${icon('email')} ${composing ? 'Close' : 'Compose'}
         </button>
       </div>
     </div>
     <div class="content">
-      ${State.email.composing ? `
+      ${composing ? `
       <div class="panel" style="margin-bottom:24px;border-color:rgba(92,199,181,0.25)">
-        <div class="panel-title" style="margin-bottom:16px">${icon('email')} Compose New Email</div>
+        <div class="panel-title" style="margin-bottom:16px">${icon('email')} New Email</div>
         <div class="field">
-          <label>Recipient Email *</label>
-          <input type="email" placeholder="example@domain.com"
-            id="email-to-input"
-            value="${escAttr(State.email.composeData.to || '')}"
-            oninput="emailInputTo(this.value)" />
+          <label>To *</label>
+          <input type="email" placeholder="email@example.com" id="email-to"
+            value="${escAttr(to)}"
+            onchange="State.email.composeData.to=this.value" />
         </div>
         <div class="field">
           <label>Subject *</label>
-          <input type="text" placeholder="Email subject…"
-            id="email-subject-input"
-            value="${escAttr(State.email.composeData.subject || '')}"
-            oninput="emailInputSubject(this.value)" />
+          <input type="text" placeholder="Subject…" id="email-subj"
+            value="${escAttr(subject)}"
+            onchange="State.email.composeData.subject=this.value" />
         </div>
         <div class="field">
           <label>Message</label>
-          <textarea rows="10" placeholder="Write your email message…"
-            id="email-body-input"
-            oninput="emailInputBody(this.value)"
-            style="font-family:var(--font-body);font-size:13px;resize:vertical;">${escHtml(State.email.composeData.body || '')}</textarea>
+          <textarea rows="8" placeholder="Your message…" id="email-body"
+            onchange="State.email.composeData.body=this.value"
+            style="font-family:var(--font-body)">${escHtml(body)}</textarea>
         </div>
-        <div style="display:flex;gap:8px;margin-top:12px">
-          <button class="btn btn-gold" style="flex:1;justify-content:center" onclick="emailSendNow()">${icon('email')} Send Email</button>
-          <button class="btn btn-ghost" onclick="emailToggleCompose()">Cancel</button>
-        </div>
+        <button class="btn btn-gold" onclick="_emailSend()">Send Email</button>
       </div>` : ''}
       <div class="panel">
-        <div class="panel-title">${icon('email')} Email History</div>
-        ${sent.length ? sent.map((e,i) => `
-          <div style="padding:12px 0;border-bottom:${i===sent.length-1?'none':'1px solid var(--border-2)'}">
-            <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px">
-              <div style="flex:1;min-width:0">
-                <div style="font-size:13.5px;font-weight:500;color:var(--text)">${escHtml(e.subject)}</div>
-                <div style="font-size:12px;color:var(--text-3);margin-top:2px">To: <span style="color:var(--text-2)">${escHtml(e.fromEmail || e.to || '—')}</span></div>
-                <div style="font-size:12px;color:var(--text-3);margin-top:2px">${escHtml(e.date)} ${escHtml(e.time || '')}</div>
-                <div style="font-size:12px;color:var(--text-2);margin-top:4px;line-height:1.4">${escHtml((e.preview || e.body || '').slice(0, 120))}${(e.preview || e.body || '').length > 120 ? '…' : ''}</div>
-              </div>
-              <button class="btn btn-ghost btn-sm" onclick="emailViewFull(${i})">View</button>
-            </div>
-          </div>`).join('') : `
-          <div style="text-align:center;padding:32px;color:var(--text-3)">
-            <div style="font-size:32px;margin-bottom:8px">✉️</div>
-            <p>No emails sent yet. Click "Compose" to send an email.</p>
-          </div>`}
+        <div class="panel-title">${icon('email')} Sent</div>
+        ${sent.length ? sent.map(e => `
+          <div style="padding:12px 0;border-bottom:1px solid var(--border-2);font-size:12.5px">
+            <strong>${escHtml(e.subject)}</strong><br>
+            <span style="color:var(--text-3)">To: ${escHtml(e.to)} · ${escHtml(e.date)}</span><br>
+            <span style="color:var(--text-2)">${escHtml((e.body||'').slice(0,100))}</span>
+          </div>`).join('') : '<p style="color:var(--text-3)">No emails yet</p>'}
       </div>
     </div>`;
 }
 
-function emailSendNow() {
-  const to = State.email.composeData.to?.trim();
-  const subject = State.email.composeData.subject?.trim();
-  const body = State.email.composeData.body?.trim();
-
-  if (!to || !to.includes('@')) {
-    toast('Please enter a valid email address', 'warn');
-    document.getElementById('email-to-input')?.focus();
-    return;
-  }
-  if (!subject) {
-    toast('Please enter a subject', 'warn');
-    document.getElementById('email-subject-input')?.focus();
-    return;
-  }
-
-  const sent = {
-    id: uuid(),
-    from: 'You',
-    fromEmail: to,
-    to: to,
-    subject: subject,
-    body: body,
-    preview: body.slice(0, 80),
-    date: new Date().toLocaleDateString(),
-    time: new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }),
-    unread: false,
-  };
-
-  State.email.sent.unshift(sent);
+function _emailSend() {
+  const to = document.getElementById('email-to')?.value.trim();
+  const subject = document.getElementById('email-subj')?.value.trim();
+  const body = document.getElementById('email-body')?.value.trim();
+  if (!to) { toast('Email required', 'warn'); return; }
+  if (!subject) { toast('Subject required', 'warn'); return; }
+  const e = { id: uuid(), to, subject, body, date: new Date().toLocaleDateString() };
+  State.email.sent.unshift(e);
   localStorage.setItem('km_email_sent', JSON.stringify(State.email.sent));
-
-  window.open(`mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`, '_blank');
-  toast('Email opened in your mail client');
+  window.open(`mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`);
   State.email.composing = false;
+  State.email.composeData = { to: '', subject: '', body: '' };
+  toast('Email sent!');
   render();
-}
-
-function emailViewFull(idx) {
-  const e = State.email.sent[idx];
-  if (!e) return;
-  alert(`${e.subject}\n\nTo: ${e.to}\nSent: ${e.date} ${e.time}\n\n${e.body}`);
 }
 
 // ---- Invoice view ----
@@ -3187,77 +3138,47 @@ function uscisFormChecklist(code) {
 
 // ---- Team Chat view ----
 function renderTeamChat() {
-  if (!State.teamChat) {
-    State.teamChat = {
-      messages: JSON.parse(localStorage.getItem('km_team_chat') || '[]'),
-      members: ['You (Attorney)', 'Team Member 1', 'Team Member 2'],
-      currentUser: 'You (Attorney)',
-      messageInput: '',
-    };
-  }
-  const msgs = State.teamChat.messages;
+  let msgs = JSON.parse(localStorage.getItem('km_team_chat') || '[]');
+  const msgInput = document.getElementById('team-chat-input')?.value || '';
 
   return `
     <div class="topbar">
       <div class="topbar-title">Team Chat</div>
-      <div class="topbar-actions">
-        <span style="font-size:12px;color:var(--text-3)">
-          ${State.teamChat.members.length} member${State.teamChat.members.length !== 1 ? 's' : ''}
-        </span>
-      </div>
     </div>
-    <div class="content" style="display:flex;flex-direction:column;gap:0">
-      <div class="panel" style="flex:1;display:flex;flex-direction:column;max-height:calc(100vh - 240px);overflow:hidden;margin-bottom:0;border-radius:8px 8px 0 0">
-        <div class="panel-title" style="border-bottom:1px solid var(--border-2);padding-bottom:12px">Messages</div>
-        <div id="chat-messages" style="flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px">
-          ${msgs.length ? msgs.map(m => `
-            <div style="display:flex;gap:10px;${m.from === State.teamChat.currentUser ? 'flex-direction:row-reverse;align-items:flex-end' : ''}">
-              <div style="width:32px;height:32px;border-radius:50%;background:var(--gold-dim);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:var(--gold);flex-shrink:0">${escHtml((m.from||'?')[0])}</div>
-              <div style="${m.from === State.teamChat.currentUser ? 'text-align:right' : ''}">
-                <div style="font-size:11px;font-weight:600;color:var(--text-3);margin-bottom:2px">${escHtml(m.from)}</div>
-                <div style="background:${m.from === State.teamChat.currentUser ? 'var(--gold)' : 'var(--surface-2)'};color:${m.from === State.teamChat.currentUser ? '#000' : 'var(--text)'};padding:8px 12px;border-radius:10px;max-width:320px;word-wrap:break-word;font-size:13px;line-height:1.4">${escHtml(m.text)}</div>
-                <div style="font-size:10px;color:var(--text-3);margin-top:4px">${escHtml(m.time)}</div>
-              </div>
-            </div>`) : `
-            <div style="text-align:center;color:var(--text-3);padding:24px">No messages yet. Start the conversation!</div>`}
-        </div>
+    <div class="content" style="display:flex;flex-direction:column;gap:0;height:calc(100vh - 180px)">
+      <div class="panel" style="flex:1;overflow-y:auto;margin-bottom:0;border-radius:8px 8px 0 0">
+        <div class="panel-title" style="margin-bottom:12px">Messages</div>
+        ${msgs.length ? msgs.map(m => `
+          <div style="padding:8px;margin-bottom:8px;background:var(--surface-2);border-radius:6px;border-left:3px solid var(--gold)">
+            <div style="font-weight:600;font-size:12px;color:var(--gold)">${escHtml(m.from)}</div>
+            <div style="font-size:13px;margin-top:4px;color:var(--text)">${escHtml(m.text)}</div>
+            <div style="font-size:10px;color:var(--text-3);margin-top:4px">${escHtml(m.time)}</div>
+          </div>`).join('') : '<p style="color:var(--text-3)">No messages yet</p>'}
       </div>
       <div style="background:var(--surface-2);padding:12px;border-radius:0 0 8px 8px;border-top:1px solid var(--border-2);display:flex;gap:8px">
-        <input type="text" placeholder="Type a message…"
-          id="chat-input"
-          value="${escAttr(State.teamChat.messageInput || '')}"
-          oninput="State.teamChat.messageInput=this.value"
-          onkeydown="if(event.key==='Enter') teamChatSendMessage()"
-          style="flex:1;background:var(--surface);border:1px solid var(--border-2);border-radius:6px;padding:8px 12px;color:var(--text);font-size:13px;outline:none" />
-        <button class="btn btn-gold btn-sm" onclick="teamChatSendMessage()" style="flex-shrink:0">Send</button>
+        <input type="text" id="team-chat-input" placeholder="Type message…"
+          onkeydown="if(event.key==='Enter') _teamChatSend()"
+          style="flex:1;background:var(--surface);border:1px solid var(--border-2);border-radius:6px;padding:8px 12px;font-size:13px" />
+        <button class="btn btn-gold btn-sm" onclick="_teamChatSend()">Send</button>
       </div>
-    </div>
-    <script>
-      setTimeout(() => {
-        const msgs = document.getElementById('chat-messages');
-        if (msgs) msgs.scrollTop = msgs.scrollHeight;
-        const inp = document.getElementById('chat-input');
-        if (inp) inp.focus();
-      }, 50);
-    </script>`;
+    </div>`;
 }
 
-function teamChatSendMessage() {
-  const msg = (State.teamChat.messageInput || '').trim();
-  if (!msg) { toast('Please type a message', 'warn'); return; }
-
-  const newMsg = {
+function _teamChatSend() {
+  const input = document.getElementById('team-chat-input');
+  if (!input) return;
+  const msg = input.value.trim();
+  if (!msg) { toast('Message cannot be empty', 'warn'); return; }
+  let msgs = JSON.parse(localStorage.getItem('km_team_chat') || '[]');
+  msgs.push({
     id: uuid(),
-    from: State.teamChat.currentUser,
+    from: 'You (Attorney)',
     text: msg,
-    time: new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }),
-    date: new Date().toLocaleDateString(),
-  };
-
-  State.teamChat.messages.push(newMsg);
-  State.teamChat.messageInput = '';
-  localStorage.setItem('km_team_chat', JSON.stringify(State.teamChat.messages));
-
+    time: new Date().toLocaleTimeString('en-US', {hour:'2-digit',minute:'2-digit'}),
+  });
+  localStorage.setItem('km_team_chat', JSON.stringify(msgs));
+  input.value = '';
+  toast('Message sent!');
   render();
 }
 
