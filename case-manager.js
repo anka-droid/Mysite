@@ -2469,10 +2469,36 @@ function renderSettings() {
       </div>
 
       <div class="panel" style="margin-top:16px">
+        <div class="panel-title">Encrypted Backup — Transfer Between Devices</div>
+        <p style="font-size:13px;color:var(--text-3);margin-bottom:16px;line-height:1.6">
+          Create a fully encrypted backup of <strong style="color:var(--text)">all your data</strong> — cases, zoom meetings, emails, invoices, documents, team chat.
+          The backup file is encrypted with your login password and can only be opened by someone who knows it.
+          Save it to Google Drive, email it to yourself, or copy it to any device.
+        </p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px">
+          <div style="padding:16px;border:1px solid var(--border-2);border-radius:8px;background:var(--surface-2)">
+            <div style="font-weight:600;color:var(--text);margin-bottom:6px">☁ Backup to File</div>
+            <div style="font-size:12px;color:var(--text-3);margin-bottom:12px">Download an encrypted .kmbak file containing all your data</div>
+            <button class="btn btn-gold" style="width:100%;justify-content:center" onclick="_backupToFile()">Download Encrypted Backup</button>
+          </div>
+          <div style="padding:16px;border:1px solid var(--border-2);border-radius:8px;background:var(--surface-2)">
+            <div style="font-weight:600;color:var(--text);margin-bottom:6px">⬇ Restore from File</div>
+            <div style="font-size:12px;color:var(--text-3);margin-bottom:12px">Upload a .kmbak file to restore all data on this device</div>
+            <button class="btn btn-ghost" style="width:100%;justify-content:center" onclick="document.getElementById('restore-file-input').click()">Upload Backup File</button>
+            <input type="file" id="restore-file-input" accept=".kmbak,.json" style="display:none" onchange="_restoreFromFile(this)" />
+          </div>
+        </div>
+        <div style="padding:12px;background:var(--gold-dim);border:1px solid rgba(212,175,55,0.2);border-radius:6px;font-size:12px;color:var(--text-2)">
+          🔒 <strong>Security:</strong> Backup files are AES-256-GCM encrypted. Without your password they are unreadable.
+          Store backups in Google Drive, Dropbox, or email — they are safe to keep in cloud storage.
+        </div>
+      </div>
+
+      <div class="panel" style="margin-top:16px">
         <div class="panel-title">Data Management</div>
         <div style="display:flex;gap:8px;flex-wrap:wrap">
           <button class="btn btn-ghost btn-sm" onclick="showImportCases()">Import Cases from Excel</button>
-          <button class="btn btn-ghost btn-sm" onclick="_exportCases()">Export All Cases (JSON)</button>
+          <button class="btn btn-ghost btn-sm" onclick="_exportCases()">Export Cases (JSON)</button>
           <button class="btn btn-danger btn-sm" onclick="_confirmClearAll()">Clear All Cases</button>
         </div>
       </div>
@@ -2625,6 +2651,105 @@ function _exportCases() {
   const a = document.createElement('a');
   a.href = url; a.download = `kamkhadze-cases-${today()}.json`; a.click();
   URL.revokeObjectURL(url);
+}
+
+async function _backupToFile() {
+  const btn = event?.target;
+  if (btn) { btn.disabled = true; btn.textContent = 'Encrypting…'; }
+  try {
+    const allData = {
+      version: 2,
+      exportedAt: new Date().toISOString(),
+      cases:           localStorage.getItem('km_cases_enc_v1') || '',
+      zoom:            localStorage.getItem('km_zoom_meetings') || '[]',
+      emailSent:       localStorage.getItem('km_email_sent') || '[]',
+      emailDrafts:     localStorage.getItem('km_email_drafts') || '[]',
+      emailTemplates:  localStorage.getItem('km_email_templates') || '[]',
+      invoices:        localStorage.getItem('km_invoices') || '[]',
+      questionnaires:  localStorage.getItem('km_questionnaires') || '[]',
+      teamChat:        localStorage.getItem('km_team_chat') || '[]',
+      raTmpl:          localStorage.getItem('km_ra_template') || '',
+      petitionTpl0:    localStorage.getItem('km_petition_tpl_0') || '',
+      petitionTpl1:    localStorage.getItem('km_petition_tpl_1') || '',
+      petitionTpl2:    localStorage.getItem('km_petition_tpl_2') || '',
+    };
+    // Encrypt the entire bundle
+    const plaintext = JSON.stringify(allData);
+    const encrypted = await Auth.encrypt(plaintext);
+    const fileContent = JSON.stringify({ kmbak: 1, data: encrypted });
+    const blob = new Blob([fileContent], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    const dateStr = new Date().toISOString().slice(0,10);
+    a.href = url;
+    a.download = `kamkhadze-backup-${dateStr}.kmbak`;
+    a.click();
+    URL.revokeObjectURL(url);
+    toast('Encrypted backup downloaded!');
+  } catch(e) {
+    toast('Backup failed: ' + e.message, 'error');
+  } finally {
+    if (btn) { btn.disabled = false; btn.textContent = 'Download Encrypted Backup'; }
+  }
+}
+
+async function _restoreFromFile(input) {
+  const file = input.files?.[0];
+  if (!file) return;
+  input.value = '';
+  if (!confirm(`Restore from "${file.name}"? This will overwrite ALL data on this device.`)) return;
+
+  try {
+    const text = await file.text();
+    const parsed = JSON.parse(text);
+
+    let allData;
+    if (parsed.kmbak === 1) {
+      // Encrypted backup — decrypt first
+      const plain = await Auth.decrypt(parsed.data);
+      allData = JSON.parse(plain);
+    } else if (parsed.version === 2) {
+      // Unencrypted legacy format
+      allData = parsed;
+    } else {
+      toast('Unrecognised backup file format', 'error');
+      return;
+    }
+
+    // Restore all slots
+    if (allData.cases)          localStorage.setItem('km_cases_enc_v1',   allData.cases);
+    if (allData.zoom)           localStorage.setItem('km_zoom_meetings',   allData.zoom);
+    if (allData.emailSent)      localStorage.setItem('km_email_sent',      allData.emailSent);
+    if (allData.emailDrafts)    localStorage.setItem('km_email_drafts',    allData.emailDrafts);
+    if (allData.emailTemplates) localStorage.setItem('km_email_templates', allData.emailTemplates);
+    if (allData.invoices)       localStorage.setItem('km_invoices',        allData.invoices);
+    if (allData.questionnaires) localStorage.setItem('km_questionnaires',  allData.questionnaires);
+    if (allData.teamChat)       localStorage.setItem('km_team_chat',       allData.teamChat);
+    if (allData.raTmpl)         localStorage.setItem('km_ra_template',     allData.raTmpl);
+    if (allData.petitionTpl0)   localStorage.setItem('km_petition_tpl_0',  allData.petitionTpl0);
+    if (allData.petitionTpl1)   localStorage.setItem('km_petition_tpl_1',  allData.petitionTpl1);
+    if (allData.petitionTpl2)   localStorage.setItem('km_petition_tpl_2',  allData.petitionTpl2);
+
+    // Reload decrypted cases into State
+    await Storage.load();
+    try {
+      const zm = localStorage.getItem('km_zoom_meetings');
+      if (zm) State.zoom.meetings = JSON.parse(zm);
+    } catch(e) {}
+    try {
+      const es = localStorage.getItem('km_email_sent');
+      if (es) State.email.sent = JSON.parse(es);
+    } catch(e) {}
+
+    toast('All data restored successfully!');
+    render();
+  } catch(e) {
+    if (e.message?.includes('decrypt')) {
+      toast('Wrong password — this backup was created with a different password', 'error');
+    } else {
+      toast('Restore failed: ' + e.message, 'error');
+    }
+  }
 }
 
 function _confirmClearAll() {
