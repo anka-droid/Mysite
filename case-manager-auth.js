@@ -436,6 +436,7 @@ const Auth = (() => {
         </div>
         ${message ? `<div class="auth-info" style="display:block">${message}</div>` : ''}
         <div class="auth-error" id="auth-error"></div>
+        <div class="auth-info" id="auth-info" style="display:none"></div>
         ${lockout ? `
           <div style="text-align:center">
             <div style="color:var(--red);font-size:13px;margin-bottom:8px">
@@ -462,10 +463,15 @@ const Auth = (() => {
             <span id="auth-btn-text">Sign In</span>
             <div class="auth-spinner" id="auth-spinner"></div>
           </button>
+          <div style="text-align:center;margin-top:16px;font-size:13px;color:var(--text-3)">
+            First time here?
+            <a href="#" onclick="Auth._showSetup();return false"
+              style="color:var(--gold);text-decoration:none;font-weight:600"> Create account →</a>
+          </div>
         `}
         <div class="auth-footer">
           🔒 Encrypted with AES-256-GCM · PBKDF2 key derivation<br/>
-          Data never leaves your device.
+          Sign in from any device — your data restores automatically.
         </div>
       </div>`;
 
@@ -527,6 +533,11 @@ const Auth = (() => {
           <span id="auth-btn-text">Create Account &amp; Enter</span>
           <div class="auth-spinner" id="auth-spinner"></div>
         </button>
+        <div style="text-align:center;margin-top:16px;font-size:13px;color:var(--text-3)">
+          Already have an account?
+          <a href="#" onclick="Auth._showLogin();return false"
+            style="color:var(--gold);text-decoration:none;font-weight:600"> Sign in →</a>
+        </div>
         <div class="auth-footer">
           🔒 Your password is used to derive an AES-256 encryption key via PBKDF2.<br/>
           It is <strong>never stored</strong> — only a cryptographic verifier is saved.<br/>
@@ -598,18 +609,42 @@ const Auth = (() => {
       return;
     }
 
-    const cfg = getAuthConfig();
-    if (!cfg) { showSetupScreen(); return; }
-    if (cfg.username !== username) {
-      recordFailedAttempt();
-      showAuthError('Invalid username or password.');
-      return;
-    }
-
     const lockout = isLockedOut();
     if (lockout) { startLockoutCountdown(lockout.seconds); return; }
 
     setLoading(true);
+
+    let cfg = getAuthConfig();
+
+    // No local config — new device. Try to recover credentials from Supabase.
+    if (!cfg || cfg.username !== username) {
+      showAuthNotice('New device detected — checking cloud for your account…');
+      const remoteCfg = await _fetchRemoteAuthConfig(username);
+      if (!remoteCfg) {
+        setLoading(false);
+        showAuthError('No account found for this username. Create one first.');
+        return;
+      }
+      // Verify the password against the remote config
+      try {
+        const salt = fromB64(remoteCfg.salt);
+        const key  = await deriveKey(password, salt);
+        await _decrypt(key, remoteCfg.verifier);
+        // Password correct — save config locally so future logins work offline
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(remoteCfg));
+        _key = key;
+        _username = username;
+        clearLockout();
+        await storeSession(key, username);
+        bootApp();
+      } catch {
+        setLoading(false);
+        const remaining = recordFailedAttempt();
+        showAuthError(`Invalid password. ${remaining} attempt${remaining !== 1 ? 's' : ''} remaining.`);
+      }
+      return;
+    }
+
     try {
       const salt = fromB64(cfg.salt);
       const key  = await deriveKey(password, salt);
@@ -660,14 +695,13 @@ const Auth = (() => {
       const salt = randBytes(16);
       const key  = await deriveKey(password, salt);
       const verifier = await _encrypt(key, VERIFY_PLAIN);
-      localStorage.setItem(STORAGE_KEY, JSON.stringify({
-        username,
-        salt: toB64(salt.buffer),
-        verifier,
-      }));
+      const authCfg = { username, salt: toB64(salt.buffer), verifier };
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(authCfg));
       _key = key;
       _username = username;
       await storeSession(key, username);
+      // Push auth config to Supabase so this account can be recovered on any device
+      await _pushRemoteAuthConfig(username, authCfg);
       bootApp();
     } catch (err) {
       setLoading(false);
@@ -681,6 +715,53 @@ const Auth = (() => {
     const label = document.getElementById('pw-strength-label');
     if (fill)  { fill.style.width = s.pct + '%'; fill.style.background = s.color; }
     if (label) { label.textContent = s.label; label.style.color = s.color; }
+  }
+
+  function showAuthNotice(msg) {
+    const el = document.getElementById('auth-info');
+    if (el) { el.textContent = msg; el.style.display = 'block'; }
+  }
+
+  // ---- Supabase helpers (standalone — no dependency on case-manager-supabase.js) ----
+  const _SB_URL = 'https://nqcgfiicirlqvnmkzehy.supabase.co';
+  const _SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5xY2dmaWljaXJscXZubWt6ZWh5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk5NDQ0NDAsImV4cCI6MjA5NTUyMDQ0MH0.WPZbZNidW99ZlXUjKOQ9yXro12sev9cYp2Px2pkgKQI';
+
+  async function _fetchRemoteAuthConfig(username) {
+    try {
+      const url = localStorage.getItem('km_supabase_url') || _SB_URL;
+      const key = localStorage.getItem('km_supabase_anon_key') || _SB_KEY;
+      const res = await fetch(
+        `${url}/rest/v1/km_sync?username=eq.${encodeURIComponent(username)}&slot=eq.auth_config&select=data&limit=1`,
+        { headers: { apikey: key, Authorization: `Bearer ${key}` } }
+      );
+      if (!res.ok) return null;
+      const rows = await res.json();
+      return rows?.[0]?.data ? JSON.parse(rows[0].data) : null;
+    } catch { return null; }
+  }
+
+  async function _pushRemoteAuthConfig(username, cfg) {
+    try {
+      const url = localStorage.getItem('km_supabase_url') || _SB_URL;
+      const key = localStorage.getItem('km_supabase_anon_key') || _SB_KEY;
+      await fetch(`${url}/rest/v1/km_sync`, {
+        method: 'POST',
+        headers: {
+          apikey: key,
+          Authorization: `Bearer ${key}`,
+          'Content-Type': 'application/json',
+          Prefer: 'resolution=merge-duplicates',
+        },
+        body: JSON.stringify({
+          username,
+          slot: 'auth_config',
+          data: JSON.stringify(cfg),
+          updated_at: new Date().toISOString(),
+        }),
+      });
+    } catch(e) {
+      console.warn('[Auth] Could not push auth config to Supabase:', e.message);
+    }
   }
 
   function bootApp() {
@@ -701,7 +782,9 @@ const Auth = (() => {
   async function init() {
     injectStyles();
     if (!isSetup()) {
-      showSetupScreen();
+      // No local config — could be a new user or a returning user on a new device.
+      // Show login first (it has a "Create account" link for truly new users).
+      showLoginScreen();
       return;
     }
     const resumed = await restoreSession();
@@ -723,6 +806,8 @@ const Auth = (() => {
     _handleLogin,
     _handleSetup,
     _updateStrength,
+    _showSetup: showSetupScreen,
+    _showLogin: showLoginScreen,
   };
 })();
 
