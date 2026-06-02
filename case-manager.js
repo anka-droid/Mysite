@@ -40,11 +40,13 @@ const State = {
   },
   // Email state (loaded by case-manager-v2.js)
   email: {
+    composing: false,
     tab: 'inbox',
     composeData: { to: '', subject: '', body: '' },
-    sent: [],
+    sent: JSON.parse(localStorage.getItem('km_email_sent') || '[]'),
     activeEmailId: null,
   },
+  invoices: null, // loaded lazily from localStorage
 };
 
 // ---- Encrypted Persistence ----
@@ -401,12 +403,25 @@ function renderSidebar() {
             ${icon('overview')} ${c.firstName} ${c.lastName}
           </button>` : '';
         })() : ''}
-        <div class="nav-section-label" style="margin-top:16px">Tools</div>
-        <button class="nav-item ${activeView === 'dropbox' ? 'active' : ''}" onclick="navigate('dropbox')">
-          ${icon('dropbox')} Document Vault
+        <div class="nav-section-label" style="margin-top:16px">Communication</div>
+        <button class="nav-item ${activeView === 'email' ? 'active' : ''}" onclick="navigate('email')">
+          ${icon('email')} Email
         </button>
         <button class="nav-item ${activeView === 'zoom' ? 'active' : ''}" onclick="navigate('zoom')">
           ${icon('calendar')} Zoom Meetings
+        </button>
+        <div class="nav-section-label" style="margin-top:16px">Documents</div>
+        <button class="nav-item ${activeView === 'dropbox' ? 'active' : ''}" onclick="navigate('dropbox')">
+          ${icon('dropbox')} Document Vault
+        </button>
+        <button class="nav-item ${activeView === 'invoices' ? 'active' : ''}" onclick="navigate('invoices')">
+          ${icon('docs')} Invoices
+        </button>
+        <button class="nav-item ${activeView === 'questionnaires' ? 'active' : ''}" onclick="navigate('questionnaires')">
+          ${icon('petition')} Questionnaires
+        </button>
+        <button class="nav-item ${activeView === 'uscis-forms' ? 'active' : ''}" onclick="navigate('uscis-forms')">
+          ${icon('status')} USCIS Forms
         </button>
         <div class="nav-section-label" style="margin-top:16px">Actions</div>
         <button class="nav-item" onclick="showAddCase()">
@@ -2623,6 +2638,484 @@ function emailSend() {
   render();
 }
 
+// ---- Stub functions patched by case-manager-v2.js ----
+function rerenderZoom() { render(); }
+function rerenderEmail() { render(); }
+function rerenderDropbox() { render(); }
+function zoomCreateMeeting() {}
+function zoomToggleScheduleForm() {
+  State.zoom.showScheduleForm = !State.zoom.showScheduleForm;
+  render();
+}
+function zoomSelectClientFromSearch(caseId) {
+  State.zoom.scheduleClient = State.cases.find(c => c.id === caseId) || null;
+  render();
+}
+function zoomSaveMeetings() {
+  try { localStorage.setItem('km_zoom_meetings', JSON.stringify(State.zoom.meetings)); } catch(e) {}
+}
+function zoomSendInvitation(meeting) {
+  if (!meeting.clientEmail) { toast('No client email on file', 'warn'); return; }
+  const subj = encodeURIComponent(`Zoom Meeting: ${meeting.topic || 'Consultation'}`);
+  const body = encodeURIComponent(`Your meeting is scheduled for ${meeting.date} at ${meeting.time}.\n\n${meeting.zoomLink ? 'Join: ' + meeting.zoomLink : 'A link will be sent shortly.'}`);
+  window.open(`mailto:${meeting.clientEmail}?subject=${subj}&body=${body}`, '_blank');
+  toast('Invitation email opened');
+}
+function zoomSendReminder(meetingId) {
+  const m = State.zoom.meetings.find(x => x.id === meetingId);
+  if (!m) return;
+  zoomSendInvitation(m);
+}
+function zoomDeleteMeeting(meetingId) {
+  if (!confirm('Delete this meeting?')) return;
+  State.zoom.meetings = State.zoom.meetings.filter(m => m.id !== meetingId);
+  zoomSaveMeetings();
+  render();
+  toast('Meeting deleted');
+}
+function zoomCopyLink(meetingId) {
+  const m = State.zoom.meetings.find(x => x.id === meetingId);
+  if (!m || !m.zoomLink) { toast('No Zoom link available', 'warn'); return; }
+  navigator.clipboard.writeText(m.zoomLink).then(() => toast('Link copied!')).catch(() => toast('Could not copy', 'warn'));
+}
+function zoomAddNotes(meetingId) {
+  const m = State.zoom.meetings.find(x => x.id === meetingId);
+  if (!m) return;
+  const notes = prompt('Add meeting notes:', m.notes || '');
+  if (notes === null) return;
+  m.notes = notes;
+  zoomSaveMeetings();
+  render();
+}
+function zoomViewNotes(meetingId) { zoomAddNotes(meetingId); }
+function zoomTzSearch(val) {
+  State.zoom.tzSearch = val;
+  const list = document.getElementById('zoom-tz-list');
+  if (!list) return;
+  const q = val.toLowerCase();
+  const filtered = ALL_TIMEZONES ? ALL_TIMEZONES.filter(t => t.label.toLowerCase().includes(q)) : [];
+  list.innerHTML = filtered.map(t =>
+    `<div onmousedown="zoomSelectTz('${t.tz}')" style="padding:8px 14px;cursor:pointer;font-size:13px;color:var(--text-2);"
+      onmouseover="this.style.background='var(--surface-2)'" onmouseout="this.style.background=''">${escHtml(t.label)}</div>`
+  ).join('') || `<div style="padding:12px;color:var(--text-3);font-size:13px">No results</div>`;
+  document.getElementById('zoom-tz-dropdown').style.display = filtered.length ? 'block' : 'none';
+}
+function zoomTzFocus() {
+  const dd = document.getElementById('zoom-tz-dropdown');
+  if (dd) dd.style.display = 'block';
+}
+function zoomTzBlur() {
+  setTimeout(() => {
+    const dd = document.getElementById('zoom-tz-dropdown');
+    if (dd) dd.style.display = 'none';
+  }, 200);
+}
+function zoomSelectTz(tz) {
+  State.zoom.timezone = tz;
+  State.zoom.tzSearch = '';
+  const inp = document.getElementById('zoom-tz-input');
+  const found = typeof ALL_TIMEZONES !== 'undefined' ? ALL_TIMEZONES.find(t => t.tz === tz) : null;
+  if (inp) inp.value = found ? found.label : tz;
+  const dd = document.getElementById('zoom-tz-dropdown');
+  if (dd) dd.style.display = 'none';
+  const sel = document.getElementById('zoom-tz-selected');
+  if (sel) sel.innerHTML = found ? `<span style="font-size:12px;color:var(--green)">✓ ${escHtml(found.label)}</span>` : '';
+}
+function dropboxUpload() { document.getElementById('dropbox-file-input')?.click(); }
+function dropboxSearchInput(val) { State.dropbox.search = val; render(); }
+function dropboxOpenFile(id) { State.dropbox.activeFileId = id; render(); }
+
+// ---- Email view ----
+function renderEmailView() {
+  const sent = State.email.sent || [];
+  return `
+    <div class="topbar">
+      <div class="topbar-title">Email</div>
+      <div class="topbar-actions">
+        <button class="btn btn-gold" onclick="State.email.composing=true;render()">
+          ${icon('email')} Compose Email
+        </button>
+      </div>
+    </div>
+    <div class="content">
+      ${State.email.composing ? `
+      <div class="panel" style="margin-bottom:24px">
+        <div class="panel-title">${icon('email')} Compose New Email</div>
+        <div class="field">
+          <label>To</label>
+          <input type="email" placeholder="recipient@email.com"
+            value="${escAttr(State.email.composeData.to || '')}"
+            oninput="State.email.composeData.to=this.value" />
+        </div>
+        <div class="field">
+          <label>Subject</label>
+          <input type="text" placeholder="Subject…"
+            value="${escAttr(State.email.composeData.subject || '')}"
+            oninput="State.email.composeData.subject=this.value" />
+        </div>
+        <div class="field">
+          <label>Message</label>
+          <textarea rows="8" placeholder="Write your message…"
+            oninput="State.email.composeData.body=this.value"
+            style="font-family:var(--font-body);font-size:13px;">${escHtml(State.email.composeData.body || '')}</textarea>
+        </div>
+        <div style="display:flex;gap:8px;margin-top:8px">
+          <button class="btn btn-gold" onclick="emailSend()">${icon('email')} Send</button>
+          <button class="btn btn-ghost" onclick="State.email.composing=false;render()">Cancel</button>
+        </div>
+      </div>` : ''}
+      <div class="panel">
+        <div class="panel-title">${icon('email')} Sent Emails</div>
+        ${sent.length ? sent.map(e => `
+          <div style="padding:12px 0;border-bottom:1px solid var(--border-2)">
+            <div style="font-size:13.5px;font-weight:500;color:var(--text)">${escHtml(e.subject)}</div>
+            <div style="font-size:12px;color:var(--text-3);margin-top:2px">To: ${escHtml(e.to || e.fromEmail)} · ${escHtml(e.date || '')} ${escHtml(e.time || '')}</div>
+            <div style="font-size:12px;color:var(--text-3);margin-top:2px">${escHtml((e.body||'').slice(0, 100))}${(e.body||'').length > 100 ? '…' : ''}</div>
+          </div>`).join('') : `
+          <p style="color:var(--text-3);font-size:13px">No emails sent yet. Use Compose to send emails, or use email templates from a case detail page.</p>`}
+      </div>
+    </div>`;
+}
+
+// ---- Invoice view ----
+function renderInvoices() {
+  if (!State.invoices) State.invoices = JSON.parse(localStorage.getItem('km_invoices') || '[]');
+  const invoices = State.invoices;
+  return `
+    <div class="topbar">
+      <div class="topbar-title">Invoices</div>
+      <div class="topbar-actions">
+        <button class="btn btn-gold" onclick="showCreateInvoice()">${icon('add')} New Invoice</button>
+      </div>
+    </div>
+    <div class="content">
+      <div class="panel">
+        <div class="panel-title">${icon('docs')} All Invoices</div>
+        ${invoices.length ? `
+        <table style="width:100%;border-collapse:collapse;font-size:13px">
+          <thead>
+            <tr style="border-bottom:1px solid var(--border-2);color:var(--text-3)">
+              <th style="text-align:left;padding:8px 0;font-weight:500">Invoice #</th>
+              <th style="text-align:left;padding:8px;font-weight:500">Client</th>
+              <th style="text-align:left;padding:8px;font-weight:500">Service</th>
+              <th style="text-align:right;padding:8px;font-weight:500">Amount</th>
+              <th style="text-align:left;padding:8px;font-weight:500">Date</th>
+              <th style="text-align:left;padding:8px;font-weight:500">Status</th>
+              <th style="padding:8px;font-weight:500"></th>
+            </tr>
+          </thead>
+          <tbody>
+            ${invoices.map(inv => `
+            <tr style="border-bottom:1px solid var(--border-2)">
+              <td style="padding:10px 0;color:var(--gold);font-weight:600">#${escHtml(inv.number||'—')}</td>
+              <td style="padding:10px 8px;color:var(--text)">${escHtml(inv.clientName||'—')}</td>
+              <td style="padding:10px 8px;color:var(--text-2)">${escHtml(inv.service||'—')}</td>
+              <td style="padding:10px 8px;text-align:right;font-weight:500">$${escHtml(String(inv.amount||'0'))}</td>
+              <td style="padding:10px 8px;color:var(--text-3)">${escHtml(inv.date||'—')}</td>
+              <td style="padding:10px 8px">
+                <span style="padding:2px 10px;border-radius:10px;font-size:11px;${inv.paid
+                  ? 'background:var(--green-dim);color:var(--green)'
+                  : 'background:var(--gold-dim);color:var(--gold)'}">${inv.paid ? 'Paid' : 'Unpaid'}</span>
+              </td>
+              <td style="padding:10px 8px;display:flex;gap:6px">
+                <button class="btn btn-ghost btn-sm" onclick="printInvoice('${inv.id}')">Print</button>
+                <button class="btn btn-ghost btn-sm" onclick="markInvoicePaid('${inv.id}')" ${inv.paid?'disabled':''}>Mark Paid</button>
+                <button class="btn btn-ghost btn-sm" style="color:var(--red)" onclick="deleteInvoice('${inv.id}')">×</button>
+              </td>
+            </tr>`).join('')}
+          </tbody>
+        </table>` : `
+        <div style="text-align:center;padding:48px;color:var(--text-3)">
+          <div style="font-size:32px;margin-bottom:12px">🧾</div>
+          <p>No invoices yet. Create your first invoice to get started.</p>
+          <button class="btn btn-gold" style="margin-top:16px" onclick="showCreateInvoice()">${icon('add')} New Invoice</button>
+        </div>`}
+      </div>
+    </div>`;
+}
+
+function showCreateInvoice(caseId) {
+  const c = caseId ? getCase(caseId) : null;
+  const nextNum = ((State.invoices||[]).length + 1).toString().padStart(4, '0');
+  const today = new Date().toISOString().split('T')[0];
+  const modal = document.getElementById('modal-root');
+  modal.innerHTML = `
+    <div class="modal-backdrop" onclick="closeModal()">
+      <div class="modal" onclick="event.stopPropagation()" style="max-width:520px">
+        <div class="modal-header">
+          <div class="modal-title">New Invoice</div>
+          <button class="modal-close" onclick="closeModal()">✕</button>
+        </div>
+        <div style="padding:24px;display:flex;flex-direction:column;gap:14px">
+          <div class="field"><label>Invoice Number</label><input type="text" id="inv-num" value="INV-${nextNum}" /></div>
+          <div class="field"><label>Client Name</label>
+            <input type="text" id="inv-client" value="${escAttr(c ? c.firstName+' '+c.lastName : '')}" list="inv-clients-list" />
+            <datalist id="inv-clients-list">${State.cases.map(x=>`<option value="${escAttr(x.firstName+' '+x.lastName)}">`).join('')}</datalist>
+          </div>
+          <div class="field"><label>Service Description</label><input type="text" id="inv-service" placeholder="e.g. O-1A Petition Preparation" value="${escAttr(c ? (c.visaType||'')+' Legal Services' : '')}" /></div>
+          <div class="field"><label>Amount (USD)</label><input type="number" id="inv-amount" placeholder="0.00" min="0" step="0.01" /></div>
+          <div class="field"><label>Date</label><input type="date" id="inv-date" value="${today}" /></div>
+          <div class="field"><label>Notes</label><textarea id="inv-notes" rows="3" placeholder="Optional notes…"></textarea></div>
+          <div style="display:flex;gap:8px;margin-top:4px">
+            <button class="btn btn-gold" style="flex:1;justify-content:center" onclick="saveInvoice()">Create Invoice</button>
+            <button class="btn btn-ghost" onclick="closeModal()">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>`;
+}
+
+function saveInvoice() {
+  if (!State.invoices) State.invoices = [];
+  const inv = {
+    id: uuid(),
+    number: document.getElementById('inv-num')?.value || '',
+    clientName: document.getElementById('inv-client')?.value || '',
+    service: document.getElementById('inv-service')?.value || '',
+    amount: parseFloat(document.getElementById('inv-amount')?.value || '0'),
+    date: document.getElementById('inv-date')?.value || '',
+    notes: document.getElementById('inv-notes')?.value || '',
+    paid: false,
+    createdAt: new Date().toISOString(),
+  };
+  State.invoices.push(inv);
+  localStorage.setItem('km_invoices', JSON.stringify(State.invoices));
+  closeModal();
+  toast('Invoice created');
+  render();
+}
+
+function markInvoicePaid(id) {
+  if (!State.invoices) return;
+  const inv = State.invoices.find(i => i.id === id);
+  if (inv) { inv.paid = true; localStorage.setItem('km_invoices', JSON.stringify(State.invoices)); render(); toast('Marked as paid'); }
+}
+
+function deleteInvoice(id) {
+  if (!confirm('Delete this invoice?')) return;
+  State.invoices = (State.invoices||[]).filter(i => i.id !== id);
+  localStorage.setItem('km_invoices', JSON.stringify(State.invoices));
+  render();
+  toast('Invoice deleted');
+}
+
+function printInvoice(id) {
+  const inv = (State.invoices||[]).find(i => i.id === id);
+  if (!inv) return;
+  const w = window.open('', '_blank');
+  w.document.write(`<!DOCTYPE html><html><head><title>Invoice ${escHtml(inv.number)}</title>
+  <style>body{font-family:Georgia,serif;max-width:700px;margin:40px auto;color:#111}
+  h1{font-size:28px;margin-bottom:4px}.meta{color:#666;font-size:14px;margin-bottom:32px}
+  .line{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #eee}
+  .total{font-size:20px;font-weight:bold;margin-top:16px}
+  .status{display:inline-block;padding:4px 14px;border-radius:20px;font-size:13px;
+    background:${inv.paid?'#d1fae5':'#fef3c7'};color:${inv.paid?'#065f46':'#92400e'}}</style>
+  </head><body>
+  <h1>INVOICE</h1>
+  <div class="meta">Kamkhadze PA · Immigration Law</div>
+  <div style="display:flex;justify-content:space-between;margin-bottom:32px">
+    <div><strong>Invoice #:</strong> ${escHtml(inv.number)}<br>
+    <strong>Date:</strong> ${escHtml(inv.date)}<br>
+    <strong>Status:</strong> <span class="status">${inv.paid?'PAID':'UNPAID'}</span></div>
+    <div style="text-align:right"><strong>Bill To:</strong><br>${escHtml(inv.clientName)}</div>
+  </div>
+  <div class="line"><span>${escHtml(inv.service)}</span><span>$${escHtml(String(inv.amount))}</span></div>
+  <div class="total" style="text-align:right">Total: $${escHtml(String(inv.amount))}</div>
+  ${inv.notes?`<p style="margin-top:24px;color:#666;font-size:13px">${escHtml(inv.notes)}</p>`:''}
+  <script>window.print();<\/script>
+  </body></html>`);
+  w.document.close();
+}
+
+// ---- Questionnaire view ----
+function renderQuestionnaires() {
+  const qs = JSON.parse(localStorage.getItem('km_questionnaires') || '[]');
+  const TEMPLATES = [
+    { id: 'o1a', label: 'O-1A Questionnaire', desc: 'Extraordinary ability in science, business, education, or athletics' },
+    { id: 'eb1a', label: 'EB-1A Questionnaire', desc: 'Alien of extraordinary ability green card' },
+    { id: 'eb2niw', label: 'EB-2 NIW Questionnaire', desc: 'National Interest Waiver' },
+    { id: 'e2', label: 'E-2 Investor Questionnaire', desc: 'Treaty investor visa' },
+    { id: 'h1b', label: 'H-1B Questionnaire', desc: 'Specialty occupation worker' },
+    { id: 'general', label: 'Initial Consultation Form', desc: 'General intake for new clients' },
+  ];
+  return `
+    <div class="topbar">
+      <div class="topbar-title">Client Questionnaires</div>
+      <div class="topbar-actions">
+        <button class="btn btn-gold" onclick="showSendQuestionnaire()">${icon('email')} Send to Client</button>
+      </div>
+    </div>
+    <div class="content">
+      <div class="two-col" style="gap:20px;align-items:start">
+        <div>
+          <div class="panel">
+            <div class="panel-title">${icon('docs')} Questionnaire Templates</div>
+            ${TEMPLATES.map(t => `
+            <div style="padding:12px 0;border-bottom:1px solid var(--border-2)">
+              <div style="display:flex;justify-content:space-between;align-items:center">
+                <div>
+                  <div style="font-size:13.5px;font-weight:500;color:var(--text)">${escHtml(t.label)}</div>
+                  <div style="font-size:12px;color:var(--text-3);margin-top:2px">${escHtml(t.desc)}</div>
+                </div>
+                <div style="display:flex;gap:6px">
+                  <button class="btn btn-ghost btn-sm" onclick="previewQuestionnaire('${t.id}')">Preview</button>
+                  <button class="btn btn-gold btn-sm" onclick="sendQuestionnaire('${t.id}')">Send</button>
+                </div>
+              </div>
+            </div>`).join('')}
+          </div>
+        </div>
+        <div>
+          <div class="panel">
+            <div class="panel-title">${icon('email')} Sent Questionnaires</div>
+            ${qs.length ? qs.map(q => `
+              <div style="padding:10px 0;border-bottom:1px solid var(--border-2)">
+                <div style="font-size:13px;font-weight:500;color:var(--text)">${escHtml(q.clientName)}</div>
+                <div style="font-size:12px;color:var(--text-3)">${escHtml(q.template)} · Sent ${escHtml(q.sentDate)}</div>
+                <span style="font-size:11px;padding:2px 8px;border-radius:8px;${q.returned
+                  ? 'background:var(--green-dim);color:var(--green)'
+                  : 'background:var(--gold-dim);color:var(--gold)'}">${q.returned ? '✓ Returned' : 'Awaiting'}</span>
+              </div>`).join('') : `<p style="color:var(--text-3);font-size:13px">No questionnaires sent yet.</p>`}
+          </div>
+        </div>
+      </div>
+    </div>`;
+}
+
+function previewQuestionnaire(templateId) {
+  const labels = { o1a:'O-1A', eb1a:'EB-1A', eb2niw:'EB-2 NIW', e2:'E-2', h1b:'H-1B', general:'Initial Consultation' };
+  const qs = {
+    general: ['Full legal name','Date of birth','Country of birth','Country of citizenship','Current visa status','Email address','Phone number','Current employer','How did you hear about us?','Describe your immigration goal'],
+    o1a: ['Full legal name','Current position and employer','Field of extraordinary ability','List of major awards/prizes received','Publications in major media','Evidence of high salary','Membership in distinguished associations','Critical role at distinguished organizations','Original contributions of major significance','Judging the work of others in your field'],
+    eb1a: ['Full legal name','Field of extraordinary ability','National/international awards received','Published material about your work','Contributions of major significance to your field','Authorship of scholarly articles','Employment in critical or essential capacity','Evidence of high salary relative to peers'],
+    eb2niw: ['Full legal name','Educational background (degrees, institutions)','Current occupation','How does your work benefit the United States?','What is your proposed endeavor?','Evidence of substantial merit and national importance','Are you well positioned to advance the proposed endeavor?'],
+    e2: ['Full legal name','Country of treaty (citizenship)','Business you plan to invest in','Investment amount (USD)','Source of investment funds','Business plan summary','How many employees will the business create?','Your role in the business'],
+    h1b: ['Full legal name','Job title and description','Employer name and address','Salary offered','Degree and field of study','University name','Current visa status','Prior H-1B history'],
+  };
+  const questions = qs[templateId] || qs.general;
+  const w = window.open('', '_blank');
+  w.document.write(`<!DOCTYPE html><html><head><title>${labels[templateId]||templateId} Questionnaire</title>
+  <style>body{font-family:Georgia,serif;max-width:680px;margin:40px auto;color:#111}
+  h1{font-size:24px}h2{font-size:15px;color:#555;font-weight:normal;margin-top:0}
+  .q{margin-bottom:20px}label{display:block;font-weight:600;margin-bottom:6px;font-size:14px}
+  input,textarea{width:100%;padding:8px;border:1px solid #ccc;border-radius:4px;font-size:14px;box-sizing:border-box}
+  textarea{min-height:80px}.footer{margin-top:40px;font-size:12px;color:#999}</style>
+  </head><body>
+  <h1>Kamkhadze PA — ${escHtml(labels[templateId]||templateId)} Questionnaire</h1>
+  <h2>Please complete all sections. Your information is kept strictly confidential.</h2>
+  <hr style="margin-bottom:24px">
+  ${questions.map((q,i) => `<div class="q"><label>${i+1}. ${escHtml(q)}</label><textarea rows="2"></textarea></div>`).join('')}
+  <div class="footer">Kamkhadze PA · Immigration Law · www.esq.mba</div>
+  </body></html>`);
+  w.document.close();
+}
+
+function sendQuestionnaire(templateId) {
+  const labels = { o1a:'O-1A', eb1a:'EB-1A', eb2niw:'EB-2 NIW', e2:'E-2', h1b:'H-1B', general:'Initial Consultation' };
+  const clientName = prompt('Client name (for records):');
+  if (!clientName) return;
+  const clientEmail = prompt('Client email address:');
+  if (!clientEmail) return;
+  const subj = encodeURIComponent(`Kamkhadze PA — ${labels[templateId]||templateId} Questionnaire`);
+  const body = encodeURIComponent(`Dear ${clientName},\n\nPlease complete the attached questionnaire for your ${labels[templateId]||templateId} case.\n\nThank you,\nKamkhadze PA`);
+  window.open(`mailto:${clientEmail}?subject=${subj}&body=${body}`, '_blank');
+  const qs = JSON.parse(localStorage.getItem('km_questionnaires') || '[]');
+  qs.unshift({ id: uuid(), clientName, clientEmail, template: labels[templateId]||templateId, sentDate: new Date().toLocaleDateString(), returned: false });
+  localStorage.setItem('km_questionnaires', JSON.stringify(qs));
+  toast('Questionnaire email opened');
+  render();
+}
+
+function showSendQuestionnaire() { sendQuestionnaire('general'); }
+
+// ---- USCIS Forms Generator view ----
+function renderUscisFormsGenerator() {
+  const FORMS = [
+    { code: 'I-129', title: 'Petition for Nonimmigrant Worker', use: 'H-1B, O-1, L-1, P-1, TN' },
+    { code: 'I-140', title: 'Immigrant Petition for Alien Workers', use: 'EB-1A, EB-1B, EB-2 NIW, EB-3' },
+    { code: 'I-485', title: 'Application to Register Permanent Residence', use: 'Adjustment of Status (Green Card)' },
+    { code: 'I-131', title: 'Application for Travel Document', use: 'Advance Parole, Reentry Permit' },
+    { code: 'I-765', title: 'Application for Employment Authorization', use: 'EAD (Work Permit)' },
+    { code: 'I-539', title: 'Application to Extend/Change Nonimmigrant Status', use: 'Visa extensions, status changes' },
+    { code: 'I-864', title: 'Affidavit of Support', use: 'Family-based immigration' },
+    { code: 'I-130', title: 'Petition for Alien Relative', use: 'Family-based immigration' },
+    { code: 'I-526', title: 'Immigrant Petition by Investor', use: 'EB-5 Investor Visa' },
+    { code: 'I-918', title: 'Petition for U Nonimmigrant Status', use: 'Crime victims' },
+    { code: 'I-360', title: 'Petition for Amerasian, Widow(er), or Special Immigrant', use: 'VAWA, Religious workers' },
+    { code: 'N-400', title: 'Application for Naturalization', use: 'U.S. Citizenship' },
+  ];
+  return `
+    <div class="topbar">
+      <div class="topbar-title">USCIS Forms</div>
+    </div>
+    <div class="content">
+      <div class="panel" style="margin-bottom:20px">
+        <div class="panel-title">${icon('status')} Form Selector by Case Type</div>
+        <div class="field" style="max-width:340px">
+          <label>Select case type to see recommended forms</label>
+          <select onchange="document.getElementById('uscis-rec').innerHTML=_getFormsForVisa(this.value)">
+            <option value="">— Select visa type —</option>
+            ${['O-1A','EB-1A','EB-2 NIW','H-1B','L-1A','E-2','TN','P-1','EB-5','Family-based','Naturalization'].map(v =>
+              `<option value="${escAttr(v)}">${escHtml(v)}</option>`).join('')}
+          </select>
+        </div>
+        <div id="uscis-rec"></div>
+      </div>
+      <div class="panel">
+        <div class="panel-title">${icon('docs')} All USCIS Forms</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin-top:8px">
+          ${FORMS.map(f => `
+          <div style="border:1px solid var(--border-2);border-radius:8px;padding:14px;background:var(--surface-2)">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start">
+              <div>
+                <div style="font-size:15px;font-weight:600;color:var(--gold)">${escHtml(f.code)}</div>
+                <div style="font-size:12.5px;color:var(--text);margin-top:4px;line-height:1.4">${escHtml(f.title)}</div>
+                <div style="font-size:11px;color:var(--text-3);margin-top:4px">${escHtml(f.use)}</div>
+              </div>
+            </div>
+            <div style="display:flex;gap:8px;margin-top:12px">
+              <a href="https://www.uscis.gov/forms/${f.code.toLowerCase()}" target="_blank" class="btn btn-ghost btn-sm">USCIS.gov ↗</a>
+              <button class="btn btn-ghost btn-sm" onclick="uscisFormChecklist('${f.code}')">Checklist</button>
+            </div>
+          </div>`).join('')}
+        </div>
+      </div>
+    </div>`;
+}
+
+function _getFormsForVisa(visa) {
+  const map = {
+    'O-1A':        ['I-129 (primary petition)', 'I-539 (dependents)', 'I-765 (EAD if applicable)'],
+    'EB-1A':       ['I-140 (primary petition)', 'I-485 (if priority date current)', 'I-765 (EAD)', 'I-131 (Advance Parole)'],
+    'EB-2 NIW':    ['I-140 (primary petition)', 'I-485 (if priority date current)', 'I-765 (EAD)', 'I-131 (Advance Parole)'],
+    'H-1B':        ['I-129 (primary petition)', 'I-539 (H-4 dependents)', 'I-765 (H-4 EAD)'],
+    'L-1A':        ['I-129 (primary petition)', 'I-539 (L-2 dependents)'],
+    'E-2':         ['DS-160 (consular) or I-539 (change of status)', 'I-765 (EAD for spouse)'],
+    'TN':          ['I-129 (if filing with USCIS)', 'DS-160 (if at border/consulate)'],
+    'P-1':         ['I-129 (primary petition)', 'I-539 (P-4 dependents)'],
+    'EB-5':        ['I-526 (investor petition)', 'I-485 or DS-260 (immigrant visa)', 'I-765 (EAD)'],
+    'Family-based':['I-130 (petition)', 'I-864 (affidavit of support)', 'I-485 or DS-260', 'I-131 (Advance Parole)', 'I-765 (EAD)'],
+    'Naturalization':['N-400 (application for citizenship)'],
+  };
+  const forms = map[visa] || [];
+  if (!forms.length) return '';
+  return `<div style="margin-top:14px;padding:14px;background:var(--surface-2);border-radius:8px;border:1px solid var(--border-2)">
+    <div style="font-size:12px;font-weight:600;color:var(--gold);margin-bottom:8px">Recommended for ${escHtml(visa)}:</div>
+    ${forms.map(f => `<div style="font-size:13px;color:var(--text-2);padding:3px 0">• ${escHtml(f)}</div>`).join('')}
+  </div>`;
+}
+
+function uscisFormChecklist(code) {
+  const checklists = {
+    'I-129': ['Cover letter', 'Form I-129 signed', 'Filing fee ($460+)', 'Support letter from employer', 'LCA (H-1B only)', 'Evidence of qualifying credentials', 'Copies of prior approvals (if extension)'],
+    'I-140': ['Form I-140 signed', 'Filing fee ($700)', 'Evidence of extraordinary ability (EB-1A: 3+ criteria)', 'Degree/transcripts (EB-2)', 'NIW advisory opinion letter (EB-2 NIW)', 'Tax returns / ability to pay (employer-based)'],
+    'I-485': ['Form I-485', 'Filing fee ($1440 including biometrics)', 'Form I-864 Affidavit of Support', 'Medical exam Form I-693', 'Birth certificate', 'Passport copies', 'Form I-131 (Advance Parole) if traveling', 'Form I-765 (EAD)'],
+    'I-765': ['Form I-765', 'Filing fee ($520 or included with I-485)', '2 passport photos', 'Copy of ID', 'Evidence of eligible category'],
+  };
+  const items = checklists[code] || ['See USCIS instructions at uscis.gov/forms/' + code.toLowerCase()];
+  alert(`${code} Checklist:\n\n${items.map((x,i) => `${i+1}. ${x}`).join('\n')}`);
+}
+
 // ---- Main render ----
 function renderMain() {
   // v2 views (handled by case-manager-v2.js)
@@ -2634,11 +3127,15 @@ function renderMain() {
   }
 
   switch (State.view) {
-    case 'dashboard':   return renderDashboard();
-    case 'cases':       return renderCasesList();
-    case 'case-detail': return renderCaseDetail(State.selectedCaseId);
-    case 'settings':    return renderSettings();
-    default:            return renderDashboard();
+    case 'dashboard':    return renderDashboard();
+    case 'cases':        return renderCasesList();
+    case 'case-detail':  return renderCaseDetail(State.selectedCaseId);
+    case 'settings':     return renderSettings();
+    case 'email':        return renderEmailView();
+    case 'invoices':     return renderInvoices();
+    case 'questionnaires': return renderQuestionnaires();
+    case 'uscis-forms':  return renderUscisFormsGenerator();
+    default:             return renderDashboard();
   }
 }
 
@@ -2660,7 +3157,11 @@ _checkOAuthCallback();
 Auth.ready.then(async () => {
   await Storage.load();
 
-  // No demo data — use Dashboard → Import to load cases from Excel
+  // Restore persisted zoom meetings
+  try {
+    const zm = localStorage.getItem('km_zoom_meetings');
+    if (zm) State.zoom.meetings = JSON.parse(zm);
+  } catch(e) {}
 
   render();
 });
