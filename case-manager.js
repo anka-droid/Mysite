@@ -159,45 +159,93 @@ function getCase(id) {
   return State.cases.find(c => c.id === id);
 }
 
-const STAGES = [
-  { value: 'lead',           label: 'Lead' },
-  { value: 'onboarding',     label: 'Onboarding' },
-  { value: 'consultation',   label: 'Consultation' },
-  { value: 'representation', label: 'Representation' },
-  { value: 'documents',      label: 'Document Collection' },
-  { value: 'petition',       label: 'Petition Drafting' },
-  { value: 'filed',          label: 'Filed' },
-  { value: 'rfe',            label: 'RFE Received' },
-  { value: 'approved',       label: 'Approved' },
-  { value: 'denied',         label: 'Denied' },
-  { value: 'closed',         label: 'Closed' },
+// ---- Canonical 9-value status set (in defined order) ----
+const CASE_STATUSES = [
+  { value: 'Lead',             label: 'Lead',             color: '#6B7280', bg: 'rgba(107,114,128,0.1)'  },
+  { value: 'RA Pending',       label: 'RA Pending',       color: '#7C3AED', bg: 'rgba(124,58,237,0.1)'   },
+  { value: 'Case Development', label: 'Case Development', color: '#4A6CF7', bg: 'rgba(74,108,247,0.12)'  },
+  { value: 'Almost Ready',     label: 'Almost Ready',     color: '#6366F1', bg: 'rgba(99,102,241,0.12)'  },
+  { value: 'Ready',            label: 'Ready',            color: '#0D9488', bg: 'rgba(13,148,136,0.12)'  },
+  { value: 'Filed',            label: 'Filed',            color: '#D97706', bg: 'rgba(217,119,6,0.12)'   },
+  { value: 'RFE',              label: 'RFE',              color: '#DC2626', bg: 'rgba(220,38,38,0.1)'    },
+  { value: 'Approved',         label: 'Approved',         color: '#16A34A', bg: 'rgba(22,163,74,0.12)'   },
+  { value: 'Denied',           label: 'Denied',           color: '#9B1C1C', bg: 'rgba(155,28,28,0.1)'    },
 ];
 
-// New Kamkhadze PA status codes (per Weekly Report legend)
-const STATUS_CODES = [
-  { value: 'KDE', label: 'Case Development',      color: '#4A6CF7', bg: 'rgba(74,108,247,0.12)' },
-  { value: 'KAR', label: 'Case Almost Ready',      color: '#6366F1', bg: 'rgba(99,102,241,0.12)' },
-  { value: 'KFI', label: 'Case Filed',             color: '#D97706', bg: 'rgba(217,119,6,0.12)'  },
-  { value: 'KAP', label: 'Case Approved',          color: '#16A34A', bg: 'rgba(22,163,74,0.12)'  },
-  { value: 'KRE', label: 'Case Ready',             color: '#0D9488', bg: 'rgba(13,148,136,0.12)' },
-  { value: 'RFE', label: 'Request for Evidence',   color: '#DC2626', bg: 'rgba(220,38,38,0.1)'   },
-  { value: 'RFF', label: 'RFE Filed',              color: '#EA580C', bg: 'rgba(234,88,12,0.12)'  },
-  { value: 'RFA', label: 'RFE Almost Ready',       color: '#D97706', bg: 'rgba(217,119,6,0.12)'  },
-  { value: 'RFR', label: 'RFE Ready',              color: '#CA8A04', bg: 'rgba(202,138,4,0.12)'  },
-  { value: 'KW2', label: 'Withdrawal',             color: '#6B7280', bg: 'rgba(107,114,128,0.1)' },
-  { value: 'APF', label: 'Appeal Filed',           color: '#7C3AED', bg: 'rgba(124,58,237,0.12)' },
-];
+const CASE_STATUS_MAP = Object.fromEntries(CASE_STATUSES.map(s => [s.value, s]));
+const CASE_STATUS_VALUES = CASE_STATUSES.map(s => s.value);
 
-const STATUS_CODE_MAP = Object.fromEntries(STATUS_CODES.map(s => [s.value, s]));
+// Keep legacy aliases for modules that still reference them
+const STAGES = CASE_STATUSES.map(s => ({ value: s.value, label: s.label }));
+const STATUS_CODES = CASE_STATUSES;
+const STATUS_CODE_MAP = CASE_STATUS_MAP;
+const STAGE_ORDER = CASE_STATUS_VALUES;
 
-const FILING_TYPES = ['AOS', 'CP', 'COS', 'EOS', 'PP'];
+// One-time migration: old value → new canonical value, null = flag for manual review
+const STATUS_MIGRATION = {
+  // Legacy STAGES
+  'lead':           'Lead',
+  'onboarding':     'RA Pending',
+  'consultation':   'Lead',
+  'representation': 'RA Pending',
+  'documents':      'Case Development',
+  'petition':       'Case Development',
+  'filed':          'Filed',
+  'rfe':            'RFE',
+  'approved':       'Approved',
+  'denied':         'Denied',
+  'closed':         null,           // manual review required
+  // Prior STATUS_CODES from v1
+  'KDE':            'Case Development',
+  'KAR':            'Almost Ready',
+  'KRE':            'Ready',
+  'KFI':            'Filed',
+  'KAP':            'Approved',
+  'RFE':            'RFE',
+  'RFF':            'RFE',
+  'RFA':            'RFE',
+  'RFR':            'RFE',
+  'KW2':            null,           // Withdrawal — manual review
+  'APF':            null,           // Appeal Filed — manual review
+};
+
+// Migrate all cases in State.cases to the new status set.
+// Sets c.statusCode to canonical value; marks unmappable cases with _needsStatusReview = true.
+function migrateStatuses() {
+  let migrated = 0, flagged = 0;
+  State.cases.forEach(c => {
+    const current = c.statusCode || c.stage;
+    if (CASE_STATUS_MAP[current]) return; // already canonical
+    const mapped = STATUS_MIGRATION[current];
+    if (mapped) {
+      c.statusCode = mapped;
+      c.stage = mapped;
+      migrated++;
+    } else if (current) {
+      c._needsStatusReview = true;
+      c._originalStatus = current;
+      // Keep closest guess: null means unmappable — leave current, just flag
+      flagged++;
+    }
+  });
+  if (migrated || flagged) {
+    Storage.save();
+    if (flagged) console.warn(`[Migration] ${flagged} case(s) have unmappable statuses and need manual review. Search for _needsStatusReview=true.`);
+  }
+}
+
+// USCIS officer decision types
+const OFFICER_DECISION_TYPES = ['', 'Approved', 'Denied', 'NOID', 'Second RFE', 'Pending'];
+
+// Normalize officer number: trim whitespace + uppercase
+function normalizeOfficerNumber(raw) {
+  return (raw || '').trim().toUpperCase();
+}
 
 const VISA_TYPES = [
   'O-1A', 'O-1B', 'EB-1A', 'EB-1B', 'EB-1C', 'EB-2 NIW', 'H-1B', 'L-1A', 'L-1B',
   'E-2', 'TN', 'P-1', 'EB-5', 'AOS', 'CP', 'COS', 'EOS', 'Other'
 ];
-
-const STAGE_ORDER = STAGES.map(s => s.value);
 
 // Deadline engine — days remaining from today to a date
 function daysRemaining(isoDate) {
@@ -355,18 +403,24 @@ function newCase(overrides = {}) {
     geo: '',                      // country code / flag
     visaType: 'O-1A',
     filingType: 'AOS',            // AOS | CP | COS | EOS | PP
-    stage: 'KDE',                 // new status code (KDE default)
-    statusCode: 'KDE',            // explicit status code
+    stage: 'Lead',                 // canonical status (9-value set)
+    statusCode: 'Lead',
     uscisReceiptNumber: '', consulateCase: '', consulateName: '',
     priorityDate: '', filingDate: '', approvalDate: '',
     targetFilingDate: '',         // TFD
     expirationDate: '',           // visa/status expiration
     rfeDueDate: '',               // RFE response due date
+    rfeResponseFiledDate: '',     // SECURITY: date RFE response was submitted
     pif: false,                   // Paid In Full
     cmConc: '',                   // CM/CONC notation
     assignedAttorney: '',         // attorney username
     assignedCM: '',               // case manager username
     priorityScore: 0,
+    // USCIS Officer Adjudication tracking
+    uscisOfficerNumber: '',       // normalized (uppercase, trimmed) on save
+    officerAssignedDate: '',      // when officer was identified
+    decisionType: '',             // Approved | Denied | NOID | Second RFE | Pending
+    decisionDate: '',             // date of decision after RFE response
     consultationDate: '', consultationTime: '', consultationDuration: '60',
     consultationNotes: '', consultationConfirmed: false,
     retainerPaid: false, retainerAmount: '', retainerDate: '',
@@ -410,23 +464,17 @@ function toast(msg, type = 'success') {
 
 // ---- Render helpers ----
 function stageBadge(stage) {
-  // Support new KDE/KAR/KFI… status codes
-  const sc = STATUS_CODE_MAP[stage];
+  const sc = CASE_STATUS_MAP[stage];
   if (sc) {
-    return `<span class="badge" style="background:${sc.bg};color:${sc.color};border-color:${sc.color}33;font-weight:600;letter-spacing:0.04em">${sc.value}</span>`;
+    return `<span class="badge" style="background:${sc.bg};color:${sc.color};border-color:${sc.color}33;font-weight:600;letter-spacing:0.02em">${escHtml(sc.label)}</span>`;
   }
-  const label = STAGES.find(s => s.value === stage)?.label || stage;
-  return `<span class="badge badge-${stage}">${label}</span>`;
+  // Fallback for any unmigrated value
+  return `<span class="badge" style="background:rgba(107,114,128,0.1);color:#6B7280;font-size:11px">${escHtml(stage || '—')}</span>`;
 }
 
 function statusCodeSelect(currentVal, fieldName, caseId) {
   return `<select onchange="updateCaseField('${caseId}','${fieldName}',this.value);updateCaseField('${caseId}','stage',this.value)">
-    <optgroup label="— Status Codes —">
-    ${STATUS_CODES.map(s => `<option value="${s.value}" ${currentVal===s.value?'selected':''}>${s.value} — ${s.label}</option>`).join('')}
-    </optgroup>
-    <optgroup label="— Legacy Stages —">
-    ${STAGES.map(s => `<option value="${s.value}" ${currentVal===s.value?'selected':''}>${s.label}</option>`).join('')}
-    </optgroup>
+    ${CASE_STATUSES.map(s => `<option value="${escAttr(s.value)}" ${currentVal===s.value?'selected':''}>${escHtml(s.label)}</option>`).join('')}
   </select>`;
 }
 
@@ -533,6 +581,9 @@ function renderSidebar() {
         <div class="nav-section-label" style="margin-top:16px">Reports</div>
         <button class="nav-item ${activeView === 'reports' ? 'active' : ''}" onclick="navigate('reports')">
           ${icon('status')} Reports
+        </button>
+        <button class="nav-item ${activeView === 'officer-report' ? 'active' : ''}" onclick="navigate('officer-report')">
+          ${icon('docs')} Officer Report
         </button>
         <button class="nav-item ${activeView === 'time-tracking' ? 'active' : ''}" onclick="navigate('time-tracking')">
           ${icon('overview')} Time Tracking
@@ -761,8 +812,8 @@ function renderCasesList() {
               oninput="State.filter.search=this.value; rerenderCasesList()" />
           </div>
           <select class="filter-select" onchange="State.filter.stage=this.value; rerenderCasesList()">
-            <option value="">All Stages</option>
-            ${STAGES.map(s => `<option value="${s.value}" ${stage===s.value?'selected':''}>${s.label}</option>`).join('')}
+            <option value="">All Statuses</option>
+            ${CASE_STATUSES.map(s => `<option value="${escAttr(s.value)}" ${stage===s.value?'selected':''}>${escHtml(s.label)}</option>`).join('')}
           </select>
           <select class="filter-select" onchange="State.filter.visaType=this.value; rerenderCasesList()">
             <option value="">All Visa Types</option>
@@ -1920,6 +1971,48 @@ function renderStatusTab(c) {
     <div class="two-col">
       <div>
         <div class="status-card">
+          <div class="panel-title">USCIS Adjudication</div>
+          <div class="field-row">
+            <div class="field">
+              <label>Officer Number</label>
+              <input type="text" placeholder="Officer ID (auto-normalized: trimmed, uppercase)"
+                value="${escAttr(c.uscisOfficerNumber || '')}"
+                style="font-family:monospace"
+                onblur="updateCaseField('${c.id}','uscisOfficerNumber',normalizeOfficerNumber(this.value))" />
+            </div>
+            <div class="field">
+              <label>Officer Identified Date</label>
+              <input type="date" value="${escAttr(c.officerAssignedDate || '')}"
+                onchange="updateCaseField('${c.id}','officerAssignedDate',this.value)" />
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label>RFE Response Filed Date</label>
+              <input type="date" value="${escAttr(c.rfeResponseFiledDate || '')}"
+                onchange="updateCaseField('${c.id}','rfeResponseFiledDate',this.value)" />
+            </div>
+            <div class="field">
+              <label>Decision Date</label>
+              <input type="date" value="${escAttr(c.decisionDate || '')}"
+                onchange="updateCaseField('${c.id}','decisionDate',this.value)" />
+            </div>
+          </div>
+          <div class="field" style="max-width:260px">
+            <label>Decision Type</label>
+            <select onchange="updateCaseField('${c.id}','decisionType',this.value)">
+              ${OFFICER_DECISION_TYPES.map(d => `<option value="${escAttr(d)}" ${(c.decisionType||'')===d?'selected':''}>${d || '— Not set —'}</option>`).join('')}
+            </select>
+          </div>
+          ${c.uscisOfficerNumber ? `
+          <div style="margin-top:12px">
+            <button class="btn btn-ghost btn-sm" onclick="navigate('officer-report'); window._officerFilter='${escAttr(c.uscisOfficerNumber)}'">
+              ${icon('status')} View Officer ${escHtml(c.uscisOfficerNumber)} Report →
+            </button>
+          </div>` : ''}
+        </div>
+
+        <div class="status-card">
           <div class="panel-title">USCIS Case Information</div>
           <div class="field">
             <label>USCIS Receipt Number</label>
@@ -2161,7 +2254,7 @@ function showAddCase() {
           <div class="field">
             <label>Status</label>
             <select id="nc-stage">
-              ${STATUS_CODES.map(s => `<option value="${s.value}">${s.value} — ${s.label}</option>`).join('')}
+              ${CASE_STATUSES.map(s => `<option value="${escAttr(s.value)}">${escHtml(s.label)}</option>`).join('')}
             </select>
           </div>
         </div>
@@ -2205,7 +2298,7 @@ function saveNewCase() {
   if (!firstName) { toast('First name is required', 'warn'); return; }
 
   const visaType = document.getElementById('nc-visa')?.value || 'O-1A';
-  const statusCode = document.getElementById('nc-stage')?.value || 'KDE';
+  const statusCode = document.getElementById('nc-stage')?.value || 'Lead';
   const initDocs = document.getElementById('nc-initdocs')?.checked;
 
   const c = newCase({
@@ -2261,14 +2354,9 @@ function showEditCase(caseId) {
             </select>
           </div>
           <div class="field">
-            <label>Status Code</label>
+            <label>Status</label>
             <select id="ec-stage">
-              <optgroup label="— Status Codes —">
-              ${STATUS_CODES.map(s => `<option value="${s.value}" ${(c.statusCode||c.stage)===s.value?'selected':''}>${s.value} — ${s.label}</option>`).join('')}
-              </optgroup>
-              <optgroup label="— Legacy —">
-              ${STAGES.map(s => `<option value="${s.value}" ${c.stage===s.value&&!c.statusCode?'selected':''}>${s.label}</option>`).join('')}
-              </optgroup>
+              ${CASE_STATUSES.map(s => `<option value="${escAttr(s.value)}" ${(c.statusCode||c.stage)===s.value?'selected':''}>${escHtml(s.label)}</option>`).join('')}
             </select>
           </div>
         </div>
@@ -2315,6 +2403,35 @@ function showEditCase(caseId) {
             <label for="ec-pif">PIF (Paid In Full)</label>
           </div>
         </div>
+        <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--border)">
+          <div style="font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-3);margin-bottom:12px">USCIS Adjudication</div>
+          <div class="field-row">
+            <div class="field">
+              <label>Officer Number</label>
+              <input id="ec-officer-num" value="${escAttr(c.uscisOfficerNumber || '')}" placeholder="e.g. 1234567 (auto-normalized)" style="font-family:monospace" />
+            </div>
+            <div class="field">
+              <label>Officer Identified Date</label>
+              <input id="ec-officer-date" type="date" value="${escAttr(c.officerAssignedDate || '')}" />
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label>RFE Response Filed Date</label>
+              <input id="ec-rfe-response-date" type="date" value="${escAttr(c.rfeResponseFiledDate || '')}" />
+            </div>
+            <div class="field">
+              <label>Decision Date</label>
+              <input id="ec-decision-date" type="date" value="${escAttr(c.decisionDate || '')}" />
+            </div>
+          </div>
+          <div class="field" style="max-width:260px">
+            <label>Decision Type (after RFE response)</label>
+            <select id="ec-decision-type">
+              ${OFFICER_DECISION_TYPES.map(d => `<option value="${escAttr(d)}" ${(c.decisionType||'')===d?'selected':''}>${d || '— Not set —'}</option>`).join('')}
+            </select>
+          </div>
+        </div>
         <div class="field"><label>Notes</label><textarea id="ec-notes" rows="3">${escHtml(c.notes || '')}</textarea></div>
       </div>
       <div class="modal-footer">
@@ -2352,6 +2469,11 @@ function saveEditCase(caseId) {
   c.assignedCM = document.getElementById('ec-cm')?.value.trim() || '';
   c.cmConc = document.getElementById('ec-cmconc')?.value.trim() || '';
   c.pif = document.getElementById('ec-pif')?.checked || false;
+  c.uscisOfficerNumber = normalizeOfficerNumber(document.getElementById('ec-officer-num')?.value || '');
+  c.officerAssignedDate = document.getElementById('ec-officer-date')?.value || '';
+  c.decisionType = document.getElementById('ec-decision-type')?.value || '';
+  c.decisionDate = document.getElementById('ec-decision-date')?.value || '';
+  c.rfeResponseFiledDate = document.getElementById('ec-rfe-response-date')?.value || '';
   c.notes = document.getElementById('ec-notes')?.value.trim() || '';
   c.updatedAt = new Date().toISOString();
 
@@ -3707,6 +3829,8 @@ function renderMain() {
     case 'uscis-forms':      return renderUscisFormsGenerator();
     case 'deadline-alerts':  return renderDeadlineAlerts();
     case 'time-tracking':    return typeof TimeTracker !== 'undefined' ? `<div class="topbar"><div class="topbar-title">Time Tracking</div></div><div class="content">${TimeTracker.renderTimeReport({})}</div>` : renderDashboard();
+    case 'officer-report':
+      return typeof OfficerReport !== 'undefined' ? OfficerReport.renderPage() : renderDashboard();
     case 'reports':
       if (typeof Reports !== 'undefined') return Reports.renderReportsHub();
       return renderDashboard();
@@ -3731,6 +3855,9 @@ _checkOAuthCallback();
 // ---- Boot (waits for Auth.ready, then loads encrypted data) ----
 Auth.ready.then(async () => {
   await Storage.load();
+
+  // One-time status migration — maps legacy values to the canonical 9-value set
+  migrateStatuses();
 
   // Restore persisted zoom meetings
   try {
