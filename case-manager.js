@@ -173,11 +173,84 @@ const STAGES = [
   { value: 'closed',         label: 'Closed' },
 ];
 
+// New Kamkhadze PA status codes (per Weekly Report legend)
+const STATUS_CODES = [
+  { value: 'KDE', label: 'Case Development',      color: '#4A6CF7', bg: 'rgba(74,108,247,0.12)' },
+  { value: 'KAR', label: 'Case Almost Ready',      color: '#6366F1', bg: 'rgba(99,102,241,0.12)' },
+  { value: 'KFI', label: 'Case Filed',             color: '#D97706', bg: 'rgba(217,119,6,0.12)'  },
+  { value: 'KAP', label: 'Case Approved',          color: '#16A34A', bg: 'rgba(22,163,74,0.12)'  },
+  { value: 'KRE', label: 'Case Ready',             color: '#0D9488', bg: 'rgba(13,148,136,0.12)' },
+  { value: 'RFE', label: 'Request for Evidence',   color: '#DC2626', bg: 'rgba(220,38,38,0.1)'   },
+  { value: 'RFF', label: 'RFE Filed',              color: '#EA580C', bg: 'rgba(234,88,12,0.12)'  },
+  { value: 'RFA', label: 'RFE Almost Ready',       color: '#D97706', bg: 'rgba(217,119,6,0.12)'  },
+  { value: 'RFR', label: 'RFE Ready',              color: '#CA8A04', bg: 'rgba(202,138,4,0.12)'  },
+  { value: 'KW2', label: 'Withdrawal',             color: '#6B7280', bg: 'rgba(107,114,128,0.1)' },
+  { value: 'APF', label: 'Appeal Filed',           color: '#7C3AED', bg: 'rgba(124,58,237,0.12)' },
+];
+
+const STATUS_CODE_MAP = Object.fromEntries(STATUS_CODES.map(s => [s.value, s]));
+
+const FILING_TYPES = ['AOS', 'CP', 'COS', 'EOS', 'PP'];
+
 const VISA_TYPES = [
-  'O-1A', 'EB-1A', 'EB-1C', 'EB-2 NIW', 'H-1B', 'L-1A', 'L-1B', 'E-2', 'TN', 'P-1', 'Other'
+  'O-1A', 'O-1B', 'EB-1A', 'EB-1B', 'EB-1C', 'EB-2 NIW', 'H-1B', 'L-1A', 'L-1B',
+  'E-2', 'TN', 'P-1', 'EB-5', 'AOS', 'CP', 'COS', 'EOS', 'Other'
 ];
 
 const STAGE_ORDER = STAGES.map(s => s.value);
+
+// Deadline engine — days remaining from today to a date
+function daysRemaining(isoDate) {
+  if (!isoDate) return null;
+  const diff = new Date(isoDate) - new Date();
+  return Math.ceil(diff / 86400000);
+}
+
+function urgencyClass(days) {
+  if (days === null) return '';
+  if (days < 0)   return 'urgency-overdue';
+  if (days <= 30)  return 'urgency-critical';
+  if (days <= 90)  return 'urgency-warning';
+  return 'urgency-ok';
+}
+
+function daysLabel(days) {
+  if (days === null) return '—';
+  if (days < 0)  return `${Math.abs(days)}d overdue`;
+  if (days === 0) return 'Today';
+  return `${days}d`;
+}
+
+// Collect all deadline alerts across all cases
+function getDeadlineAlerts() {
+  const alerts = [];
+  const now = new Date();
+  State.cases.forEach(c => {
+    const name = `${c.firstName} ${c.lastName}`;
+    // Expiration date
+    if (c.expirationDate) {
+      const d = daysRemaining(c.expirationDate);
+      if (d !== null && d <= 90) {
+        alerts.push({ caseId: c.id, name, type: 'expiration', label: 'Status Expiring', date: c.expirationDate, days: d, visa: c.visaType });
+      }
+    }
+    // RFE due date
+    if (c.rfeDueDate) {
+      const d = daysRemaining(c.rfeDueDate);
+      if (d !== null && d <= 30) {
+        alerts.push({ caseId: c.id, name, type: 'rfe', label: 'RFE Response Due', date: c.rfeDueDate, days: d, visa: c.visaType });
+      }
+    }
+    // Target filing date
+    if (c.targetFilingDate) {
+      const d = daysRemaining(c.targetFilingDate);
+      if (d !== null && d <= 30) {
+        alerts.push({ caseId: c.id, name, type: 'tfd', label: 'Target Filing Date', date: c.targetFilingDate, days: d, visa: c.visaType });
+      }
+    }
+  });
+  return alerts.sort((a, b) => (a.days ?? 9999) - (b.days ?? 9999));
+}
 
 // Document templates by visa type
 const DOC_TEMPLATES = {
@@ -279,10 +352,21 @@ function newCase(overrides = {}) {
     id: uuid(),
     firstName: '', lastName: '', email: '', phone: '',
     nationality: '', location: '', company: '',
+    geo: '',                      // country code / flag
     visaType: 'O-1A',
-    stage: 'lead',
+    filingType: 'AOS',            // AOS | CP | COS | EOS | PP
+    stage: 'KDE',                 // new status code (KDE default)
+    statusCode: 'KDE',            // explicit status code
     uscisReceiptNumber: '', consulateCase: '', consulateName: '',
     priorityDate: '', filingDate: '', approvalDate: '',
+    targetFilingDate: '',         // TFD
+    expirationDate: '',           // visa/status expiration
+    rfeDueDate: '',               // RFE response due date
+    pif: false,                   // Paid In Full
+    cmConc: '',                   // CM/CONC notation
+    assignedAttorney: '',         // attorney username
+    assignedCM: '',               // case manager username
+    priorityScore: 0,
     consultationDate: '', consultationTime: '', consultationDuration: '60',
     consultationNotes: '', consultationConfirmed: false,
     retainerPaid: false, retainerAmount: '', retainerDate: '',
@@ -326,8 +410,24 @@ function toast(msg, type = 'success') {
 
 // ---- Render helpers ----
 function stageBadge(stage) {
+  // Support new KDE/KAR/KFI… status codes
+  const sc = STATUS_CODE_MAP[stage];
+  if (sc) {
+    return `<span class="badge" style="background:${sc.bg};color:${sc.color};border-color:${sc.color}33;font-weight:600;letter-spacing:0.04em">${sc.value}</span>`;
+  }
   const label = STAGES.find(s => s.value === stage)?.label || stage;
   return `<span class="badge badge-${stage}">${label}</span>`;
+}
+
+function statusCodeSelect(currentVal, fieldName, caseId) {
+  return `<select onchange="updateCaseField('${caseId}','${fieldName}',this.value);updateCaseField('${caseId}','stage',this.value)">
+    <optgroup label="— Status Codes —">
+    ${STATUS_CODES.map(s => `<option value="${s.value}" ${currentVal===s.value?'selected':''}>${s.value} — ${s.label}</option>`).join('')}
+    </optgroup>
+    <optgroup label="— Legacy Stages —">
+    ${STAGES.map(s => `<option value="${s.value}" ${currentVal===s.value?'selected':''}>${s.label}</option>`).join('')}
+    </optgroup>
+  </select>`;
 }
 
 function docStatusBadge(status) {
@@ -368,10 +468,11 @@ function renderSidebar() {
   const activeCaseId = State.selectedCaseId;
 
   const counts = {
-    active: State.cases.filter(c => !['approved','denied','closed'].includes(c.stage)).length,
+    active: State.cases.filter(c => !['KAP','KW2','approved','denied','closed'].includes(c.stage || c.statusCode)).length,
     consultation: State.cases.filter(c => c.stage === 'consultation').length,
-    rfe: State.cases.filter(c => c.stage === 'rfe').length,
+    rfe: State.cases.filter(c => ['RFE','RFF','RFA','RFR','rfe'].includes(c.stage || c.statusCode)).length,
   };
+  const alerts = getDeadlineAlerts().filter(a => a.days <= 14);
 
   return `
     <aside class="sidebar" id="sidebar">
@@ -429,6 +530,17 @@ function renderSidebar() {
         <button class="nav-item ${activeView === 'uscis-forms' ? 'active' : ''}" onclick="navigate('uscis-forms')">
           ${icon('status')} USCIS Forms
         </button>
+        <div class="nav-section-label" style="margin-top:16px">Reports</div>
+        <button class="nav-item ${activeView === 'reports' ? 'active' : ''}" onclick="navigate('reports')">
+          ${icon('status')} Reports
+        </button>
+        <button class="nav-item ${activeView === 'time-tracking' ? 'active' : ''}" onclick="navigate('time-tracking')">
+          ${icon('overview')} Time Tracking
+        </button>
+        ${alerts.length ? `
+        <button class="nav-item" onclick="navigate('deadline-alerts')" style="color:#DC2626">
+          ${icon('docs')} ⚠ ${alerts.length} Deadline${alerts.length > 1 ? 's' : ''}
+        </button>` : ''}
         <div class="nav-section-label" style="margin-top:16px">Actions</div>
         <button class="nav-item" onclick="showAddCase()">
           ${icon('add')} New Case
@@ -437,33 +549,79 @@ function renderSidebar() {
           ${icon('status')} Settings
         </button>
       </nav>
-      <div style="padding:10px 12px;border-top:1px solid var(--border-2);margin-top:auto">
-        <div id="sb-sync-status" style="font-size:11px;color:var(--text-3)">
+      <div class="session-bar">
+        <div style="font-size:12px;font-weight:500;color:rgba(255,255,255,0.85)">${Auth.username || 'Attorney'}</div>
+        ${typeof RBAC !== 'undefined' ? RBAC.roleBadge(RBAC.getRole()) : ''}
+        <div id="sb-sync-status" style="font-size:11px;margin-top:4px">
           ${typeof SupabaseSync !== 'undefined' && SupabaseSync.isConfigured()
-            ? '<span style="color:var(--green)">● Cloud synced</span>'
-            : '<span>☁ <a href="#" onclick="navigate(\'settings\')" style="color:var(--gold)">Enable cloud sync</a></span>'}
+            ? '<span style="color:#4ade80">● Cloud synced</span>'
+            : '<span style="color:rgba(255,255,255,0.4)">☁ <a href="#" onclick="navigate(\'settings\')" style="color:#C9A84C">Enable sync</a></span>'}
         </div>
+        <button class="session-logout" onclick="Auth.logout()">Sign Out</button>
       </div>
     </aside>`;
+}
+
+// ---- Deadline Alerts View ----
+function renderDeadlineAlerts() {
+  const alerts = getDeadlineAlerts();
+  return `
+    <div class="topbar">
+      <div class="topbar-title">Deadline Alerts</div>
+    </div>
+    <div class="content">
+      ${alerts.length === 0 ? `
+        <div class="empty-state">
+          <div class="empty-state-icon">${svgIcon('check')}</div>
+          <h3>No Upcoming Deadlines</h3>
+          <p>All cases are clear for the next 90 days.</p>
+        </div>` : `
+        <div class="panel">
+          <div class="panel-title">Cases Requiring Attention (${alerts.length})</div>
+          <table class="report-table" style="width:100%">
+            <thead><tr>
+              <th>Client</th><th>Case Type</th><th>Alert Type</th>
+              <th>Date</th><th>Days</th><th>Attorney</th><th>Actions</th>
+            </tr></thead>
+            <tbody>
+            ${alerts.map(a => {
+              const c = getCase(a.caseId);
+              return `<tr class="${urgencyClass(a.days)}">
+                <td style="font-weight:500">${escHtml(a.name)}</td>
+                <td>${escHtml(a.visa)}</td>
+                <td>${escHtml(a.label)}</td>
+                <td>${fmtDate(a.date)}</td>
+                <td><strong>${daysLabel(a.days)}</strong></td>
+                <td style="font-size:12px">${escHtml(c?.assignedAttorney || '—')}</td>
+                <td>
+                  <button class="btn btn-ghost btn-sm" onclick="navigate('case-detail','${a.caseId}')">View</button>
+                </td>
+              </tr>`;
+            }).join('')}
+            </tbody>
+          </table>
+        </div>`}
+    </div>`;
 }
 
 // ---- Dashboard ----
 function renderDashboard() {
   const cases = State.cases;
   const total = cases.length;
-  const active = cases.filter(c => !['approved','denied','closed'].includes(c.stage)).length;
-  const approved = cases.filter(c => c.stage === 'approved').length;
-  const rfe = cases.filter(c => c.stage === 'rfe').length;
-  const filed = cases.filter(c => c.stage === 'filed').length;
+  const active = cases.filter(c => !['KAP','KW2','approved','denied','closed'].includes(c.statusCode || c.stage)).length;
+  const approved = cases.filter(c => ['KAP','approved'].includes(c.statusCode || c.stage)).length;
+  const rfe = cases.filter(c => ['RFE','RFF','RFA','RFR','rfe'].includes(c.statusCode || c.stage)).length;
+  const filed = cases.filter(c => ['KFI','filed'].includes(c.statusCode || c.stage)).length;
 
   // Recent cases
   const recent = [...cases]
     .sort((a,b) => new Date(b.updatedAt) - new Date(a.updatedAt))
     .slice(0, 5);
 
-  // Stage breakdown
-  const stageBreakdown = STAGES.map(s => ({
-    ...s, count: cases.filter(c => c.stage === s.value).length
+  // Stage breakdown — combine new status codes + legacy
+  const stageBreakdown = STATUS_CODES.map(s => ({
+    ...s, label: `${s.value} — ${s.label}`,
+    count: cases.filter(c => (c.statusCode || c.stage) === s.value).length
   })).filter(s => s.count > 0);
 
   // Upcoming consultations
@@ -507,13 +665,22 @@ function renderDashboard() {
         </div>
       </div>
 
-      ${rfe ? `
-      <div class="panel" style="border-color:rgba(248,113,113,0.3);background:var(--red-dim)">
-        <div style="display:flex;align-items:center;gap:10px;color:var(--red)">
-          <strong>⚠ ${rfe} RFE${rfe>1?'s':''} Pending Response</strong>
-          <button class="btn btn-sm btn-ghost" onclick="navigate('cases'); setFilter('stage','rfe')">View Cases →</button>
-        </div>
-      </div>` : ''}
+      ${(() => {
+        const urgentAlerts = getDeadlineAlerts().filter(a => a.days <= 14);
+        if (!urgentAlerts.length && !rfe) return '';
+        return `<div class="panel" style="border-color:rgba(220,38,38,0.3);background:rgba(220,38,38,0.04);margin-bottom:24px">
+          <div style="font-weight:600;color:#DC2626;margin-bottom:10px">⚠ Urgent Deadlines (within 14 days)</div>
+          ${urgentAlerts.map(a => `
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(220,38,38,0.1)">
+              <div>
+                <span style="font-weight:500;color:var(--text)">${escHtml(a.name)}</span>
+                <span style="margin-left:8px;font-size:12px;color:var(--text-3)">${escHtml(a.label)} · ${fmtDate(a.date)}</span>
+              </div>
+              <span class="${urgencyClass(a.days)}" style="font-size:12px;font-weight:600">${daysLabel(a.days)}</span>
+            </div>`).join('')}
+          ${rfe ? `<div style="margin-top:8px;font-size:13px;color:#DC2626">+ ${rfe} RFE${rfe>1?'s':''} pending response</div>` : ''}
+        </div>`;
+      })()}
 
       <div class="two-col" style="gap:24px">
         <div>
@@ -617,39 +784,37 @@ function renderCasesList() {
           <thead>
             <tr>
               <th>Client</th>
-              <th>Visa</th>
-              <th>Stage</th>
-              <th>Receipt #</th>
-              <th>Consultation</th>
-              <th>Doc Progress</th>
-              <th>Updated</th>
+              <th>Geo</th>
+              <th>Case Type</th>
+              <th>Filing</th>
+              <th>Status</th>
+              <th>TFD</th>
+              <th>Days</th>
+              <th>Expiration</th>
+              <th>PIF</th>
+              <th>Assigned</th>
             </tr>
           </thead>
           <tbody>
             ${cases.map(c => {
-              const docs = c.documents || [];
-              const approvedDocs = docs.filter(d => d.status === 'approved' || d.status === 'reviewed').length;
-              const docPct = docs.length ? Math.round(approvedDocs / docs.length * 100) : 0;
+              const statusVal = c.statusCode || c.stage;
+              const tfdDays = daysRemaining(c.targetFilingDate);
+              const expDays = daysRemaining(c.expirationDate);
               return `
                 <tr onclick="navigate('case-detail','${c.id}')">
                   <td>
-                    <div class="client-name">${c.firstName} ${c.lastName}</div>
-                    <div class="client-email">${c.email || '—'}</div>
+                    <div class="client-name">${escHtml(c.firstName)} ${escHtml(c.lastName)}</div>
+                    <div class="client-email">${escHtml(c.email || '—')}</div>
                   </td>
-                  <td><span class="badge badge-onboarding" style="background:transparent;border-color:var(--border-2);color:var(--text-2)">${c.visaType}</span></td>
-                  <td>${stageBadge(c.stage)}</td>
-                  <td style="font-family:monospace;font-size:12px;color:var(--text-3)">${c.uscisReceiptNumber || c.consulateCase || '—'}</td>
-                  <td style="font-size:12px;color:var(--text-3)">${c.consultationDate ? fmtDate(c.consultationDate) + (c.consultationConfirmed ? ' ✓' : '') : '—'}</td>
-                  <td style="min-width:100px">
-                    ${docs.length ? `
-                      <div style="display:flex;align-items:center;gap:8px">
-                        <div style="flex:1;height:5px;background:var(--surface-3);border-radius:3px;overflow:hidden">
-                          <div style="height:100%;width:${docPct}%;background:linear-gradient(90deg,var(--gold),var(--gold-light));border-radius:3px"></div>
-                        </div>
-                        <span style="font-size:11px;color:var(--text-3)">${docPct}%</span>
-                      </div>` : '<span style="font-size:12px;color:var(--text-3)">—</span>'}
-                  </td>
-                  <td style="font-size:12px;color:var(--text-3)">${fmtDate(c.updatedAt)}</td>
+                  <td style="font-size:16px">${escHtml(c.geo || c.nationality?.slice(0,2) || '—')}</td>
+                  <td><span style="font-size:12px;font-weight:600;color:var(--navy)">${escHtml(c.visaType)}</span></td>
+                  <td style="font-size:12px;color:var(--text-3)">${escHtml(c.filingType || '—')}</td>
+                  <td>${stageBadge(statusVal)}</td>
+                  <td style="font-size:12px;color:var(--text-3)">${c.targetFilingDate ? fmtDate(c.targetFilingDate) : '—'}</td>
+                  <td><span class="${urgencyClass(tfdDays)}" style="font-size:12px;font-weight:600">${daysLabel(tfdDays)}</span></td>
+                  <td><span class="${urgencyClass(expDays)}" style="font-size:12px">${c.expirationDate ? fmtDate(c.expirationDate) : '—'}</span></td>
+                  <td style="font-size:13px">${c.pif ? '<span style="color:#16A34A">✓</span>' : '<span style="color:var(--text-3)">—</span>'}</td>
+                  <td style="font-size:12px;color:var(--text-3)">${escHtml(c.assignedAttorney || '—')}</td>
                 </tr>`;
             }).join('')}
           </tbody>
@@ -679,6 +844,7 @@ function renderCaseDetail(caseId) {
     { id: 'documents', label: 'Documents' },
     { id: 'petition', label: 'Petition' },
     { id: 'status', label: 'USCIS Status' },
+    { id: 'time-log', label: 'Time Log' },
   ];
 
   const docs = c.documents || [];
@@ -751,6 +917,9 @@ function renderTab(tab, c, docPct) {
     case 'documents':  return renderDocumentsTab(c);
     case 'petition':   return renderPetitionTab(c);
     case 'status':     return renderStatusTab(c);
+    case 'time-log':   return typeof TimeTracker !== 'undefined'
+      ? `<div style="margin-top:16px">${TimeTracker.renderCaseTimeLog(c.id)}</div>`
+      : '<p style="padding:20px;color:var(--text-3)">Time tracking module not loaded.</p>';
     default:           return renderOverviewTab(c, docPct);
   }
 }
@@ -768,9 +937,24 @@ function renderOverviewTab(c, docPct) {
             ${infoRow('Full Name', `${c.firstName} ${c.lastName}`)}
             ${infoRow('Email', c.email || '—')}
             ${infoRow('Phone', c.phone || '—')}
-            ${infoRow('Nationality', c.nationality || '—')}
+            ${infoRow('Nationality / Geo', c.nationality || c.geo || '—')}
             ${infoRow('Location', c.location || '—')}
             ${infoRow('Company', c.company || '—')}
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-title">Case Details</div>
+          <div class="three-col" style="gap:12px">
+            ${infoRow('Status Code', stageBadge(c.statusCode || c.stage))}
+            ${infoRow('Filing Type', c.filingType || '—')}
+            ${infoRow('PIF', c.pif ? '<span style="color:#16A34A;font-weight:600">✓ Paid In Full</span>' : '<span style="color:var(--text-3)">Pending</span>')}
+            ${infoRow('Target Filing Date', c.targetFilingDate ? `${fmtDate(c.targetFilingDate)} <span class="${urgencyClass(daysRemaining(c.targetFilingDate))}">(${daysLabel(daysRemaining(c.targetFilingDate))})</span>` : '—')}
+            ${infoRow('Status/Visa Expiration', c.expirationDate ? `${fmtDate(c.expirationDate)} <span class="${urgencyClass(daysRemaining(c.expirationDate))}">(${daysLabel(daysRemaining(c.expirationDate))})</span>` : '—')}
+            ${infoRow('RFE Due Date', c.rfeDueDate ? `${fmtDate(c.rfeDueDate)} <span class="${urgencyClass(daysRemaining(c.rfeDueDate))}">(${daysLabel(daysRemaining(c.rfeDueDate))})</span>` : '—')}
+            ${infoRow('Assigned Attorney', c.assignedAttorney || '—')}
+            ${infoRow('Case Manager', c.assignedCM || '—')}
+            ${infoRow('CM/CONC', c.cmConc || '—')}
           </div>
         </div>
 
@@ -1975,17 +2159,33 @@ function showAddCase() {
             </select>
           </div>
           <div class="field">
-            <label>Stage</label>
+            <label>Status</label>
             <select id="nc-stage">
-              ${STAGES.map(s => `<option value="${s.value}">${s.label}</option>`).join('')}
+              ${STATUS_CODES.map(s => `<option value="${s.value}">${s.value} — ${s.label}</option>`).join('')}
             </select>
           </div>
         </div>
         <div class="field-row">
-          <div class="field"><label>Nationality</label><input id="nc-nat" placeholder="e.g. Georgian" /></div>
+          <div class="field"><label>Nationality / Geo</label><input id="nc-nat" placeholder="e.g. Georgian" /></div>
           <div class="field"><label>Location</label><input id="nc-loc" placeholder="e.g. New York, NY" /></div>
         </div>
-        <div class="field"><label>Company / Organization</label><input id="nc-company" placeholder="e.g. TechCorp Inc." /></div>
+        <div class="field-row">
+          <div class="field"><label>Company / Organization</label><input id="nc-company" placeholder="e.g. TechCorp Inc." /></div>
+          <div class="field">
+            <label>Filing Type</label>
+            <select id="nc-filing">
+              ${FILING_TYPES.map(f => `<option value="${f}">${f}</option>`).join('')}
+            </select>
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label>Target Filing Date (TFD)</label><input id="nc-tfd" type="date" /></div>
+          <div class="field"><label>Status / Visa Expiration</label><input id="nc-exp" type="date" /></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label>Assigned Attorney</label><input id="nc-attorney" placeholder="Username or name" /></div>
+          <div class="field"><label>Assigned Case Manager</label><input id="nc-cm" placeholder="Username or name" /></div>
+        </div>
         <div class="field"><label>Notes</label><textarea id="nc-notes" rows="3" placeholder="Initial notes, referral source, case summary…"></textarea></div>
         <div class="checkbox-field" style="margin-bottom:16px">
           <input type="checkbox" id="nc-initdocs" checked />
@@ -2005,6 +2205,7 @@ function saveNewCase() {
   if (!firstName) { toast('First name is required', 'warn'); return; }
 
   const visaType = document.getElementById('nc-visa')?.value || 'O-1A';
+  const statusCode = document.getElementById('nc-stage')?.value || 'KDE';
   const initDocs = document.getElementById('nc-initdocs')?.checked;
 
   const c = newCase({
@@ -2013,7 +2214,13 @@ function saveNewCase() {
     email: document.getElementById('nc-email')?.value.trim() || '',
     phone: document.getElementById('nc-phone')?.value.trim() || '',
     visaType,
-    stage: document.getElementById('nc-stage')?.value || 'lead',
+    stage: statusCode,
+    statusCode,
+    filingType: document.getElementById('nc-filing')?.value || 'AOS',
+    targetFilingDate: document.getElementById('nc-tfd')?.value || '',
+    expirationDate: document.getElementById('nc-exp')?.value || '',
+    assignedAttorney: document.getElementById('nc-attorney')?.value.trim() || Auth.username || '',
+    assignedCM: document.getElementById('nc-cm')?.value.trim() || '',
     nationality: document.getElementById('nc-nat')?.value.trim() || '',
     location: document.getElementById('nc-loc')?.value.trim() || '',
     company: document.getElementById('nc-company')?.value.trim() || '',
@@ -2023,6 +2230,7 @@ function saveNewCase() {
 
   State.cases.push(c);
   Storage.save();
+  if (typeof TimeTracker !== 'undefined') TimeTracker.log(c.id, 'case_created', 'Case created');
   closeModal();
   toast(`Case created: ${firstName} ${lastName}`);
   navigate('case-detail', c.id);
@@ -2053,9 +2261,14 @@ function showEditCase(caseId) {
             </select>
           </div>
           <div class="field">
-            <label>Stage</label>
+            <label>Status Code</label>
             <select id="ec-stage">
-              ${STAGES.map(s => `<option value="${s.value}" ${c.stage===s.value?'selected':''}>${s.label}</option>`).join('')}
+              <optgroup label="— Status Codes —">
+              ${STATUS_CODES.map(s => `<option value="${s.value}" ${(c.statusCode||c.stage)===s.value?'selected':''}>${s.value} — ${s.label}</option>`).join('')}
+              </optgroup>
+              <optgroup label="— Legacy —">
+              ${STAGES.map(s => `<option value="${s.value}" ${c.stage===s.value&&!c.statusCode?'selected':''}>${s.label}</option>`).join('')}
+              </optgroup>
             </select>
           </div>
         </div>
@@ -2078,6 +2291,30 @@ function showEditCase(caseId) {
             <label for="ec-fpaid">Filing Fees Paid</label>
           </div>
         </div>
+        <div class="field-row">
+          <div class="field"><label>Target Filing Date (TFD)</label><input id="ec-tfd" type="date" value="${escAttr(c.targetFilingDate || '')}" /></div>
+          <div class="field"><label>Status/Visa Expiration</label><input id="ec-exp" type="date" value="${escAttr(c.expirationDate || '')}" /></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label>RFE Due Date</label><input id="ec-rfe" type="date" value="${escAttr(c.rfeDueDate || '')}" /></div>
+          <div class="field">
+            <label>Filing Type</label>
+            <select id="ec-filing">
+              ${FILING_TYPES.map(f => `<option value="${f}" ${(c.filingType||'AOS')===f?'selected':''}>${f}</option>`).join('')}
+            </select>
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label>Assigned Attorney</label><input id="ec-attorney" value="${escAttr(c.assignedAttorney || '')}" placeholder="Username" /></div>
+          <div class="field"><label>Assigned Case Manager</label><input id="ec-cm" value="${escAttr(c.assignedCM || '')}" placeholder="Username" /></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label>CM/CONC Note</label><input id="ec-cmconc" value="${escAttr(c.cmConc || '')}" placeholder="e.g. CM only" /></div>
+          <div class="checkbox-field" style="margin-top:24px">
+            <input type="checkbox" id="ec-pif" ${c.pif?'checked':''} />
+            <label for="ec-pif">PIF (Paid In Full)</label>
+          </div>
+        </div>
         <div class="field"><label>Notes</label><textarea id="ec-notes" rows="3">${escHtml(c.notes || '')}</textarea></div>
       </div>
       <div class="modal-footer">
@@ -2097,7 +2334,9 @@ function saveEditCase(caseId) {
   c.email = document.getElementById('ec-email')?.value.trim() || '';
   c.phone = document.getElementById('ec-phone')?.value.trim() || '';
   c.visaType = document.getElementById('ec-visa')?.value || c.visaType;
-  c.stage = document.getElementById('ec-stage')?.value || c.stage;
+  const newStatus = document.getElementById('ec-stage')?.value || c.stage;
+  c.stage = newStatus;
+  c.statusCode = newStatus;
   c.nationality = document.getElementById('ec-nat')?.value.trim() || '';
   c.location = document.getElementById('ec-loc')?.value.trim() || '';
   c.company = document.getElementById('ec-company')?.value.trim() || '';
@@ -2105,10 +2344,19 @@ function saveEditCase(caseId) {
   c.retainerAmount = document.getElementById('ec-retainer')?.value || '';
   c.retainerPaid = document.getElementById('ec-rpaid')?.checked || false;
   c.filingFeesPaid = document.getElementById('ec-fpaid')?.checked || false;
+  c.targetFilingDate = document.getElementById('ec-tfd')?.value || '';
+  c.expirationDate = document.getElementById('ec-exp')?.value || '';
+  c.rfeDueDate = document.getElementById('ec-rfe')?.value || '';
+  c.filingType = document.getElementById('ec-filing')?.value || 'AOS';
+  c.assignedAttorney = document.getElementById('ec-attorney')?.value.trim() || '';
+  c.assignedCM = document.getElementById('ec-cm')?.value.trim() || '';
+  c.cmConc = document.getElementById('ec-cmconc')?.value.trim() || '';
+  c.pif = document.getElementById('ec-pif')?.checked || false;
   c.notes = document.getElementById('ec-notes')?.value.trim() || '';
   c.updatedAt = new Date().toISOString();
 
   Storage.save();
+  if (typeof TimeTracker !== 'undefined') TimeTracker.log(caseId, 'status_updated', `Status updated to ${newStatus}`);
   closeModal();
   toast('Case updated');
   render();
@@ -2502,6 +2750,10 @@ function renderSettings() {
           <button class="btn btn-danger btn-sm" onclick="_confirmClearAll()">Clear All Cases</button>
         </div>
       </div>
+
+      ${typeof RBAC !== 'undefined' ? RBAC.renderRoleSettings() : ''}
+      ${typeof TimeTracker !== 'undefined' ? `<div style="margin-top:16px">${TimeTracker.renderSettings()}</div>` : ''}
+      ${typeof SupabaseSync !== 'undefined' ? `<div id="settings-content" style="margin-top:16px">${renderSupabaseSettings ? renderSupabaseSettings() : ''}</div>` : ''}
     </div>`;
 }
 
@@ -3444,16 +3696,21 @@ function renderMain() {
   }
 
   switch (State.view) {
-    case 'dashboard':      return renderDashboard();
-    case 'cases':          return renderCasesList();
-    case 'case-detail':    return renderCaseDetail(State.selectedCaseId);
-    case 'settings':       return renderSettings();
-    case 'email':          return renderEmailView();
-    case 'team-chat':      return renderTeamChat();
-    case 'invoices':       return renderInvoices();
-    case 'questionnaires': return renderQuestionnaires();
-    case 'uscis-forms':    return renderUscisFormsGenerator();
-    default:               return renderDashboard();
+    case 'dashboard':        return renderDashboard();
+    case 'cases':            return renderCasesList();
+    case 'case-detail':      return renderCaseDetail(State.selectedCaseId);
+    case 'settings':         return renderSettings();
+    case 'email':            return renderEmailView();
+    case 'team-chat':        return renderTeamChat();
+    case 'invoices':         return renderInvoices();
+    case 'questionnaires':   return renderQuestionnaires();
+    case 'uscis-forms':      return renderUscisFormsGenerator();
+    case 'deadline-alerts':  return renderDeadlineAlerts();
+    case 'time-tracking':    return typeof TimeTracker !== 'undefined' ? `<div class="topbar"><div class="topbar-title">Time Tracking</div></div><div class="content">${TimeTracker.renderTimeReport({})}</div>` : renderDashboard();
+    case 'reports':
+      if (typeof Reports !== 'undefined') return Reports.renderReportsHub();
+      return renderDashboard();
+    default:                 return renderDashboard();
   }
 }
 
