@@ -17,7 +17,21 @@
   <script src="case-manager-auth.js"></script>
   <script src="case-manager.js"></script>
   <script src="case-manager-v2.js"></script>
-  <!-- Backend adapter: comment out this line to run in offline/localStorage mode -->
-  <script src="backend-adapter.js"></script>
+  <!-- Cloud sync layer -->
+  <script src="case-manager-supabase.js"></script>
+  <!-- Role-based access control -->
+  <script src="case-manager-rbac.js"></script>
+  <!-- Automatic time tracking engine -->
+  <script src="case-manager-time.js"></script>
+  <!-- Reporting suite (8 reports) -->
+  <script src="case-manager-reports.js"></script>
+  <!-- USCIS Officer Report -->
+  <script src="case-manager-officers.js"></script>
+  <!-- Unit tests (accessible via CaseManagerTests.run() in DevTools) -->
+  <script src="case-manager-tests.js"></script>
+  <!-- V3 enhancements: Activity Log, Fee Management, Invoices, Alerts, Key Dates, Consultations -->
+  <script src="case-manager-v3.js"></script>
+  <!-- Backend adapter: uncomment when Node/Express server is deployed -->
+  <!-- <script src="backend-adapter.js"></script> -->
 </body>
 </html>

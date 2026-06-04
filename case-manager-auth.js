@@ -22,7 +22,17 @@ const Auth = (() => {
   const ready = new Promise(res => { _resolve = res; });
 
   const enc = v => new TextEncoder().encode(v);
-  const toB64 = buf => btoa(String.fromCharCode(...new Uint8Array(buf)));
+  const toB64 = buf => {
+    // Chunked conversion — spreading a large Uint8Array into String.fromCharCode
+    // overflows the call stack once the data grows past a few dozen KB.
+    const bytes = new Uint8Array(buf);
+    let binary = '';
+    const CHUNK = 0x8000; // 32K bytes per chunk
+    for (let i = 0; i < bytes.length; i += CHUNK) {
+      binary += String.fromCharCode.apply(null, bytes.subarray(i, i + CHUNK));
+    }
+    return btoa(binary);
+  };
   const fromB64 = b64 => Uint8Array.from(atob(b64), c => c.charCodeAt(0));
 
   function randBytes(n) {
@@ -215,9 +225,14 @@ const Auth = (() => {
         margin: 24px;
       }
       .auth-logo {
-        display: block;
+        font-family: var(--font-serif);
+        font-size: 26px;
+        font-weight: 600;
+        color: var(--white);
+        letter-spacing: 0.04em;
         margin-bottom: 4px;
       }
+      .auth-logo span { color: var(--gold); }
       .auth-sub {
         font-size: 11px;
         font-weight: 600;
@@ -320,7 +335,7 @@ const Auth = (() => {
         width: 100%;
         padding: 13px;
         background: var(--gold);
-        color: #fff;
+        color: var(--bg);
         border: none;
         border-radius: var(--radius);
         font-family: var(--font-sans);
@@ -357,8 +372,8 @@ const Auth = (() => {
       }
       .auth-spinner {
         width: 18px; height: 18px;
-        border: 2px solid rgba(255,255,255,0.25);
-        border-top-color: #fff;
+        border: 2px solid rgba(8,8,15,0.3);
+        border-top-color: var(--bg);
         border-radius: 50%;
         animation: spin 0.7s linear infinite;
         display: none;
@@ -403,14 +418,6 @@ const Auth = (() => {
     `;
   }
 
-  const LOGO_SVG = `<svg width="140" height="36" viewBox="0 0 140 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <rect width="36" height="36" rx="6" fill="#3b82f6"/>
-    <path d="M10 8 L18 18 L10 28" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-    <path d="M18 8 L26 18 L18 28" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.6"/>
-    <text x="44" y="14" font-family="Georgia,serif" font-size="11" font-weight="700" letter-spacing="0.12em" fill="#e8eeff">KAMKHADZE</text>
-    <text x="44" y="28" font-family="Georgia,serif" font-size="10" font-weight="400" letter-spacing="0.18em" fill="#3b82f6">PA</text>
-  </svg>`;
-
   function injectStyles() {
     if (document.getElementById('auth-styles')) return;
     const s = document.createElement('style');
@@ -431,7 +438,7 @@ const Auth = (() => {
 
     overlay.innerHTML = `
       <div class="auth-card">
-        <div class="auth-logo">${LOGO_SVG}</div>
+        <div class="auth-logo">ESQ<span>.</span>MBA</div>
         <div class="auth-sub">Secure Case Manager</div>
         <div class="auth-title">Sign In</div>
         <div class="auth-desc">
@@ -439,6 +446,7 @@ const Auth = (() => {
         </div>
         ${message ? `<div class="auth-info" style="display:block">${message}</div>` : ''}
         <div class="auth-error" id="auth-error"></div>
+        <div class="auth-info" id="auth-info" style="display:none"></div>
         ${lockout ? `
           <div style="text-align:center">
             <div style="color:var(--red);font-size:13px;margin-bottom:8px">
@@ -465,16 +473,16 @@ const Auth = (() => {
             <span id="auth-btn-text">Sign In</span>
             <div class="auth-spinner" id="auth-spinner"></div>
           </button>
-          <div style="text-align:center;margin-top:14px">
-            <button type="button" onclick="Auth._showForgotPassword()"
-              style="background:none;border:none;color:var(--text-3);font-size:12px;
-                     cursor:pointer;text-decoration:underline;padding:4px 8px;">
-              Forgot password?
-            </button>
+          <div style="text-align:center;margin-top:14px;display:flex;justify-content:space-between;font-size:12px;">
+            <a href="#" onclick="Auth._showSetup();return false"
+              style="color:var(--text-3);text-decoration:underline;">Create account</a>
+            <a href="#" onclick="Auth._showForgotPassword();return false"
+              style="color:var(--text-3);text-decoration:underline;">Forgot password?</a>
           </div>
         `}
         <div class="auth-footer">
-          🔒 Protected by AES-256-GCM encryption &amp; bcrypt &middot; Attorney-client privileged data
+          🔒 Encrypted with AES-256-GCM · PBKDF2 key derivation<br/>
+          Sign in from any device — your data restores automatically.
         </div>
       </div>`;
 
@@ -498,7 +506,7 @@ const Auth = (() => {
     overlay.id = 'auth-overlay';
     overlay.innerHTML = `
       <div class="auth-card">
-        <div class="auth-logo">${LOGO_SVG}</div>
+        <div class="auth-logo">ESQ<span>.</span>MBA</div>
         <div class="auth-sub">First-Time Setup</div>
         <div class="auth-title">Create Your Credentials</div>
         <div class="auth-desc">
@@ -536,12 +544,15 @@ const Auth = (() => {
           <span id="auth-btn-text">Create Account &amp; Enter</span>
           <div class="auth-spinner" id="auth-spinner"></div>
         </button>
+        <div style="text-align:center;margin-top:16px;font-size:13px;color:var(--text-3)">
+          Already have an account?
+          <a href="#" onclick="Auth._showLogin();return false"
+            style="color:var(--gold);text-decoration:none;font-weight:600"> Sign in →</a>
+        </div>
         <div class="auth-footer">
           🔒 Your password is used to derive an AES-256 encryption key via PBKDF2.<br/>
           It is <strong>never stored</strong> — only a cryptographic verifier is saved.<br/>
-          <span style="color:var(--gold);font-weight:500">
-            Once the backend is configured, password recovery is available via email.
-          </span>
+          <span style="color:var(--red);font-weight:600">If you forget your password, all data will be unrecoverable.</span>
         </div>
       </div>`;
 
@@ -609,18 +620,42 @@ const Auth = (() => {
       return;
     }
 
-    const cfg = getAuthConfig();
-    if (!cfg) { showSetupScreen(); return; }
-    if (cfg.username !== username) {
-      recordFailedAttempt();
-      showAuthError('Invalid username or password.');
-      return;
-    }
-
     const lockout = isLockedOut();
     if (lockout) { startLockoutCountdown(lockout.seconds); return; }
 
     setLoading(true);
+
+    let cfg = getAuthConfig();
+
+    // No local config — new device. Try to recover credentials from Supabase.
+    if (!cfg || cfg.username !== username) {
+      showAuthNotice('New device detected — checking cloud for your account…');
+      const remoteCfg = await _fetchRemoteAuthConfig(username);
+      if (!remoteCfg) {
+        setLoading(false);
+        showAuthError('No account found for this username. Create one first.');
+        return;
+      }
+      // Verify the password against the remote config
+      try {
+        const salt = fromB64(remoteCfg.salt);
+        const key  = await deriveKey(password, salt);
+        await _decrypt(key, remoteCfg.verifier);
+        // Password correct — save config locally so future logins work offline
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(remoteCfg));
+        _key = key;
+        _username = username;
+        clearLockout();
+        await storeSession(key, username);
+        bootApp();
+      } catch {
+        setLoading(false);
+        const remaining = recordFailedAttempt();
+        showAuthError(`Invalid password. ${remaining} attempt${remaining !== 1 ? 's' : ''} remaining.`);
+      }
+      return;
+    }
+
     try {
       const salt = fromB64(cfg.salt);
       const key  = await deriveKey(password, salt);
@@ -629,6 +664,9 @@ const Auth = (() => {
       _username = username;
       clearLockout();
       await storeSession(key, username);
+      // Self-heal: re-upload this account's credentials to the cloud on every
+      // login, so a second device can always recover it (fire-and-forget).
+      _pushRemoteAuthConfig(username, cfg);
       bootApp();
     } catch {
       setLoading(false);
@@ -671,14 +709,13 @@ const Auth = (() => {
       const salt = randBytes(16);
       const key  = await deriveKey(password, salt);
       const verifier = await _encrypt(key, VERIFY_PLAIN);
-      localStorage.setItem(STORAGE_KEY, JSON.stringify({
-        username,
-        salt: toB64(salt.buffer),
-        verifier,
-      }));
+      const authCfg = { username, salt: toB64(salt.buffer), verifier };
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(authCfg));
       _key = key;
       _username = username;
       await storeSession(key, username);
+      // Push auth config to Supabase so this account can be recovered on any device
+      await _pushRemoteAuthConfig(username, authCfg);
       bootApp();
     } catch (err) {
       setLoading(false);
@@ -692,6 +729,53 @@ const Auth = (() => {
     const label = document.getElementById('pw-strength-label');
     if (fill)  { fill.style.width = s.pct + '%'; fill.style.background = s.color; }
     if (label) { label.textContent = s.label; label.style.color = s.color; }
+  }
+
+  function showAuthNotice(msg) {
+    const el = document.getElementById('auth-info');
+    if (el) { el.textContent = msg; el.style.display = 'block'; }
+  }
+
+  // ---- Supabase helpers (standalone — no dependency on case-manager-supabase.js) ----
+  const _SB_URL = 'https://nqcgfiicirlqvnmkzehy.supabase.co';
+  const _SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5xY2dmaWljaXJscXZubWt6ZWh5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk5NDQ0NDAsImV4cCI6MjA5NTUyMDQ0MH0.WPZbZNidW99ZlXUjKOQ9yXro12sev9cYp2Px2pkgKQI';
+
+  async function _fetchRemoteAuthConfig(username) {
+    try {
+      const url = localStorage.getItem('km_supabase_url') || _SB_URL;
+      const key = localStorage.getItem('km_supabase_anon_key') || _SB_KEY;
+      const res = await fetch(
+        `${url}/rest/v1/km_sync?username=eq.${encodeURIComponent(username)}&slot=eq.auth_config&select=data&limit=1`,
+        { headers: { apikey: key, Authorization: `Bearer ${key}` } }
+      );
+      if (!res.ok) return null;
+      const rows = await res.json();
+      return rows?.[0]?.data ? JSON.parse(rows[0].data) : null;
+    } catch { return null; }
+  }
+
+  async function _pushRemoteAuthConfig(username, cfg) {
+    try {
+      const url = localStorage.getItem('km_supabase_url') || _SB_URL;
+      const key = localStorage.getItem('km_supabase_anon_key') || _SB_KEY;
+      await fetch(`${url}/rest/v1/km_sync?on_conflict=username,slot`, {
+        method: 'POST',
+        headers: {
+          apikey: key,
+          Authorization: `Bearer ${key}`,
+          'Content-Type': 'application/json',
+          Prefer: 'resolution=merge-duplicates',
+        },
+        body: JSON.stringify({
+          username,
+          slot: 'auth_config',
+          data: JSON.stringify(cfg),
+          updated_at: new Date().toISOString(),
+        }),
+      });
+    } catch(e) {
+      console.warn('[Auth] Could not push auth config to Supabase:', e.message);
+    }
   }
 
   function bootApp() {
@@ -709,79 +793,36 @@ const Auth = (() => {
     observer.observe(document.body, { childList: true, subtree: true });
   }
 
-  // ── Backend-aware login ──────────────────────────────────────────────────────
-  async function _handleLoginBackendAware() {
-    const username = document.getElementById('auth-username')?.value.trim();
-    const password = document.getElementById('auth-password')?.value;
-    if (!username || !password) {
-      showAuthError('Please enter your username and password.');
-      return;
-    }
-
-    if (window.API) {
-      setLoading(true);
-      try {
-        const data = await window.API.post('/api/auth/login', { username, password });
-        if (data && data.token) {
-          window.API.setToken(data.token);
-          _username = data.user?.name || data.user?.username || username;
-          clearLockout();
-          bootApp();
-          return;
-        }
-      } catch (err) {
-        if (err.message && err.message.includes('401')) {
-          setLoading(false);
-          const remaining = recordFailedAttempt();
-          const lo = isLockedOut();
-          if (lo) { showLoginScreen(); return; }
-          showAuthError(`Invalid username or password. ${remaining} attempt${remaining!==1?'s':''} remaining.`);
-          return;
-        }
-        console.warn('[Auth] Backend unavailable, trying local auth:', err.message);
-      }
-      setLoading(false);
-    }
-
-    await _handleLogin();
-  }
-
-  // ── Forgot Password screen ──────────────────────────────────────────────────
+  // ── Forgot Password screen ────────────────────────────────────────────────
   function _showForgotPassword() {
     injectStyles();
     const overlay = document.getElementById('auth-overlay');
     if (!overlay) return;
-
     overlay.querySelector('.auth-card').innerHTML = `
-      <div class="auth-logo">${LOGO_SVG}</div>
+      <div class="auth-logo">ESQ<span>.</span>MBA</div>
       <div class="auth-sub">Password Recovery</div>
       <div class="auth-title">Reset Password</div>
       <div class="auth-desc">
         Enter your account email address. If it exists, we'll send a reset link.
         The link expires in <strong style="color:var(--gold)">1 hour</strong>.
       </div>
-      <div class="auth-error"  id="auth-error"></div>
-      <div class="auth-info"   id="auth-info"></div>
+      <div class="auth-error" id="auth-error"></div>
+      <div class="auth-info" id="auth-info"></div>
       <div class="auth-field">
         <label>Email Address</label>
-        <input type="email" id="forgot-email" autocomplete="email"
-          placeholder="your-email@example.com" autofocus />
+        <input type="email" id="forgot-email" autocomplete="email" placeholder="your-email@example.com" autofocus />
       </div>
       <button class="auth-btn" id="auth-submit-btn" onclick="Auth._handleForgotSubmit()">
         <span id="auth-btn-text">Send Reset Link</span>
         <div class="auth-spinner" id="auth-spinner"></div>
       </button>
       <div style="text-align:center;margin-top:14px">
-        <button type="button" onclick="Auth._backToLogin()"
-          style="background:none;border:none;color:var(--text-3);font-size:12px;
-                 cursor:pointer;text-decoration:underline;padding:4px 8px;">
+        <button type="button" onclick="Auth._showLogin()"
+          style="background:none;border:none;color:var(--text-3);font-size:12px;cursor:pointer;text-decoration:underline;padding:4px 8px;">
           ← Back to Sign In
         </button>
       </div>
-      <div class="auth-footer">
-        🔒 If your account exists, a secure link will be emailed to you.
-      </div>`;
-
+      <div class="auth-footer">🔒 If your account exists, a secure link will be emailed to you.</div>`;
     document.getElementById('forgot-email')?.addEventListener('keydown', e => {
       if (e.key === 'Enter') Auth._handleForgotSubmit();
     });
@@ -789,103 +830,33 @@ const Auth = (() => {
 
   async function _handleForgotSubmit() {
     const email = document.getElementById('forgot-email')?.value.trim();
-    if (!email) { showAuthError('Please enter your email address.'); return; }
+    if (!email) { const el = document.getElementById('auth-error'); if (el) { el.textContent='Please enter your email address.'; el.style.display='block'; } return; }
     if (!window.API) {
-      showAuthError('Backend not connected. Contact your administrator to reset your password.');
+      const el = document.getElementById('auth-error');
+      if (el) { el.textContent='Password reset requires a backend server. Contact anka@esq.mba to reset your password.'; el.style.display='block'; }
       return;
     }
-    setLoading(true);
+    const btn = document.getElementById('auth-submit-btn');
+    const spin = document.getElementById('auth-spinner');
+    const txt  = document.getElementById('auth-btn-text');
+    if (btn) btn.disabled = true;
+    if (spin) spin.style.display = 'block';
+    if (txt)  txt.style.display  = 'none';
     try {
       await window.API.post('/api/auth/forgot-password', { username: email });
-      const btn = document.getElementById('auth-submit-btn');
       if (btn) btn.style.display = 'none';
       const info = document.getElementById('auth-info');
-      if (info) {
-        info.textContent = '✅ If that account exists, a reset email has been sent. Check your inbox (and spam folder).';
-        info.style.display = 'block';
-      }
-    } catch (err) {
-      setLoading(false);
-      showAuthError('Could not send reset email. Please try again or contact your administrator.');
+      if (info) { info.textContent = '✅ If that account exists, a reset email has been sent. Check your inbox.'; info.style.display = 'block'; }
+    } catch {
+      if (btn) { btn.disabled=false; }
+      if (spin) spin.style.display='none';
+      if (txt)  txt.style.display='inline';
+      const el = document.getElementById('auth-error');
+      if (el) { el.textContent='Could not send reset email. Please try again.'; el.style.display='block'; }
     }
   }
 
-  function _backToLogin() {
-    showLoginScreen();
-  }
-
-  // ── Reset Password screen (from email link) ────────────────────────────────────
-  function _showResetPassword(token) {
-    injectStyles();
-    document.body.innerHTML = '';
-    const overlay = document.createElement('div');
-    overlay.id = 'auth-overlay';
-    overlay.innerHTML = `
-      <div class="auth-card">
-        <div class="auth-logo">${LOGO_SVG}</div>
-        <div class="auth-sub">Password Reset</div>
-        <div class="auth-title">Set New Password</div>
-        <div class="auth-desc">Choose a strong new password for your account.</div>
-        <div class="auth-error" id="auth-error"></div>
-        <div class="auth-info"  id="auth-info"></div>
-        <div class="auth-field" id="reset-fields">
-          <label>New Password</label>
-          <div class="auth-input-wrap">
-            <input type="password" id="reset-password" autocomplete="new-password"
-              placeholder="Minimum 8 characters" oninput="Auth._updateStrength(this.value)" autofocus />
-            <button type="button" class="auth-show-pw" onclick="togglePwVisibility('reset-password',this)">👁</button>
-          </div>
-          <div class="pw-strength-bar">
-            <div class="pw-strength-fill" id="pw-strength-fill" style="width:0%;background:var(--red)"></div>
-          </div>
-          <div class="pw-strength-label" id="pw-strength-label" style="color:var(--text-3)">Enter a password</div>
-        </div>
-        <div class="auth-field" id="reset-confirm-field">
-          <label>Confirm Password</label>
-          <div class="auth-input-wrap">
-            <input type="password" id="reset-confirm" autocomplete="new-password" placeholder="Repeat password" />
-            <button type="button" class="auth-show-pw" onclick="togglePwVisibility('reset-confirm',this)">👁</button>
-          </div>
-        </div>
-        <button class="auth-btn" id="auth-submit-btn" onclick="Auth._handleResetSubmit('${token}')">
-          <span id="auth-btn-text">Set New Password</span>
-          <div class="auth-spinner" id="auth-spinner"></div>
-        </button>
-        <div class="auth-footer">
-          🔒 This link is single-use and expires 1 hour after it was sent.
-        </div>
-      </div>`;
-    document.body.appendChild(overlay);
-    document.getElementById('reset-confirm')?.addEventListener('keydown', e => {
-      if (e.key === 'Enter') Auth._handleResetSubmit(token);
-    });
-  }
-
-  async function _handleResetSubmit(token) {
-    const pw      = document.getElementById('reset-password')?.value;
-    const confirm = document.getElementById('reset-confirm')?.value;
-    if (!pw || pw.length < 8) { showAuthError('Password must be at least 8 characters.'); return; }
-    if (pw !== confirm)       { showAuthError('Passwords do not match.'); return; }
-    if (!window.API) { showAuthError('Backend not connected.'); return; }
-    setLoading(true);
-    try {
-      const data = await window.API.post('/api/auth/reset-password', { token, newPassword: pw });
-      document.getElementById('reset-fields').style.display = 'none';
-      document.getElementById('reset-confirm-field').style.display = 'none';
-      document.getElementById('auth-submit-btn').style.display = 'none';
-      const info = document.getElementById('auth-info');
-      if (info) {
-        info.textContent = '✅ ' + (data?.message || 'Password updated! You can now sign in.');
-        info.style.display = 'block';
-      }
-      setTimeout(() => showLoginScreen('Your password has been reset. Please sign in.'), 2500);
-    } catch (err) {
-      setLoading(false);
-      showAuthError(err.message || 'Could not reset password. The link may have expired.');
-    }
-  }
-
-  // ── Accept Invite screen (from email link) ────────────────────────────────────
+  // ── Accept Invite screen ──────────────────────────────────────────────────
   function _showAcceptInvite(token, name) {
     injectStyles();
     document.body.innerHTML = '';
@@ -893,7 +864,7 @@ const Auth = (() => {
     overlay.id = 'auth-overlay';
     overlay.innerHTML = `
       <div class="auth-card">
-        <div class="auth-logo">${LOGO_SVG}</div>
+        <div class="auth-logo">ESQ<span>.</span>MBA</div>
         <div class="auth-sub">Team Invitation</div>
         <div class="auth-title">Welcome${name ? ', ' + name : ''}!</div>
         <div class="auth-desc">
@@ -903,19 +874,16 @@ const Auth = (() => {
         <div class="auth-error" id="auth-error"></div>
         <div class="auth-field">
           <label>Your Name</label>
-          <input type="text" id="invite-name" autocomplete="name"
-            placeholder="Your full name" value="${name || ''}" autofocus />
+          <input type="text" id="invite-name" autocomplete="name" placeholder="Your full name" value="${name || ''}" autofocus />
         </div>
         <div class="auth-field">
           <label>Password</label>
           <div class="auth-input-wrap">
             <input type="password" id="invite-password" autocomplete="new-password"
-              placeholder="Minimum 8 characters" oninput="Auth._updateStrength(this.value)" />
+              placeholder="Minimum 12 characters" oninput="Auth._updateStrength(this.value)" />
             <button type="button" class="auth-show-pw" onclick="togglePwVisibility('invite-password',this)">👁</button>
           </div>
-          <div class="pw-strength-bar">
-            <div class="pw-strength-fill" id="pw-strength-fill" style="width:0%;background:var(--red)"></div>
-          </div>
+          <div class="pw-strength-bar"><div class="pw-strength-fill" id="pw-strength-fill" style="width:0%;background:var(--red)"></div></div>
           <div class="pw-strength-label" id="pw-strength-label" style="color:var(--text-3)">Enter a password</div>
         </div>
         <div class="auth-field">
@@ -929,79 +897,44 @@ const Auth = (() => {
           <span id="auth-btn-text">Activate Account</span>
           <div class="auth-spinner" id="auth-spinner"></div>
         </button>
-        <div class="auth-footer">
-          🔒 Attorney-client privileged system. Do not share your credentials.
-        </div>
+        <div class="auth-footer">🔒 Attorney-client privileged system. Do not share your credentials.</div>
       </div>`;
     document.body.appendChild(overlay);
   }
 
   async function _handleInviteSubmit(token) {
-    const name    = document.getElementById('invite-name')?.value.trim();
     const pw      = document.getElementById('invite-password')?.value;
     const confirm = document.getElementById('invite-confirm')?.value;
-    if (!pw || pw.length < 8) { showAuthError('Password must be at least 8 characters.'); return; }
-    if (pw !== confirm)       { showAuthError('Passwords do not match.'); return; }
-    if (!window.API) { showAuthError('Backend not connected.'); return; }
+    const name    = document.getElementById('invite-name')?.value.trim();
+    if (!pw || pw.length < 12) { const el=document.getElementById('auth-error'); if(el){el.textContent='Password must be at least 12 characters.';el.style.display='block';} return; }
+    if (pw !== confirm)        { const el=document.getElementById('auth-error'); if(el){el.textContent='Passwords do not match.';el.style.display='block';} return; }
+    if (!window.API) { const el=document.getElementById('auth-error'); if(el){el.textContent='Backend not connected.';el.style.display='block';} return; }
     setLoading(true);
     try {
-      const data = await window.API.post('/api/auth/accept-invite', {
-        token, password: pw, displayName: name || undefined,
-      });
-      if (data?.token) {
-        window.API.setToken(data.token);
-        _username = data.user?.name || data.user?.username || '';
-        bootApp();
-      }
-    } catch (err) {
+      const data = await window.API.post('/api/auth/accept-invite', { token, password: pw, displayName: name || undefined });
+      if (data?.token) { window.API.setToken(data.token); _username = data.user?.name || data.user?.username || ''; bootApp(); }
+    } catch(err) {
       setLoading(false);
-      showAuthError(err.message || 'Could not activate account. The invitation may have expired.');
+      const el = document.getElementById('auth-error');
+      if (el) { el.textContent = err.message || 'Could not activate account. The invitation may have expired.'; el.style.display='block'; }
     }
   }
 
   async function init() {
     injectStyles();
 
+    // Handle invite token in URL
     const params = new URLSearchParams(window.location.search);
-    const resetToken  = params.get('reset_token');
     const inviteToken = params.get('invite_token');
-
-    if (resetToken) {
-      if (window.API) {
-        try {
-          const data = await window.API.get(`/api/auth/validate-token?type=reset&token=${resetToken}`);
-          if (data?.valid) {
-            _showResetPassword(resetToken);
-            return;
-          }
-        } catch {}
-      }
-      showLoginScreen('This password reset link is invalid or has expired. Please request a new one.');
-      return;
-    }
-
     if (inviteToken) {
-      if (window.API) {
-        try {
-          const data = await window.API.get(`/api/auth/validate-token?type=invite&token=${inviteToken}`);
-          if (data?.valid) {
-            _showAcceptInvite(inviteToken, data.name);
-            return;
-          }
-        } catch {}
-      }
-      showLoginScreen('This invitation link is invalid or has expired. Ask an admin to re-send it.');
+      _showAcceptInvite(inviteToken, params.get('name') || '');
       return;
     }
 
     if (!isSetup()) {
-      if (window.API) {
-        try {
-          const health = await window.API.get('/api/health');
-          if (health?.ok) { showLoginScreen(); return; }
-        } catch {}
-      }
-      showSetupScreen();
+      // No local config — could be a new user or a returning user on a new device.
+      // Show login first (it has a "Create account" link for truly new users).
+      showLoginScreen();
       return;
     }
     const resumed = await restoreSession();
@@ -1018,17 +951,15 @@ const Auth = (() => {
     encrypt,
     decrypt,
     logout,
-    bootApp,
     get username() { return _username; },
     get isAuthenticated() { return !!_key; },
-    _handleLogin: _handleLoginBackendAware,
+    _handleLogin,
     _handleSetup,
     _updateStrength,
+    _showSetup: showSetupScreen,
+    _showLogin: showLoginScreen,
     _showForgotPassword,
     _handleForgotSubmit,
-    _backToLogin,
-    _showResetPassword,
-    _handleResetSubmit,
     _showAcceptInvite,
     _handleInviteSubmit,
   };
@@ -1042,5 +973,4 @@ function togglePwVisibility(inputId, btn) {
   btn.textContent = isHidden ? '🙈' : '👁';
 }
 
-// Defer init until ALL scripts (including backend-adapter.js) have loaded
-window.addEventListener('load', () => Auth.init());
+Auth.init();
