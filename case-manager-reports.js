@@ -15,7 +15,7 @@
 })();
 
 // ---- Status code maps ----
-const STATUS_CODES = {
+const REPORT_STATUS_LABELS = {
   KDE: 'Case Development',
   KAR: 'Case Almost Ready',
   KFI: 'Case Filed',
@@ -62,7 +62,7 @@ function _fmtDate(iso) {
 
 function _statusLabel(c) {
   const code = c.statusCode || c.stage || '';
-  if (STATUS_CODES[code]) return STATUS_CODES[code];
+  if (REPORT_STATUS_LABELS[code]) return REPORT_STATUS_LABELS[code];
   // Fall back to old STAGES labels
   if (typeof STAGES !== 'undefined') {
     const found = STAGES.find(s => s.value === code);
@@ -155,7 +155,7 @@ function _statusBadge(code) {
     RFR: '#f59e0b', KW2: '#6b7280', APF: '#9333ea',
   };
   const color = colors[code] || '#6b7280';
-  const label = STATUS_CODES[code] || code || '—';
+  const label = REPORT_STATUS_LABELS[code] || code || '—';
   return `<span style="display:inline-block;padding:2px 8px;border-radius:9999px;font-size:11px;font-weight:600;background:${color}1a;color:${color};border:1px solid ${color}33;white-space:nowrap">${_esc(label)}</span>`;
 }
 
@@ -366,7 +366,7 @@ const Reports = {
 
     // Get unique attorneys
     const attorneys = [...new Set(cases.map(c => c.assignedAttorney || 'Unassigned').filter(Boolean))].sort();
-    const allStatuses = Object.keys(STATUS_CODES);
+    const allStatuses = Object.keys(REPORT_STATUS_LABELS);
 
     // Group by attorney
     const grouped = {};
@@ -453,7 +453,7 @@ const Reports = {
           options:[{value:'',label:'All Attorneys'},...attorneys.map(a=>({value:a,label:a}))],
           onchange:`_setFilter('${RID}','attorney',this.value);Reports.renderAndMount('WeeklyStaffReport')` },
         { type:'select', label:'Status', id:'wsr-stat', value: fStat,
-          options:[{value:'',label:'All Statuses'},...allStatuses.map(s=>({value:s,label:STATUS_CODES[s]}))],
+          options:[{value:'',label:'All Statuses'},...allStatuses.map(s=>({value:s,label:REPORT_STATUS_LABELS[s]}))],
           onchange:`_setFilter('${RID}','status',this.value);Reports.renderAndMount('WeeklyStaffReport')` },
         { type:'date', label:'TFD From', value: fFrom,
           onchange:`_setFilter('${RID}','dateFrom',this.value);Reports.renderAndMount('WeeklyStaffReport')` },
@@ -654,7 +654,7 @@ const Reports = {
     const cases = _getCases();
 
     // Count by status
-    const allCodes = Object.keys(STATUS_CODES);
+    const allCodes = Object.keys(REPORT_STATUS_LABELS);
     const counts = {};
     const avgDays = {};
     allCodes.forEach(code => {
@@ -667,10 +667,10 @@ const Reports = {
       avgDays[code] = durations.length ? Math.round(durations.reduce((a,b) => a+b,0) / durations.length) : 0;
     });
 
-    // Also handle legacy stage values not in STATUS_CODES
+    // Also handle legacy stage values not in REPORT_STATUS_LABELS
     cases.forEach(c => {
       const code = _statusCode(c);
-      if (!STATUS_CODES[code]) {
+      if (!REPORT_STATUS_LABELS[code]) {
         if (!counts[code]) counts[code] = 0;
         counts[code]++;
       }
@@ -695,7 +695,7 @@ const Reports = {
           <div style="width:${width}%;background:${isBottleneck ? 'rgba(220,38,38,0.12)' : 'var(--gold-dim)'};border:1px solid ${isBottleneck ? 'rgba(220,38,38,0.3)' : 'var(--gold)'};border-radius:6px;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;transition:all 0.2s">
             <div>
               <span style="font-size:12px;font-weight:600;color:${isBottleneck ? 'var(--red)' : 'var(--gold)'}">
-                ${_esc(STATUS_CODES[code])} ${isBottleneck ? '⚠ Bottleneck' : ''}
+                ${_esc(REPORT_STATUS_LABELS[code])} ${isBottleneck ? '⚠ Bottleneck' : ''}
               </span>
               <span style="font-size:11px;color:var(--text-3);margin-left:8px">${avgDays[code] || 0}d avg</span>
             </div>
@@ -724,7 +724,7 @@ const Reports = {
     const csvRows = [
       ['Status Code','Status Name','Case Count','Percentage','Avg Days in Stage'],
       ...allCodes.filter(c => counts[c] > 0).map(code => [
-        code, STATUS_CODES[code]||code, counts[code], total ? Math.round(counts[code]/total*100)+'%' : '0%', avgDays[code]||0
+        code, REPORT_STATUS_LABELS[code]||code, counts[code], total ? Math.round(counts[code]/total*100)+'%' : '0%', avgDays[code]||0
       ])
     ];
 
@@ -1428,7 +1428,7 @@ const Reports = {
       `)}
       ${_filterBar([
         { type:'select', label:'Status', value: fStatus,
-          options:[{value:'',label:'All RFE Statuses'},...rfeStatuses.map(s=>({value:s,label:STATUS_CODES[s]}))],
+          options:[{value:'',label:'All RFE Statuses'},...rfeStatuses.map(s=>({value:s,label:REPORT_STATUS_LABELS[s]}))],
           onchange:`_setFilter('${RID}','status',this.value);Reports.renderAndMount('RFETracking')` },
         { type:'select', label:'Attorney', value: fAtty,
           options:[{value:'',label:'All Attorneys'},...attorneys.map(a=>({value:a,label:a}))],

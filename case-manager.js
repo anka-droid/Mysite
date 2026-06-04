@@ -181,6 +181,9 @@ const STATUS_CODES = CASE_STATUSES;
 const STATUS_CODE_MAP = CASE_STATUS_MAP;
 const STAGE_ORDER = CASE_STATUS_VALUES;
 
+// Filing types for the case form dropdown
+const FILING_TYPES = ['AOS', 'CP', 'COS', 'EOS', 'PP', 'Other'];
+
 // One-time migration: old value → new canonical value, null = flag for manual review
 const STATUS_MIGRATION = {
   // Legacy STAGES

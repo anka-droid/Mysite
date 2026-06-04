@@ -52,10 +52,12 @@ const SupabaseSync = (() => {
     return res.json().catch(() => null);
   }
 
-  // Push one slot of encrypted data for this user
+  // Push one slot of encrypted data for this user.
+  // on_conflict=username,slot tells PostgREST to UPDATE the existing row
+  // instead of inserting a duplicate (which violates the unique constraint).
   async function push(username, slot, blob) {
     if (!isConfigured()) return;
-    await _req('POST', 'km_sync', {
+    await _req('POST', 'km_sync?on_conflict=username,slot', {
       username,
       slot,
       data: blob,
@@ -67,7 +69,7 @@ const SupabaseSync = (() => {
   async function pull(username, slot) {
     if (!isConfigured()) return null;
     const rows = await _req('GET',
-      `km_sync?username=eq.${encodeURIComponent(username)}&slot=eq.${encodeURIComponent(slot)}&select=data,updated_at&limit=1`
+      `km_sync?username=eq.${encodeURIComponent(username)}&slot=eq.${encodeURIComponent(slot)}&select=data,updated_at&order=updated_at.desc&limit=1`
     );
     return rows?.[0] || null;
   }

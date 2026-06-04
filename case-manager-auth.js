@@ -22,7 +22,17 @@ const Auth = (() => {
   const ready = new Promise(res => { _resolve = res; });
 
   const enc = v => new TextEncoder().encode(v);
-  const toB64 = buf => btoa(String.fromCharCode(...new Uint8Array(buf)));
+  const toB64 = buf => {
+    // Chunked conversion — spreading a large Uint8Array into String.fromCharCode
+    // overflows the call stack once the data grows past a few dozen KB.
+    const bytes = new Uint8Array(buf);
+    let binary = '';
+    const CHUNK = 0x8000; // 32K bytes per chunk
+    for (let i = 0; i < bytes.length; i += CHUNK) {
+      binary += String.fromCharCode.apply(null, bytes.subarray(i, i + CHUNK));
+    }
+    return btoa(binary);
+  };
   const fromB64 = b64 => Uint8Array.from(atob(b64), c => c.charCodeAt(0));
 
   function randBytes(n) {
@@ -744,7 +754,7 @@ const Auth = (() => {
     try {
       const url = localStorage.getItem('km_supabase_url') || _SB_URL;
       const key = localStorage.getItem('km_supabase_anon_key') || _SB_KEY;
-      await fetch(`${url}/rest/v1/km_sync`, {
+      await fetch(`${url}/rest/v1/km_sync?on_conflict=username,slot`, {
         method: 'POST',
         headers: {
           apikey: key,
