@@ -596,12 +596,9 @@ function renderSidebar() {
         <button class="nav-item ${activeView === 'uscis-forms' ? 'active' : ''}" onclick="navigate('uscis-forms')">
           ${icon('status')} USCIS Forms
         </button>
-        <div class="nav-section-label" style="margin-top:16px">Reports</div>
-        <button class="nav-item ${activeView === 'reports' ? 'active' : ''}" onclick="navigate('reports')">
-          ${icon('status')} Reports
-        </button>
-        <button class="nav-item ${activeView === 'officer-report' ? 'active' : ''}" onclick="navigate('officer-report')">
-          ${icon('docs')} Officer Report
+        <div class="nav-section-label" style="margin-top:16px">Analytics & Reports</div>
+        <button class="nav-item ${activeView === 'reports' || activeView === 'officer-report' ? 'active' : ''}" onclick="navigate('reports')">
+          ${icon('status')} Analytics & Reports
         </button>
         <button class="nav-item ${activeView === 'time-tracking' ? 'active' : ''}" onclick="navigate('time-tracking')">
           ${icon('overview')} Time Tracking
@@ -3848,9 +3845,7 @@ function renderMain() {
     case 'deadline-alerts':  return renderDeadlineAlerts();
     case 'time-tracking':    return typeof TimeTracker !== 'undefined' ? `<div class="topbar"><div class="topbar-title">Time Tracking</div></div><div class="content">${TimeTracker.renderTimeReport({})}</div>` : renderDashboard();
     case 'officer-report':
-      return typeof OfficerReport !== 'undefined' ? OfficerReport.renderPage() : renderDashboard();
     case 'reports':
-      if (typeof Reports !== 'undefined') return Reports.renderReportsHub();
       return renderDashboard();
     default:                 return renderDashboard();
   }

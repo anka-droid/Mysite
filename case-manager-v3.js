@@ -1944,8 +1944,9 @@ function disconnectSocialAccount(platform) {
 function renderReports() {
   const rpt = State.reports || {};
   const activeTab = rpt.activeTab || 'pipeline';
-  const tabs = ['pipeline','fees','expiration','activity'];
-  const tabLabels = { pipeline:'📊 Pipeline', fees:'💰 Fees & Billing', expiration:'⏰ Expirations', activity:'📋 Activity' };
+  const hasOfficer = typeof OfficerReport !== 'undefined';
+  const tabs = ['pipeline','fees','expiration','activity', ...(hasOfficer ? ['officer'] : [])];
+  const tabLabels = { pipeline:'📊 Pipeline', fees:'💰 Fees & Billing', expiration:'⏰ Expirations', activity:'📋 Activity', officer:'🏛 Officer Report' };
   const tabBar = tabs.map(t =>
     `<button class="v3-tab-btn${activeTab===t?' active':''}" onclick="rptSetTab('${t}')">${tabLabels[t]}</button>`
   ).join('');
@@ -1955,9 +1956,10 @@ function renderReports() {
   if (activeTab === 'fees')       body = renderFeesReport();
   if (activeTab === 'expiration') body = renderExpirationReport();
   if (activeTab === 'activity')   body = renderActivityReport();
+  if (activeTab === 'officer')    body = hasOfficer ? OfficerReport.renderPage() : '';
 
   return `<div class="main-content v3-reports">
-    <div class="v3-page-header"><h1>📈 Reports</h1></div>
+    <div class="v3-page-header"><h1>📈 Analytics & Reports</h1></div>
     <div class="v3-tab-bar">${tabBar}</div>
     <div class="v3-tab-body" id="rpt-tab-body">${body}</div>
   </div>`;
@@ -1968,10 +1970,12 @@ function rptSetTab(t) {
   State.reports.activeTab = t;
   const el = document.getElementById('rpt-tab-body');
   if (!el) return;
+  const hasOfficer = typeof OfficerReport !== 'undefined';
   if (t === 'pipeline')   el.innerHTML = renderPipelineReport();
   if (t === 'fees')       el.innerHTML = renderFeesReport();
   if (t === 'expiration') el.innerHTML = renderExpirationReport();
   if (t === 'activity')   el.innerHTML = renderActivityReport();
+  if (t === 'officer')    el.innerHTML = hasOfficer ? OfficerReport.renderPage() : '';
 }
 
 function renderPipelineReport() {
