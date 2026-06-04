@@ -77,49 +77,49 @@
 
   <!-- ── Web preview (new design) ─────────── -->
   <url>
-    <loc>https://www.esq.mba/web-preview/</loc>
+    <loc>https://www.esq.mba/preview/</loc>
     <lastmod>2026-06-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://www.esq.mba/web-preview/index.html</loc>
+    <loc>https://www.esq.mba/preview/index.html</loc>
     <lastmod>2026-06-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://www.esq.mba/web-preview/employment.html</loc>
+    <loc>https://www.esq.mba/preview/employment.html</loc>
     <lastmod>2026-06-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.esq.mba/web-preview/about.html</loc>
+    <loc>https://www.esq.mba/preview/about.html</loc>
     <lastmod>2026-06-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.esq.mba/web-preview/contact.html</loc>
+    <loc>https://www.esq.mba/preview/contact.html</loc>
     <lastmod>2026-06-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.esq.mba/web-preview/family.html</loc>
+    <loc>https://www.esq.mba/preview/family.html</loc>
     <lastmod>2026-06-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.esq.mba/web-preview/blog.html</loc>
+    <loc>https://www.esq.mba/preview/blog.html</loc>
     <lastmod>2026-06-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.esq.mba/web-preview/press.html</loc>
+    <loc>https://www.esq.mba/preview/press.html</loc>
     <lastmod>2026-06-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
