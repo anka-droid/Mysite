@@ -663,6 +663,9 @@ const Auth = (() => {
       _username = username;
       clearLockout();
       await storeSession(key, username);
+      // Self-heal: re-upload this account's credentials to the cloud on every
+      // login, so a second device can always recover it (fire-and-forget).
+      _pushRemoteAuthConfig(username, cfg);
       bootApp();
     } catch {
       setLoading(false);
