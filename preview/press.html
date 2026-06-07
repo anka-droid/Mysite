@@ -327,6 +327,20 @@ a.footer__contact-line:hover { color:var(--dk); }
 .press-gallery { display:grid; grid-template-columns:repeat(2,1fr); gap:clamp(0.75rem,2vw,1.2rem); }
 @media (max-width:1000px) and (min-width:601px) { .press-gallery { grid-template-columns:1fr 1fr; gap:1.2rem; } }
 @media (max-width:600px) { .press-gallery { grid-template-columns:1fr; gap:1.5rem; } }
+
+/* Named grids to allow media-query overrides */
+.mi-grid { display:grid; grid-template-columns:1fr 1fr; gap:clamp(4rem,7vw,9rem); align-items:center; }
+.press-intro-grid { display:grid; grid-template-columns:1fr 1fr; gap:5rem; }
+
+/* Overflow guard */
+html, body { max-width:100%; overflow-x:hidden; }
+
+@media (max-width:900px) {
+  .mi-grid { grid-template-columns:1fr; gap:2.5rem; }
+  .press-intro-grid { grid-template-columns:1fr; gap:2rem; }
+  .outlet-cell { flex:1 1 100%; border-right:none; border-bottom:1px solid rgba(3,7,31,0.1); }
+  .outlet-cell:last-child { border-bottom:none; }
+}
 </style>
 </head>
 <body>
@@ -429,7 +443,7 @@ a.footer__contact-line:hover { color:var(--dk); }
 <section class="section dk" style="padding-top:clamp(9rem,16vw,16rem);padding-bottom:clamp(9rem,16vw,16rem);margin:0;width:100%;">
 
   <div class="wrap" style="margin-bottom:4rem;">
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:end;">
+    <div class="press-intro-grid" style="align-items:end;">
       <div class="r">
         <span class="label" style="opacity:.35;margin-bottom:1.4rem;">Press Coverage</span>
         <h2>Media Features<br><em>&amp; Articles</em></h2>
@@ -597,7 +611,7 @@ a.footer__contact-line:hover { color:var(--dk); }
 <!-- BLOCK 6 — MEDIA INQUIRIES [CREAM] -->
 <section class="section cr">
   <div class="wrap">
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:clamp(4rem,7vw,9rem);align-items:center;" class="r">
+    <div class="mi-grid r">
       <div>
         <span class="label" style="opacity:.35;margin-bottom:1.6rem;">For Journalists &amp; Editors</span>
         <h2>Media<br><em>Inquiries</em></h2>
