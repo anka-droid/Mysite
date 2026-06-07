@@ -163,18 +163,53 @@ hr.thin {
   width: 100%;
 }
 
-/* ── SCROLL REVEAL ─────────────────────────────────────────────── */
+/* ── SCROLL REVEAL — multi-directional ─────────────────────────── */
 .r {
   opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.85s var(--ease), transform 0.85s var(--ease);
+  transform: translateY(36px);
+  transition: opacity 0.9s var(--ease), transform 0.9s var(--ease);
 }
 .r.on { opacity: 1; transform: translateY(0); }
+.r-left {
+  opacity: 0;
+  transform: translateX(-44px);
+  transition: opacity 0.9s var(--ease), transform 0.9s var(--ease);
+}
+.r-left.on { opacity: 1; transform: translateX(0); }
+.r-right {
+  opacity: 0;
+  transform: translateX(44px);
+  transition: opacity 0.9s var(--ease), transform 0.9s var(--ease);
+}
+.r-right.on { opacity: 1; transform: translateX(0); }
+.r-scale {
+  opacity: 0;
+  transform: scale(0.93);
+  transition: opacity 1s var(--ease), transform 1s var(--ease);
+}
+.r-scale.on { opacity: 1; transform: scale(1); }
 .d1 { transition-delay: 0.1s; }
 .d2 { transition-delay: 0.22s; }
 .d3 { transition-delay: 0.34s; }
 .d4 { transition-delay: 0.48s; }
 .d5 { transition-delay: 0.62s; }
+
+/* ── HERO HEADLINE — italic Results. entrance + subtle idle ──────── */
+@keyframes hero-em-in {
+  0%   { opacity: 0; transform: translateY(16px) skewX(-3deg); }
+  100% { opacity: 1; transform: translateY(0) skewX(0deg); }
+}
+.hero__body h1 em {
+  display: inline-block;
+  animation: hero-em-in 1.1s 0.55s var(--ease) both;
+}
+
+/* ── SECTION LABEL animated underline on load ───────────────────── */
+@keyframes label-in {
+  from { opacity: 0; letter-spacing: 0.5em; }
+  to   { opacity: 0.35; letter-spacing: 0.3em; }
+}
+.dk .label { animation: label-in 0.9s var(--ease) both; }
 
 
 /* ════════════════════════════════════════════════════════════════
@@ -211,6 +246,7 @@ hr.thin {
   letter-spacing: 0.06em;
   color: var(--cr);
   line-height: 1;
+  white-space: nowrap;
 }
 .nav__logo-sub {
   font-family: var(--sans);
@@ -620,11 +656,14 @@ hr.thin {
   align-items: center;
   padding: 2rem var(--pad-h);
   border-bottom: 1px solid rgba(3,7,31,0.08);
-  transition: background 0.4s var(--ease);
+  transition: background 0.35s var(--ease), transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
   text-decoration: none;
   color: var(--dk);
 }
-.prow:hover { background: rgba(3,7,31,0.04); }
+.prow:hover {
+  background: rgba(3,7,31,0.05);
+  transform: translateX(4px);
+}
 
 .prow__code {
   font-size: 0.6rem;
@@ -632,26 +671,32 @@ hr.thin {
   letter-spacing: 0.26em;
   text-transform: uppercase;
   color: rgba(3,7,31,0.35);
+  transition: color 0.3s;
 }
+.prow:hover .prow__code { color: rgba(3,7,31,0.65); }
 .prow__title {
   font-family: var(--serif);
   font-size: clamp(1.1rem, 1.6vw, 1.45rem);
   font-weight: 400;
   color: var(--dk);
   line-height: 1.2;
+  transition: letter-spacing 0.4s var(--ease);
 }
+.prow:hover .prow__title { letter-spacing: 0.01em; }
 .prow__desc {
   font-size: 0.82rem;
   line-height: 1.75;
   color: rgba(3,7,31,0.5);
+  transition: color 0.3s;
 }
+.prow:hover .prow__desc { color: rgba(3,7,31,0.7); }
 .prow__arrow {
   font-size: 1.2rem;
   color: rgba(3,7,31,0.25);
-  transition: transform 0.3s, color 0.3s;
+  transition: transform 0.35s var(--ease), color 0.3s;
 }
 .prow:hover .prow__arrow {
-  transform: translateX(6px);
+  transform: translateX(8px);
   color: var(--dk);
 }
 
@@ -856,8 +901,8 @@ hr.thin {
 .reviews-row { display: flex; overflow: hidden; margin-bottom: 12px; }
 .reviews-row:last-child { margin-bottom: 0; }
 .reviews-track { display: flex; gap: 12px; will-change: transform; }
-.reviews-track-left  { animation: ticker-left  90s linear infinite; }
-.reviews-track-right { animation: ticker-right 90s linear infinite; }
+.reviews-track-left  { animation: ticker-left  55s linear infinite; }
+.reviews-track-right { animation: ticker-right 65s linear infinite; }
 .reviews-track:hover { animation-play-state: paused; }
 .reviews-track .review-card { width: 340px; flex-shrink: 0; cursor: default; }
 
@@ -1543,22 +1588,22 @@ a.footer__contact-line:hover { color: var(--dk); }
 ════════════════════════════════════════════════════════════ -->
 <section class="stats cr">
   <div class="stats__grid">
-    <div class="stats__cell r">
-      <span class="stats__num">5.0</span>
+    <div class="stats__cell r-scale">
+      <span class="stats__num" data-count="5.0" data-decimals="1">5.0</span>
       <span class="stats__lbl">Google Rating</span>
       <p class="stats__desc">All 28 client reviews carry a perfect five-star rating.</p>
     </div>
-    <div class="stats__cell r d1">
-      <span class="stats__num">10<small style="font-size:0.45em;vertical-align:top;margin-top:1.2rem;display:inline-block;letter-spacing:.05em;">YRS</small></span>
+    <div class="stats__cell r-scale d1">
+      <span class="stats__num" data-count="10">10</span><small style="font-size:0.45em;vertical-align:top;margin-top:1.2rem;display:inline-block;letter-spacing:.05em;">YRS</small>
       <span class="stats__lbl">Exclusive Focus</span>
       <p class="stats__desc">Nearly a decade devoted entirely to U.S. Immigration and Nationality Law.</p>
     </div>
-    <div class="stats__cell r d2">
-      <span class="stats__num">3</span>
+    <div class="stats__cell r-scale d2">
+      <span class="stats__num" data-count="3">3</span>
       <span class="stats__lbl">Graduate Degrees</span>
       <p class="stats__desc">Master of Laws (LL.M.) and MBA from Florida International University.</p>
     </div>
-    <div class="stats__cell r d3">
+    <div class="stats__cell r-scale d3">
       <span class="stats__num">∞</span>
       <span class="stats__lbl">Global Reach</span>
       <p class="stats__desc">Representing clients in all U.S. states and internationally.</p>
@@ -1778,7 +1823,8 @@ a.footer__contact-line:hover { color: var(--dk); }
      JS — Scroll reveal + nav
 ════════════════════════════════════════════════════════════ -->
 <script>
-  // IntersectionObserver scroll reveal
+  /* ── Scroll reveal — all directional classes ── */
+  const revealClasses = ['.r', '.r-left', '.r-right', '.r-scale'];
   const io = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting) {
@@ -1788,15 +1834,64 @@ a.footer__contact-line:hover { color: var(--dk); }
     });
   }, { threshold: 0.07, rootMargin: '0px 0px -30px 0px' });
 
-  document.querySelectorAll('.r').forEach(el => io.observe(el));
+  document.querySelectorAll(revealClasses.join(',')).forEach(el => io.observe(el));
 
-  // Nav scroll trigger
+  /* ── Counter animation ── */
+  function animateCount(el) {
+    const target = parseFloat(el.dataset.count);
+    const decimals = parseInt(el.dataset.decimals || '0');
+    const duration = 1600;
+    const start = performance.now();
+    const text = el.textContent.replace(/[\d.]/g, '');
+    (function tick(now) {
+      const elapsed = Math.min(now - start, duration);
+      const progress = 1 - Math.pow(1 - elapsed / duration, 3);
+      el.textContent = (target * progress).toFixed(decimals) + text;
+      if (elapsed < duration) requestAnimationFrame(tick);
+      else el.textContent = target.toFixed(decimals) + text;
+    })(start);
+  }
+  const counterIO = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting && e.target.dataset.count) {
+        animateCount(e.target);
+        counterIO.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.3 });
+  document.querySelectorAll('.stats__num[data-count]').forEach(el => counterIO.observe(el));
+
+  /* ── Parallax on hero photo column ── */
+  const heroPhoto = document.querySelector('.hero__photo-col');
+  if (heroPhoto && window.innerWidth > 900) {
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          const y = window.scrollY * 0.18;
+          heroPhoto.style.transform = `translateY(${y}px)`;
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }, { passive: true });
+  }
+
+  /* ── Floating label on hero text ── */
+  const heroBody = document.querySelector('.hero__body');
+  if (heroBody) {
+    heroBody.querySelectorAll('.r').forEach((el, i) => {
+      el.style.transitionDelay = (0.08 + i * 0.14) + 's';
+    });
+  }
+
+  /* ── Nav scroll trigger ── */
   const nav = document.getElementById('main-nav');
   window.addEventListener('scroll', () => {
     nav.classList.toggle('lit', window.scrollY > 40);
   }, { passive: true });
 
-  // Mobile burger menu
+  /* ── Mobile burger menu ── */
   const burger = document.querySelector('.nav__burger');
   const navLinks = document.querySelector('.nav__links');
   if (burger && navLinks) {
@@ -1806,7 +1901,7 @@ a.footer__contact-line:hover { color: var(--dk); }
     });
   }
 
-  // Click / touch dropdown support
+  /* ── Click / touch dropdown support ── */
   (function() {
     document.querySelectorAll('.dd__toggle').forEach(function(t) {
       t.addEventListener('click', function(e) {
@@ -1824,6 +1919,14 @@ a.footer__contact-line:hover { color: var(--dk); }
       }
     });
   })();
+
+  /* ── Stagger practice rows with alternating directions ── */
+  document.querySelectorAll('.prow').forEach(function(row, i) {
+    row.classList.remove('r');
+    row.classList.add(i % 2 === 0 ? 'r-left' : 'r-right');
+    row.style.transitionDelay = (i * 0.04) + 's';
+    io.observe(row);
+  });
 </script>
 
 </body>

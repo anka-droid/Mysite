@@ -126,13 +126,24 @@ b, strong { font-weight: 500; }
 .btn:hover::after { transform: translateX(6px); }
 
 /* ── SCROLL REVEAL ─────────────────────────────────────────────── */
-.r { opacity: 0; transform: translateY(30px); transition: opacity 0.85s var(--ease), transform 0.85s var(--ease); }
+.r { opacity: 0; transform: translateY(36px); transition: opacity 0.9s var(--ease), transform 0.9s var(--ease); }
 .r.on { opacity: 1; transform: translateY(0); }
+.r-left { opacity: 0; transform: translateX(-44px); transition: opacity 0.9s var(--ease), transform 0.9s var(--ease); }
+.r-left.on { opacity: 1; transform: translateX(0); }
+.r-right { opacity: 0; transform: translateX(44px); transition: opacity 0.9s var(--ease), transform 0.9s var(--ease); }
+.r-right.on { opacity: 1; transform: translateX(0); }
 .d1 { transition-delay: 0.1s; }
 .d2 { transition-delay: 0.22s; }
 .d3 { transition-delay: 0.34s; }
 .d4 { transition-delay: 0.48s; }
 .d5 { transition-delay: 0.62s; }
+
+/* ── PAGE HERO h1 — entrance animation ─────────────────────────── */
+@keyframes page-h1-in {
+  from { opacity: 0; transform: translateY(22px); letter-spacing: -0.04em; }
+  to   { opacity: 1; transform: translateY(0);    letter-spacing: -0.01em; }
+}
+.page-hero h1 { animation: page-h1-in 1s 0.2s var(--ease) both; }
 
 
 /* ════════════════════════════════════════════════════════════════
@@ -173,6 +184,7 @@ b, strong { font-weight: 500; }
   letter-spacing: 0.06em;
   color: var(--cr);
   line-height: 1;
+  white-space: nowrap;
 }
 .nav__logo-sub {
   font-family: var(--sans);
@@ -500,7 +512,7 @@ b, strong { font-weight: 500; }
   overflow: visible;
 }
 .page-hero__photo img {
-  width: clamp(260px, 34vw, 500px);
+  width: clamp(340px, 46vw, 680px);
   height: auto;
   display: inline-block !important;
   object-fit: cover;
@@ -589,7 +601,7 @@ a.footer__contact-line:hover { color: var(--dk); }
   .page-hero__layout { grid-template-columns: 1fr; }
   .page-hero__icon { display: none; }
   .page-hero__photo { display: block; margin-top: 2.5rem; }
-  .page-hero__photo img { width: clamp(240px, 60vw, 360px) !important; }
+  .page-hero__photo img { width: clamp(260px, 80vw, 500px) !important; }
   .bio__copy { columns: 1; column-rule: none; }
   .creds__header { grid-template-columns: 1fr; gap: 2rem; }
   .creds__grid { grid-template-columns: 1fr; }
@@ -704,7 +716,7 @@ a.footer__contact-line:hover { color: var(--dk); }
         </p>
       </div>
       <!-- Attorney portrait — inline next to title -->
-      <div class="page-hero__photo">
+      <div class="page-hero__photo r-right d2">
         <img
           src="ana-white-closeup.jpg"
           alt="Ana Kamkhadze, Esq. MBA — close-up portrait in white"
@@ -1011,7 +1023,7 @@ a.footer__contact-line:hover { color: var(--dk); }
       if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); }
     });
   }, { threshold: 0.07, rootMargin: '0px 0px -30px 0px' });
-  document.querySelectorAll('.r').forEach(el => io.observe(el));
+  document.querySelectorAll('.r, .r-left, .r-right').forEach(el => io.observe(el));
 
   const nav = document.getElementById('main-nav');
   window.addEventListener('scroll', () => { nav.classList.toggle('lit', window.scrollY > 40); }, { passive: true });
