@@ -14,7 +14,7 @@
 :root {
   --nhg:   'Neue Haas Grotesk Display', 'NeueHaasGroteskDisp', 'Neue Haas Grotesk', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   --dk:    #03071F;
-  --cr:    #FFFFFF;
+  --cr:    #CBD1D5;
   --serif: 'Cormorant Garamond', Georgia, serif;
   --sans:  'Raleway', sans-serif;
   --ease:  cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -40,7 +40,7 @@ b, strong { font-weight: 500; }
 .dk .label { color: var(--cr); opacity: 0.45; }
 .dk .btn-solid { background: var(--cr); color: var(--dk); border: 1px solid var(--cr); }
 .dk .btn-solid:hover { background: transparent; color: var(--cr); }
-.dk .btn-line { background: transparent; color: var(--cr); border: 1px solid rgba(255,255,255,0.3); }
+.dk .btn-line { background: transparent; color: var(--cr); border: 1px solid rgba(203,209,213,0.3); }
 .dk .btn-line:hover { border-color: var(--cr); }
 .cr { background: var(--cr); color: var(--dk); }
 .cr h1, .cr h2, .cr h3, .cr h4, .cr em { color: var(--dk); }
@@ -61,15 +61,15 @@ b, strong { font-weight: 500; }
 .d1 { transition-delay: 0.1s; } .d2 { transition-delay: 0.22s; } .d3 { transition-delay: 0.34s; } .d4 { transition-delay: 0.48s; }
 
 /* NAV */
-.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 500; background: var(--dk); border-bottom: 1px solid rgba(255,255,255,0.08); transition: border-color 0.4s; }
-.nav.lit { border-color: rgba(255,255,255,0.18); }
+.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 500; background: var(--dk); border-bottom: 1px solid rgba(203,209,213,0.08); transition: border-color 0.4s; }
+.nav.lit { border-color: rgba(203,209,213,0.18); }
 .nav__row { display: flex; align-items: center; justify-content: space-between; height: 80px; padding: 0 var(--pad-h) 0 clamp(1.5rem, 3.5vw, 4rem); max-width: 1560px; margin: 0 auto; }
 .nav__logo { display: flex; flex-direction: row; align-items: center; gap: 0.75rem; }
 .nav__logo-text { display: flex; flex-direction: column; gap: 3px; }
 .nav__logo-name { font-family: var(--serif); font-size: 1.48rem; font-weight: 400; letter-spacing: 0.06em; color: var(--cr); line-height: 1; }
-.nav__logo-sub { font-family: var(--sans); font-size: 0.55rem; font-weight: 400; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(255,255,255,0.4); line-height: 1; }
+.nav__logo-sub { font-family: var(--sans); font-size: 0.55rem; font-weight: 400; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(203,209,213,0.4); line-height: 1; }
 .nav__links { display: flex; align-items: center; gap: clamp(1rem, 2.2vw, 2.2rem); list-style: none; }
-.nav__links > li > a, .nav__links > li > span { font-family: var(--sans); font-size: 0.65rem; font-weight: 400; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.65); transition: color 0.3s; cursor: pointer; position: relative; white-space: nowrap; }
+.nav__links > li > a, .nav__links > li > span { font-family: var(--sans); font-size: 0.65rem; font-weight: 400; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(203,209,213,0.65); transition: color 0.3s; cursor: pointer; position: relative; white-space: nowrap; }
 .nav__links > li > a::after, .nav__links > li > span::after { content: ''; position: absolute; left: 0; bottom: -3px; width: 0; height: 1px; background: var(--cr); transition: width 0.4s var(--ease); }
 .nav__links > li > a:hover, .nav__links > li > span:hover { color: var(--cr); }
 .nav__links > li > a:hover::after, .nav__links > li > span:hover::after { width: 100%; }
@@ -78,20 +78,20 @@ b, strong { font-weight: 500; }
 .dd__toggle { display: flex; align-items: center; gap: 0.4em; }
 .dd__caret { font-size: 0.5rem; opacity: 0.4; transition: transform 0.3s; }
 .dd:hover .dd__caret { transform: rotate(180deg); opacity: 0.8; }
-.dd__panel { position: absolute; top: calc(100% + 1.4rem); left: 50%; transform: translateX(-50%) translateY(-6px); background: var(--dk); border: 1px solid rgba(255,255,255,0.1); min-width: 280px; padding: 0.5rem 0; opacity: 0; visibility: hidden; transition: opacity 0.3s, transform 0.3s; box-shadow: 0 20px 60px rgba(0,0,0,0.08); }
+.dd__panel { position: absolute; top: calc(100% + 1.4rem); left: 50%; transform: translateX(-50%) translateY(-6px); background: var(--dk); border: 1px solid rgba(203,209,213,0.1); min-width: 280px; padding: 0.5rem 0; opacity: 0; visibility: hidden; transition: opacity 0.3s, transform 0.3s; box-shadow: 0 20px 60px rgba(0,0,0,0.08); }
 .dd:hover .dd__panel, .dd.open .dd__panel { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
-.dd__panel a { display: block; padding: 0.75rem 1.8rem; font-size: 0.65rem; font-weight: 400; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.55); transition: color 0.25s, background 0.25s; }
-.dd__panel a:hover { color: var(--cr); background: rgba(255,255,255,0.04); }
-.nav__cta { font-size: 0.62rem !important; font-weight: 400 !important; letter-spacing: 0.24em !important; padding: 0.9em 2.2em; border: 1px solid rgba(255,255,255,0.3); color: var(--cr) !important; transition: border-color 0.4s, background 0.4s; }
+.dd__panel a { display: block; padding: 0.75rem 1.8rem; font-size: 0.65rem; font-weight: 400; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(203,209,213,0.55); transition: color 0.25s, background 0.25s; }
+.dd__panel a:hover { color: var(--cr); background: rgba(203,209,213,0.04); }
+.nav__cta { font-size: 0.62rem !important; font-weight: 400 !important; letter-spacing: 0.24em !important; padding: 0.9em 2.2em; border: 1px solid rgba(203,209,213,0.3); color: var(--cr) !important; transition: border-color 0.4s, background 0.4s; }
 .nav__cta::after { display: none !important; }
-.nav__cta:hover { border-color: var(--cr) !important; background: rgba(255,255,255,0.06) !important; }
+.nav__cta:hover { border-color: var(--cr) !important; background: rgba(203,209,213,0.06) !important; }
 .nav__burger { display: none; flex-direction: column; gap: 6px; cursor: pointer; padding: 6px; }
 .nav__burger span { display: block; width: 28px; height: 1px; background: var(--cr); transition: transform 0.3s, opacity 0.3s; }
 
 /* PAGE HERO */
 .page-hero { padding-top: calc(80px + clamp(5rem, 10vw, 9rem)); padding-bottom: clamp(5rem, 9vw, 9rem); padding-left: var(--pad-h); padding-right: var(--pad-h); }
 .page-hero h1 { max-width: 14ch; margin-bottom: 2rem; }
-.page-hero__sub { font-size: clamp(0.95rem, 1.3vw, 1.1rem); color: rgba(255,255,255,0.55); max-width: 560px; line-height: 1.95; }
+.page-hero__sub { font-size: clamp(0.95rem, 1.3vw, 1.1rem); color: rgba(203,209,213,0.55); max-width: 560px; line-height: 1.95; }
 /* Page-hero grid — icon right column */
 .page-hero__layout { display: grid; grid-template-columns: 1fr auto; gap: clamp(3rem, 6vw, 8rem); align-items: center; }
 .page-hero__icon { line-height: 0; flex-shrink: 0; opacity: 0.1; color: currentColor; }
@@ -141,7 +141,7 @@ b, strong { font-weight: 500; }
   padding: 0.5em 1.2em;
   align-self: flex-start;
 }
-.dk .va-tag { border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.5); }
+.dk .va-tag { border: 1px solid rgba(203,209,213,0.2); color: rgba(203,209,213,0.5); }
 .cr .va-tag { border: 1px solid rgba(3,7,31,0.2); color: rgba(3,7,31,0.5); }
 
 .va-fact-list { list-style: none; display: flex; flex-direction: column; }
@@ -151,14 +151,14 @@ b, strong { font-weight: 500; }
   gap: 1rem;
   padding: 0.9rem 0;
 }
-.dk .va-fact-list li { border-bottom: 1px solid rgba(255,255,255,0.07); }
+.dk .va-fact-list li { border-bottom: 1px solid rgba(203,209,213,0.07); }
 .cr .va-fact-list li { border-bottom: 1px solid rgba(3,7,31,0.08); }
 .va-fact-list li:last-child { border-bottom: none; }
 .va-fact-label { font-size: 0.58rem; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; flex-shrink: 0; min-width: 7rem; }
-.dk .va-fact-label { color: rgba(255,255,255,0.32); }
+.dk .va-fact-label { color: rgba(203,209,213,0.32); }
 .cr .va-fact-label { color: rgba(3,7,31,0.35); }
 .va-fact-val { font-size: 0.88rem; }
-.dk .va-fact-val { color: rgba(255,255,255,0.65); }
+.dk .va-fact-val { color: rgba(203,209,213,0.65); }
 .cr .va-fact-val { color: rgba(3,7,31,0.65); }
 
 .va-body .label { margin-bottom: 1.4rem; }
@@ -169,10 +169,10 @@ b, strong { font-weight: 500; }
   font-size: clamp(1rem, 1.4vw, 1.2rem);
   margin-bottom: 2.5rem;
 }
-.dk .va-body .va-headline-sub { color: rgba(255,255,255,0.45); }
+.dk .va-body .va-headline-sub { color: rgba(203,209,213,0.45); }
 .cr .va-body .va-headline-sub { color: rgba(3,7,31,0.45); }
 .va-body p { font-size: 0.9rem; line-height: 2; margin-bottom: 1.2rem; }
-.dk .va-body p { color: rgba(255,255,255,0.52); }
+.dk .va-body p { color: rgba(203,209,213,0.52); }
 .cr .va-body p { color: rgba(3,7,31,0.55); }
 .va-body .cta-link {
   display: inline-flex;
@@ -186,17 +186,17 @@ b, strong { font-weight: 500; }
   margin-top: 2rem;
   transition: gap 0.3s;
 }
-.dk .va-body .cta-link { color: rgba(255,255,255,0.5); border-bottom: 1px solid rgba(255,255,255,0.18); }
+.dk .va-body .cta-link { color: rgba(203,209,213,0.5); border-bottom: 1px solid rgba(203,209,213,0.18); }
 .cr .va-body .cta-link { color: rgba(3,7,31,0.5); border-bottom: 1px solid rgba(3,7,31,0.18); }
 .va-body .cta-link::after { content: '→'; }
 .va-body .cta-link:hover { gap: 0.9rem; }
-.dk .va-body .cta-link:hover { color: var(--cr); border-color: rgba(255,255,255,0.4); }
+.dk .va-body .cta-link:hover { color: var(--cr); border-color: rgba(203,209,213,0.4); }
 .cr .va-body .cta-link:hover { color: var(--dk); border-color: rgba(3,7,31,0.4); }
 
 /* CRITERIA LIST */
 .criteria-list { list-style: none; margin: 2rem 0; }
 .criteria-list li { display: flex; gap: 1rem; padding: 0.7rem 0; font-size: 0.88rem; line-height: 1.7; }
-.dk .criteria-list li { color: rgba(255,255,255,0.52); border-bottom: 1px solid rgba(255,255,255,0.06); }
+.dk .criteria-list li { color: rgba(203,209,213,0.52); border-bottom: 1px solid rgba(203,209,213,0.06); }
 .cr .criteria-list li { color: rgba(3,7,31,0.55); border-bottom: 1px solid rgba(3,7,31,0.08); }
 .criteria-list li:last-child { border-bottom: none; }
 .criteria-num { font-family: var(--serif); font-size: 1.1rem; flex-shrink: 0; opacity: 0.3; min-width: 1.5rem; }
@@ -241,14 +241,14 @@ a.footer__contact-line:hover { color: var(--dk); }
 }
 
 /* ── EDITORIAL IMAGE BLOCKS ──────────────────────────────────────── */
-.ei-block { position:relative; overflow:hidden; margin:0; line-height:0; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07); }
+.ei-block { position:relative; overflow:hidden; margin:0; line-height:0; background:rgba(203,209,213,0.03); border:1px solid rgba(203,209,213,0.07); }
 .ei-block--portrait { aspect-ratio:3/4; }
 .ei-block--landscape { aspect-ratio:16/9; }
 .ei-block--narrow { aspect-ratio:2/3; }
 .ei-block img { width:100%; height:100%; object-fit:cover; object-position:center; display:block; filter:none; transition:transform 0.9s cubic-bezier(0.25,0.46,0.45,0.94); }
 .ei-block:hover img { transform:scale(1.025); }
 .ei-block figcaption { position:absolute; bottom:0; left:0; right:0; padding:1rem 1.4rem; }
-.ei-block__label { font-family:var(--sans); font-size:0.52rem; font-weight:400; letter-spacing:0.26em; text-transform:uppercase; color:rgba(255,255,255,0.4); display:block; }
+.ei-block__label { font-family:var(--sans); font-size:0.52rem; font-weight:400; letter-spacing:0.26em; text-transform:uppercase; color:rgba(203,209,213,0.4); display:block; }
 .ei-block--cr { background:rgba(3,7,31,0.03); border-color:rgba(3,7,31,0.07); }
 .ei-block--cr .ei-block__label { color:rgba(3,7,31,0.35); }
 .ei-split { display:grid; gap:clamp(4rem,6vw,7rem); align-items:center; }
@@ -414,7 +414,7 @@ a.footer__contact-line:hover { color: var(--dk); }
         </ul>
         <div>
           <span class="label" style="opacity:.32;margin-bottom:1rem;">Key Eligibility Criteria</span>
-          <p style="font-size:0.82rem;color:rgba(255,255,255,0.4);line-height:1.75;">Must meet 3 of 8 regulatory criteria, or demonstrate receipt of a major internationally recognized award (e.g., Nobel Prize, Olympic Medal).</p>
+          <p style="font-size:0.82rem;color:rgba(203,209,213,0.4);line-height:1.75;">Must meet 3 of 8 regulatory criteria, or demonstrate receipt of a major internationally recognized award (e.g., Nobel Prize, Olympic Medal).</p>
           <ul class="criteria-list" style="margin-top:1rem;">
             <li><span class="criteria-num">1</span>Receipt of lesser nationally or internationally recognized prizes or awards</li>
             <li><span class="criteria-num">2</span>Membership in associations requiring outstanding achievement</li>
@@ -513,7 +513,7 @@ a.footer__contact-line:hover { color: var(--dk); }
         </ul>
         <div>
           <span class="label" style="opacity:.32;margin-bottom:1rem;">Key Eligibility Criteria</span>
-          <p style="font-size:0.82rem;color:rgba(255,255,255,0.4);line-height:1.75;">Must satisfy at least 3 of the following 10 regulatory criteria, or demonstrate receipt of a one-time major internationally recognized award. USCIS applies an additional "final merits determination" to evaluate whether the totality of evidence establishes sustained national or international acclaim at the very top of the field.</p>
+          <p style="font-size:0.82rem;color:rgba(203,209,213,0.4);line-height:1.75;">Must satisfy at least 3 of the following 10 regulatory criteria, or demonstrate receipt of a one-time major internationally recognized award. USCIS applies an additional "final merits determination" to evaluate whether the totality of evidence establishes sustained national or international acclaim at the very top of the field.</p>
           <ul class="criteria-list" style="margin-top:1rem;">
             <li><span class="criteria-num">1</span>Receipt of lesser nationally or internationally recognized prizes or awards for excellence in the field</li>
             <li><span class="criteria-num">2</span>Membership in associations requiring outstanding achievement as judged by recognized national or international experts</li>
@@ -612,7 +612,7 @@ a.footer__contact-line:hover { color: var(--dk); }
         </ul>
         <div>
           <span class="label" style="opacity:.32;margin-bottom:1rem;">Qualification Requirements</span>
-          <p style="font-size:0.82rem;color:rgba(255,255,255,0.4);line-height:1.75;">All four eligibility elements must be established. The EB-1C requires no PERM labor certification and no labor market test.</p>
+          <p style="font-size:0.82rem;color:rgba(203,209,213,0.4);line-height:1.75;">All four eligibility elements must be established. The EB-1C requires no PERM labor certification and no labor market test.</p>
           <ul class="criteria-list" style="margin-top:1rem;">
             <li><span class="criteria-num">1</span>Employed abroad by a qualifying entity (parent, affiliate, subsidiary, or joint venture) in a managerial or executive capacity for at least 1 year within the 3 years preceding the petition</li>
             <li><span class="criteria-num">2</span>Seeking entry to render services in a managerial or executive capacity to the U.S. entity</li>
@@ -701,7 +701,7 @@ a.footer__contact-line:hover { color: var(--dk); }
         </ul>
         <div>
           <span class="label" style="opacity:.32;margin-bottom:1rem;">Specialty Occupation Standard</span>
-          <p style="font-size:0.82rem;color:rgba(255,255,255,0.4);line-height:1.75;">A position qualifies as a specialty occupation if it meets at least ONE of the following four criteria under 8 CFR § 214.2(h)(4)(ii).</p>
+          <p style="font-size:0.82rem;color:rgba(203,209,213,0.4);line-height:1.75;">A position qualifies as a specialty occupation if it meets at least ONE of the following four criteria under 8 CFR § 214.2(h)(4)(ii).</p>
           <ul class="criteria-list" style="margin-top:1rem;">
             <li><span class="criteria-num">1</span>A baccalaureate or higher degree (or equivalent) in a specific specialty is the normal minimum requirement for entry into the occupation</li>
             <li><span class="criteria-num">2</span>The degree requirement is common to the industry in parallel positions among similar organizations — or the position is so complex or unique that it can only be performed by someone with a degree</li>
@@ -791,7 +791,7 @@ a.footer__contact-line:hover { color: var(--dk); }
         </ul>
         <div>
           <span class="label" style="opacity:.32;margin-bottom:1rem;">Investor Eligibility Requirements</span>
-          <p style="font-size:0.82rem;color:rgba(255,255,255,0.4);line-height:1.75;">All five criteria must be established. "Substantial" investment is evaluated on a proportionality basis relative to the total cost of the enterprise.</p>
+          <p style="font-size:0.82rem;color:rgba(203,209,213,0.4);line-height:1.75;">All five criteria must be established. "Substantial" investment is evaluated on a proportionality basis relative to the total cost of the enterprise.</p>
           <ul class="criteria-list" style="margin-top:1rem;">
             <li><span class="criteria-num">1</span>The investor must be a national of a country that maintains a qualifying investment treaty with the United States</li>
             <li><span class="criteria-num">2</span>A real and active investment has been made — capital is irrevocably committed to a bona fide enterprise</li>
