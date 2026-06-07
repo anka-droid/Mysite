@@ -1120,27 +1120,37 @@ a.footer__contact-line:hover { color: var(--dk); }
   .nav__burger.active span:nth-child(1) { transform: rotate(45deg) translateY(7px); }
   .nav__burger.active span:nth-child(2) { opacity: 0; }
   .nav__burger.active span:nth-child(3) { transform: rotate(-45deg) translateY(-7px); }
-  /* Taller hero so the cropped portrait keeps her face high and leaves
-     the lower half clear for the text group — text never touches her face */
-  .hero__composition { height: auto; min-height: clamp(820px, 132vw, 920px); }
-  .hero__office { object-position: center top; }
-  /* Compact text group anchored low, over the blouse below her collar — clear of her face */
-  .hero__body { max-width: 100%; padding-bottom: 1.5rem; }
-  .hero__eyebrow { margin-bottom: 0.85rem; }
-  .hero h1 { font-size: clamp(2rem, 8vw, 2.6rem); margin-bottom: 0.85rem; }
-  .hero__sub { font-size: 0.82rem; line-height: 1.5; margin-bottom: 1rem; }
-  .hero__btns { gap: 0.7rem; }
-  .hero__btns .btn { padding: 0.95rem 1.4rem; }
-  .hero__comp-scrim {
-    background: linear-gradient(
-      to top,
-      rgba(3,7,31,0.92) 0%,
-      rgba(3,7,31,0.78) 30%,
-      rgba(3,7,31,0.45) 52%,
-      rgba(3,7,31,0.12) 72%,
-      rgba(3,7,31,0) 100%
-    );
+  /* ── MOBILE HERO: image on top, text block below (no overlay) ── */
+  .hero__composition {
+    height: auto;
+    min-height: unset;
+    display: flex;
+    flex-direction: column;
   }
+  .hero__composition picture { display: block; width: 100%; flex-shrink: 0; }
+  .hero__office {
+    position: static;
+    width: 100%;
+    height: 72vw;
+    max-height: 340px;
+    object-fit: cover;
+    object-position: center 15%;
+    filter: none;
+  }
+  .hero__comp-scrim { display: none; }
+  .hero__body {
+    position: static;
+    background: var(--dk);
+    padding: 2rem var(--pad-h) 2.5rem;
+    max-width: 100%;
+  }
+  .hero__eyebrow { margin-bottom: 1rem; }
+  .hero__eyebrow::before { background: rgba(203,209,213,0.35); }
+  .hero h1 { font-size: clamp(2.2rem, 9vw, 2.8rem); margin-bottom: 1rem; color: #ffffff; }
+  .hero h1 em { color: var(--cr); }
+  .hero__sub { font-size: 0.88rem; line-height: 1.7; margin-bottom: 1.5rem; color: rgba(255,255,255,0.88); }
+  .hero__btns { flex-direction: column; align-items: stretch; gap: 0.75rem; }
+  .hero__btns .btn { min-width: 0; width: 100%; }
   .flagship__intro { grid-template-columns: 1fr; gap: 2rem; }
   .practices__header { flex-direction: column; gap: 2rem; }
   .attorney__grid { grid-template-columns: 1fr; }
@@ -1153,8 +1163,6 @@ a.footer__contact-line:hover { color: var(--dk); }
   .prow { grid-template-columns: 1fr 1fr; }
   .prow__desc, .prow__code { display: none; }
   .footer__grid { grid-template-columns: 1fr; }
-  .hero__btns { flex-direction: column; align-items: stretch; }
-  .hero__btns .btn { min-width: 0; width: 100%; }
 }
 
 @media (max-width: 600px) {
