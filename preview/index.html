@@ -1110,9 +1110,10 @@ a.footer__contact-line:hover { color: var(--dk); }
   .nav__burger.active span:nth-child(2) { opacity: 0; }
   .nav__burger.active span:nth-child(3) { transform: rotate(-45deg) translateY(-7px); }
   .hero__composition { min-height: clamp(480px, 94vw, 720px); }
-  .hero__body { max-width: 100%; }
-  /* Lift the eyebrow line up so it clears her eyes */
-  .hero__eyebrow { margin-bottom: 6rem; }
+  /* Drag the heading/subhead/buttons down a little (smaller bottom padding) */
+  .hero__body { max-width: 100%; padding-bottom: 1.5rem; }
+  /* Keep the eyebrow line lifted off her eyes */
+  .hero__eyebrow { margin-bottom: 8rem; }
   .flagship__intro { grid-template-columns: 1fr; gap: 2rem; }
   .practices__header { flex-direction: column; gap: 2rem; }
   .attorney__grid { grid-template-columns: 1fr; }
