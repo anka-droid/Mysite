@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="U.S. naturalization and citizenship — N-400 applications, eligibility, the civics and English tests, and the Oath of Allegiance. Kamkhadze PA, Hollywood Beach, Florida.">
+<meta name="description" content="Naturalization &amp; U.S. Citizenship — Kamkhadze PA guides lawful permanent residents through the naturalization process. Hollywood Beach, Florida.">
 <title>Naturalization &amp; U.S. Citizenship | Kamkhadze PA</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -90,87 +90,49 @@ b, strong { font-weight: 500; }
 
 /* PAGE HERO */
 .page-hero { padding-top: calc(80px + clamp(5rem, 10vw, 9rem)); padding-bottom: clamp(5rem, 9vw, 9rem); padding-left: var(--pad-h); padding-right: var(--pad-h); }
-.page-hero h1 { max-width: 14ch; margin-bottom: 2rem; }
-/* Family starts cream — text is dark chocolate */
-.page-hero__sub { font-size: clamp(0.95rem, 1.3vw, 1.1rem); color: rgba(3,7,31,0.52); max-width: 560px; line-height: 1.95; }
-/* Page-hero grid — icon right column */
+.page-hero h1 { max-width: 16ch; margin-bottom: 2rem; }
+.page-hero__sub { font-size: clamp(0.95rem, 1.3vw, 1.1rem); color: rgba(232,233,235,0.55); max-width: 560px; line-height: 1.95; }
 .page-hero__layout { display: grid; grid-template-columns: 1fr auto; gap: clamp(3rem, 6vw, 8rem); align-items: center; }
 .page-hero__icon { line-height: 0; flex-shrink: 0; opacity: 0.1; color: currentColor; }
 .page-hero__icon svg { width: clamp(180px, 22vw, 300px); height: auto; display: block; }
-/* Cream-on-cream: force icon to cream on cream backgrounds */
-.cr .page-hero__icon { color: var(--cr); opacity: 0.14; }
-
-/* Inline photo in hero right column */
-.page-hero__photo { line-height: 0; flex-shrink: 0; }
-.page-hero__photo img { width: clamp(180px, 22vw, 300px); height: auto; display: block; object-fit: cover; object-position: center top; border-radius: 4px; opacity: 1; filter:none; }
+.page-hero__photo { line-height:0; flex-shrink:0; position:relative; z-index:10; overflow:visible; }
+.page-hero__photo img { width:clamp(180px,22vw,300px); height:auto; display:inline-block !important; object-fit:cover; object-position:center top; opacity:1; filter:none; position:relative; z-index:10; }
 
 /* PRACTICE SECTION */
 .pa-section { padding: var(--pad-v) 0; scroll-margin-top: 80px; }
-
-.pa-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: clamp(4rem, 7vw, 9rem);
-  align-items: start;
-}
-
+.pa-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(4rem, 7vw, 9rem); align-items: start; }
 .pa-body .label { margin-bottom: 1.4rem; }
 .pa-body h2 { margin-bottom: 0.8rem; }
-.pa-body .pa-sub {
-  font-family: var(--serif);
-  font-style: italic;
-  margin-bottom: 2.5rem;
-}
+.pa-body .pa-sub { font-family: var(--serif); font-style: italic; margin-bottom: 2.5rem; }
 .dk .pa-body .pa-sub { font-size: clamp(1rem, 1.4vw, 1.2rem); color: rgba(232,233,235,0.45); }
-.cr .pa-body .pa-sub { font-size: clamp(1rem, 1.4vw, 1.2rem); color: rgba(3,7,31,0.45); }
 .pa-body p { font-size: 0.9rem; line-height: 2; margin-bottom: 1.2rem; }
 .dk .pa-body p { color: rgba(232,233,235,0.52); }
-.cr .pa-body p { color: rgba(3,7,31,0.55); }
-
-.pa-link {
-  display: inline-flex; align-items: center; gap: 0.5rem;
-  font-size: 0.62rem; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase;
-  padding-bottom: 3px; margin-top: 2rem; transition: gap 0.3s;
-}
+.pa-link { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.62rem; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; padding-bottom: 3px; margin-top: 2rem; transition: gap 0.3s; }
 .dk .pa-link { color: rgba(232,233,235,0.5); border-bottom: 1px solid rgba(232,233,235,0.18); }
-.cr .pa-link { color: rgba(3,7,31,0.5); border-bottom: 1px solid rgba(3,7,31,0.18); }
 .pa-link::after { content: '→'; }
 .pa-link:hover { gap: 0.9rem; }
 .dk .pa-link:hover { color: var(--cr); border-color: rgba(232,233,235,0.4); }
-.cr .pa-link:hover { color: var(--dk); border-color: rgba(3,7,31,0.4); }
-
-/* Fact list */
 .pa-meta { display: flex; flex-direction: column; gap: 2rem; padding-top: 0.5rem; }
 .pa-tag { display: inline-block; font-size: 0.58rem; font-weight: 400; letter-spacing: 0.26em; text-transform: uppercase; padding: 0.5em 1.2em; align-self: flex-start; }
 .dk .pa-tag { border: 1px solid rgba(232,233,235,0.2); color: rgba(232,233,235,0.5); }
-.cr .pa-tag { border: 1px solid rgba(3,7,31,0.2); color: rgba(3,7,31,0.5); }
 .pa-facts { list-style: none; }
 .pa-facts li { display: flex; align-items: baseline; gap: 1rem; padding: 0.9rem 0; }
 .dk .pa-facts li { border-bottom: 1px solid rgba(232,233,235,0.07); }
-.cr .pa-facts li { border-bottom: 1px solid rgba(3,7,31,0.08); }
 .pa-facts li:last-child { border-bottom: none; }
 .pa-fact-label { font-size: 0.58rem; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; flex-shrink: 0; min-width: 8rem; }
 .dk .pa-fact-label { color: rgba(232,233,235,0.32); }
-.cr .pa-fact-label { color: rgba(3,7,31,0.35); }
 .pa-fact-val { font-size: 0.88rem; }
 .dk .pa-fact-val { color: rgba(232,233,235,0.65); }
-.cr .pa-fact-val { color: rgba(3,7,31,0.65); }
-
-/* Process timeline */
 .process-steps { margin-top: 2.5rem; }
 .process-step { display: flex; gap: 1.5rem; padding: 1.2rem 0; }
 .dk .process-step { border-bottom: 1px solid rgba(232,233,235,0.07); }
-.cr .process-step { border-bottom: 1px solid rgba(3,7,31,0.08); }
 .process-step:last-child { border-bottom: none; }
 .process-step__num { font-family: var(--serif); font-size: 1.4rem; flex-shrink: 0; line-height: 1.3; min-width: 2rem; }
 .dk .process-step__num { color: rgba(232,233,235,0.18); }
-.cr .process-step__num { color: rgba(3,7,31,0.15); }
 .process-step__text { font-size: 0.88rem; line-height: 1.75; }
 .dk .process-step__text { color: rgba(232,233,235,0.52); }
-.cr .process-step__text { color: rgba(3,7,31,0.55); }
 .process-step__title { font-size: 0.7rem; font-weight: 400; letter-spacing: 0.16em; text-transform: uppercase; margin-bottom: 0.3rem; display: block; }
 .dk .process-step__title { color: rgba(232,233,235,0.5); }
-.cr .process-step__title { color: rgba(3,7,31,0.5); }
 
 /* FOOTER */
 .footer__grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr; gap: 4rem; padding-bottom: 5rem; border-bottom: 1px solid rgba(3,7,31,0.1); margin-bottom: 2.5rem; }
@@ -196,7 +158,6 @@ a.footer__contact-line:hover { color: var(--dk); }
   .nav__burger.active span:nth-child(2) { opacity: 0; }
   .nav__burger.active span:nth-child(3) { transform: rotate(-45deg) translateY(-7px); }
   .page-hero__layout { grid-template-columns: 1fr; }
-  .page-hero__icon { display: none; }
   .page-hero__photo { display: none; }
   .pa-grid { grid-template-columns: 1fr; }
   .footer__grid { grid-template-columns: 1fr; }
@@ -221,9 +182,7 @@ a.footer__contact-line:hover { color: var(--dk); }
   .ei-split { grid-template-columns:1fr; }
   .ei-split--left .ei-block { order:-1; }
 }
-.ei-cinematic { width:100%; height:clamp(70px,9vw,140px); overflow:hidden; line-height:0; display:block; }
-.ei-cinematic img { width:100%; height:100%; object-fit:cover; object-position:center 35%; display:block; filter:none; transition:transform 1.5s cubic-bezier(0.25,0.46,0.45,0.94); }
-.ei-cinematic:hover img { transform:scale(1.03); }
+.ei-block--narrow { aspect-ratio:2/3; }
 </style>
 </head>
 <body>
@@ -278,58 +237,56 @@ a.footer__contact-line:hover { color: var(--dk); }
 </nav>
 
 
-<!-- BLOCK 1 — PAGE HERO [CREAM] -->
-<section class="page-hero cr">
+<!-- PAGE HERO [DARK] — citizenship torch icon -->
+<section class="page-hero dk">
   <div class="wrap">
     <div class="page-hero__layout">
       <div class="page-hero__text">
-        <span class="label r" style="opacity:.35;margin-bottom:1.6rem;">Practice Areas</span>
-        <h1 class="r d1">Naturalization<br><em>&amp; Citizenship</em></h1>
+        <span class="label r" style="opacity:.35;margin-bottom:1.6rem;">Citizenship · Form N-400</span>
+        <h1 class="r d1">Naturalization<br><em>&amp; U.S. Citizenship</em></h1>
         <p class="page-hero__sub r d2">
-          Becoming a United States citizen is the final step of an immigration journey — and one of the most consequential. Kamkhadze PA guides lawful permanent residents through every stage of naturalization, from the N-400 application through the civics interview and the Oath of Allegiance.
+          Guiding lawful permanent residents through the naturalization process — thorough preparation, precise filing, and personal counsel at every stage.
         </p>
       </div>
-      <!-- Oath on the Bible — swearing in / legal milestone -->
       <div class="page-hero__photo">
-        <img
-          src="nat-img1.webp"
-          alt="A person raising their right hand and placing the other on a Bible to take the oath in a wood-paneled courtroom — U.S. naturalization and citizenship"
-          loading="eager"
-        >
+        <img src="nat-img2.webp" alt="Large audience of new citizens raising their right hands to take the oath of allegiance at a naturalization ceremony with U.S. flags on stage" loading="eager">
       </div>
     </div>
   </div>
 </section>
 
 
-<!-- ══ NATURALIZATION (N-400) ══════════════════════════════════════ -->
-<section id="naturalization" class="pa-section dk">
+<!-- NATURALIZATION SECTION [CREAM] -->
+<section class="pa-section cr">
   <div class="wrap">
     <div class="pa-grid">
       <div class="pa-body">
         <span class="label r" style="opacity:.35;margin-bottom:1.4rem;">Citizenship · Form N-400</span>
-        <h2 class="r d1">Path to U.S.<br><em>Citizenship</em></h2>
-        <p class="pa-sub r d2">Naturalization for Lawful Permanent Residents</p>
+        <h2 class="r d1">Naturalization<br><em>&amp; U.S. Citizenship</em></h2>
+        <p class="pa-sub r d2">Guiding Lawful Permanent Residents to Full Citizenship</p>
         <p class="r d2">
-          Naturalization is the process by which a lawful permanent resident (green card holder) becomes a citizen of the United States. It is the culmination of years of building a life in this country — and it confers the full rights of citizenship: the right to vote, to hold a U.S. passport, to petition for family members, and to remain in the United States permanently and unconditionally.
+          Naturalization is the process by which a lawful permanent resident becomes a U.S. citizen. It is one of the most significant legal milestones an immigrant can reach — conveying the full rights of citizenship, including the right to vote, hold public office, obtain a U.S. passport, and sponsor close family members as immediate relatives.
         </p>
         <p class="r d3">
-          The application is filed on Form N-400, Application for Naturalization. Most applicants qualify after five years of permanent residence (three years for spouses of U.S. citizens). Kamkhadze PA reviews each client's eligibility with precision before filing — confirming continuous residence, physical presence, and good moral character — so that the application is approved on the first submission.
+          Most permanent residents are eligible to apply after five years of continuous residence as a green card holder. Those married to and living with a U.S. citizen may apply after three years. Other exceptions exist for certain military service members, refugees, and asylees. Kamkhadze PA reviews each client's eligibility carefully before filing, ensuring that the application is submitted at the right time with the strongest possible record.
         </p>
         <p class="r d3">
-          The firm prepares applicants thoroughly for the naturalization interview and the English and civics tests, and represents clients in matters where prior immigration history, travel records, or moral-character questions require careful legal handling before filing.
+          The naturalization process includes a civics and English language test, a review of the applicant's good moral character, and a USCIS interview. Ana Kamkhadze prepares each client for this interview thoroughly, addressing any complexities in travel history, absences from the U.S., prior criminal matters, or tax compliance issues that may require explanation.
         </p>
         <a href="contact.html" class="pa-link r d4">Discuss Your Naturalization</a>
+        <figure class="ei-block ei-block--narrow ei-block--cr r d2" style="max-width:clamp(280px,28vw,380px);margin-top:clamp(2rem,3.5vw,3.5rem);" aria-label="Close-up of a courtroom oath being taken in a wood-paneled courtroom">
+          <img src="nat-img1.webp" alt="Applicant taking the oath with a raised hand and a hand on a book in a wood-paneled courtroom — naturalization" loading="lazy">
+        </figure>
       </div>
       <div class="pa-meta r d1">
-        <span class="pa-tag">Citizenship · Form N-400</span>
+        <span class="pa-tag">N-400 · Naturalization · Citizenship</span>
         <ul class="pa-facts">
-          <li><span class="pa-fact-label">Eligibility</span><span class="pa-fact-val">5 years as an LPR · 3 years if married to and living with a U.S. citizen</span></li>
-          <li><span class="pa-fact-label">Age</span><span class="pa-fact-val">At least 18 years old at the time of filing</span></li>
-          <li><span class="pa-fact-label">Residence</span><span class="pa-fact-val">Continuous residence and physical presence in the U.S.</span></li>
-          <li><span class="pa-fact-label">Character</span><span class="pa-fact-val">Good moral character during the statutory period</span></li>
-          <li><span class="pa-fact-label">Tests</span><span class="pa-fact-val">English (reading, writing, speaking) and U.S. civics</span></li>
-          <li><span class="pa-fact-label">Final Step</span><span class="pa-fact-val">Oath of Allegiance at a naturalization ceremony</span></li>
+          <li><span class="pa-fact-label">Eligibility</span><span class="pa-fact-val">Lawful Permanent Resident (green card holder)</span></li>
+          <li><span class="pa-fact-label">Residency</span><span class="pa-fact-val">5 years continuous LPR status; 3 years if married to USC</span></li>
+          <li><span class="pa-fact-label">Physical Presence</span><span class="pa-fact-val">At least 30 months in the U.S. in the 5-year period</span></li>
+          <li><span class="pa-fact-label">Continuous Res.</span><span class="pa-fact-val">No single absence of 6+ months (may disrupt continuity)</span></li>
+          <li><span class="pa-fact-label">Moral Character</span><span class="pa-fact-val">Good moral character required for the statutory period</span></li>
+          <li><span class="pa-fact-label">Test</span><span class="pa-fact-val">English literacy + U.S. civics; exemptions for elderly/disabled</span></li>
         </ul>
 
         <div>
@@ -339,28 +296,28 @@ a.footer__contact-line:hover { color: var(--dk); }
               <span class="process-step__num">01</span>
               <div class="process-step__text">
                 <span class="process-step__title">Eligibility Review</span>
-                Kamkhadze PA confirms the residency period, physical presence, and good moral character requirements are met before any filing is made.
+                Ana Kamkhadze reviews the full travel history, criminal record, tax compliance, and residency timeline to confirm eligibility and identify any issues before filing.
               </div>
             </div>
             <div class="process-step">
               <span class="process-step__num">02</span>
               <div class="process-step__text">
-                <span class="process-step__title">N-400 Filing &amp; Biometrics</span>
-                File the Application for Naturalization with supporting evidence, then attend the USCIS biometrics appointment for fingerprints and background checks.
+                <span class="process-step__title">N-400 Application</span>
+                Prepare and file the Application for Naturalization with all required supporting documentation.
               </div>
             </div>
             <div class="process-step">
               <span class="process-step__num">03</span>
               <div class="process-step__text">
-                <span class="process-step__title">Interview &amp; Tests</span>
-                Attend the naturalization interview and complete the English and civics tests. The firm prepares every client thoroughly for this stage.
+                <span class="process-step__title">Biometrics &amp; Interview</span>
+                Attend biometrics and the USCIS naturalization interview. Ana prepares clients for the civics test and for any questions specific to their case.
               </div>
             </div>
             <div class="process-step">
               <span class="process-step__num">04</span>
               <div class="process-step__text">
                 <span class="process-step__title">Oath of Allegiance</span>
-                Upon approval, take the Oath of Allegiance at a naturalization ceremony and receive the Certificate of Naturalization — becoming a U.S. citizen.
+                Upon approval, attend the Oath Ceremony and receive the Certificate of Naturalization — the formal recognition of U.S. citizenship.
               </div>
             </div>
           </div>
@@ -372,64 +329,18 @@ a.footer__contact-line:hover { color: var(--dk); }
 
 
 
-<!-- ══ ELIGIBILITY & REQUIREMENTS ══════════════════════════════════ -->
-<section id="requirements" class="pa-section cr" style="padding-bottom:0;">
-  <div class="wrap">
-    <div class="pa-grid">
-      <div class="pa-body">
-        <span class="label r" style="opacity:.35;margin-bottom:1.4rem;">Citizenship · Requirements</span>
-        <h2 class="r d1">Eligibility &amp;<br><em>Requirements</em></h2>
-        <p class="pa-sub r d2">What the Law Requires of Every Applicant</p>
-        <p class="r d2">
-          Naturalization carries strict statutory requirements, and a single overlooked detail — an extended trip abroad, an unreported tax issue, an old arrest — can delay or derail an otherwise straightforward application. Kamkhadze PA examines each requirement closely before filing, so that nothing surfaces unexpectedly at the interview.
-        </p>
-        <p class="r d3">
-          The continuous residence requirement asks that the applicant has resided in the United States as a permanent resident for the statutory period without breaking that residence through lengthy absences. The physical presence requirement asks that the applicant has actually been present in the country for at least half of that period. Both are documented carefully from travel records.
-        </p>
-        <p class="r d3">
-          Good moral character is assessed across the statutory period and up to the day of the oath. The English and civics tests are administered at the interview — and the firm provides every applicant with the preparation needed to pass with confidence.
-        </p>
-        <a href="contact.html" class="pa-link r d4">Begin Your Citizenship Journey</a>
-      </div>
-      <div class="pa-meta r d1">
-        <span class="pa-tag">Requirements · INA §316</span>
-        <ul class="pa-facts">
-          <li><span class="pa-fact-label">Continuous Residence</span><span class="pa-fact-val">5 years (or 3 years for spouses of U.S. citizens) as an LPR</span></li>
-          <li><span class="pa-fact-label">Physical Presence</span><span class="pa-fact-val">At least half of the statutory period physically in the U.S.</span></li>
-          <li><span class="pa-fact-label">State Residence</span><span class="pa-fact-val">At least 3 months in the state or USCIS district of filing</span></li>
-          <li><span class="pa-fact-label">Moral Character</span><span class="pa-fact-val">Good moral character throughout the statutory period</span></li>
-          <li><span class="pa-fact-label">English Test</span><span class="pa-fact-val">Reading, writing, and speaking (limited age/residency exemptions)</span></li>
-          <li><span class="pa-fact-label">Civics Test</span><span class="pa-fact-val">Knowledge of U.S. history and government</span></li>
-        </ul>
-
-        <div>
-          <span class="label" style="opacity:.32;margin-bottom:0.8rem;">Key Considerations</span>
-          <p style="font-size:0.82rem;line-height:1.8;color:rgba(3,7,31,0.48);margin-top:0.5rem;">
-            Extended absences from the United States, unresolved tax obligations, and prior criminal or immigration history can each affect eligibility. An honest, thorough review before filing is the difference between a smooth approval and a costly denial. Kamkhadze PA provides that review as a starting point.
-          </p>
-        </div>
-      </div>
+<!-- CTA [DARK] -->
+<section class="section--tall dk" style="text-align:center;border-top:1px solid rgba(232,233,235,0.06);">
+  <div class="wrap wrap--narrow">
+    <span class="label r" style="opacity:.35;margin-bottom:1.8rem;display:block;">Ready to Begin?</span>
+    <h2 class="r d1">Begin Your Path to<br><em>U.S. Citizenship.</em></h2>
+    <br><br>
+    <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;" class="r d2">
+      <a href="contact.html" class="btn btn-solid dk">Schedule a Consultation</a>
     </div>
   </div>
-  <div class="ei-cinematic" aria-hidden="true" style="margin-top:clamp(3rem,5vw,5rem);">
-    <img src="nat-img2.webp" alt="Hundreds of new citizens raising their right hands to take the Oath of Allegiance beneath U.S. flags at a naturalization ceremony" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
-  </div>
 </section>
 
-
-
-<!-- CTA [DARK] -->
-<section class="section--tall dk" style="text-align:center;">
-  <div class="wrap wrap--narrow">
-    <span class="label r" style="opacity:.35;margin-bottom:1.8rem;display:block;">Begin Your Journey</span>
-    <h2 class="r d1">
-      Ready to become a<br>
-      <em>United States citizen?</em>
-    </h2>
-    <br><br>
-    <a href="contact.html" class="btn btn-solid dk r d2">Schedule a Consultation</a>
-  </div>
-</section>
 
 <!-- FOOTER [CREAM] -->
 <footer class="footer section cr">
@@ -443,6 +354,8 @@ a.footer__contact-line:hover { color: var(--dk); }
       <div>
         <span class="footer__col-title">Employment-Based</span>
         <ul class="footer__links">
+          <li><a href="employment.html#o1a">O-1A Extraordinary Ability</a></li>
+          <li><a href="employment.html#o1b">O-1B Arts &amp; Entertainment</a></li>
           <li><a href="employment.html#eb1a">EB-1A Green Card</a></li>
           <li><a href="employment.html#eb1b">EB-1B Researchers</a></li>
           <li><a href="employment.html#eb1c">EB-1C Executives</a></li>
