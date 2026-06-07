@@ -1109,13 +1109,10 @@ a.footer__contact-line:hover { color: var(--dk); }
   .nav__burger.active span:nth-child(1) { transform: rotate(45deg) translateY(7px); }
   .nav__burger.active span:nth-child(2) { opacity: 0; }
   .nav__burger.active span:nth-child(3) { transform: rotate(-45deg) translateY(-7px); }
-  /* Stacked hero on mobile — photo on top, text below on navy (no overlap) */
-  .hero { height: auto; }
-  .hero__composition { height: auto; min-height: 0; }
-  .hero__office { position: relative; inset: auto; width: 100%; height: auto; aspect-ratio: 4/5; object-fit: cover; object-position: center top; }
-  .hero__comp-scrim { display: none; }
-  .hero__body { position: static; max-width: 100%; background: var(--dk); padding: 2.5rem var(--pad-h) 3rem; }
-  .hero__eyebrow { margin-bottom: 1.6rem; }
+  .hero__composition { min-height: clamp(480px, 94vw, 720px); }
+  .hero__body { max-width: 100%; }
+  /* Lift the eyebrow line up so it clears her eyes */
+  .hero__eyebrow { margin-bottom: 6rem; }
   .flagship__intro { grid-template-columns: 1fr; gap: 2rem; }
   .practices__header { flex-direction: column; gap: 2rem; }
   .attorney__grid { grid-template-columns: 1fr; }
@@ -1139,6 +1136,7 @@ a.footer__contact-line:hover { color: var(--dk); }
   .attorney__img-outer::after { display: none; }
   h1 { font-size: clamp(2.4rem, 10vw, 4rem); }
   h2 { font-size: clamp(1.8rem, 7vw, 2.8rem); }
+  .hero__composition { min-height: clamp(400px, 110vw, 580px); }
 }
 
 /* Attorney — portrait removed, full-width single-column body */
