@@ -1,111 +1,1349 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Insights &amp; Analysis | Kamkhadze PA Immigration Law</title>
-  <meta name="description" content="Original legal analysis on U.S. immigration law — extraordinary ability standards, NIW strategy, H-1B alternatives, USCIS trends, and more. By Ana Kamkhadze, Esq. MBA.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="canonical" href="https://www.esq.mba/preview/blog.html">
-  <link rel="sitemap" type="application/xml" href="/sitemap.xml">
-  <link rel="stylesheet" href="site.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Original legal analysis on U.S. immigration law — extraordinary ability standards, NIW strategy, H-1B alternatives, USCIS trends. By Ana Kamkhadze, Esq. MBA.">
+<title>Insights & Analysis | Immigration Law | Kamkhadze PA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════════════════════════
+   STRICT TWO-COLOR SYSTEM — NO EXCEPTIONS  (dark-blue dominant)
+   --dk token:  #03071F  (Midnight Blue — MAIN surface)
+   --cr token:  #CBD1D5  (Stainless Steel Silver — ACCENT)
+═══════════════════════════════════════════════════════════════════ */
+:root {
+  --nhg:   'Neue Haas Grotesk Display', 'NeueHaasGroteskDisp', 'Neue Haas Grotesk', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --dk:    #03071F;
+  --cr:    #E8E9EB;
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --sans:  'Raleway', sans-serif;
+  --ease:  cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --pad-h: clamp(2rem, 6vw, 7rem);
+  --pad-v: clamp(5rem, 9vw, 9rem);
+}
+
+/* ── RESET ─────────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0; padding: 0;
+  background-image: none !important; /* kill ALL gradients globally */
+}
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--sans);
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 1.82;
+  background: var(--dk);
+  color: var(--cr);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+img { display: block; max-width: 100%; }
+a { text-decoration: none; color: inherit; }
+button { font-family: var(--sans); font-weight: 400; cursor: pointer; border: none; background: none; }
+
+/* ── TYPE — Serif editorial headings / Sans-Serif body ─────────── */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--serif);
+  font-weight: 400;
+  line-height: 1.06;
+  letter-spacing: -0.01em;
+}
+h1 { font-size: clamp(3rem, 7vw, 7rem); }
+h2 { font-size: clamp(2.2rem, 4.5vw, 4.5rem); }
+h3 { font-size: clamp(1.4rem, 2.5vw, 2.4rem); }
+h4 { font-size: clamp(1rem, 1.6vw, 1.4rem); }
+em { font-style: italic; }
+b, strong { font-weight: 500; }
+
+.label {
+  font-family: var(--sans);
+  font-size: 0.62rem;
+  font-weight: 400;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  display: block;
+}
+
+/* ── SECTION BLOCKS: DARK ──────────────────────────────────────── */
+.dk {
+  background: var(--dk);
+  color: var(--cr);
+}
+.dk h1, .dk h2, .dk h3, .dk h4, .dk em { color: var(--cr); }
+.dk .label { color: var(--cr); opacity: 0.45; }
+.dk hr { border-color: rgba(203,209,213,0.12); }
+.dk .rule { background: var(--cr); }
+.dk .btn-solid {
+  background: var(--cr);
+  color: var(--dk);
+  border: 1px solid var(--cr);
+}
+.dk .btn-solid:hover { background: transparent; color: var(--cr); }
+.dk .btn-line {
+  background: transparent;
+  color: var(--cr);
+  border: 1px solid rgba(203,209,213,0.3);
+}
+.dk .btn-line:hover { border-color: var(--cr); }
+.dk .subdued { color: rgba(203,209,213,0.5); }
+.dk .light-text { color: rgba(203,209,213,0.7); }
+
+/* ── SECTION BLOCKS: CREAM ─────────────────────────────────────── */
+.cr {
+  background: var(--cr);
+  color: var(--dk);
+}
+.cr h1, .cr h2, .cr h3, .cr h4, .cr em { color: var(--dk); }
+.cr .label { color: var(--dk); opacity: 0.4; }
+.cr hr { border-color: rgba(3,7,31,0.1); }
+.cr .rule { background: var(--dk); }
+.cr .btn-solid {
+  background: var(--dk);
+  color: var(--cr);
+  border: 1px solid var(--dk);
+}
+.cr .btn-solid:hover { background: transparent; color: var(--dk); }
+.cr .btn-line {
+  background: transparent;
+  color: var(--dk);
+  border: 1px solid rgba(3,7,31,0.3);
+}
+.cr .btn-line:hover { border-color: var(--dk); }
+.cr .subdued { color: rgba(3,7,31,0.45); }
+.cr .light-text { color: rgba(3,7,31,0.7); }
+
+/* ── SHARED ELEMENTS ───────────────────────────────────────────── */
+.wrap {
+  max-width: 1380px;
+  margin: 0 auto;
+  padding-left:  var(--pad-h);
+  padding-right: var(--pad-h);
+}
+.wrap--narrow { max-width: 940px; }
+.wrap--mid    { max-width: 1140px; }
+
+.section { padding: var(--pad-v) 0; }
+.section--tall { padding: clamp(7rem, 13vw, 13rem) 0; }
+
+.rule {
+  display: block;
+  width: 3rem;
+  height: 1px;
+  margin-bottom: 2rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75em;
+  font-family: var(--sans);
+  font-size: 0.65rem;
+  font-weight: 400;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  padding: 1.2em 3em;
+  transition: all 0.5s var(--ease);
+  cursor: pointer;
+  outline: none;
+  white-space: nowrap;
+}
+.btn::after { content: '→'; font-size: 1em; transition: transform 0.35s ease; }
+.btn:hover::after { transform: translateX(6px); }
+
+hr.thin {
+  border: none;
+  border-top: 1px solid;
+  display: block;
+  width: 100%;
+}
+
+/* ── SCROLL REVEAL ─────────────────────────────────────────────── */
+.r {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.85s var(--ease), transform 0.85s var(--ease);
+}
+.r.on { opacity: 1; transform: translateY(0); }
+.d1 { transition-delay: 0.1s; }
+.d2 { transition-delay: 0.22s; }
+.d3 { transition-delay: 0.34s; }
+.d4 { transition-delay: 0.48s; }
+.d5 { transition-delay: 0.62s; }
+
+
+/* ════════════════════════════════════════════════════════════════
+   NAVIGATION  (cream header — dark chocolate text)
+════════════════════════════════════════════════════════════════ */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 500;
+  background: var(--dk);
+  border-bottom: 1px solid rgba(203,209,213,0.08);
+  transition: border-color 0.4s;
+}
+.nav.lit { border-color: rgba(203,209,213,0.18); }
+
+.nav__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 80px;
+  padding: 0 var(--pad-h) 0 clamp(1.5rem, 3.5vw, 4rem);
+  max-width: 1560px;
+  margin: 0 auto;
+}
+
+/* Logo — geometry & colors completely preserved */
+.nav__logo { display: flex; flex-direction: row; align-items: center; gap: 0.75rem; }
+.nav__logo-mark { flex-shrink: 0; }
+.nav__logo-text { display: flex; flex-direction: column; gap: 3px; }
+.nav__logo-name {
+  font-family: var(--serif);
+  font-size: 1.48rem;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: var(--cr);
+  line-height: 1;
+}
+.nav__logo-sub {
+  font-family: var(--sans);
+  font-size: 0.55rem;
+  font-weight: 400;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(203,209,213,0.4);
+  line-height: 1;
+}
+
+.nav__links {
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 2.2vw, 2.2rem);
+  list-style: none;
+}
+.nav__links > li > a,
+.nav__links > li > span {
+  font-family: var(--sans);
+  font-size: 0.65rem;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(203,209,213,0.65);
+  transition: color 0.3s;
+  cursor: pointer;
+  position: relative;
+  white-space: nowrap;
+}
+.nav__links > li > a::after,
+.nav__links > li > span::after {
+  content: '';
+  position: absolute;
+  left: 0; bottom: -3px;
+  width: 0; height: 1px;
+  background: var(--cr);
+  transition: width 0.4s var(--ease);
+}
+.nav__links > li > a:hover,
+.nav__links > li > span:hover { color: var(--cr); }
+.nav__links > li > a:hover::after,
+.nav__links > li > span:hover::after { width: 100%; }
+
+/* Dropdown */
+.dd { position: relative; }
+.dd::after { content: ''; position: absolute; left: 0; right: 0; bottom: -1.4rem; height: 1.4rem; }
+.dd__toggle { display: flex; align-items: center; gap: 0.4em; }
+.dd__caret {
+  font-size: 0.5rem;
+  opacity: 0.4;
+  transition: transform 0.3s, opacity 0.3s;
+}
+.dd:hover .dd__caret { transform: rotate(180deg); opacity: 0.8; }
+
+.dd__panel {
+  position: absolute;
+  top: calc(100% + 1.4rem);
+  left: 50%;
+  transform: translateX(-50%) translateY(-6px);
+  background: var(--dk);
+  border: 1px solid rgba(203,209,213,0.1);
+  min-width: 280px;
+  padding: 0.5rem 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, transform 0.3s;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+}
+.dd:hover .dd__panel,
+.dd.open .dd__panel {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+.dd__panel a {
+  display: block;
+  padding: 0.75rem 1.8rem;
+  font-size: 0.65rem;
+  font-weight: 400;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(203,209,213,0.55);
+  transition: color 0.25s, background 0.25s;
+}
+.dd__panel a:hover {
+  color: var(--cr);
+  background: rgba(203,209,213,0.04);
+}
+
+.nav__cta {
+  font-size: 0.62rem !important;
+  font-weight: 400 !important;
+  letter-spacing: 0.24em !important;
+  padding: 0.9em 2.2em;
+  border: 1px solid rgba(203,209,213,0.3);
+  color: var(--cr) !important;
+  transition: border-color 0.4s, background 0.4s;
+}
+.nav__cta::after { display: none !important; }
+.nav__cta:hover {
+  border-color: var(--cr) !important;
+  background: rgba(203,209,213,0.06) !important;
+}
+
+.nav__burger {
+  display: none;
+  flex-direction: column;
+  gap: 6px;
+  cursor: pointer;
+  padding: 6px;
+}
+.nav__burger span {
+  display: block;
+  width: 28px;
+  height: 1px;
+  background: var(--cr);
+  transition: transform 0.3s;
+}
+
+
+/* ════════════════════════════════════════════════════════════════
+   BLOCK 1 — HERO  [DARK]
+   Full-bleed composition — text overlay locked to bottom-left
+════════════════════════════════════════════════════════════════ */
+.hero {
+  background: var(--dk);
+  padding-top: 80px;
+  padding-bottom: 0 !important;
+  margin-bottom: 0 !important;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Composition owns all remaining viewport height — photo fills it completely */
+.hero__composition {
+  position: relative;
+  height: calc(100vh - 80px);
+  overflow: hidden;
+}
+
+/* Office image fills the entire composition */
+.hero__office {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  filter: none;
+  display: block;
+  opacity: 1;
+  z-index: 0;
+}
+
+/* Bottom-gradient scrim — text legibility */
+.hero__comp-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(3,7,31,0.95) 0%,
+    rgba(3,7,31,0.58) 28%,
+    rgba(3,7,31,0.14) 62%,
+    rgba(3,7,31,0) 100%
+  );
+  z-index: 1;
+}
+
+
+/* Text body — absolute, bottom-left of composition */
+.hero__body {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 4;
+  padding: 0 var(--pad-h) clamp(3.5rem, 5vw, 5.5rem);
+  max-width: 820px;
+}
+
+.hero__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  margin-bottom: 3rem;
+}
+.hero__eyebrow::before {
+  content: '';
+  display: block;
+  width: 3rem;
+  height: 1px;
+  background: rgba(203,209,213,0.35);
+  flex-shrink: 0;
+}
+.hero__eyebrow .label { opacity: 0.4; }
+
+.hero h1 { margin-bottom: 2rem; }
+
+.hero__sub {
+  font-size: clamp(0.88rem, 1.15vw, 1rem);
+  color: rgba(203,209,213,0.6);
+  max-width: 560px;
+  line-height: 1.95;
+  margin-bottom: 3.5rem;
+}
+
+.hero__btns {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* Credential ticker — standalone block, snaps flush below 100vh hero */
+.hero__ticker {
+  position: relative;
+  width: 100%;
+  background: var(--dk);
+  border-top: 1px solid rgba(203,209,213,0.08);
+  margin-top: 0 !important;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.hero__ticker-inner {
+  display: flex;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding: 0 var(--pad-h);
+}
+.hero__ticker-inner::-webkit-scrollbar { display: none; }
+
+.hero__cred {
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem 2.8rem;
+  border-right: 1px solid rgba(203,209,213,0.08);
+  flex-shrink: 0;
+  gap: 0.2rem;
+}
+.hero__cred:first-child { padding-left: 0; }
+
+.hero__cred-lbl {
+  font-size: 0.54rem;
+  font-weight: 400;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: rgba(203,209,213,0.35);
+}
+.hero__cred-val {
+  font-family: var(--serif);
+  font-size: 0.95rem;
+  color: rgba(203,209,213,0.75);
+  font-weight: 400;
+}
+
+
+/* ════════════════════════════════════════════════════════════════
+   THEMATIC WATERMARK ICONS — 5 placement zones
+════════════════════════════════════════════════════════════════ */
+.sec-icon {
+  position: absolute;
+  pointer-events: none;
+  opacity: 0.13;
+  color: currentColor;
+  line-height: 0;
+}
+.sec-icon svg { width: clamp(90px, 11vw, 160px); height: auto; display: block; }
+
+/* ════════════════════════════════════════════════════════════════
+   BLOCK 2 — PRESS BAR  [CREAM]
+════════════════════════════════════════════════════════════════ */
+.press { padding: 2.2rem 0; }
+
+.press__inner {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  flex-wrap: wrap;
+  padding: 0 var(--pad-h);
+  max-width: 1560px;
+  margin: 0 auto;
+}
+.press__label { opacity: 0.4; flex-shrink: 0; }
+
+.press__outlets {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+.press__out {
+  font-family: var(--serif);
+  font-style: normal;
+  font-size: 1.05rem;
+  color: var(--dk);
+  opacity: 0.55;
+  transition: opacity 0.3s;
+}
+.press__out:hover { opacity: 1; }
+.press__dot { opacity: 0.2; font-size: 0.9rem; }
+
+
+/* ════════════════════════════════════════════════════════════════
+   BLOCK 3 — FLAGSHIP PRACTICE  [DARK]
+   Full-width two-card side-by-side, no grid lines
+════════════════════════════════════════════════════════════════ */
+.flagship { padding: var(--pad-v) 0 0; }
+
+.flagship__intro {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: end;
+  margin-bottom: 6rem;
+}
+.flagship__intro-copy {
+  font-size: 0.92rem;
+  line-height: 1.95;
+  padding-top: 1rem;
+}
+.flagship__intro-copy.dk { color: rgba(203,209,213,0.55); }
+
+/* Two big cards — full bleed with padding */
+.flagship__pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-top: 1px solid rgba(203,209,213,0.1);
+}
+.flagship__card {
+  padding: clamp(3rem, 5vw, 5.5rem) var(--pad-h);
+  border-right: 1px solid rgba(203,209,213,0.1);
+  position: relative;
+  overflow: hidden;
+  transition: background 0.5s var(--ease);
+}
+.flagship__card:last-child { border-right: none; }
+.flagship__card:hover { background: rgba(203,209,213,0.03); }
+
+.flagship__num {
+  position: absolute;
+  bottom: -2rem; right: 2rem;
+  font-family: var(--serif);
+  font-size: 11rem;
+  font-weight: 400;
+  color: rgba(203,209,213,0.03);
+  line-height: 1;
+  pointer-events: none;
+  transition: color 0.5s;
+}
+.flagship__card:hover .flagship__num { color: rgba(203,209,213,0.06); }
+
+.flagship__card .label { margin-bottom: 2rem; }
+.flagship__card h3 { margin-bottom: 0.5rem; }
+.flagship__card .italic-sub {
+  font-family: var(--serif);
+  font-style: normal;
+  font-size: 1.1rem;
+  color: rgba(203,209,213,0.45);
+  margin-bottom: 2rem;
+}
+.flagship__card p {
+  font-size: 0.88rem;
+  line-height: 1.95;
+  color: rgba(203,209,213,0.48);
+  max-width: 460px;
+  margin-bottom: 2.8rem;
+}
+.flagship__link {
+  font-size: 0.62rem;
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(203,209,213,0.5);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-bottom: 1px solid rgba(203,209,213,0.15);
+  padding-bottom: 3px;
+  transition: color 0.3s, gap 0.3s, border-color 0.3s;
+}
+.flagship__link::after { content: '→'; }
+.flagship__card:hover .flagship__link {
+  color: var(--cr);
+  border-color: rgba(203,209,213,0.4);
+  gap: 0.9rem;
+}
+
+
+/* ════════════════════════════════════════════════════════════════
+   BLOCK 4 — ALL PRACTICE AREAS  [CREAM]
+   Elegant rows, no borders, no grid lines
+════════════════════════════════════════════════════════════════ */
+.practices { }
+
+.practices__header {
+  padding: clamp(4rem, 7vw, 7rem) var(--pad-h) 3rem;
+  display: flex;
+  align-items: end;
+  gap: 5rem;
+  border-bottom: 1px solid rgba(3,7,31,0.1);
+}
+.practices__header h2 { flex: 1; }
+.practices__header p {
+  flex: 1;
+  font-size: 0.9rem;
+  line-height: 1.9;
+  color: rgba(3,7,31,0.5);
+  padding-bottom: 0.6rem;
+}
+
+.practices__list { }
+
+.prow {
+  display: grid;
+  grid-template-columns: 0.35fr 1fr 1.8fr auto;
+  gap: 3rem;
+  align-items: center;
+  padding: 2rem var(--pad-h);
+  border-bottom: 1px solid rgba(3,7,31,0.08);
+  transition: background 0.4s var(--ease);
+  text-decoration: none;
+  color: var(--dk);
+}
+.prow:hover { background: rgba(3,7,31,0.04); }
+
+.prow__code {
+  font-size: 0.6rem;
+  font-weight: 400;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: rgba(3,7,31,0.35);
+}
+.prow__title {
+  font-family: var(--serif);
+  font-size: clamp(1.1rem, 1.6vw, 1.45rem);
+  font-weight: 400;
+  color: var(--dk);
+  line-height: 1.2;
+}
+.prow__desc {
+  font-size: 0.82rem;
+  line-height: 1.75;
+  color: rgba(3,7,31,0.5);
+}
+.prow__arrow {
+  font-size: 1.2rem;
+  color: rgba(3,7,31,0.25);
+  transition: transform 0.3s, color 0.3s;
+}
+.prow:hover .prow__arrow {
+  transform: translateX(6px);
+  color: var(--dk);
+}
+
+
+/* ════════════════════════════════════════════════════════════════
+   BLOCK 5 — ATTORNEY  [DARK]
+   Photo left, copy right — editorial cinematic
+════════════════════════════════════════════════════════════════ */
+.attorney { }
+
+.attorney__grid {
+  display: grid;
+  grid-template-columns: 0.9fr 1fr;
+  gap: clamp(4rem, 7vw, 9rem);
+  align-items: center;
+}
+
+.attorney__img-outer {
+  position: relative;
+  padding-right: 2rem;
+}
+/* Offset decorative frame */
+.attorney__img-outer::after {
+  content: '';
+  position: absolute;
+  top: 2rem; left: 2rem;
+  right: 0; bottom: -2rem;
+  border: 1px solid rgba(203,209,213,0.1);
+  z-index: 0;
+  pointer-events: none;
+}
+.attorney__img {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  aspect-ratio: 3/4;
+  object-fit: cover;
+  object-position: center top;
+  filter: grayscale(20%) saturate(0.9) contrast(1.04) brightness(0.88);
+}
+
+.attorney__body .label { margin-bottom: 1.4rem; }
+.attorney__body h2 { margin-bottom: 2.5rem; }
+.attorney__body .rule { margin-bottom: 2.5rem; }
+
+.attorney__bio {
+  font-size: 0.92rem;
+  line-height: 2;
+  color: rgba(203,209,213,0.55);
+  margin-bottom: 1.5rem;
+}
+
+.attorney__awards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem 3rem;
+  padding: 3rem 0;
+  border-top: 1px solid rgba(203,209,213,0.1);
+  border-bottom: 1px solid rgba(203,209,213,0.1);
+  margin: 2.5rem 0;
+}
+.attorney__award-title {
+  font-family: var(--serif);
+  font-size: 1rem;
+  color: var(--cr);
+  line-height: 1.35;
+  margin-bottom: 0.3rem;
+}
+.attorney__award-sub {
+  font-size: 0.6rem;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(203,209,213,0.3);
+}
+
+
+/* ════════════════════════════════════════════════════════════════
+   BLOCK 6 — STATS  [CREAM]
+   Four stat columns — no borders, just space
+════════════════════════════════════════════════════════════════ */
+.stats { }
+
+.stats__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid rgba(3,7,31,0.1);
+}
+
+.stats__cell {
+  padding: 4rem var(--pad-h);
+  border-right: 1px solid rgba(3,7,31,0.1);
+  transition: background 0.4s;
+}
+.stats__cell:last-child { border-right: none; }
+.stats__cell:hover { background: rgba(3,7,31,0.03); }
+
+.stats__num {
+  font-family: var(--serif);
+  font-size: clamp(4rem, 6vw, 7rem);
+  font-weight: 400;
+  color: var(--dk);
+  line-height: 1;
+  margin-bottom: 0.6rem;
+  display: block;
+}
+.stats__lbl {
+  font-size: 0.6rem;
+  font-weight: 400;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: rgba(3,7,31,0.4);
+  display: block;
+  margin-bottom: 1rem;
+}
+.stats__desc {
+  font-size: 0.8rem;
+  line-height: 1.75;
+  color: rgba(3,7,31,0.45);
+  max-width: 220px;
+}
+
+
+/* ════════════════════════════════════════════════════════════════
+   BLOCK 7 — TESTIMONIALS  [DARK]
+   Featured three + mini row
+════════════════════════════════════════════════════════════════ */
+/* ════════════════════════════════════════════════════════════════
+   BLOCK 7 — REVIEWS TICKER  [DARK]
+   Structural framework mirrors the original esq.mba review section
+════════════════════════════════════════════════════════════════ */
+.reviews-section { }
+.reviews-header {
+  padding-bottom: clamp(3rem, 5vw, 5rem);
+}
+.reviews-rating-bar {
+  display: flex;
+  align-items: center;
+  gap: 2.4rem;
+  flex-wrap: wrap;
+}
+.reviews-score {
+  font-size: 3.8rem;
+  font-weight: 400;
+  line-height: 1;
+  color: var(--cr);
+  letter-spacing: -0.02em;
+}
+.reviews-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+.reviews-stars {
+  font-size: 0.9rem;
+  letter-spacing: 0.22em;
+  color: rgba(203,209,213,0.5);
+}
+.reviews-label {
+  font-size: 0.6rem;
+  font-weight: 400;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: rgba(203,209,213,0.28);
+}
+.reviews-divider {
+  width: 1px;
+  height: 3.5rem;
+  background: rgba(203,209,213,0.1);
+  align-self: center;
+}
+.reviews-brand { display: flex; align-items: center; gap: 0.7rem; }
+.reviews-brand-text {
+  font-size: 0.58rem;
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(203,209,213,0.22);
+}
+
+/* Scrolling ticker rows */
+.reviews-ticker {
+  overflow: hidden;
+  position: relative;
+}
+.reviews-ticker::before {
+  content: '';
+  position: absolute; left: 0; top: 0; bottom: 0; width: 100px; z-index: 2;
+  background: var(--dk);
+  mask-image: linear-gradient(to right, black, transparent);
+  -webkit-mask-image: linear-gradient(to right, black, transparent);
+  pointer-events: none;
+}
+.reviews-ticker::after {
+  content: '';
+  position: absolute; right: 0; top: 0; bottom: 0; width: 100px; z-index: 2;
+  background: var(--dk);
+  mask-image: linear-gradient(to left, black, transparent);
+  -webkit-mask-image: linear-gradient(to left, black, transparent);
+  pointer-events: none;
+}
+.reviews-row { display: flex; overflow: hidden; margin-bottom: 12px; }
+.reviews-row:last-child { margin-bottom: 0; }
+.reviews-track { display: flex; gap: 12px; will-change: transform; }
+.reviews-track-left  { animation: ticker-left  90s linear infinite; }
+.reviews-track-right { animation: ticker-right 90s linear infinite; }
+.reviews-track:hover { animation-play-state: paused; }
+.reviews-track .review-card { width: 340px; flex-shrink: 0; cursor: default; }
+
+@keyframes ticker-left  { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+@keyframes ticker-right { 0% { transform: translateX(-50%); } 100% { transform: translateX(0); } }
+
+/* Individual review card */
+.review-card {
+  background: rgba(203,209,213,0.025);
+  border: 1px solid rgba(203,209,213,0.07);
+  padding: 1.8rem;
+  transition: border-color 0.3s;
+}
+.review-card:hover { border-color: rgba(203,209,213,0.16); }
+.review-card__header {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.9rem;
+  margin-bottom: 0.8rem;
+}
+.review-card__avatar {
+  width: 34px; height: 34px; flex-shrink: 0;
+  border: 1px solid rgba(203,209,213,0.14);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.68rem; font-weight: 400; letter-spacing: 0.06em;
+  color: rgba(203,209,213,0.45);
+}
+.review-card__info { flex: 1; min-width: 0; }
+.review-card__name {
+  font-size: 0.68rem; font-weight: 400;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: rgba(203,209,213,0.7);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.review-card__time {
+  font-size: 0.56rem; letter-spacing: 0.1em;
+  color: rgba(203,209,213,0.26); margin-top: 3px;
+}
+.review-card__stars {
+  font-size: 0.6rem; letter-spacing: 0.2em;
+  color: rgba(203,209,213,0.38); margin-bottom: 0.65rem;
+}
+.review-card__text {
+  font-size: 0.7rem; font-weight: 400; line-height: 1.78;
+  letter-spacing: 0.02em; color: rgba(203,209,213,0.42);
+  display: -webkit-box; -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical; overflow: hidden;
+}
+.review-card__badge {
+  display: inline-block; margin-top: 0.85rem;
+  font-size: 0.5rem; font-weight: 400;
+  letter-spacing: 0.24em; text-transform: uppercase;
+  color: rgba(203,209,213,0.28);
+  border: 1px solid rgba(203,209,213,0.1); padding: 3px 9px;
+}
+
+
+/* ════════════════════════════════════════════════════════════════
+   BLOCK 8 — STATEMENT QUOTE  [CREAM]
+   Full-width centered editorial quote
+════════════════════════════════════════════════════════════════ */
+.quote-block {
+  text-align: center;
+}
+.quote-block blockquote {
+  font-family: var(--serif);
+  font-style: normal;
+  font-size: clamp(2rem, 4vw, 3.8rem);
+  font-weight: 400;
+  line-height: 1.25;
+  color: var(--dk);
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+
+/* ════════════════════════════════════════════════════════════════
+   BLOCK 9 — CTA  [DARK]
+   Full-width immersive call-to-action
+════════════════════════════════════════════════════════════════ */
+.cta-block {
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+/* Subtle radial centred glow — only in-selector, not a gradient bg */
+.cta-block::before {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 55%;
+  height: 100%;
+  margin-left: -27.5%;
+  margin-top: -50%;
+  border-radius: 50%;
+  box-shadow: 0 0 180px 60px rgba(203,209,213,0.02);
+  pointer-events: none;
+}
+.cta-block .label { margin-bottom: 1.8rem; }
+.cta-block h2 { margin-bottom: 3rem; }
+.cta-block h2 em { font-style: normal; }
+
+
+/* ════════════════════════════════════════════════════════════════
+   BLOCK 10 — FOOTER  [CREAM]
+════════════════════════════════════════════════════════════════ */
+.footer { }
+
+.footer__grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+  gap: 4rem;
+  padding-bottom: 5rem;
+  border-bottom: 1px solid rgba(3,7,31,0.1);
+  margin-bottom: 2.5rem;
+}
+.footer__brand-name {
+  font-family: var(--serif);
+  font-size: 1.6rem;
+  color: var(--dk);
+  letter-spacing: 0.05em;
+  display: block;
+  margin-bottom: 0.4rem;
+}
+.footer__brand-sub {
+  font-size: 0.54rem;
+  font-weight: 400;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(3,7,31,0.35);
+  display: block;
+  margin-bottom: 2rem;
+}
+.footer__desc {
+  font-size: 0.82rem;
+  line-height: 1.85;
+  color: rgba(3,7,31,0.42);
+  max-width: 290px;
+}
+
+.footer__col-title {
+  font-size: 0.58rem;
+  font-weight: 400;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(3,7,31,0.35);
+  display: block;
+  margin-bottom: 1.8rem;
+}
+.footer__links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+.footer__links a {
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: rgba(3,7,31,0.5);
+  letter-spacing: 0.04em;
+  transition: color 0.3s;
+}
+.footer__links a:hover { color: var(--dk); }
+
+.footer__contact-line {
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: rgba(3,7,31,0.5);
+  margin-bottom: 0.85rem;
+  display: block;
+  transition: color 0.3s;
+}
+.footer__contact-line:hover { color: var(--dk); }
+a.footer__contact-line { color: rgba(3,7,31,0.5); }
+a.footer__contact-line:hover { color: var(--dk); }
+
+.footer__bottom {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: wrap;
+  align-items: start;
+}
+.footer__copy {
+  font-size: 0.68rem;
+  font-weight: 400;
+  line-height: 1.75;
+  color: rgba(3,7,31,0.3);
+  max-width: 720px;
+  letter-spacing: 0.04em;
+}
+
+
+/* ════════════════════════════════════════════════════════════════
+   RESPONSIVE
+════════════════════════════════════════════════════════════════ */
+@media (max-width: 1100px) {
+  .flagship__pair { grid-template-columns: 1fr; }
+  .flagship__card { border-right: none; border-bottom: 1px solid rgba(203,209,213,0.1); }
+  .flagship__card:last-child { border-bottom: none; }
+  .prow { grid-template-columns: 0.4fr 1fr 1fr auto; }
+  .stats__grid { grid-template-columns: 1fr 1fr; }
+  .stats__cell:nth-child(2) { border-right: none; }
+  .tminis { grid-template-columns: repeat(3, 1fr); }
+  .footer__grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 900px) {
+  .nav__links { display: none; }
+  .nav__links.open {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 80px; left: 0; right: 0;
+    background: var(--cr);
+    padding: 2rem var(--pad-h) 3rem;
+    border-top: 1px solid rgba(3,7,31,0.1);
+    gap: 1.5rem;
+    z-index: 499;
+    align-items: flex-start;
+  }
+  .nav__links.open .dd__panel {
+    position: static;
+    transform: none;
+    opacity: 1;
+    visibility: visible;
+    border: none;
+    box-shadow: none;
+    padding: 0.5rem 0 0 1rem;
+    min-width: unset;
+  }
+  .nav__burger { display: flex; }
+  .nav__burger.active span:nth-child(1) { transform: rotate(45deg) translateY(7px); }
+  .nav__burger.active span:nth-child(2) { opacity: 0; }
+  .nav__burger.active span:nth-child(3) { transform: rotate(-45deg) translateY(-7px); }
+  .hero__composition { min-height: clamp(480px, 94vw, 720px); }
+  .hero__body { max-width: 100%; }
+  .flagship__intro { grid-template-columns: 1fr; gap: 2rem; }
+  .practices__header { flex-direction: column; gap: 2rem; }
+  .attorney__grid { grid-template-columns: 1fr; }
+  .attorney__awards { grid-template-columns: 1fr; }
+  .testimonials__head { grid-template-columns: 1fr; }
+  .testimonials__score { justify-content: flex-start; }
+  .tcards { grid-template-columns: 1fr; }
+  .tcard { border-right: none; border-bottom: 1px solid rgba(203,209,213,0.1); }
+  .tminis { grid-template-columns: 1fr 1fr; }
+  .prow { grid-template-columns: 1fr 1fr; }
+  .prow__desc, .prow__code { display: none; }
+  .footer__grid { grid-template-columns: 1fr; }
+  .hero__btns { flex-direction: column; align-items: flex-start; }
+}
+
+@media (max-width: 600px) {
+  .stats__grid { grid-template-columns: 1fr; }
+  .stats__cell { border-right: none; }
+  .tminis { grid-template-columns: 1fr; }
+  .attorney__img-outer::after { display: none; }
+  h1 { font-size: clamp(2.4rem, 10vw, 4rem); }
+  h2 { font-size: clamp(1.8rem, 7vw, 2.8rem); }
+  .hero__composition { min-height: clamp(400px, 110vw, 580px); }
+}
+
+/* Attorney — portrait removed, full-width single-column body */
+.attorney__grid.solo { grid-template-columns: 1fr; max-width: 860px; }
+
+/* ── EDITORIAL IMAGE BLOCKS ──────────────────────────────────────── */
+.ei-block { position:relative; overflow:hidden; margin:0; line-height:0; background:rgba(203,209,213,0.03); border:1px solid rgba(203,209,213,0.07); }
+.ei-block--portrait { aspect-ratio:3/4; }
+.ei-block--landscape { aspect-ratio:16/9; }
+.ei-block img { width:100%; height:100%; object-fit:cover; object-position:center; display:block; filter:grayscale(20%) saturate(0.9) contrast(1.06) brightness(0.9); transition:transform 0.9s cubic-bezier(0.25,0.46,0.45,0.94); }
+.ei-block:hover img { transform:scale(1.025); }
+.ei-block figcaption { position:absolute; bottom:0; left:0; right:0; padding:1rem 1.4rem; }
+.ei-block__label { font-family:var(--sans); font-size:0.52rem; font-weight:400; letter-spacing:0.26em; text-transform:uppercase; color:rgba(203,209,213,0.4); display:block; }
+.ei-block--cr { background:rgba(3,7,31,0.03); border-color:rgba(3,7,31,0.07); }
+.ei-block--cr .ei-block__label { color:rgba(3,7,31,0.35); }
+.ei-split { display:grid; gap:clamp(4rem,6vw,7rem); align-items:center; }
+.ei-split--right { grid-template-columns:1fr 0.6fr; }
+.ei-split--left  { grid-template-columns:0.6fr 1fr; }
+@media (max-width:900px) {
+  .ei-split { grid-template-columns:1fr; }
+  .ei-split--left .ei-block { order:-1; }
+}
+.ei-cinematic { width:100%; height:clamp(70px,9vw,140px); overflow:hidden; line-height:0; display:block; }
+.ei-cinematic img { width:100%; height:100%; object-fit:cover; object-position:center 35%; display:block; filter:grayscale(20%) saturate(0.9) contrast(1.06) brightness(0.82); transition:transform 1.5s cubic-bezier(0.25,0.46,0.45,0.94); }
+.ei-cinematic:hover img { transform:scale(1.03); }
+.press-gallery { display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(0.75rem,2vw,1.2rem); }
+@media (max-width:1000px) and (min-width:601px) { .press-gallery { grid-template-columns:1fr 1fr; gap:1.2rem; } }
+@media (max-width:600px) { .press-gallery { grid-template-columns:1fr; gap:1.5rem; } }
+
+.page-hero { background:var(--dk); padding-top:80px; }
+.page-hero__inner { padding:clamp(5rem,9vw,9rem) var(--pad-h) clamp(4rem,7vw,7rem); max-width:1380px; margin:0 auto; border-bottom:1px solid rgba(232,233,235,0.08); }
+.page-hero__label { opacity:.35; margin-bottom:1.4rem; }
+.page-hero__title { margin-bottom:1.6rem; }
+.page-hero__sub { font-size:clamp(0.88rem,1.15vw,1rem); color:rgba(232,233,235,0.55); max-width:600px; line-height:1.95; }
+@media(max-width:900px){ .contact-cols{ grid-template-columns:1fr !important; gap:48px !important; } }
+</style>
 </head>
-<body class="dark-hero">
+<body>
+<nav class="nav" id="main-nav">
+  <div class="nav__row">
 
-<div id="site-nav"></div>
-
-<div class="page-hero">
-  <p class="page-hero-label">Insights &amp; Analysis</p>
-  <h1>Immigration<br><em>Intelligence.</em></h1>
-  <p>Original analysis on extraordinary ability standards, adjudicatory trends, and strategic pathways — written by Attorney Ana Kamkhadze, Esq. MBA.</p>
-</div>
-
-<section class="section">
-  <p class="section-label">Latest Analysis</p>
-  <h2 class="section-title">In-Depth on Extraordinary Ability</h2>
-  <p class="section-body">First-principles thinking on the legal standards that govern the most prestigious U.S. immigration categories — because the difference between approval and denial often lives in the nuance.</p>
-
-  <div class="blog-featured-post animate-up">
-    <a href="../blog-o1-vs-eb1.html" class="blog-featured-left">
-      <p class="blog-card-tag">O-1A Visa &nbsp;·&nbsp; EB-1A Green Card &nbsp;·&nbsp; Extraordinary Ability</p>
-      <h3 class="blog-featured-title">O-1 vs. EB-1A: Same Words,<br>Different Worlds</h3>
-      <p class="blog-featured-excerpt">The phrase "extraordinary ability" appears in both the O-1A nonimmigrant visa and the EB-1A immigrant petition. But beneath that shared language lie meaningfully different evidentiary standards, adjudicatory philosophies, and strategic implications — with consequences that matter at every stage of a talent's immigration journey.</p>
-      <div class="blog-read-more">Read Full Analysis →</div>
-    </a>
-    <div class="blog-featured-right">
-      <p class="blog-toc-label">In This Analysis</p>
-      <div class="blog-toc">
-        <div class="blog-toc-item">Shared statutory foundations — same phrase, different intent</div>
-        <div class="blog-toc-item">The 8-criteria vs. 10-criteria evidentiary frameworks</div>
-        <div class="blog-toc-item">The "quantum of evidence" question: top 5% vs. very top</div>
-        <div class="blog-toc-item">How <em>Matter of Kazarian</em> reshaped both standards</div>
-        <div class="blog-toc-item">Structural differences: visa vs. permanent residence</div>
-        <div class="blog-toc-item">Strategic sequencing — using O-1A as EB-1A's proving ground</div>
-        <div class="blog-toc-item">What USCIS actually scrutinizes in practice</div>
-        <div class="blog-toc-item">The "comparable evidence" wildcard for non-traditional fields</div>
+    <a href="index1.html" class="nav__logo">
+      <svg class="nav__logo-mark" width="32" height="32" viewBox="0 0 38 38" fill="none" aria-hidden="true">
+        <rect x="1.5" y="1.5" width="35" height="35" fill="white" stroke="#9CA3A8" stroke-width="2.5"/>
+        <path d="M28 8 L10 19 L28 30 L23 30 L15 19 L23 8 Z" fill="#C0C6CA"/>
+      </svg>
+      <div class="nav__logo-text">
+        <span class="nav__logo-name">Kamkhadze PA</span>
+        <span class="nav__logo-sub">U.S. Immigration Law Firm</span>
       </div>
-      <p class="blog-card-meta" style="margin-top: 28px;">By Ana Kamkhadze, Esq. MBA &nbsp;·&nbsp; May 2026 &nbsp;·&nbsp; 15 min read</p>
+    </a>
+
+    <ul class="nav__links">
+      <li><a href="index1.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+
+      <li class="dd">
+        <a href="employment.html" class="dd__toggle">
+          Employment-Based <span class="dd__caret">▾</span>
+        </a>
+        <div class="dd__panel">
+          <a href="employment.html#o1a">O-1A Extraordinary Ability</a>
+          <a href="employment.html#o1b">O-1B Arts &amp; Entertainment</a>
+          <a href="employment.html#eb1a">EB-1A Green Card</a>
+          <a href="employment.html#eb1b">EB-1B Outstanding Researchers</a>
+          <a href="employment.html#eb1c">EB-1C Multinational Managers</a>
+          <a href="employment.html#eb2niw">EB-2 National Interest Waiver</a>
+          <a href="employment.html#h1b">H-1B Specialty Occupation</a>
+          <a href="employment.html#l1">L-1 Intracompany Transfer</a>
+          <a href="employment.html#e2">E-2 Treaty Investor</a>
+          <a href="employment.html#tn">TN Professional</a>
+        </div>
+      </li>
+
+      <li class="dd">
+        <a href="family.html" class="dd__toggle">
+          Family-Based <span class="dd__caret">▾</span>
+        </a>
+        <div class="dd__panel">
+          <a href="family.html#marriage">Marriage-Based Green Card</a>
+          <a href="family.html#other">Other Family Petitions</a>
+        </div>
+      </li>
+
+      <li><a href="naturalization.html">Naturalization</a></li>
+      <li><a href="blog.html">Insights</a></li>
+      <li><a href="press.html">Press</a></li>
+      <li><a href="contact.html" class="nav__cta">Schedule Consultation</a></li>
+    </ul>
+
+    <div class="nav__burger" role="button" aria-label="Open menu">
+      <span></span><span></span><span></span>
     </div>
   </div>
-</section>
-
-<section class="section section-alt">
-  <p class="section-label">All Analyses</p>
-  <h2 class="section-title">The Full Library</h2>
-  <p class="section-body">Substantive analysis on the visa categories, legal standards, and strategic decisions that matter most to exceptional professionals pursuing U.S. immigration.</p>
-
-  <div class="press-grid animate-up" style="margin-top: 48px;">
-
-    <a href="../blog-uscis-trends-2025.html" class="press-card">
-      <p class="press-card-outlet">Vol. V &nbsp;·&nbsp; May 2026</p>
-      <p class="press-card-type">Policy &nbsp;·&nbsp; Adjudicatory Trends &nbsp;·&nbsp; 13 min</p>
-      <h3 class="press-card-title">USCIS Under Trump: Approval Rates, New Policies, and What It Means for Your Case</h3>
-      <p class="press-card-desc">A practitioner's-eye view of the current adjudicatory environment — elevated RFE rates, extraordinary ability scrutiny, NIW third-prong pressure, and what well-prepared petitions look like today.</p>
-      <div class="press-card-arrow">Read Analysis →</div>
-    </a>
-
-    <a href="../blog-h1b-alternatives.html" class="press-card">
-      <p class="press-card-outlet">Vol. IV &nbsp;·&nbsp; May 2026</p>
-      <p class="press-card-type">H-1B &nbsp;·&nbsp; Work Visas &nbsp;·&nbsp; 10 min</p>
-      <h3 class="press-card-title">Alternatives to H-1B: What to Do When the Lottery Doesn't Go Your Way</h3>
-      <p class="press-card-desc">Cap-exempt H-1B, O-1A, L-1, TN, E-3, and EB-2 NIW — a practical guide to the real alternatives for professionals who can't afford to leave their immigration future to a lottery.</p>
-      <div class="press-card-arrow">Read Analysis →</div>
-    </a>
-
-    <a href="../blog-e2-vs-l1.html" class="press-card">
-      <p class="press-card-outlet">Vol. III &nbsp;·&nbsp; May 2026</p>
-      <p class="press-card-type">E-2 &nbsp;·&nbsp; L-1 &nbsp;·&nbsp; Business Immigration &nbsp;·&nbsp; 11 min</p>
-      <h3 class="press-card-title">E-2 vs. L-1: Which Visa Is Right for Your Business?</h3>
-      <p class="press-card-desc">Investment-based vs. transfer-based. Indefinitely renewable vs. capped at 7 years. No green card path vs. direct runway to EB-1C. A rigorous side-by-side comparison of two fundamentally different business visas.</p>
-      <div class="press-card-arrow">Read Analysis →</div>
-    </a>
-
-    <a href="../blog-niw-denials.html" class="press-card">
-      <p class="press-card-outlet">Vol. II &nbsp;·&nbsp; May 2026</p>
-      <p class="press-card-type">EB-2 NIW &nbsp;·&nbsp; Green Card &nbsp;·&nbsp; 12 min</p>
-      <h3 class="press-card-title">EB-2 NIW Denials: Why "National Importance" Is Not Enough</h3>
-      <p class="press-card-desc">The most common reasons NIW petitions fail — and why the national importance prong is necessary but never sufficient. An analysis of the three-prong Dhanasar framework and where petitions break down.</p>
-      <div class="press-card-arrow">Read Analysis →</div>
-    </a>
-
-    <a href="../blog-o1-vs-eb1.html" class="press-card">
-      <p class="press-card-outlet">Vol. I &nbsp;·&nbsp; May 2026</p>
-      <p class="press-card-type">O-1A &nbsp;·&nbsp; EB-1A &nbsp;·&nbsp; Extraordinary Ability &nbsp;·&nbsp; 15 min</p>
-      <h3 class="press-card-title">O-1 vs. EB-1A: Same Words, Different Worlds</h3>
-      <p class="press-card-desc">Two categories built on identical statutory language that operate in fundamentally different legal universes — and what that means for the extraordinary individuals pursuing them.</p>
-      <div class="press-card-arrow">Read Analysis →</div>
-    </a>
-
+</nav>
+<div class="page-hero dk"><div class="page-hero__inner">
+  <span class="label page-hero__label">Insights &amp; Analysis</span>
+  <h1 class="page-hero__title">Immigration<br><em>Intelligence.</em></h1>
+  <p class="page-hero__sub">Original analysis on extraordinary ability standards, adjudicatory trends, and strategic pathways — written by Attorney Ana Kamkhadze, Esq. MBA.</p>
+</div></div>
+<section class="practices cr" style="padding-bottom:0;">
+  <div class="practices__header"><h2 class="r">The Full Library</h2><p class="r d1">Substantive analysis on the visa categories, legal standards, and strategic decisions that matter most to exceptional professionals pursuing U.S. immigration.</p></div>
+  <div class="practices__list">
+    <a href="../blog-o1-vs-eb1.html" class="prow r"><span class="prow__code">Vol. I · May 2026</span><span class="prow__title">O-1 vs. EB-1A: Same Words, Different Worlds</span><span class="prow__desc">Two categories built on identical statutory language that operate in fundamentally different legal universes — and what that means for extraordinary individuals pursuing them.</span><span class="prow__arrow">→</span></a>
+    <a href="../blog-niw-denials.html" class="prow r"><span class="prow__code">Vol. II · May 2026</span><span class="prow__title">EB-2 NIW Denials: Why "National Importance" Is Not Enough</span><span class="prow__desc">The most common reasons NIW petitions fail — and why the national importance prong is necessary but never sufficient.</span><span class="prow__arrow">→</span></a>
+    <a href="../blog-e2-vs-l1.html" class="prow r"><span class="prow__code">Vol. III · May 2026</span><span class="prow__title">E-2 vs. L-1: Which Visa Is Right for Your Business?</span><span class="prow__desc">Investment-based vs. transfer-based. A rigorous side-by-side comparison of two fundamentally different business visas.</span><span class="prow__arrow">→</span></a>
+    <a href="../blog-h1b-alternatives.html" class="prow r"><span class="prow__code">Vol. IV · May 2026</span><span class="prow__title">Alternatives to H-1B: What to Do When the Lottery Doesn't Go Your Way</span><span class="prow__desc">Cap-exempt H-1B, O-1A, L-1, TN, E-3, and EB-2 NIW — a practical guide to real alternatives for professionals who can't afford to leave their immigration future to a lottery.</span><span class="prow__arrow">→</span></a>
+    <a href="../blog-uscis-trends-2025.html" class="prow r"><span class="prow__code">Vol. V · May 2026</span><span class="prow__title">USCIS Under Trump: Approval Rates, New Policies, and What It Means for Your Case</span><span class="prow__desc">A practitioner's-eye view of the current adjudicatory environment — elevated RFE rates, extraordinary ability scrutiny, and NIW third-prong pressure.</span><span class="prow__arrow">→</span></a>
   </div>
 </section>
+<section class="cta-block section--tall dk"><div class="wrap wrap--narrow" style="text-align:center;">
+  <span class="label r" style="opacity:.35;margin-bottom:1.8rem;display:block;">Get Expert Counsel</span>
+  <h2 class="r d1">Questions about which<br><em>extraordinary ability pathway</em> is right for you?</h2><br><br>
+  <a href="contact.html" class="btn btn-solid dk r d2">Schedule Consultation</a>
+</div></section>
+<footer class="footer section cr">
+  <div class="wrap">
 
-<div class="cta-section">
-  <h2>Questions about which<br><em>extraordinary ability pathway</em> is right for you?</h2>
-  <a href="contact.html" class="btn btn-outline-light" style="white-space: nowrap;">Schedule Consultation →</a>
-</div>
+    <div class="footer__grid">
+      <div>
+        <span class="footer__brand-name">Kamkhadze PA</span>
+        <span class="footer__brand-sub">U.S. Immigration Law Firm</span>
+        <p class="footer__desc">Elite immigration representation for extraordinary individuals — entrepreneurs, scientists, executives, artists, investors — nationwide and internationally.</p>
+      </div>
 
-<div id="site-footer"></div>
-<script src="site.js"></script>
+      <div>
+        <span class="footer__col-title">Employment-Based</span>
+        <ul class="footer__links">
+          <li><a href="employment.html#eb1a">EB-1A Green Card</a></li>
+          <li><a href="employment.html#eb1b">EB-1B Researchers</a></li>
+          <li><a href="employment.html#eb1c">EB-1C Executives</a></li>
+          <li><a href="employment.html#eb2niw">EB-2 NIW</a></li>
+          <li><a href="employment.html#e2">E-2</a> / <a href="employment.html#o1a">O-1</a> / <a href="employment.html#o1b">O-2</a> / <a href="employment.html#tn">TN</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <span class="footer__col-title">Family-Based</span>
+        <ul class="footer__links">
+          <li><a href="family.html#marriage">Marriage-Based Green Card</a></li>
+          <li><a href="naturalization.html">Naturalization &amp; Citizenship</a></li>
+          <li><a href="family.html#other">Other Family Petitions</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <span class="footer__col-title">Firm</span>
+        <ul class="footer__links">
+          <li><a href="about.html">About Ana Kamkhadze</a></li>
+          <li><a href="blog.html">Insights &amp; Analysis</a></li>
+          <li><a href="press.html">In the Spotlight</a></li>
+          <li><a href="contact.html">Contact &amp; Location</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <span class="footer__col-title">Contact</span>
+        <a href="mailto:anka@esq.mba" class="footer__contact-line">anka@esq.mba</a>
+        <a href="tel:+17865909400"    class="footer__contact-line">+1 (786) 590-9400</a>
+        <a href="contact.html" class="footer__contact-line">Hollywood Beach, FL</a>
+        <a href="contact.html" class="footer__contact-line">Consultations Worldwide</a>
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <p class="footer__copy">
+        © 2026 Kamkhadze PA. All rights reserved. Hollywood Beach, Florida · Serving Clients Nationwide &amp; Internationally<br>
+        Attorney Advertising. This website is for informational purposes only and does not constitute legal advice. Prior results do not guarantee a similar outcome. Kamkhadze PA is licensed to practice in New York. Immigration law is federal law; the firm represents clients in immigration matters in all U.S. states and abroad.
+      </p>
+    </div>
+
+  </div>
+</footer>
+<script>
+  // IntersectionObserver scroll reveal
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('on');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.07, rootMargin: '0px 0px -30px 0px' });
+
+  document.querySelectorAll('.r').forEach(el => io.observe(el));
+
+  // Nav scroll trigger
+  const nav = document.getElementById('main-nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('lit', window.scrollY > 40);
+  }, { passive: true });
+
+  // Mobile burger menu
+  const burger = document.querySelector('.nav__burger');
+  const navLinks = document.querySelector('.nav__links');
+  if (burger && navLinks) {
+    burger.addEventListener('click', () => {
+      navLinks.classList.toggle('open');
+      burger.classList.toggle('active');
+    });
+  }
+
+  // Click / touch dropdown support
+  (function() {
+    document.querySelectorAll('.dd__toggle').forEach(function(t) {
+      t.addEventListener('click', function(e) {
+        var dd = this.closest('.dd');
+        var wasOpen = dd.classList.contains('open');
+        document.querySelectorAll('.dd').forEach(function(d) { d.classList.remove('open'); });
+        if (!wasOpen) { dd.classList.add('open'); e.preventDefault(); }
+      });
+    });
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.dd')) {
+        document.querySelectorAll('.dd').forEach(function(d) { d.classList.remove('open'); });
+      }
+    });
+  })();
+</script>
 </body>
 </html>
