@@ -3,11 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Ana Kamkhadze — licensed U.S. immigration attorney, AILA member, Best Lawyers Ones to Watch 2026. LL.M. & MBA. Hollywood Beach, FL.">
-<title>About Ana Kamkhadze | Kamkhadze PA</title>
+<meta name="description" content="Ana Kamkhadze, Esq. MBA — Elite U.S. immigration attorney. Biography, credentials, and professional background. Hollywood Beach, Florida.">
+<title>About Ana Kamkhadze | Kamkhadze PA | U.S. Immigration Law</title>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+
 <style>
 /* ═══════════════════════════════════════════════════════════════════
    STRICT TWO-COLOR SYSTEM — NO EXCEPTIONS  (dark-blue dominant)
@@ -17,7 +19,7 @@
 :root {
   --nhg:   'Neue Haas Grotesk Display', 'NeueHaasGroteskDisp', 'Neue Haas Grotesk', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   --dk:    #03071F;
-  --cr:    #E8E9EB;
+  --cr:    #CBD1D5;
   --serif: 'Cormorant Garamond', Georgia, serif;
   --sans:  'Raleway', sans-serif;
   --ease:  cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -29,7 +31,7 @@
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0; padding: 0;
-  background-image: none !important; /* kill ALL gradients globally */
+  background-image: none !important;
 }
 html { scroll-behavior: smooth; }
 body {
@@ -37,26 +39,26 @@ body {
   font-weight: 400;
   font-size: 15px;
   line-height: 1.82;
-  background: var(--dk);
-  color: var(--cr);
+  background: var(--cr);
+  color: var(--dk);
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
 img { display: block; max-width: 100%; }
 a { text-decoration: none; color: inherit; }
-button { font-family: var(--sans); font-weight: 400; cursor: pointer; border: none; background: none; }
+button { font-family: var(--nhg); font-weight: 400; cursor: pointer; border: none; background: none; }
 
-/* ── TYPE — Serif editorial headings / Sans-Serif body ─────────── */
+/* ── TYPE — premium serif editorial hierarchy ──────────────────── */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--serif);
   font-weight: 400;
   line-height: 1.06;
   letter-spacing: -0.01em;
 }
-h1 { font-size: clamp(3rem, 7vw, 7rem); }
-h2 { font-size: clamp(2.2rem, 4.5vw, 4.5rem); }
-h3 { font-size: clamp(1.4rem, 2.5vw, 2.4rem); }
-h4 { font-size: clamp(1rem, 1.6vw, 1.4rem); }
+h1 { font-size: clamp(3.8rem, 8vw, 8rem); }
+h2 { font-size: clamp(2.6rem, 5vw, 5rem); }
+h3 { font-size: clamp(1.6rem, 2.8vw, 2.6rem); }
+h4 { font-size: clamp(1.1rem, 1.8vw, 1.5rem); }
 em { font-style: italic; }
 b, strong { font-weight: 500; }
 
@@ -70,72 +72,40 @@ b, strong { font-weight: 500; }
 }
 
 /* ── SECTION BLOCKS: DARK ──────────────────────────────────────── */
-.dk {
-  background: var(--dk);
-  color: var(--cr);
-}
+.dk { background: var(--dk); color: var(--cr); }
 .dk h1, .dk h2, .dk h3, .dk h4, .dk em { color: var(--cr); }
 .dk .label { color: var(--cr); opacity: 0.45; }
 .dk hr { border-color: rgba(203,209,213,0.12); }
 .dk .rule { background: var(--cr); }
-.dk .btn-solid {
-  background: var(--cr);
-  color: var(--dk);
-  border: 1px solid var(--cr);
-}
+.dk .btn-solid { background: var(--cr); color: var(--dk); border: 1px solid var(--cr); }
 .dk .btn-solid:hover { background: transparent; color: var(--cr); }
-.dk .btn-line {
-  background: transparent;
-  color: var(--cr);
-  border: 1px solid rgba(203,209,213,0.3);
-}
+.dk .btn-line { background: transparent; color: var(--cr); border: 1px solid rgba(203,209,213,0.3); }
 .dk .btn-line:hover { border-color: var(--cr); }
 .dk .subdued { color: rgba(203,209,213,0.5); }
 .dk .light-text { color: rgba(203,209,213,0.7); }
 
 /* ── SECTION BLOCKS: CREAM ─────────────────────────────────────── */
-.cr {
-  background: var(--cr);
-  color: var(--dk);
-}
+.cr { background: var(--cr); color: var(--dk); }
 .cr h1, .cr h2, .cr h3, .cr h4, .cr em { color: var(--dk); }
 .cr .label { color: var(--dk); opacity: 0.4; }
 .cr hr { border-color: rgba(3,7,31,0.1); }
 .cr .rule { background: var(--dk); }
-.cr .btn-solid {
-  background: var(--dk);
-  color: var(--cr);
-  border: 1px solid var(--dk);
-}
+.cr .btn-solid { background: var(--dk); color: var(--cr); border: 1px solid var(--dk); }
 .cr .btn-solid:hover { background: transparent; color: var(--dk); }
-.cr .btn-line {
-  background: transparent;
-  color: var(--dk);
-  border: 1px solid rgba(3,7,31,0.3);
-}
+.cr .btn-line { background: transparent; color: var(--dk); border: 1px solid rgba(3,7,31,0.3); }
 .cr .btn-line:hover { border-color: var(--dk); }
 .cr .subdued { color: rgba(3,7,31,0.45); }
 .cr .light-text { color: rgba(3,7,31,0.7); }
 
 /* ── SHARED ELEMENTS ───────────────────────────────────────────── */
-.wrap {
-  max-width: 1380px;
-  margin: 0 auto;
-  padding-left:  var(--pad-h);
-  padding-right: var(--pad-h);
-}
+.wrap { max-width: 1380px; margin: 0 auto; padding-left: var(--pad-h); padding-right: var(--pad-h); }
 .wrap--narrow { max-width: 940px; }
 .wrap--mid    { max-width: 1140px; }
 
 .section { padding: var(--pad-v) 0; }
 .section--tall { padding: clamp(7rem, 13vw, 13rem) 0; }
 
-.rule {
-  display: block;
-  width: 3rem;
-  height: 1px;
-  margin-bottom: 2rem;
-}
+.rule { display: block; width: 3rem; height: 1px; margin-bottom: 2rem; }
 
 .btn {
   display: inline-flex;
@@ -155,19 +125,8 @@ b, strong { font-weight: 500; }
 .btn::after { content: '→'; font-size: 1em; transition: transform 0.35s ease; }
 .btn:hover::after { transform: translateX(6px); }
 
-hr.thin {
-  border: none;
-  border-top: 1px solid;
-  display: block;
-  width: 100%;
-}
-
 /* ── SCROLL REVEAL ─────────────────────────────────────────────── */
-.r {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.85s var(--ease), transform 0.85s var(--ease);
-}
+.r { opacity: 0; transform: translateY(30px); transition: opacity 0.85s var(--ease), transform 0.85s var(--ease); }
 .r.on { opacity: 1; transform: translateY(0); }
 .d1 { transition-delay: 0.1s; }
 .d2 { transition-delay: 0.22s; }
@@ -177,7 +136,7 @@ hr.thin {
 
 
 /* ════════════════════════════════════════════════════════════════
-   NAVIGATION  (cream header — dark chocolate text)
+   NAVIGATION
 ════════════════════════════════════════════════════════════════ */
 .nav {
   position: fixed;
@@ -199,8 +158,12 @@ hr.thin {
   margin: 0 auto;
 }
 
-/* Logo — geometry & colors completely preserved */
-.nav__logo { display: flex; flex-direction: row; align-items: center; gap: 0.75rem; }
+.nav__logo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.75rem;
+}
 .nav__logo-mark { flex-shrink: 0; }
 .nav__logo-text { display: flex; flex-direction: column; gap: 3px; }
 .nav__logo-name {
@@ -253,16 +216,12 @@ hr.thin {
 .nav__links > li > span:hover { color: var(--cr); }
 .nav__links > li > a:hover::after,
 .nav__links > li > span:hover::after { width: 100%; }
+.nav__links > li > a.active { color: var(--cr); }
 
-/* Dropdown */
 .dd { position: relative; }
 .dd::after { content: ''; position: absolute; left: 0; right: 0; bottom: -1.4rem; height: 1.4rem; }
 .dd__toggle { display: flex; align-items: center; gap: 0.4em; }
-.dd__caret {
-  font-size: 0.5rem;
-  opacity: 0.4;
-  transition: transform 0.3s, opacity 0.3s;
-}
+.dd__caret { font-size: 0.5rem; opacity: 0.4; transition: transform 0.3s, opacity 0.3s; }
 .dd:hover .dd__caret { transform: rotate(180deg); opacity: 0.8; }
 
 .dd__panel {
@@ -279,12 +238,7 @@ hr.thin {
   transition: opacity 0.3s, transform 0.3s;
   box-shadow: 0 20px 60px rgba(0,0,0,0.08);
 }
-.dd:hover .dd__panel,
-.dd.open .dd__panel {
-  opacity: 1;
-  visibility: visible;
-  transform: translateX(-50%) translateY(0);
-}
+.dd:hover .dd__panel, .dd.open .dd__panel { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
 .dd__panel a {
   display: block;
   padding: 0.75rem 1.8rem;
@@ -295,10 +249,7 @@ hr.thin {
   color: rgba(203,209,213,0.55);
   transition: color 0.25s, background 0.25s;
 }
-.dd__panel a:hover {
-  color: var(--cr);
-  background: rgba(203,209,213,0.04);
-}
+.dd__panel a:hover { color: var(--cr); background: rgba(203,209,213,0.04); }
 
 .nav__cta {
   font-size: 0.62rem !important;
@@ -310,10 +261,7 @@ hr.thin {
   transition: border-color 0.4s, background 0.4s;
 }
 .nav__cta::after { display: none !important; }
-.nav__cta:hover {
-  border-color: var(--cr) !important;
-  background: rgba(203,209,213,0.06) !important;
-}
+.nav__cta:hover { border-color: var(--cr) !important; background: rgba(203,209,213,0.06) !important; }
 
 .nav__burger {
   display: none;
@@ -322,658 +270,259 @@ hr.thin {
   cursor: pointer;
   padding: 6px;
 }
-.nav__burger span {
-  display: block;
-  width: 28px;
-  height: 1px;
-  background: var(--cr);
-  transition: transform 0.3s;
-}
+.nav__burger span { display: block; width: 28px; height: 1px; background: var(--cr); transition: transform 0.3s, opacity 0.3s; }
 
 
 /* ════════════════════════════════════════════════════════════════
-   BLOCK 1 — HERO  [DARK]
-   Full-bleed composition — text overlay locked to bottom-left
+   PAGE HERO  [DARK]
 ════════════════════════════════════════════════════════════════ */
-.hero {
-  background: var(--dk);
-  padding-top: 80px;
-  padding-bottom: 0 !important;
-  margin-bottom: 0 !important;
-  height: 100vh;
-  position: relative;
-  overflow: hidden;
+.page-hero {
+  padding-top: calc(80px + clamp(5rem, 10vw, 9rem));
+  padding-bottom: clamp(5rem, 9vw, 9rem);
+  padding-left: var(--pad-h);
+  padding-right: var(--pad-h);
 }
-
-/* Composition owns all remaining viewport height — photo fills it completely */
-.hero__composition {
-  position: relative;
-  height: calc(100vh - 80px);
-  overflow: hidden;
-}
-
-/* Office image fills the entire composition */
-.hero__office {
-  position: absolute;
-  inset: 0;
-  width: 100%; height: 100%;
-  object-fit: cover;
-  object-position: center top;
-  filter: none;
-  display: block;
-  opacity: 1;
-  z-index: 0;
-}
-
-/* Bottom-gradient scrim — text legibility */
-.hero__comp-scrim {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    to top,
-    rgba(3,7,31,0.95) 0%,
-    rgba(3,7,31,0.58) 28%,
-    rgba(3,7,31,0.14) 62%,
-    rgba(3,7,31,0) 100%
-  );
-  z-index: 1;
-}
-
-
-/* Text body — absolute, bottom-left of composition */
-.hero__body {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  z-index: 4;
-  padding: 0 var(--pad-h) clamp(3.5rem, 5vw, 5.5rem);
-  max-width: 820px;
-}
-
-.hero__eyebrow {
-  display: flex;
-  align-items: center;
-  gap: 1.2rem;
-  margin-bottom: 3rem;
-}
-.hero__eyebrow::before {
-  content: '';
-  display: block;
-  width: 3rem;
-  height: 1px;
-  background: rgba(203,209,213,0.35);
-  flex-shrink: 0;
-}
-.hero__eyebrow .label { opacity: 0.4; }
-
-.hero h1 { margin-bottom: 2rem; }
-
-.hero__sub {
-  font-size: clamp(0.88rem, 1.15vw, 1rem);
-  color: rgba(203,209,213,0.6);
+.page-hero .label { margin-bottom: 1.6rem; }
+.page-hero h1 { max-width: 14ch; margin-bottom: 2rem; }
+.page-hero__sub {
+  font-size: clamp(0.95rem, 1.3vw, 1.1rem);
+  color: rgba(3,7,31,0.52);
   max-width: 560px;
   line-height: 1.95;
-  margin-bottom: 3.5rem;
 }
 
-.hero__btns {
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
+/* ════════════════════════════════════════════════════════════════
+   BIO SECTION  [CREAM] — Editorial double-column magazine layout
+════════════════════════════════════════════════════════════════ */
+.bio__grid {
+  /* Single full-width container; columns handled on .bio__copy */
 }
-
-/* Credential ticker — standalone block, snaps flush below 100vh hero */
-.hero__ticker {
-  position: relative;
-  width: 100%;
-  background: var(--dk);
-  border-top: 1px solid rgba(203,209,213,0.08);
-  margin-top: 0 !important;
-  padding-top: 0;
-  padding-bottom: 0;
+.bio__copy {
+  columns: 2 auto;
+  column-gap: clamp(3rem, 6vw, 7rem);
+  column-rule: 1px solid rgba(3,7,31,0.08);
 }
-.hero__ticker-inner {
-  display: flex;
-  overflow-x: auto;
-  scrollbar-width: none;
-  padding: 0 var(--pad-h);
+.bio__copy > .label {
+  column-span: all;
+  display: block;
+  margin-bottom: 2rem;
 }
-.hero__ticker-inner::-webkit-scrollbar { display: none; }
-
-.hero__cred {
-  display: flex;
-  flex-direction: column;
-  padding: 1.5rem 2.8rem;
-  border-right: 1px solid rgba(203,209,213,0.08);
-  flex-shrink: 0;
-  gap: 0.2rem;
-}
-.hero__cred:first-child { padding-left: 0; }
-
-.hero__cred-lbl {
-  font-size: 0.54rem;
+.bio__copy p {
+  font-family: var(--sans);
+  font-size: clamp(0.88rem, 1.15vw, 0.95rem);
   font-weight: 400;
-  letter-spacing: 0.26em;
+  line-height: 1.95;
+  color: rgba(3,7,31,0.62);
+  text-align: justify;
+  margin-bottom: 1.4rem;
+  break-inside: avoid;
+}
+.bio__copy p:first-of-type {
+  font-family: var(--sans);
+  font-size: clamp(0.88rem, 1.15vw, 0.95rem);
+  font-weight: 400;
+  line-height: 1.95;
+  color: rgba(3,7,31,0.62);
+}
+.bio__quick {
+  column-span: all;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-top: 3rem;
+  padding-top: 3rem;
+  border-top: 1px solid rgba(3,7,31,0.1);
+}
+.bio__quick-item {}
+.bio__quick-label {
+  font-size: 0.58rem;
+  font-weight: 400;
+  letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: rgba(203,209,213,0.35);
+  color: rgba(3,7,31,0.35);
+  display: block;
+  margin-bottom: 0.4rem;
 }
-.hero__cred-val {
+.bio__quick-val {
   font-family: var(--serif);
-  font-size: 0.95rem;
-  color: rgba(203,209,213,0.75);
-  font-weight: 400;
-}
-
-
-/* ════════════════════════════════════════════════════════════════
-   THEMATIC WATERMARK ICONS — 5 placement zones
-════════════════════════════════════════════════════════════════ */
-.sec-icon {
-  position: absolute;
-  pointer-events: none;
-  opacity: 0.13;
-  color: currentColor;
-  line-height: 0;
-}
-.sec-icon svg { width: clamp(90px, 11vw, 160px); height: auto; display: block; }
-
-/* ════════════════════════════════════════════════════════════════
-   BLOCK 2 — PRESS BAR  [CREAM]
-════════════════════════════════════════════════════════════════ */
-.press { padding: 2.2rem 0; }
-
-.press__inner {
-  display: flex;
-  align-items: center;
-  gap: 3rem;
-  flex-wrap: wrap;
-  padding: 0 var(--pad-h);
-  max-width: 1560px;
-  margin: 0 auto;
-}
-.press__label { opacity: 0.4; flex-shrink: 0; }
-
-.press__outlets {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-}
-.press__out {
-  font-family: var(--serif);
-  font-style: normal;
-  font-size: 1.05rem;
+  font-size: 1rem;
   color: var(--dk);
-  opacity: 0.55;
-  transition: opacity 0.3s;
 }
-.press__out:hover { opacity: 1; }
-.press__dot { opacity: 0.2; font-size: 0.9rem; }
-
 
 /* ════════════════════════════════════════════════════════════════
-   BLOCK 3 — FLAGSHIP PRACTICE  [DARK]
-   Full-width two-card side-by-side, no grid lines
+   CREDENTIALS  [DARK]
 ════════════════════════════════════════════════════════════════ */
-.flagship { padding: var(--pad-v) 0 0; }
-
-.flagship__intro {
+.creds__header {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 5rem;
   align-items: end;
   margin-bottom: 6rem;
 }
-.flagship__intro-copy {
+.creds__header p {
   font-size: 0.92rem;
-  line-height: 1.95;
-  padding-top: 1rem;
-}
-.flagship__intro-copy.dk { color: rgba(203,209,213,0.55); }
-
-/* Two big cards — full bleed with padding */
-.flagship__pair {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  border-top: 1px solid rgba(203,209,213,0.1);
-}
-.flagship__card {
-  padding: clamp(3rem, 5vw, 5.5rem) var(--pad-h);
-  border-right: 1px solid rgba(203,209,213,0.1);
-  position: relative;
-  overflow: hidden;
-  transition: background 0.5s var(--ease);
-}
-.flagship__card:last-child { border-right: none; }
-.flagship__card:hover { background: rgba(203,209,213,0.03); }
-
-.flagship__num {
-  position: absolute;
-  bottom: -2rem; right: 2rem;
-  font-family: var(--serif);
-  font-size: 11rem;
-  font-weight: 400;
-  color: rgba(203,209,213,0.03);
-  line-height: 1;
-  pointer-events: none;
-  transition: color 0.5s;
-}
-.flagship__card:hover .flagship__num { color: rgba(203,209,213,0.06); }
-
-.flagship__card .label { margin-bottom: 2rem; }
-.flagship__card h3 { margin-bottom: 0.5rem; }
-.flagship__card .italic-sub {
-  font-family: var(--serif);
-  font-style: normal;
-  font-size: 1.1rem;
-  color: rgba(203,209,213,0.45);
-  margin-bottom: 2rem;
-}
-.flagship__card p {
-  font-size: 0.88rem;
   line-height: 1.95;
   color: rgba(203,209,213,0.48);
-  max-width: 460px;
-  margin-bottom: 2.8rem;
+  padding-bottom: 0.4rem;
 }
-.flagship__link {
-  font-size: 0.62rem;
-  font-weight: 400;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: rgba(203,209,213,0.5);
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  border-bottom: 1px solid rgba(203,209,213,0.15);
-  padding-bottom: 3px;
-  transition: color 0.3s, gap 0.3s, border-color 0.3s;
-}
-.flagship__link::after { content: '→'; }
-.flagship__card:hover .flagship__link {
-  color: var(--cr);
-  border-color: rgba(203,209,213,0.4);
-  gap: 0.9rem;
-}
-
-
-/* ════════════════════════════════════════════════════════════════
-   BLOCK 4 — ALL PRACTICE AREAS  [CREAM]
-   Elegant rows, no borders, no grid lines
-════════════════════════════════════════════════════════════════ */
-.practices { }
-
-.practices__header {
-  padding: clamp(4rem, 7vw, 7rem) var(--pad-h) 3rem;
-  display: flex;
-  align-items: end;
-  gap: 5rem;
-  border-bottom: 1px solid rgba(3,7,31,0.1);
-}
-.practices__header h2 { flex: 1; }
-.practices__header p {
-  flex: 1;
-  font-size: 0.9rem;
-  line-height: 1.9;
-  color: rgba(3,7,31,0.5);
-  padding-bottom: 0.6rem;
-}
-
-.practices__list { }
-
-.prow {
+.creds__grid {
   display: grid;
-  grid-template-columns: 0.35fr 1fr 1.8fr auto;
-  gap: 3rem;
-  align-items: center;
-  padding: 2rem var(--pad-h);
-  border-bottom: 1px solid rgba(3,7,31,0.08);
-  transition: background 0.4s var(--ease);
-  text-decoration: none;
-  color: var(--dk);
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid rgba(203,209,213,0.08);
 }
-.prow:hover { background: rgba(3,7,31,0.04); }
-
-.prow__code {
-  font-size: 0.6rem;
-  font-weight: 400;
-  letter-spacing: 0.26em;
-  text-transform: uppercase;
-  color: rgba(3,7,31,0.35);
+.cred-card {
+  padding: clamp(2.5rem, 4vw, 4rem) var(--pad-h) clamp(2.5rem, 4vw, 4rem) 0;
+  border-right: 1px solid rgba(203,209,213,0.08);
+  padding-left: var(--pad-h);
 }
-.prow__title {
+.cred-card:nth-child(3n) { border-right: none; }
+.cred-card:nth-child(n+4) { border-top: 1px solid rgba(203,209,213,0.08); }
+.cred-card__icon {
   font-family: var(--serif);
-  font-size: clamp(1.1rem, 1.6vw, 1.45rem);
-  font-weight: 400;
-  color: var(--dk);
-  line-height: 1.2;
-}
-.prow__desc {
-  font-size: 0.82rem;
-  line-height: 1.75;
-  color: rgba(3,7,31,0.5);
-}
-.prow__arrow {
-  font-size: 1.2rem;
-  color: rgba(3,7,31,0.25);
-  transition: transform 0.3s, color 0.3s;
-}
-.prow:hover .prow__arrow {
-  transform: translateX(6px);
-  color: var(--dk);
-}
-
-
-/* ════════════════════════════════════════════════════════════════
-   BLOCK 5 — ATTORNEY  [DARK]
-   Photo left, copy right — editorial cinematic
-════════════════════════════════════════════════════════════════ */
-.attorney { }
-
-.attorney__grid {
-  display: grid;
-  grid-template-columns: 0.9fr 1fr;
-  gap: clamp(4rem, 7vw, 9rem);
-  align-items: center;
-}
-
-.attorney__img-outer {
-  position: relative;
-  padding-right: 2rem;
-}
-/* Offset decorative frame */
-.attorney__img-outer::after {
-  content: '';
-  position: absolute;
-  top: 2rem; left: 2rem;
-  right: 0; bottom: -2rem;
-  border: 1px solid rgba(203,209,213,0.1);
-  z-index: 0;
-  pointer-events: none;
-}
-.attorney__img {
-  position: relative;
-  z-index: 1;
-  width: 100%;
-  aspect-ratio: 3/4;
-  object-fit: cover;
-  object-position: center top;
-  filter: grayscale(20%) saturate(0.9) contrast(1.04) brightness(0.88);
-}
-
-.attorney__body .label { margin-bottom: 1.4rem; }
-.attorney__body h2 { margin-bottom: 2.5rem; }
-.attorney__body .rule { margin-bottom: 2.5rem; }
-
-.attorney__bio {
-  font-size: 0.92rem;
-  line-height: 2;
-  color: rgba(203,209,213,0.55);
+  font-size: 2.5rem;
+  color: rgba(203,209,213,0.12);
+  line-height: 1;
   margin-bottom: 1.5rem;
 }
-
-.attorney__awards {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2rem 3rem;
-  padding: 3rem 0;
-  border-top: 1px solid rgba(203,209,213,0.1);
-  border-bottom: 1px solid rgba(203,209,213,0.1);
-  margin: 2.5rem 0;
-}
-.attorney__award-title {
-  font-family: var(--serif);
+.cred-card h4 {
   font-size: 1rem;
   color: var(--cr);
-  line-height: 1.35;
-  margin-bottom: 0.3rem;
+  margin-bottom: 0.5rem;
+  line-height: 1.3;
 }
-.attorney__award-sub {
-  font-size: 0.6rem;
+.cred-card p {
+  font-size: 0.72rem;
   font-weight: 400;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: rgba(203,209,213,0.3);
 }
 
-
 /* ════════════════════════════════════════════════════════════════
-   BLOCK 6 — STATS  [CREAM]
-   Four stat columns — no borders, just space
+   EDUCATION  [CREAM]
 ════════════════════════════════════════════════════════════════ */
-.stats { }
-
-.stats__grid {
+.edu__grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(3rem, 5vw, 7rem);
   border-top: 1px solid rgba(3,7,31,0.1);
+  padding-top: clamp(3rem, 5vw, 6rem);
 }
-
-.stats__cell {
-  padding: 4rem var(--pad-h);
-  border-right: 1px solid rgba(3,7,31,0.1);
-  transition: background 0.4s;
-}
-.stats__cell:last-child { border-right: none; }
-.stats__cell:hover { background: rgba(3,7,31,0.03); }
-
-.stats__num {
+.edu__item {}
+.edu__year {
   font-family: var(--serif);
-  font-size: clamp(4rem, 6vw, 7rem);
+  font-size: 4rem;
   font-weight: 400;
-  color: var(--dk);
+  color: rgba(3,7,31,0.08);
   line-height: 1;
-  margin-bottom: 0.6rem;
-  display: block;
+  margin-bottom: -0.5rem;
 }
-.stats__lbl {
-  font-size: 0.6rem;
+.edu__degree {
+  font-family: var(--serif);
+  font-size: clamp(1.4rem, 2.2vw, 2rem);
+  color: var(--dk);
+  margin-bottom: 0.5rem;
+}
+.edu__school {
+  font-size: 0.7rem;
   font-weight: 400;
-  letter-spacing: 0.26em;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
   color: rgba(3,7,31,0.4);
+  margin-bottom: 1.5rem;
   display: block;
-  margin-bottom: 1rem;
 }
-.stats__desc {
-  font-size: 0.8rem;
-  line-height: 1.75;
-  color: rgba(3,7,31,0.45);
-  max-width: 220px;
+.edu__desc {
+  font-size: 0.88rem;
+  line-height: 1.9;
+  color: rgba(3,7,31,0.55);
 }
-
 
 /* ════════════════════════════════════════════════════════════════
-   BLOCK 7 — TESTIMONIALS  [DARK]
-   Featured three + mini row
+   PHILOSOPHY  [DARK]
 ════════════════════════════════════════════════════════════════ */
-/* ════════════════════════════════════════════════════════════════
-   BLOCK 7 — REVIEWS TICKER  [DARK]
-   Structural framework mirrors the original esq.mba review section
-════════════════════════════════════════════════════════════════ */
-.reviews-section { }
-.reviews-header {
-  padding-bottom: clamp(3rem, 5vw, 5rem);
-}
-.reviews-rating-bar {
-  display: flex;
-  align-items: center;
-  gap: 2.4rem;
-  flex-wrap: wrap;
-}
-.reviews-score {
-  font-size: 3.8rem;
-  font-weight: 400;
-  line-height: 1;
-  color: var(--cr);
-  letter-spacing: -0.02em;
-}
-.reviews-meta {
-  display: flex;
-  flex-direction: column;
-  gap: 0.45rem;
-}
-.reviews-stars {
-  font-size: 0.9rem;
-  letter-spacing: 0.22em;
-  color: rgba(203,209,213,0.5);
-}
-.reviews-label {
-  font-size: 0.6rem;
-  font-weight: 400;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-  color: rgba(203,209,213,0.28);
-}
-.reviews-divider {
-  width: 1px;
-  height: 3.5rem;
-  background: rgba(203,209,213,0.1);
-  align-self: center;
-}
-.reviews-brand { display: flex; align-items: center; gap: 0.7rem; }
-.reviews-brand-text {
-  font-size: 0.58rem;
-  font-weight: 400;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: rgba(203,209,213,0.22);
-}
-
-/* Scrolling ticker rows */
-.reviews-ticker {
-  overflow: hidden;
-  position: relative;
-}
-.reviews-ticker::before {
-  content: '';
-  position: absolute; left: 0; top: 0; bottom: 0; width: 100px; z-index: 2;
-  background: var(--dk);
-  mask-image: linear-gradient(to right, black, transparent);
-  -webkit-mask-image: linear-gradient(to right, black, transparent);
-  pointer-events: none;
-}
-.reviews-ticker::after {
-  content: '';
-  position: absolute; right: 0; top: 0; bottom: 0; width: 100px; z-index: 2;
-  background: var(--dk);
-  mask-image: linear-gradient(to left, black, transparent);
-  -webkit-mask-image: linear-gradient(to left, black, transparent);
-  pointer-events: none;
-}
-.reviews-row { display: flex; overflow: hidden; margin-bottom: 12px; }
-.reviews-row:last-child { margin-bottom: 0; }
-.reviews-track { display: flex; gap: 12px; will-change: transform; }
-.reviews-track-left  { animation: ticker-left  90s linear infinite; }
-.reviews-track-right { animation: ticker-right 90s linear infinite; }
-.reviews-track:hover { animation-play-state: paused; }
-.reviews-track .review-card { width: 340px; flex-shrink: 0; cursor: default; }
-
-@keyframes ticker-left  { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-@keyframes ticker-right { 0% { transform: translateX(-50%); } 100% { transform: translateX(0); } }
-
-/* Individual review card */
-.review-card {
-  background: rgba(203,209,213,0.025);
-  border: 1px solid rgba(203,209,213,0.07);
-  padding: 1.8rem;
-  transition: border-color 0.3s;
-}
-.review-card:hover { border-color: rgba(203,209,213,0.16); }
-.review-card__header {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.9rem;
-  margin-bottom: 0.8rem;
-}
-.review-card__avatar {
-  width: 34px; height: 34px; flex-shrink: 0;
-  border: 1px solid rgba(203,209,213,0.14);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 0.68rem; font-weight: 400; letter-spacing: 0.06em;
-  color: rgba(203,209,213,0.45);
-}
-.review-card__info { flex: 1; min-width: 0; }
-.review-card__name {
-  font-size: 0.68rem; font-weight: 400;
-  letter-spacing: 0.12em; text-transform: uppercase;
-  color: rgba(203,209,213,0.7);
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-}
-.review-card__time {
-  font-size: 0.56rem; letter-spacing: 0.1em;
-  color: rgba(203,209,213,0.26); margin-top: 3px;
-}
-.review-card__stars {
-  font-size: 0.6rem; letter-spacing: 0.2em;
-  color: rgba(203,209,213,0.38); margin-bottom: 0.65rem;
-}
-.review-card__text {
-  font-size: 0.7rem; font-weight: 400; line-height: 1.78;
-  letter-spacing: 0.02em; color: rgba(203,209,213,0.42);
-  display: -webkit-box; -webkit-line-clamp: 5;
-  -webkit-box-orient: vertical; overflow: hidden;
-}
-.review-card__badge {
-  display: inline-block; margin-top: 0.85rem;
-  font-size: 0.5rem; font-weight: 400;
-  letter-spacing: 0.24em; text-transform: uppercase;
-  color: rgba(203,209,213,0.28);
-  border: 1px solid rgba(203,209,213,0.1); padding: 3px 9px;
-}
-
-
-/* ════════════════════════════════════════════════════════════════
-   BLOCK 8 — STATEMENT QUOTE  [CREAM]
-   Full-width centered editorial quote
-════════════════════════════════════════════════════════════════ */
-.quote-block {
-  text-align: center;
-}
-.quote-block blockquote {
+.philosophy__quote {
   font-family: var(--serif);
-  font-style: normal;
-  font-size: clamp(2rem, 4vw, 3.8rem);
+  font-size: clamp(2.2rem, 4.5vw, 4rem);
   font-weight: 400;
-  line-height: 1.25;
-  color: var(--dk);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--cr);
   max-width: 900px;
-  margin: 0 auto;
+  margin: 0 auto 6rem;
+  text-align: center;
 }
-
+.philosophy__cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  border-top: 1px solid rgba(203,209,213,0.08);
+  padding-top: 5rem;
+}
+.philosophy__cols p {
+  font-size: 0.9rem;
+  line-height: 2;
+  color: rgba(203,209,213,0.48);
+}
 
 /* ════════════════════════════════════════════════════════════════
-   BLOCK 9 — CTA  [DARK]
-   Full-width immersive call-to-action
+   PAGE HERO GRID — icon right column
 ════════════════════════════════════════════════════════════════ */
-.cta-block {
-  text-align: center;
+.page-hero__layout {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: clamp(3rem, 6vw, 8rem);
+  align-items: center;
+}
+.page-hero__icon {
+  line-height: 0;
+  flex-shrink: 0;
+  opacity: 0.1;
+  color: currentColor;
+}
+.page-hero__icon svg {
+  width: clamp(180px, 22vw, 300px);
+  height: auto;
+  display: block;
+}
+/* Cream-on-cream: force icon to cream on cream backgrounds */
+.cr .page-hero__icon {
+  color: var(--cr);
+  opacity: 0.14;
+}
+
+/* Portrait photo in hero right column */
+.page-hero__photo {
+  line-height: 0;
+  flex-shrink: 0;
   position: relative;
-  overflow: hidden;
+  z-index: 10;
+  overflow: visible;
 }
-/* Subtle radial centred glow — only in-selector, not a gradient bg */
-.cta-block::before {
-  content: '';
-  position: absolute;
-  top: 50%; left: 50%;
-  width: 55%;
-  height: 100%;
-  margin-left: -27.5%;
-  margin-top: -50%;
-  border-radius: 50%;
-  box-shadow: 0 0 180px 60px rgba(203,209,213,0.02);
-  pointer-events: none;
+.page-hero__photo img {
+  width: clamp(180px, 22vw, 300px);
+  height: auto;
+  display: inline-block !important;
+  object-fit: cover;
+  object-position: center top;
+  filter: none;
+  opacity: 1;
+  position: relative;
+  z-index: 10;
 }
+
+/* ════════════════════════════════════════════════════════════════
+   CTA  [DARK]
+════════════════════════════════════════════════════════════════ */
+.cta-block { text-align: center; }
 .cta-block .label { margin-bottom: 1.8rem; }
 .cta-block h2 { margin-bottom: 3rem; }
 .cta-block h2 em { font-style: normal; }
 
-
 /* ════════════════════════════════════════════════════════════════
-   BLOCK 10 — FOOTER  [CREAM]
+   FOOTER  [CREAM]
 ════════════════════════════════════════════════════════════════ */
-.footer { }
-
+.footer {}
 .footer__grid {
   display: grid;
   grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
@@ -982,97 +531,27 @@ hr.thin {
   border-bottom: 1px solid rgba(3,7,31,0.1);
   margin-bottom: 2.5rem;
 }
-.footer__brand-name {
-  font-family: var(--serif);
-  font-size: 1.6rem;
-  color: var(--dk);
-  letter-spacing: 0.05em;
-  display: block;
-  margin-bottom: 0.4rem;
-}
-.footer__brand-sub {
-  font-size: 0.54rem;
-  font-weight: 400;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: rgba(3,7,31,0.35);
-  display: block;
-  margin-bottom: 2rem;
-}
-.footer__desc {
-  font-size: 0.82rem;
-  line-height: 1.85;
-  color: rgba(3,7,31,0.42);
-  max-width: 290px;
-}
-
-.footer__col-title {
-  font-size: 0.58rem;
-  font-weight: 400;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-  color: rgba(3,7,31,0.35);
-  display: block;
-  margin-bottom: 1.8rem;
-}
-.footer__links {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 0.85rem;
-}
-.footer__links a {
-  font-size: 0.8rem;
-  font-weight: 400;
-  color: rgba(3,7,31,0.5);
-  letter-spacing: 0.04em;
-  transition: color 0.3s;
-}
+.footer__brand-name { font-family: var(--serif); font-size: 1.6rem; color: var(--dk); letter-spacing: 0.05em; display: block; margin-bottom: 0.4rem; }
+.footer__brand-sub { font-size: 0.54rem; font-weight: 400; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(3,7,31,0.35); display: block; margin-bottom: 2rem; }
+.footer__desc { font-size: 0.82rem; line-height: 1.85; color: rgba(3,7,31,0.42); max-width: 290px; }
+.footer__col-title { font-size: 0.58rem; font-weight: 400; letter-spacing: 0.28em; text-transform: uppercase; color: rgba(3,7,31,0.35); display: block; margin-bottom: 1.8rem; }
+.footer__links { list-style: none; display: flex; flex-direction: column; gap: 0.85rem; }
+.footer__links a { font-size: 0.8rem; font-weight: 400; color: rgba(3,7,31,0.5); letter-spacing: 0.04em; transition: color 0.3s; }
 .footer__links a:hover { color: var(--dk); }
-
-.footer__contact-line {
-  font-size: 0.8rem;
-  font-weight: 400;
-  color: rgba(3,7,31,0.5);
-  margin-bottom: 0.85rem;
-  display: block;
-  transition: color 0.3s;
-}
-.footer__contact-line:hover { color: var(--dk); }
-a.footer__contact-line { color: rgba(3,7,31,0.5); }
+.footer__contact-line { font-size: 0.8rem; font-weight: 400; color: rgba(3,7,31,0.5); margin-bottom: 0.85rem; display: block; transition: color 0.3s; }
 a.footer__contact-line:hover { color: var(--dk); }
-
-.footer__bottom {
-  display: flex;
-  justify-content: space-between;
-  gap: 2rem;
-  flex-wrap: wrap;
-  align-items: start;
-}
-.footer__copy {
-  font-size: 0.68rem;
-  font-weight: 400;
-  line-height: 1.75;
-  color: rgba(3,7,31,0.3);
-  max-width: 720px;
-  letter-spacing: 0.04em;
-}
-
+.footer__bottom { display: flex; justify-content: space-between; gap: 2rem; flex-wrap: wrap; align-items: start; }
+.footer__copy { font-size: 0.68rem; font-weight: 400; line-height: 1.75; color: rgba(3,7,31,0.3); max-width: 720px; letter-spacing: 0.04em; }
 
 /* ════════════════════════════════════════════════════════════════
    RESPONSIVE
 ════════════════════════════════════════════════════════════════ */
 @media (max-width: 1100px) {
-  .flagship__pair { grid-template-columns: 1fr; }
-  .flagship__card { border-right: none; border-bottom: 1px solid rgba(203,209,213,0.1); }
-  .flagship__card:last-child { border-bottom: none; }
-  .prow { grid-template-columns: 0.4fr 1fr 1fr auto; }
-  .stats__grid { grid-template-columns: 1fr 1fr; }
-  .stats__cell:nth-child(2) { border-right: none; }
-  .tminis { grid-template-columns: repeat(3, 1fr); }
+  .creds__grid { grid-template-columns: 1fr 1fr; }
+  .cred-card:nth-child(3n) { border-right: 1px solid rgba(203,209,213,0.08); }
+  .cred-card:nth-child(2n) { border-right: none; }
   .footer__grid { grid-template-columns: 1fr 1fr; }
 }
-
 @media (max-width: 900px) {
   .nav__links { display: none; }
   .nav__links.open {
@@ -1101,35 +580,23 @@ a.footer__contact-line:hover { color: var(--dk); }
   .nav__burger.active span:nth-child(1) { transform: rotate(45deg) translateY(7px); }
   .nav__burger.active span:nth-child(2) { opacity: 0; }
   .nav__burger.active span:nth-child(3) { transform: rotate(-45deg) translateY(-7px); }
-  .hero__composition { min-height: clamp(480px, 94vw, 720px); }
-  .hero__body { max-width: 100%; }
-  .flagship__intro { grid-template-columns: 1fr; gap: 2rem; }
-  .practices__header { flex-direction: column; gap: 2rem; }
-  .attorney__grid { grid-template-columns: 1fr; }
-  .attorney__awards { grid-template-columns: 1fr; }
-  .testimonials__head { grid-template-columns: 1fr; }
-  .testimonials__score { justify-content: flex-start; }
-  .tcards { grid-template-columns: 1fr; }
-  .tcard { border-right: none; border-bottom: 1px solid rgba(203,209,213,0.1); }
-  .tminis { grid-template-columns: 1fr 1fr; }
-  .prow { grid-template-columns: 1fr 1fr; }
-  .prow__desc, .prow__code { display: none; }
+  .page-hero__layout { grid-template-columns: 1fr; }
+  .page-hero__icon { display: none; }
+  .page-hero__photo { display: none; }
+  .bio__copy { columns: 1; column-rule: none; }
+  .creds__header { grid-template-columns: 1fr; gap: 2rem; }
+  .creds__grid { grid-template-columns: 1fr; }
+  .cred-card { border-right: none !important; border-top: 1px solid rgba(203,209,213,0.08); }
+  .cred-card:first-child { border-top: none; }
+  .edu__grid { grid-template-columns: 1fr; }
+  .philosophy__cols { grid-template-columns: 1fr; gap: 2rem; }
   .footer__grid { grid-template-columns: 1fr; }
-  .hero__btns { flex-direction: column; align-items: flex-start; }
+  h1 { font-size: clamp(2.8rem, 10vw, 4.5rem); }
+  h2 { font-size: clamp(2rem, 7vw, 3rem); }
 }
-
 @media (max-width: 600px) {
-  .stats__grid { grid-template-columns: 1fr; }
-  .stats__cell { border-right: none; }
-  .tminis { grid-template-columns: 1fr; }
-  .attorney__img-outer::after { display: none; }
-  h1 { font-size: clamp(2.4rem, 10vw, 4rem); }
-  h2 { font-size: clamp(1.8rem, 7vw, 2.8rem); }
-  .hero__composition { min-height: clamp(400px, 110vw, 580px); }
+  .bio__quick { grid-template-columns: 1fr; }
 }
-
-/* Attorney — portrait removed, full-width single-column body */
-.attorney__grid.solo { grid-template-columns: 1fr; max-width: 860px; }
 
 /* ── EDITORIAL IMAGE BLOCKS ──────────────────────────────────────── */
 .ei-block { position:relative; overflow:hidden; margin:0; line-height:0; background:rgba(203,209,213,0.03); border:1px solid rgba(203,209,213,0.07); }
@@ -1154,20 +621,17 @@ a.footer__contact-line:hover { color: var(--dk); }
 .press-gallery { display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(0.75rem,2vw,1.2rem); }
 @media (max-width:1000px) and (min-width:601px) { .press-gallery { grid-template-columns:1fr 1fr; gap:1.2rem; } }
 @media (max-width:600px) { .press-gallery { grid-template-columns:1fr; gap:1.5rem; } }
-
-.page-hero { background:var(--dk); padding-top:80px; }
-.page-hero__inner { padding:clamp(5rem,9vw,9rem) var(--pad-h) clamp(4rem,7vw,7rem); max-width:1380px; margin:0 auto; border-bottom:1px solid rgba(232,233,235,0.08); }
-.page-hero__label { opacity:.35; margin-bottom:1.4rem; }
-.page-hero__title { margin-bottom:1.6rem; }
-.page-hero__sub { font-size:clamp(0.88rem,1.15vw,1rem); color:rgba(232,233,235,0.55); max-width:600px; line-height:1.95; }
-@media(max-width:900px){ .contact-cols{ grid-template-columns:1fr !important; gap:48px !important; } }
 </style>
 </head>
 <body>
+
+<!-- ════════════════════════════════════════════════════════════
+     NAVIGATION
+════════════════════════════════════════════════════════════ -->
 <nav class="nav" id="main-nav">
   <div class="nav__row">
 
-    <a href="index1.html" class="nav__logo">
+    <a href="index.html" class="nav__logo">
       <svg class="nav__logo-mark" width="32" height="32" viewBox="0 0 38 38" fill="none" aria-hidden="true">
         <rect x="1.5" y="1.5" width="35" height="35" fill="white" stroke="#9CA3A8" stroke-width="2.5"/>
         <path d="M28 8 L10 19 L28 30 L23 30 L15 19 L23 8 Z" fill="#C0C6CA"/>
@@ -1179,13 +643,11 @@ a.footer__contact-line:hover { color: var(--dk); }
     </a>
 
     <ul class="nav__links">
-      <li><a href="index1.html">Home</a></li>
-      <li><a href="about.html">About</a></li>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html" class="active">About</a></li>
 
       <li class="dd">
-        <a href="employment.html" class="dd__toggle">
-          Employment-Based <span class="dd__caret">▾</span>
-        </a>
+        <a href="employment.html" class="dd__toggle">Employment-Based <span class="dd__caret">▾</span></a>
         <div class="dd__panel">
           <a href="employment.html#o1a">O-1A Extraordinary Ability</a>
           <a href="employment.html#o1b">O-1B Arts &amp; Entertainment</a>
@@ -1201,9 +663,7 @@ a.footer__contact-line:hover { color: var(--dk); }
       </li>
 
       <li class="dd">
-        <a href="family.html" class="dd__toggle">
-          Family-Based <span class="dd__caret">▾</span>
-        </a>
+        <a href="family.html" class="dd__toggle">Family-Based <span class="dd__caret">▾</span></a>
         <div class="dd__panel">
           <a href="family.html#marriage">Marriage-Based Green Card</a>
           <a href="family.html#other">Other Family Petitions</a>
@@ -1216,51 +676,283 @@ a.footer__contact-line:hover { color: var(--dk); }
       <li><a href="contact.html" class="nav__cta">Schedule Consultation</a></li>
     </ul>
 
-    <div class="nav__burger" role="button" aria-label="Open menu">
+    <div class="nav__burger" id="burger" role="button" aria-label="Open menu">
       <span></span><span></span><span></span>
     </div>
   </div>
 </nav>
-<div class="page-hero dk"><div class="page-hero__inner">
-  <span class="label page-hero__label">About the Attorney</span>
-  <h1 class="page-hero__title">Ana Kamkhadze<br><em>Esq. MBA</em></h1>
-  <p class="page-hero__sub">Licensed U.S. Immigration Attorney · Hollywood Beach, Florida · Representing Clients Nationwide and Internationally</p>
-</div></div>
-<section class="section dk"><div class="wrap">
-  <div class="ei-split ei-split--left r">
-    <figure class="ei-block ei-block--portrait" aria-label="Ana Kamkhadze portrait"><img src="ana-portrait.webp" alt="Ana Kamkhadze, Immigration Attorney" loading="lazy"></figure>
-    <div>
-      <span class="label" style="opacity:.35;margin-bottom:1.4rem;">Licensed Immigration Attorney</span>
-      <h2 style="margin-bottom:2rem;">Ana Kamkhadze</h2>
-      <div class="rule" style="background:var(--cr);opacity:.25;margin-bottom:2rem;"></div>
-      <p style="font-size:0.92rem;line-height:2;color:rgba(232,233,235,0.55);margin-bottom:1.4rem;">Ana Kamkhadze is a licensed U.S. immigration attorney and the founder of Kamkhadze PA, a law firm exclusively practicing U.S. Immigration and Nationality Law. With nearly a decade of focused experience, Ana has built her practice on one conviction: exceptional individuals deserve exceptional legal representation.</p>
-      <p style="font-size:0.92rem;line-height:2;color:rgba(232,233,235,0.55);margin-bottom:1.4rem;">She holds a Master of Laws (LL.M.) and MBA from Florida International University, combining rigorous legal knowledge with strategic business acumen — uniquely suited to the complex intersection of talent, enterprise, and immigration law.</p>
-      <p style="font-size:0.92rem;line-height:2;color:rgba(232,233,235,0.55);margin-bottom:2.5rem;">Because immigration law is federal law, Ana represents clients in all 50 U.S. states and internationally — leveraging technology to provide seamless, fully remote legal services.</p>
-      <a href="contact.html" class="btn btn-line dk">Schedule a Consultation</a>
+
+
+<!-- ════════════════════════════════════════════════════════════
+     BLOCK 1 — PAGE HERO  [DARK]
+════════════════════════════════════════════════════════════ -->
+<section class="page-hero cr">
+  <div class="wrap">
+    <div class="page-hero__layout">
+      <div class="page-hero__text">
+        <span class="label r" style="opacity:.35;margin-bottom:1.6rem;">About the Attorney</span>
+        <h1 class="r d1">Ana<br>Kamkhadze,<br><em>Esq. MBA</em></h1>
+        <p class="page-hero__sub r d2">
+          Licensed immigration attorney. Nearly a decade of exclusive U.S. Immigration and Nationality Law practice. Dual graduate degrees. Nationwide and international representation.
+        </p>
+      </div>
+      <!-- Attorney portrait — inline next to title -->
+      <div class="page-hero__photo">
+        <img
+          src="hero-photo.webp"
+          alt="Ana Kamkhadze, Esq. MBA — Licensed Immigration Attorney in a cream blazer with hand on hip against a dark blue background"
+          loading="eager"
+        >
+      </div>
     </div>
   </div>
-</div></section>
-<section class="stats cr"><div class="stats__grid">
-  <div class="stats__cell r"><span class="stats__num">NY</span><span class="stats__lbl">Bar Admission</span><p class="stats__desc">New York State Bar · Licensed to practice federal immigration law in all 50 states.</p></div>
-  <div class="stats__cell r d1"><span class="stats__num">LL.M</span><span class="stats__lbl">Education</span><p class="stats__desc">Master of Laws & MBA · Florida International University.</p></div>
-  <div class="stats__cell r d2"><span class="stats__num">AILA</span><span class="stats__lbl">Memberships</span><p class="stats__desc">American Immigration Lawyers Association · New York State Bar Association.</p></div>
-  <div class="stats__cell r d3"><span class="stats__num">★</span><span class="stats__lbl">Recognition</span><p class="stats__desc">Best Lawyers® Ones to Watch 2026 · Expertise.com Best Immigration Attorneys 2023 & 2024.</p></div>
-</div></section>
-<section class="cta-block section--tall dk"><div class="wrap wrap--narrow" style="text-align:center;">
-  <span class="label r" style="opacity:.35;margin-bottom:1.8rem;display:block;">Begin Your Journey</span>
-  <h2 class="r d1">Ready to work with<br><em>an attorney who understands your world?</em></h2><br><br>
-  <a href="contact.html" class="btn btn-solid dk r d2">Schedule a Consultation</a>
-</div></section>
+</section>
+
+
+<!-- ════════════════════════════════════════════════════════════
+     BLOCK 2 — FULL BIOGRAPHY  [CREAM]
+════════════════════════════════════════════════════════════ -->
+<section class="section cr" style="padding-top: clamp(3rem, 5vw, 5rem);">
+  <div class="wrap">
+    <div class="bio__grid">
+
+      <div class="bio__copy">
+        <span class="label r" style="opacity:.35;margin-bottom:1.6rem;">Professional Biography</span>
+        <p class="r d1">
+          Ana Kamkhadze is an elite U.S. immigration attorney whose practice is devoted exclusively to U.S. Immigration and Nationality Law. Based at Hollywood Beach, Florida, she represents clients from every corner of the world — scientists, executives, artists, investors, researchers, and families — guiding them through the most complex and consequential immigration pathways available under U.S. law.
+        </p>
+        <p class="r d2">
+          Ana's legal career is defined by a singular focus: extraordinary ability and business immigration. She has built a reputation for meticulous case strategy, compelling petition preparation, and unwavering advocacy — particularly in high-stakes visa categories where precision and depth of knowledge are paramount. Her clients include internationally recognized professionals pursuing O-1, EB-1, and EB-2 NIW pathways, as well as entrepreneurs, multinational executives, treaty investors, and families navigating the full spectrum of immigration law.
+        </p>
+        <p class="r d2">
+          Licensed in New York, Ana practices immigration law as federal law — representing clients across all fifty U.S. states and internationally. Her firm, Kamkhadze PA, is a boutique practice built on an unapologetically high standard: every case receives the same depth of attention, the same quality of advocacy, and the same commitment to results that she would demand for herself.
+        </p>
+        <p class="r d3">
+          Before entering private practice, Ana gained foundational legal and business training at Florida International University, where she earned both her Master of Laws (LL.M.) in U.S. Law and her Master of Business Administration (MBA) — a combination that gives her practice a distinctive edge in the complex intersection of business strategy and immigration law. She is a member of the American Immigration Lawyers Association (AILA) and the New York State Bar Association (NYSBA).
+        </p>
+
+        <div class="bio__quick r d3">
+          <div class="bio__quick-item">
+            <span class="bio__quick-label">Bar Admission</span>
+            <span class="bio__quick-val">New York State Bar</span>
+          </div>
+          <div class="bio__quick-item">
+            <span class="bio__quick-label">Practice Focus</span>
+            <span class="bio__quick-val">U.S. Immigration Law — Exclusively</span>
+          </div>
+          <div class="bio__quick-item">
+            <span class="bio__quick-label">Location</span>
+            <span class="bio__quick-val">Hollywood Beach, Florida</span>
+          </div>
+          <div class="bio__quick-item">
+            <span class="bio__quick-label">Client Reach</span>
+            <span class="bio__quick-val">Nationwide &amp; International</span>
+          </div>
+          <div class="bio__quick-item">
+            <span class="bio__quick-label">Languages</span>
+            <span class="bio__quick-val">English &amp; Georgian</span>
+          </div>
+          <div class="bio__quick-item">
+            <span class="bio__quick-label">Google Rating</span>
+            <span class="bio__quick-val">5.0 Stars · 28 Reviews</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════════════════════
+     BLOCK 3 — CREDENTIALS & AWARDS  [DARK]
+════════════════════════════════════════════════════════════ -->
+<section class="section dk">
+  <div class="wrap">
+    <div class="creds__header">
+      <div class="r">
+        <span class="label" style="opacity:.35;margin-bottom:1.4rem;">Recognition &amp; Memberships</span>
+        <h2>Recognized by<br><em>the Profession.</em></h2>
+      </div>
+      <p class="r d1">
+        Ana Kamkhadze's work has been recognized by leading legal rating organizations and professional associations. Her credentials reflect both the quality of her legal practice and her standing within the immigration law community.
+      </p>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="creds__grid">
+      <div class="cred-card r">
+        <div class="cred-card__icon">★</div>
+        <h4>Best Lawyers® — Ones to Watch</h4>
+        <p>U.S. Immigration Law · 2026</p>
+      </div>
+      <div class="cred-card r d1">
+        <div class="cred-card__icon">◈</div>
+        <h4>Expertise.com — Best Immigration Attorneys</h4>
+        <p>Hollywood, FL · 2023 &amp; 2024</p>
+      </div>
+      <div class="cred-card r d2">
+        <div class="cred-card__icon">◉</div>
+        <h4>American Immigration Lawyers Association</h4>
+        <p>AILA · Member in Good Standing</p>
+      </div>
+      <div class="cred-card r">
+        <div class="cred-card__icon">◇</div>
+        <h4>New York State Bar Association</h4>
+        <p>NYSBA · Admitted · New York Bar</p>
+      </div>
+      <div class="cred-card r d1">
+        <div class="cred-card__icon">5.0</div>
+        <h4>Perfect Google Rating</h4>
+        <p>5.0 Stars · 28 Client Reviews · All Five Stars</p>
+      </div>
+      <div class="cred-card r d2">
+        <div class="cred-card__icon">∞</div>
+        <h4>Global Representation</h4>
+        <p>All U.S. States &amp; International Clients</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ── 3-PORTRAIT GALLERY — above Education [DARK] ──────────────── -->
+<div class="dk" style="padding:clamp(4rem,7vw,7rem) var(--pad-h);">
+  <div style="max-width:1380px;margin:0 auto;">
+    <div class="press-gallery">
+      <figure class="ei-block ei-block--portrait r" aria-label="Attorney carrying legal documents — professional editorial">
+        <img src="hf_20260531_115120_2f10d1fe-e9a7-4353-83bf-1f056b60ad8f.png" alt="Attorney carrying legal case files and documents — professional editorial" loading="lazy">
+      </figure>
+      <figure class="ei-block ei-block--portrait r d1" aria-label="Attorney Ana Kamkhadze — premium portrait in blue blazer with arms crossed, light gray background">
+        <img src="ana-portrait.webp" alt="Ana Kamkhadze, Esq. MBA — premium professional portrait in a blue blazer with arms crossed on a light gray background" loading="lazy">
+      </figure>
+      <figure class="ei-block ei-block--portrait r d2" aria-label="Professional handshake — attorney and client agreement">
+        <img src="image_98fd1e.jpg" alt="Professional handshake between attorney in cream blazer and client — editorial" loading="lazy">
+      </figure>
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════════════════════
+     BLOCK 4 — EDUCATION  [CREAM]
+════════════════════════════════════════════════════════════ -->
+<section class="section cr">
+  <div class="wrap">
+    <span class="label r" style="opacity:.35;margin-bottom:3rem;">Education &amp; Academic Background</span>
+    <div class="edu__grid">
+
+      <div class="edu__item r">
+        <div class="edu__year">LL.M</div>
+        <h3 class="edu__degree">Master of Laws</h3>
+        <span class="edu__school">Florida International University · College of Law</span>
+        <p class="edu__desc">
+          Ana earned her Master of Laws (LL.M.) in U.S. Law from Florida International University's College of Law — one of the nation's leading institutions for international and immigration law. The program provided rigorous grounding in U.S. legal methodology, constitutional law, and the statutory frameworks that govern immigration practice, equipping Ana with the precise analytical tools required for elite immigration representation.
+        </p>
+      </div>
+
+      <div class="edu__item r d1">
+        <div class="edu__year">MBA</div>
+        <h3 class="edu__degree">Master of Business Administration</h3>
+        <span class="edu__school">Florida International University · College of Business</span>
+        <p class="edu__desc">
+          Complementing her legal training, Ana holds an MBA from Florida International University's globally ranked College of Business. This dual-degree background is not incidental — it is foundational to her approach. Many of Ana's clients are entrepreneurs, executives, and investors whose immigration strategies are inseparable from their business objectives. The MBA gives her practice a rare capacity to engage with those objectives strategically, not just legally.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+
+<!-- ════════════════════════════════════════════════════════════
+     BLOCK 5 — PHILOSOPHY & APPROACH  [DARK]
+════════════════════════════════════════════════════════════ -->
+<section class="section dk">
+  <div class="wrap wrap--narrow">
+    <blockquote class="philosophy__quote r">
+      "Immigration law is not a commodity. It is one of the highest-stakes legal matters an individual can face. My commitment is to treat every case with the depth, care, and strategic precision it deserves."
+    </blockquote>
+  </div>
+  <div class="wrap">
+    <div class="philosophy__cols">
+      <div class="r">
+        <span class="label" style="opacity:.35;margin-bottom:1.4rem;">Approach to Practice</span>
+        <p>
+          At Kamkhadze PA, no case is routine. Every matter — regardless of visa category — receives comprehensive analysis, individually tailored strategy, and personally supervised preparation. Ana does not delegate the substance of her clients' cases. The attorney you hire is the attorney who handles your matter.
+        </p>
+        <br>
+        <p>
+          This commitment to depth over volume distinguishes Kamkhadze PA from high-throughput immigration practices. The firm deliberately limits its caseload to maintain an exceptional standard of representation, ensuring that clients receive the focused attention their cases demand.
+        </p>
+      </div>
+      <div class="r d1">
+        <span class="label" style="opacity:.35;margin-bottom:1.4rem;">Client Philosophy</span>
+        <p>
+          Ana's clients are remarkable people — scientists who have changed fields, executives who have built global companies, artists whose work has transcended borders, investors who have created opportunities. They deserve counsel that matches their caliber.
+        </p>
+        <br>
+        <p>
+          Every consultation is confidential, every strategy is candid, and every petition is built to withstand the highest level of scrutiny. Ana Kamkhadze's practice is built on one principle: outcomes that speak for themselves.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- ── EDITORIAL CINEMATIC BANNER — beneath Approach to Practice ── -->
+<div class="ei-cinematic" aria-hidden="true" style="height:clamp(240px,30vw,420px);">
+  <img src="image_98f9f6.jpg" alt="" loading="lazy" style="width:100%;height:100%;object-fit:contain;object-position:center center;background:#03071F;display:block;">
+</div>
+
+
+<!-- ════════════════════════════════════════════════════════════
+     BLOCK 6 — CTA  [DARK → continues dark, but this is the standard CTA]
+     (section is dk following dk philosophy — use a subtle rule break)
+════════════════════════════════════════════════════════════ -->
+<section class="section cr">
+  <div class="wrap wrap--narrow" style="text-align:center;">
+    <span class="label r" style="opacity:.35;margin-bottom:1.8rem;display:block;">Begin Your Journey</span>
+    <h2 class="r d1">
+      Schedule a confidential<br>
+      <em>consultation.</em>
+    </h2>
+    <br><br>
+    <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;" class="r d2">
+      <a href="contact.html" class="btn btn-solid cr">Schedule Now</a>
+      <a href="employment.html" class="btn btn-line cr">Explore Practice Areas</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════════════════════
+     FOOTER  [CREAM is continued from CTA above — insert dk CTA first]
+════════════════════════════════════════════════════════════ -->
+<section class="cta-block section--tall dk" style="text-align:center;">
+  <div class="wrap wrap--narrow">
+    <span class="label r" style="opacity:.35;margin-bottom:1.8rem;display:block;">Kamkhadze PA</span>
+    <h2 class="r d1">
+      Ready to pursue your<br>
+      <em>U.S. immigration goals?</em>
+    </h2>
+    <br><br>
+    <a href="contact.html" class="btn btn-solid dk r d2">Schedule a Consultation</a>
+  </div>
+</section>
+
 <footer class="footer section cr">
   <div class="wrap">
-
     <div class="footer__grid">
       <div>
         <span class="footer__brand-name">Kamkhadze PA</span>
         <span class="footer__brand-sub">U.S. Immigration Law Firm</span>
         <p class="footer__desc">Elite immigration representation for extraordinary individuals — entrepreneurs, scientists, executives, artists, investors — nationwide and internationally.</p>
       </div>
-
       <div>
         <span class="footer__col-title">Employment-Based</span>
         <ul class="footer__links">
@@ -1271,7 +963,6 @@ a.footer__contact-line:hover { color: var(--dk); }
           <li><a href="employment.html#e2">E-2</a> / <a href="employment.html#o1a">O-1</a> / <a href="employment.html#o1b">O-2</a> / <a href="employment.html#tn">TN</a></li>
         </ul>
       </div>
-
       <div>
         <span class="footer__col-title">Family-Based</span>
         <ul class="footer__links">
@@ -1280,7 +971,6 @@ a.footer__contact-line:hover { color: var(--dk); }
           <li><a href="family.html#other">Other Family Petitions</a></li>
         </ul>
       </div>
-
       <div>
         <span class="footer__col-title">Firm</span>
         <ul class="footer__links">
@@ -1290,46 +980,36 @@ a.footer__contact-line:hover { color: var(--dk); }
           <li><a href="contact.html">Contact &amp; Location</a></li>
         </ul>
       </div>
-
       <div>
         <span class="footer__col-title">Contact</span>
         <a href="mailto:anka@esq.mba" class="footer__contact-line">anka@esq.mba</a>
         <a href="tel:+17865909400"    class="footer__contact-line">+1 (786) 590-9400</a>
-        <a href="contact.html" class="footer__contact-line">Hollywood Beach, FL</a>
-        <a href="contact.html" class="footer__contact-line">Consultations Worldwide</a>
+        <span class="footer__contact-line">Hollywood Beach, FL</span>
+        <span class="footer__contact-line">Consultations Worldwide</span>
       </div>
     </div>
-
     <div class="footer__bottom">
       <p class="footer__copy">
         © 2026 Kamkhadze PA. All rights reserved. Hollywood Beach, Florida · Serving Clients Nationwide &amp; Internationally<br>
         Attorney Advertising. This website is for informational purposes only and does not constitute legal advice. Prior results do not guarantee a similar outcome. Kamkhadze PA is licensed to practice in New York. Immigration law is federal law; the firm represents clients in immigration matters in all U.S. states and abroad.
       </p>
     </div>
-
   </div>
 </footer>
+
+
 <script>
-  // IntersectionObserver scroll reveal
   const io = new IntersectionObserver((entries) => {
     entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('on');
-        io.unobserve(e.target);
-      }
+      if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); }
     });
   }, { threshold: 0.07, rootMargin: '0px 0px -30px 0px' });
-
   document.querySelectorAll('.r').forEach(el => io.observe(el));
 
-  // Nav scroll trigger
   const nav = document.getElementById('main-nav');
-  window.addEventListener('scroll', () => {
-    nav.classList.toggle('lit', window.scrollY > 40);
-  }, { passive: true });
+  window.addEventListener('scroll', () => { nav.classList.toggle('lit', window.scrollY > 40); }, { passive: true });
 
-  // Mobile burger menu
-  const burger = document.querySelector('.nav__burger');
+  const burger = document.getElementById('burger');
   const navLinks = document.querySelector('.nav__links');
   if (burger && navLinks) {
     burger.addEventListener('click', () => {
@@ -1355,5 +1035,6 @@ a.footer__contact-line:hover { color: var(--dk); }
     });
   })();
 </script>
+
 </body>
 </html>
