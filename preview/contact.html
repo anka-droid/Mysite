@@ -688,5 +688,17 @@ a.footer__contact-line:hover { color: var(--dk); }
     });
   })();
 </script>
+<script>
+(function(){
+  function hide(img){
+    var f = img.closest('figure,.ei-block,.ei-cinematic,.page-hero__photo,.page-hero__icon');
+    if(f){ f.style.display='none'; } else { img.style.display='none'; }
+  }
+  document.querySelectorAll('img').forEach(function(img){
+    if(img.complete && img.naturalWidth===0 && img.getAttribute('src')){ hide(img); }
+    img.addEventListener('error', function(){ hide(img); });
+  });
+})();
+</script>
 </body>
 </html>

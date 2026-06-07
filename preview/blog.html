@@ -378,7 +378,7 @@ a.footer__contact-line:hover { color:var(--dk); }
       <!-- Premium editorial portrait — practitioner perspective & insight -->
       <div class="page-hero__photo">
         <figure class="ei-block ei-block--portrait ei-block--cr" style="width:clamp(180px,22vw,300px);opacity:1;" aria-label="Aerial view of Washington D.C. Mall with Capitol and Washington Monument at dawn">
-          <img src="hf_20260531_201713_14bd104e-ff2f-4fe4-aa49-196a05b6320e.png" alt="Aerial landscape of Washington D.C. — Capitol building, Washington Monument, and National Mall at golden hour" loading="lazy" style="opacity:1;filter:grayscale(20%) saturate(0.9) contrast(1.04) brightness(0.9);">
+          <img src="ana-cream.webp" alt="Aerial landscape of Washington D.C. — Capitol building, Washington Monument, and National Mall at golden hour" loading="lazy" style="opacity:1;filter:grayscale(20%) saturate(0.9) contrast(1.04) brightness(0.9);">
         </figure>
       </div>
     </div>
@@ -420,7 +420,7 @@ a.footer__contact-line:hover { color:var(--dk); }
   <div class="wrap">
     <div class="ei-split ei-split--left">
       <figure class="ei-block ei-block--portrait ei-block--cr r" aria-label="Neoclassical courthouse facade at dusk — justice and legal excellence">
-        <img src="hf_20260531_202200_658bf654-cdc1-485e-9206-92224ee92d04.png" alt="Neoclassical courthouse with Ionic columns and Justitia et Excellentia inscription at golden hour" loading="lazy">
+        <img src="ana-tan.webp" alt="Neoclassical courthouse with Ionic columns and Justitia et Excellentia inscription at golden hour" loading="lazy">
       </figure>
       <div class="r d1">
         <span class="label" style="opacity:.35;margin-bottom:1.4rem;">Insights &amp; Commentary</span>
@@ -586,7 +586,7 @@ a.footer__contact-line:hover { color:var(--dk); }
     </a>
   </div>
   <div class="ei-cinematic" style="margin-top:clamp(3rem,5vw,5rem);width:100%;overflow:hidden;" aria-hidden="true">
-    <img src="hf_20260526_102334_ffa36a6e-168d-49cc-8e25-1028414117a7.png" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
+    <img src="passport-banner.webp" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
   </div>
 </section>
 
@@ -709,6 +709,18 @@ a.footer__contact-line:hover { color:var(--dk); }
       }
     });
   })();
+</script>
+<script>
+(function(){
+  function hide(img){
+    var f = img.closest('figure,.ei-block,.ei-cinematic,.page-hero__photo,.page-hero__icon');
+    if(f){ f.style.display='none'; } else { img.style.display='none'; }
+  }
+  document.querySelectorAll('img').forEach(function(img){
+    if(img.complete && img.naturalWidth===0 && img.getAttribute('src')){ hide(img); }
+    img.addEventListener('error', function(){ hide(img); });
+  });
+})();
 </script>
 </body>
 </html>
