@@ -1120,37 +1120,47 @@ a.footer__contact-line:hover { color: var(--dk); }
   .nav__burger.active span:nth-child(1) { transform: rotate(45deg) translateY(7px); }
   .nav__burger.active span:nth-child(2) { opacity: 0; }
   .nav__burger.active span:nth-child(3) { transform: rotate(-45deg) translateY(-7px); }
-  /* ── MOBILE HERO: image on top, text block below (no overlay) ── */
+  /* ── MOBILE HERO: full uncropped vertical image, text overlaid on lower body ── */
   .hero__composition {
     height: auto;
     min-height: unset;
-    display: flex;
-    flex-direction: column;
+    display: block;
+    position: relative;
   }
-  .hero__composition picture { display: block; width: 100%; flex-shrink: 0; }
+  .hero__composition picture { display: block; width: 100%; }
   .hero__office {
     position: static;
     width: 100%;
-    height: 105vw;
-    max-height: 460px;
-    object-fit: cover;
-    object-position: center 18%;
+    height: auto;            /* full image, no cropping */
+    object-fit: fill;
     filter: none;
   }
-  .hero__comp-scrim { display: none; }
+  .hero__comp-scrim {
+    display: block;
+    background: linear-gradient(
+      to top,
+      rgba(3,7,31,0.90) 0%,
+      rgba(3,7,31,0.74) 28%,
+      rgba(3,7,31,0.42) 48%,
+      rgba(3,7,31,0.10) 68%,
+      rgba(3,7,31,0) 100%
+    );
+  }
   .hero__body {
-    position: static;
-    background: var(--dk);
-    padding: 2rem var(--pad-h) 2.5rem;
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: transparent;
+    padding: 0 var(--pad-h) 1.5rem;
     max-width: 100%;
   }
-  .hero__eyebrow { margin-bottom: 1rem; }
-  .hero__eyebrow::before { background: rgba(203,209,213,0.35); }
-  .hero h1 { font-size: clamp(2.2rem, 9vw, 2.8rem); margin-bottom: 1rem; color: #ffffff; }
-  .hero h1 em { color: var(--cr); }
-  .hero__sub { font-size: 0.88rem; line-height: 1.7; margin-bottom: 1.5rem; color: rgba(255,255,255,0.88); }
-  .hero__btns { flex-direction: column; align-items: stretch; gap: 0.75rem; }
-  .hero__btns .btn { min-width: 0; width: 100%; }
+  .hero__eyebrow { margin-bottom: 0.65rem; }
+  .hero__eyebrow .label { color: #ffffff; font-size: 0.58rem; }
+  .hero__eyebrow::before { background: rgba(255,255,255,0.4); }
+  .hero h1 { font-size: clamp(1.75rem, 7vw, 2.2rem); line-height: 1.05; margin-bottom: 0.65rem; color: #ffffff; }
+  .hero h1 em { color: #ffffff; }
+  .hero__sub { font-size: 0.76rem; line-height: 1.45; margin-bottom: 0.85rem; color: rgba(255,255,255,0.9); }
+  .hero__btns { flex-direction: column; align-items: stretch; gap: 0.6rem; }
+  .hero__btns .btn { min-width: 0; width: 100%; padding: 0.85rem 1.3rem; }
   .flagship__intro { grid-template-columns: 1fr; gap: 2rem; }
   .practices__header { flex-direction: column; gap: 2rem; }
   .attorney__grid { grid-template-columns: 1fr; }
