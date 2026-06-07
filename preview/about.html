@@ -565,6 +565,8 @@ a.footer__contact-line:hover { color: var(--dk); }
     gap: 1.5rem;
     z-index: 499;
     align-items: flex-start;
+    max-height: calc(100vh - 80px);
+    overflow-y: auto;
   }
   .nav__links.open .dd__panel {
     position: static;
@@ -586,7 +588,7 @@ a.footer__contact-line:hover { color: var(--dk); }
   .nav__burger.active span:nth-child(3) { transform: rotate(-45deg) translateY(-7px); }
   .page-hero__layout { grid-template-columns: 1fr; }
   .page-hero__icon { display: none; }
-  .page-hero__photo { display: none; }
+  .page-hero__photo { display: block; margin-top: 2.5rem; }
   .bio__copy { columns: 1; column-rule: none; }
   .creds__header { grid-template-columns: 1fr; gap: 2rem; }
   .creds__grid { grid-template-columns: 1fr; }

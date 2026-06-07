@@ -257,7 +257,7 @@ a.footer__contact-line:hover { color:var(--dk); }
 }
 @media (max-width:900px) {
   .nav__links { display:none; }
-  .nav__links.open { display:flex; flex-direction:column; position:fixed; top:80px; left:0; right:0; background:var(--cr); padding:2rem var(--pad-h) 3rem; border-top:1px solid rgba(3,7,31,0.1); gap:1.5rem; z-index:499; align-items:flex-start; }
+  .nav__links.open { display:flex; flex-direction:column; position:fixed; top:80px; left:0; right:0; background:var(--cr); padding:2rem var(--pad-h) 3rem; border-top:1px solid rgba(3,7,31,0.1); gap:1.5rem; z-index:499; align-items:flex-start; max-height:calc(100vh - 80px); overflow-y:auto; }
   .nav__links.open .dd__panel { position:static; transform:none; opacity:1; visibility:visible; border:none; box-shadow:none; padding:0.5rem 0 0 1rem; min-width:unset; background:transparent; }
   .nav__links.open .dd__panel a { color:rgba(3,7,31,0.65); }
   .nav__links.open > li > a, .nav__links.open > li > span { color: rgba(3,7,31,0.85); }
