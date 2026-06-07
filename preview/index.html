@@ -334,103 +334,82 @@ hr.thin {
 
 /* ════════════════════════════════════════════════════════════════
    BLOCK 1 — HERO  [DARK]
-   Full-bleed composition — text overlay locked to bottom-left
+   Split layout — text left (dark navy), portrait right
 ════════════════════════════════════════════════════════════════ */
+/* ── SPLIT HERO ─────────────────────────────────────────────── */
 .hero {
   background: var(--dk);
   padding-top: 80px;
   padding-bottom: 0 !important;
   margin-bottom: 0 !important;
   height: 100vh;
-  position: relative;
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
 }
-
-/* Composition owns all remaining viewport height — photo fills it completely */
-.hero__composition {
-  position: relative;
-  height: calc(100vh - 80px);
+.hero__split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  flex: 1;
+  min-height: 0;
+}
+.hero__text-col {
+  display: flex;
+  align-items: center;
+  padding: 0 clamp(2rem, 4vw, 4rem) 0 var(--pad-h);
   overflow: hidden;
 }
-
-/* Office image fills the entire composition */
-.hero__office {
-  position: absolute;
-  inset: 0;
-  width: 100%; height: 100%;
-  object-fit: cover;
-  object-position: center 20%;
-  filter: brightness(0.82);
-  display: block;
-  opacity: 1;
-  z-index: 0;
-}
-
-/* Bottom-gradient scrim — text legibility */
-.hero__comp-scrim {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    to top,
-    rgba(3,7,31,0.85) 0%,
-    rgba(3,7,31,0.62) 24%,
-    rgba(3,7,31,0.32) 48%,
-    rgba(3,7,31,0.10) 70%,
-    rgba(3,7,31,0) 100%
-  );
-  z-index: 1;
-}
-
-
-/* Text body — absolute, bottom-left of composition */
 .hero__body {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  z-index: 4;
-  padding: 0 var(--pad-h) clamp(3.5rem, 5vw, 5.5rem);
-  max-width: 820px;
+  width: 100%;
+  max-width: 560px;
 }
-
+.hero__photo-col {
+  position: relative;
+  overflow: hidden;
+}
+.hero__portrait {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  filter: brightness(0.96) saturate(0.9);
+}
 .hero__eyebrow {
   display: flex;
   align-items: center;
   gap: 1.2rem;
-  margin-bottom: 3rem;
+  margin-bottom: 2.2rem;
 }
 .hero__eyebrow::before {
   content: '';
   display: block;
   width: 3rem;
   height: 1px;
-  background: rgba(255,255,255,0.4);
+  background: rgba(203,209,213,0.35);
   flex-shrink: 0;
 }
-.hero__eyebrow .label { opacity: 1; color: #ffffff; }
-
-.hero h1, .hero h1 em { margin-bottom: 2rem; color: #ffffff; }
-
+.hero__eyebrow .label { opacity: 1; color: rgba(255,255,255,0.85); }
+.hero h1, .hero h1 em { margin-bottom: 1.8rem; color: #ffffff; }
 .hero__sub {
-  font-size: clamp(0.88rem, 1.15vw, 1rem);
-  color: rgba(255,255,255,0.92);
-  max-width: 560px;
-  line-height: 1.95;
-  margin-bottom: 3.5rem;
+  font-size: clamp(0.88rem, 1.1vw, 1rem);
+  color: rgba(255,255,255,0.88);
+  line-height: 1.9;
+  margin-bottom: 3rem;
 }
-
 .hero__btns {
   display: flex;
   gap: 1rem;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
 }
-.hero__btns .btn { min-width: 17rem; justify-content: center; }
+.hero__btns .btn { min-width: 15rem; justify-content: center; }
 .hero__btns .btn-solid {
   background: #ffffff;
   color: var(--dk);
   border: 1px solid #ffffff;
 }
 .hero__btns .btn-solid:hover {
-  background: rgba(255,255,255,0.78);
+  background: rgba(255,255,255,0.82);
   color: var(--dk);
   border-color: #ffffff;
 }
@@ -1120,47 +1099,32 @@ a.footer__contact-line:hover { color: var(--dk); }
   .nav__burger.active span:nth-child(1) { transform: rotate(45deg) translateY(7px); }
   .nav__burger.active span:nth-child(2) { opacity: 0; }
   .nav__burger.active span:nth-child(3) { transform: rotate(-45deg) translateY(-7px); }
-  /* ── MOBILE HERO: full uncropped vertical image, text overlaid on lower body ── */
-  .hero__composition {
-    height: auto;
-    min-height: unset;
-    display: block;
-    position: relative;
+  /* ── MOBILE HERO: photo on top, text block below ── */
+  .hero { height: auto; }
+  .hero__split { grid-template-columns: 1fr; }
+  .hero__text-col {
+    padding: 2rem var(--pad-h) 2.5rem;
+    align-items: flex-start;
+    order: 2;
   }
-  .hero__composition picture { display: block; width: 100%; }
-  .hero__office {
+  .hero__body { max-width: 100%; }
+  .hero__photo-col {
+    order: 1;
+    height: auto;
+  }
+  .hero__photo-col picture, .hero__photo-col img {
     position: static;
     width: 100%;
-    height: auto;            /* full image, no cropping */
+    height: auto;
     object-fit: fill;
-    filter: brightness(0.82);
+    filter: brightness(0.9) saturate(0.9);
   }
-  .hero__comp-scrim {
-    display: block;
-    background: linear-gradient(
-      to top,
-      rgba(3,7,31,0.95) 0%,
-      rgba(3,7,31,0.85) 30%,
-      rgba(3,7,31,0.55) 50%,
-      rgba(3,7,31,0.18) 70%,
-      rgba(3,7,31,0) 100%
-    );
-  }
-  .hero__body {
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    background: transparent;
-    padding: 0 var(--pad-h) 0.75rem;
-    max-width: 100%;
-  }
-  .hero__eyebrow { margin-bottom: 1.1rem; }
-  .hero__eyebrow .label { color: #ffffff; font-size: 0.58rem; }
-  .hero__eyebrow::before { background: rgba(255,255,255,0.4); }
-  .hero h1 { font-size: clamp(1.65rem, 6.6vw, 2.1rem); line-height: 1.05; margin-bottom: 1.1rem; color: #ffffff; }
-  .hero h1 em { color: #ffffff; }
-  .hero__sub { font-size: 0.73rem; line-height: 1.45; margin-bottom: 1.4rem; color: rgba(255,255,255,0.9); }
-  .hero__btns { flex-direction: column; align-items: stretch; gap: 0.85rem; }
-  .hero__btns .btn { min-width: 0; width: 100%; padding: 0.85rem 1.3rem; }
+  .hero__eyebrow { margin-bottom: 1rem; }
+  .hero__eyebrow .label { font-size: 0.62rem; }
+  .hero h1, .hero h1 em { margin-bottom: 1rem; }
+  .hero__sub { font-size: 0.85rem; line-height: 1.65; margin-bottom: 1.4rem; }
+  .hero__btns { flex-direction: column; gap: 0.75rem; }
+  .hero__btns .btn { min-width: 0; width: 100%; }
   .flagship__intro { grid-template-columns: 1fr; gap: 2rem; }
   .practices__header { flex-direction: column; gap: 2rem; }
   .attorney__grid { grid-template-columns: 1fr; }
@@ -1280,41 +1244,41 @@ a.footer__contact-line:hover { color: var(--dk); }
      BLOCK 1 — HERO  [DARK]
 ════════════════════════════════════════════════════════════ -->
 <section class="hero dk">
+  <div class="hero__split">
 
-  <!-- Full-bleed composition: office bg + mini portrait + text overlay -->
-  <div class="hero__composition">
-    <picture>
-      <source media="(max-width: 900px)" srcset="new-home-hero-mobile2.webp">
-      <img
-        src="new-home-hero3.jpg"
-        alt="Ana Kamkhadze, Esq. — immigration attorney in a white blouse against a light brick wall"
-        class="hero__office"
-        loading="eager"
-      >
-    </picture>
-    <div class="hero__comp-scrim"></div>
-
-    <!-- Text overlay — absolute, bottom-left of image -->
-    <div class="hero__body">
-      <div class="hero__eyebrow">
-        <span class="label">Kamkhadze PA · Immigration Law Firm · Hollywood Beach, FL</span>
-      </div>
-
-      <h1 class="r d1">
-        Reserved for<br><em>the Remarkable.</em>
-      </h1>
-
-      <p class="hero__sub r d2">
-        Elite U.S. immigration counsel for scientists, executives, artists, entrepreneurs, and investors. Led by Ana Kamkhadze, Esq. MBA — exclusively practicing U.S. Immigration and Nationality Law.
-      </p>
-
-      <div class="hero__btns r d3">
-        <a href="contact.html" class="btn btn-solid dk">Schedule a Consultation</a>
-        <a href="about.html"   class="btn btn-solid dk">Meet Attorney Kamkhadze</a>
+    <!-- LEFT: text panel -->
+    <div class="hero__text-col">
+      <div class="hero__body">
+        <div class="hero__eyebrow">
+          <span class="label">Kamkhadze PA · Immigration Law Firm · Hollywood Beach, FL</span>
+        </div>
+        <h1 class="r d1">
+          Reserved for<br><em>the Remarkable.</em>
+        </h1>
+        <p class="hero__sub r d2">
+          Elite U.S. immigration counsel for scientists, executives, artists, entrepreneurs, and investors. Led by Ana Kamkhadze, Esq. MBA — exclusively practicing U.S. Immigration and Nationality Law.
+        </p>
+        <div class="hero__btns r d3">
+          <a href="contact.html" class="btn btn-solid dk">Schedule a Consultation</a>
+          <a href="about.html"   class="btn btn-solid dk">Meet Attorney Kamkhadze</a>
+        </div>
       </div>
     </div>
-  </div>
 
+    <!-- RIGHT: portrait photo — desktop only -->
+    <div class="hero__photo-col">
+      <picture>
+        <source media="(max-width: 900px)" srcset="new-home-hero-mobile2.webp">
+        <img
+          src="ana-blue-standing.jpg"
+          alt="Ana Kamkhadze, Esq. MBA — immigration attorney in blue blazer"
+          class="hero__portrait"
+          loading="eager"
+        >
+      </picture>
+    </div>
+
+  </div>
 </section>
 
 <!-- Credential bar — snaps flush below the 100vh hero boundary -->
