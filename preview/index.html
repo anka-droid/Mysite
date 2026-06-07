@@ -406,9 +406,9 @@ hr.thin {
   background: rgba(3,7,31,0.45);
   flex-shrink: 0;
 }
-.hero__eyebrow .label { opacity: 0.9; color: rgba(3,7,31,0.85); }
+.hero__eyebrow .label { opacity: 1; color: var(--dk); }
 
-.hero h1 { margin-bottom: 2rem; color: var(--dk); }
+.hero h1, .hero h1 em { margin-bottom: 2rem; color: var(--dk); }
 
 .hero__sub {
   font-size: clamp(0.88rem, 1.15vw, 1rem);
@@ -424,6 +424,16 @@ hr.thin {
   flex-wrap: nowrap;
 }
 .hero__btns .btn { min-width: 17rem; justify-content: center; }
+.hero__btns .btn-solid {
+  background: #ffffff;
+  color: var(--dk);
+  border: 1px solid #ffffff;
+}
+.hero__btns .btn-solid:hover {
+  background: rgba(255,255,255,0.78);
+  color: var(--dk);
+  border-color: #ffffff;
+}
 
 /* Credential ticker — standalone block, snaps flush below 100vh hero */
 .hero__ticker {
