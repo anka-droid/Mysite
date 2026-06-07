@@ -83,11 +83,11 @@ b,strong { font-weight:500; }
 
 /* PAGE HERO */
 .page-hero { padding-top:calc(80px + clamp(5rem,10vw,9rem)); padding-bottom:clamp(5rem,9vw,9rem); padding-left:var(--pad-h); padding-right:var(--pad-h); }
-.page-hero h1 { max-width:14ch; margin-bottom:2rem; }
-.page-hero__sub { font-size:clamp(0.95rem,1.3vw,1.1rem); color:rgba(203,209,213,0.55); max-width:560px; line-height:1.95; }
+.page-hero h1 { max-width:none; margin-bottom:2rem; }
+.page-hero__sub { font-size:clamp(0.95rem,1.3vw,1.1rem); color:rgba(203,209,213,0.55); max-width:680px; line-height:1.95; }
 
 /* PAGE HERO GRID */
-.page-hero__layout { display:grid; grid-template-columns:1fr auto; gap:clamp(3rem,6vw,8rem); align-items:center; }
+.page-hero__layout { display:block; }
 .page-hero__icon { line-height:0; flex-shrink:0; opacity:0.1; color:currentColor; }
 .page-hero__icon svg { width:clamp(180px,22vw,300px); height:auto; display:block; }
 .cr .page-hero__icon { color:var(--cr); opacity:0.14; }
@@ -116,13 +116,13 @@ b,strong { font-weight:500; }
 .outlet-name {
   font-family:var(--serif);
   font-style:italic;
-  font-size:clamp(1rem,1.5vw,1.4rem);
+  font-size:clamp(1.1rem,1.8vw,1.6rem);
   color:var(--dk);
-  opacity:0.6;
-  transition:opacity 0.3s;
+  opacity:0.5;
+  transition:opacity 0.35s, transform 0.35s cubic-bezier(0.25,0.46,0.45,0.94);
   display:block;
 }
-.outlet-cell:hover .outlet-name { opacity:1; }
+.outlet-cell:hover .outlet-name { opacity:1; transform:translateY(-2px); }
 
 /* PRESS CARDS GRID */
 .press-grid {
@@ -135,36 +135,40 @@ b,strong { font-weight:500; }
   border-right:1px solid rgba(203,209,213,0.08);
   display:flex;
   flex-direction:column;
-  gap:1.2rem;
-  transition:background 0.4s;
+  gap:1.4rem;
+  transition:background 0.4s, transform 0.35s cubic-bezier(0.25,0.46,0.45,0.94);
   cursor:default;
 }
 .press-card:nth-child(3n) { border-right:none; }
 .press-card:nth-child(n+4) { border-top:1px solid rgba(203,209,213,0.08); }
-.press-card:hover { background:rgba(203,209,213,0.02); }
+.press-card:hover { background:rgba(203,209,213,0.035); }
 .press-card__outlet {
-  font-size:0.58rem;
-  font-weight:400;
-  letter-spacing:0.26em;
+  font-size:0.6rem;
+  font-weight:500;
+  letter-spacing:0.28em;
   text-transform:uppercase;
-  color:rgba(203,209,213,0.3);
+  color:rgba(203,209,213,0.55);
   display:block;
+  transition:color 0.3s;
 }
+.press-card:hover .press-card__outlet { color:rgba(203,209,213,0.85); }
 .press-card__date {
   font-size:0.58rem;
   font-weight:300;
   letter-spacing:0.18em;
   text-transform:uppercase;
-  color:rgba(203,209,213,0.2);
+  color:rgba(203,209,213,0.25);
 }
 .press-card h4 {
-  font-size:clamp(1rem,1.4vw,1.25rem);
+  font-size:clamp(1.05rem,1.5vw,1.3rem);
   color:var(--cr);
   line-height:1.35;
+  transition:opacity 0.3s;
 }
+.press-card:hover h4 { opacity:0.9; }
 .press-card p {
-  font-size:0.82rem;
-  line-height:1.8;
+  font-size:0.84rem;
+  line-height:1.85;
   color:rgba(203,209,213,0.42);
   flex:1;
 }
@@ -242,23 +246,24 @@ b,strong { font-weight:500; }
   border-top:1px solid rgba(203,209,213,0.08);
 }
 .video-card {
-  padding:2.5rem clamp(1.5rem,3vw,3rem);
+  padding:3rem clamp(1.5rem,3vw,3rem);
   border-right:1px solid rgba(203,209,213,0.08);
   transition:background 0.4s;
 }
 .video-card:last-child { border-right:none; }
-.video-card:hover { background:rgba(203,209,213,0.02); }
+.video-card:hover { background:rgba(203,209,213,0.035); }
 .video-card__platform {
-  font-size:0.58rem;
-  font-weight:400;
-  letter-spacing:0.26em;
+  font-size:0.6rem;
+  font-weight:500;
+  letter-spacing:0.28em;
   text-transform:uppercase;
-  color:rgba(203,209,213,0.25);
-  margin-bottom:0.8rem;
+  color:rgba(203,209,213,0.45);
   display:block;
+  transition:color 0.3s;
 }
-.video-card h4 { font-size:1rem; color:var(--cr); line-height:1.35; margin-bottom:0.8rem; }
-.video-card p { font-size:0.8rem; line-height:1.75; color:rgba(203,209,213,0.38); }
+.video-card:hover .video-card__platform { color:rgba(203,209,213,0.75); }
+.video-card h4 { font-size:1.05rem; color:var(--cr); line-height:1.35; margin-bottom:0.9rem; }
+.video-card p { font-size:0.83rem; line-height:1.8; color:rgba(203,209,213,0.42); }
 
 /* FOOTER */
 .footer__grid { display:grid; grid-template-columns:2fr 1fr 1fr 1fr 1fr; gap:4rem; padding-bottom:5rem; border-bottom:1px solid rgba(3,7,31,0.1); margin-bottom:2.5rem; }
@@ -407,9 +412,6 @@ html, body { max-width:100%; overflow-x:hidden; }
           Ana Kamkhadze's work has been featured in leading business publications, financial media, and digital platforms — recognized as a trusted voice in U.S. immigration law.
         </p>
       </div>
-      <div class="page-hero__photo">
-        <img src="press-img1.webp" alt="Entrepreneur magazine cover featuring Kamkhadze PA" loading="eager" style="aspect-ratio:3/4;object-fit:cover;height:auto;">
-      </div>
     </div>
   </div>
 </section>
@@ -520,20 +522,15 @@ html, body { max-width:100%; overflow-x:hidden; }
 </section>
 
 
-<!-- ── EDITORIAL IMAGE 1 — Media Portrait [CREAM] ──────────────── -->
-<div class="cr" style="padding:clamp(4rem,7vw,7rem) 0;">
+<!-- ── MEDIA RECOGNITION [CREAM] ──────────────────────────────── -->
+<div class="cr" style="padding:clamp(4rem,7vw,6rem) 0;">
   <div class="wrap">
-    <div class="ei-split ei-split--left">
-      <figure class="ei-block ei-block--portrait ei-block--cr r" aria-label="Expertise.com Best Immigration Lawyers in Miami award badge">
-        <img src="press-img2.webp" alt="Expertise.com award badge — Best Immigration Lawyers in Miami 2023" loading="lazy" style="object-fit:contain;">
-      </figure>
-      <div class="r d1">
-        <span class="label" style="opacity:.35;margin-bottom:1.4rem;">Media Recognition</span>
-        <h3 style="margin-bottom:1.8rem;font-size:clamp(1.4rem,2.2vw,2.2rem);color:var(--dk);">A trusted voice in<br><em>U.S. immigration.</em></h3>
-        <p style="font-size:0.88rem;line-height:2;color:rgba(3,7,31,0.5);max-width:460px;">
-          Ana Kamkhadze's expertise has been sought by leading publications and broadcast platforms covering business immigration, entrepreneurship, and the extraordinary ability visa landscape.
-        </p>
-      </div>
+    <div class="r">
+      <span class="label" style="opacity:.35;margin-bottom:1.4rem;">Media Recognition</span>
+      <h3 style="margin-bottom:1.4rem;font-size:clamp(1.6rem,2.8vw,2.8rem);color:var(--dk);">A trusted voice in <em>U.S. immigration.</em></h3>
+      <p style="font-size:0.92rem;line-height:2;color:rgba(3,7,31,0.5);max-width:680px;">
+        Ana Kamkhadze's expertise has been sought by leading publications and broadcast platforms covering business immigration, entrepreneurship, and the extraordinary ability visa landscape.
+      </p>
     </div>
   </div>
 </div>
@@ -562,19 +559,6 @@ html, body { max-width:100%; overflow-x:hidden; }
 </section>
 
 
-<!-- ── 3-PORTRAIT PRESS GALLERY [DARK] ─────────────────────────── -->
-<div class="dk" style="padding:clamp(4rem,7vw,7rem) var(--pad-h);">
-  <div style="max-width:1380px;margin:0 auto;">
-    <div class="press-gallery">
-      <figure class="ei-block ei-block--landscape r" aria-label="Split-screen television news studio broadcast with a blue background banner">
-        <img src="press-img3.webp" alt="Split-screen television news studio broadcast with a blue background banner" loading="lazy">
-      </figure>
-      <figure class="ei-block ei-block--landscape r d1" aria-label="Live broadcast panel interview — attorney in a bright red blazer over an orange background">
-        <img src="new-press-right.webp" alt="Formula TV split-screen broadcast interview featuring Ana Kamkhadze from the Kamkhadze PA Miami office" loading="lazy">
-      </figure>
-    </div>
-  </div>
-</div>
 
 
 <!-- BLOCK 5 — VIDEO & BROADCAST [DARK] -->
