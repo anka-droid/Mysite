@@ -1120,13 +1120,27 @@ a.footer__contact-line:hover { color: var(--dk); }
   .nav__burger.active span:nth-child(1) { transform: rotate(45deg) translateY(7px); }
   .nav__burger.active span:nth-child(2) { opacity: 0; }
   .nav__burger.active span:nth-child(3) { transform: rotate(-45deg) translateY(-7px); }
-  .hero__composition { min-height: clamp(480px, 94vw, 720px); }
-  /* Drag the heading/subhead/buttons down a little (smaller bottom padding) */
+  /* Taller hero so the cropped portrait keeps her face high and leaves
+     the lower half clear for the text group — text never touches her face */
+  .hero__composition { height: auto; min-height: clamp(820px, 132vw, 920px); }
+  .hero__office { object-position: center top; }
+  /* Compact text group anchored low, over the blouse below her collar — clear of her face */
   .hero__body { max-width: 100%; padding-bottom: 1.5rem; }
-  /* Keep the eyebrow with the rest of the text at the bottom, away from her face */
-  .hero__eyebrow { margin-bottom: 1.5rem; }
-  /* Pull heading + subhead down closer to the buttons */
-  .hero__sub { margin-bottom: 1.2rem; }
+  .hero__eyebrow { margin-bottom: 0.85rem; }
+  .hero h1 { font-size: clamp(2rem, 8vw, 2.6rem); margin-bottom: 0.85rem; }
+  .hero__sub { font-size: 0.82rem; line-height: 1.5; margin-bottom: 1rem; }
+  .hero__btns { gap: 0.7rem; }
+  .hero__btns .btn { padding: 0.95rem 1.4rem; }
+  .hero__comp-scrim {
+    background: linear-gradient(
+      to top,
+      rgba(3,7,31,0.92) 0%,
+      rgba(3,7,31,0.78) 30%,
+      rgba(3,7,31,0.45) 52%,
+      rgba(3,7,31,0.12) 72%,
+      rgba(3,7,31,0) 100%
+    );
+  }
   .flagship__intro { grid-template-columns: 1fr; gap: 2rem; }
   .practices__header { flex-direction: column; gap: 2rem; }
   .attorney__grid { grid-template-columns: 1fr; }
@@ -1150,7 +1164,6 @@ a.footer__contact-line:hover { color: var(--dk); }
   .attorney__img-outer::after { display: none; }
   h1 { font-size: clamp(2.4rem, 10vw, 4rem); }
   h2 { font-size: clamp(1.8rem, 7vw, 2.8rem); }
-  .hero__composition { min-height: clamp(400px, 110vw, 580px); }
 }
 
 /* Attorney — portrait removed, full-width single-column body */
@@ -1252,12 +1265,15 @@ a.footer__contact-line:hover { color: var(--dk); }
 
   <!-- Full-bleed composition: office bg + mini portrait + text overlay -->
   <div class="hero__composition">
-    <img
-      src="new-home-hero3.jpg"
-      alt="Ana Kamkhadze, Esq. — immigration attorney in a white blouse against a light brick wall"
-      class="hero__office"
-      loading="eager"
-    >
+    <picture>
+      <source media="(max-width: 900px)" srcset="new-home-hero3-mobile.jpg">
+      <img
+        src="new-home-hero3.jpg"
+        alt="Ana Kamkhadze, Esq. — immigration attorney in a white blouse against a light brick wall"
+        class="hero__office"
+        loading="eager"
+      >
+    </picture>
     <div class="hero__comp-scrim"></div>
 
     <!-- Text overlay — absolute, bottom-left of image -->
