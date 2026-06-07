@@ -12,7 +12,7 @@
 
 <style>
 :root {
-  --nhg:   'Neue Haas Grotesk Display', 'NeueHaasGroteskDisp', 'Neue Haas Grotesk', 'Helvetica Neue', Helvetica, Arial, sans-serif; --dk:#03071F; --cr:#CBD1D5; --serif:'Cormorant Garamond',Georgia,serif; --sans:'Raleway',sans-serif; --ease:cubic-bezier(0.25,0.46,0.45,0.94); --pad-h:clamp(2rem,6vw,7rem); --pad-v:clamp(5rem,9vw,9rem); }
+  --nhg:   'Neue Haas Grotesk Display', 'NeueHaasGroteskDisp', 'Neue Haas Grotesk', 'Helvetica Neue', Helvetica, Arial, sans-serif; --dk:#03071F; --cr:#FFFFFF; --serif:'Cormorant Garamond',Georgia,serif; --sans:'Raleway',sans-serif; --ease:cubic-bezier(0.25,0.46,0.45,0.94); --pad-h:clamp(2rem,6vw,7rem); --pad-v:clamp(5rem,9vw,9rem); }
 *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; background-image:none !important; }
 html { scroll-behavior:smooth; }
 body { font-family:var(--sans); font-weight:400; font-size:15px; line-height:1.82; background:var(--dk); color:var(--cr); -webkit-font-smoothing:antialiased; overflow-x:hidden; }
@@ -32,7 +32,7 @@ b,strong { font-weight:500; }
 .dk .label { color:var(--cr); opacity:0.45; }
 .dk .btn-solid { background:var(--cr); color:var(--dk); border:1px solid var(--cr); }
 .dk .btn-solid:hover { background:transparent; color:var(--cr); }
-.dk .btn-line { background:transparent; color:var(--cr); border:1px solid rgba(203,209,213,0.3); }
+.dk .btn-line { background:transparent; color:var(--cr); border:1px solid rgba(255,255,255,0.3); }
 .dk .btn-line:hover { border-color:var(--cr); }
 .cr { background:var(--cr); color:var(--dk); }
 .cr h1,.cr h2,.cr h3,.cr h4,.cr em { color:var(--dk); }
@@ -53,15 +53,15 @@ b,strong { font-weight:500; }
 .d1 { transition-delay:0.1s; } .d2 { transition-delay:0.22s; } .d3 { transition-delay:0.34s; } .d4 { transition-delay:0.48s; }
 
 /* NAV */
-.nav { position:fixed; top:0; left:0; right:0; z-index:500; background:var(--dk); border-bottom:1px solid rgba(203,209,213,0.08); transition:border-color 0.4s; }
-.nav.lit { border-color:rgba(203,209,213,0.18); }
+.nav { position:fixed; top:0; left:0; right:0; z-index:500; background:var(--dk); border-bottom:1px solid rgba(255,255,255,0.08); transition:border-color 0.4s; }
+.nav.lit { border-color:rgba(255,255,255,0.18); }
 .nav__row { display:flex; align-items:center; justify-content:space-between; height:80px; padding:0 var(--pad-h) 0 clamp(1.5rem,3.5vw,4rem); max-width:1560px; margin:0 auto; }
 .nav__logo { display:flex; flex-direction:row; align-items:center; gap:0.75rem; }
 .nav__logo-text { display:flex; flex-direction:column; gap:3px; }
 .nav__logo-name { font-family:var(--serif); font-size:1.48rem; font-weight:400; letter-spacing:0.06em; color:var(--cr); line-height:1; }
-.nav__logo-sub { font-family:var(--sans); font-size:0.55rem; font-weight:300; letter-spacing:0.3em; text-transform:uppercase; color:rgba(203,209,213,0.4); line-height:1; }
+.nav__logo-sub { font-family:var(--sans); font-size:0.55rem; font-weight:300; letter-spacing:0.3em; text-transform:uppercase; color:rgba(255,255,255,0.4); line-height:1; }
 .nav__links { display:flex; align-items:center; gap:clamp(1rem,2.2vw,2.2rem); list-style:none; }
-.nav__links > li > a,.nav__links > li > span { font-family:var(--sans); font-size:0.65rem; font-weight:300; letter-spacing:0.2em; text-transform:uppercase; color:rgba(203,209,213,0.65); transition:color 0.3s; cursor:pointer; position:relative; white-space:nowrap; }
+.nav__links > li > a,.nav__links > li > span { font-family:var(--sans); font-size:0.65rem; font-weight:300; letter-spacing:0.2em; text-transform:uppercase; color:rgba(255,255,255,0.65); transition:color 0.3s; cursor:pointer; position:relative; white-space:nowrap; }
 .nav__links > li > a::after,.nav__links > li > span::after { content:''; position:absolute; left:0; bottom:-3px; width:0; height:1px; background:var(--cr); transition:width 0.4s var(--ease); }
 .nav__links > li > a:hover,.nav__links > li > span:hover { color:var(--cr); }
 .nav__links > li > a:hover::after,.nav__links > li > span:hover::after { width:100%; }
@@ -71,20 +71,20 @@ b,strong { font-weight:500; }
 .dd__toggle { display:flex; align-items:center; gap:0.4em; }
 .dd__caret { font-size:0.5rem; opacity:0.4; transition:transform 0.3s; }
 .dd:hover .dd__caret { transform:rotate(180deg); opacity:0.8; }
-.dd__panel { position:absolute; top:calc(100% + 1.4rem); left:50%; transform:translateX(-50%) translateY(-6px); background:var(--dk); border:1px solid rgba(203,209,213,0.1); min-width:280px; padding:0.5rem 0; opacity:0; visibility:hidden; transition:opacity 0.3s,transform 0.3s; box-shadow:0 20px 60px rgba(0,0,0,0.08); }
+.dd__panel { position:absolute; top:calc(100% + 1.4rem); left:50%; transform:translateX(-50%) translateY(-6px); background:var(--dk); border:1px solid rgba(255,255,255,0.1); min-width:280px; padding:0.5rem 0; opacity:0; visibility:hidden; transition:opacity 0.3s,transform 0.3s; box-shadow:0 20px 60px rgba(0,0,0,0.08); }
 .dd:hover .dd__panel,.dd.open .dd__panel { opacity:1; visibility:visible; transform:translateX(-50%) translateY(0); }
-.dd__panel a { display:block; padding:0.75rem 1.8rem; font-size:0.65rem; font-weight:300; letter-spacing:0.16em; text-transform:uppercase; color:rgba(203,209,213,0.55); transition:color 0.25s,background 0.25s; }
-.dd__panel a:hover { color:var(--cr); background:rgba(203,209,213,0.04); }
-.nav__cta { font-size:0.62rem !important; font-weight:400 !important; letter-spacing:0.24em !important; padding:0.9em 2.2em; border:1px solid rgba(203,209,213,0.3); color:var(--cr) !important; transition:border-color 0.4s,background 0.4s; }
+.dd__panel a { display:block; padding:0.75rem 1.8rem; font-size:0.65rem; font-weight:300; letter-spacing:0.16em; text-transform:uppercase; color:rgba(255,255,255,0.55); transition:color 0.25s,background 0.25s; }
+.dd__panel a:hover { color:var(--cr); background:rgba(255,255,255,0.04); }
+.nav__cta { font-size:0.62rem !important; font-weight:400 !important; letter-spacing:0.24em !important; padding:0.9em 2.2em; border:1px solid rgba(255,255,255,0.3); color:var(--cr) !important; transition:border-color 0.4s,background 0.4s; }
 .nav__cta::after { display:none !important; }
-.nav__cta:hover { border-color:var(--cr) !important; background:rgba(203,209,213,0.06) !important; }
+.nav__cta:hover { border-color:var(--cr) !important; background:rgba(255,255,255,0.06) !important; }
 .nav__burger { display:none; flex-direction:column; gap:6px; cursor:pointer; padding:6px; }
 .nav__burger span { display:block; width:28px; height:1px; background:var(--cr); transition:transform 0.3s,opacity 0.3s; }
 
 /* PAGE HERO */
 .page-hero { padding-top:calc(80px + clamp(5rem,10vw,9rem)); padding-bottom:clamp(5rem,9vw,9rem); padding-left:var(--pad-h); padding-right:var(--pad-h); }
 .page-hero h1 { max-width:14ch; margin-bottom:2rem; }
-.page-hero__sub { font-size:clamp(0.95rem,1.3vw,1.1rem); color:rgba(203,209,213,0.55); max-width:560px; line-height:1.95; }
+.page-hero__sub { font-size:clamp(0.95rem,1.3vw,1.1rem); color:rgba(255,255,255,0.55); max-width:560px; line-height:1.95; }
 
 /* PAGE HERO GRID */
 .page-hero__layout { display:grid; grid-template-columns:1fr auto; gap:clamp(3rem,6vw,8rem); align-items:center; }
@@ -128,11 +128,11 @@ b,strong { font-weight:500; }
 .press-grid {
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  border-top:1px solid rgba(203,209,213,0.08);
+  border-top:1px solid rgba(255,255,255,0.08);
 }
 .press-card {
   padding:clamp(2.5rem,4vw,4rem);
-  border-right:1px solid rgba(203,209,213,0.08);
+  border-right:1px solid rgba(255,255,255,0.08);
   display:flex;
   flex-direction:column;
   gap:1.2rem;
@@ -140,14 +140,14 @@ b,strong { font-weight:500; }
   cursor:default;
 }
 .press-card:nth-child(3n) { border-right:none; }
-.press-card:nth-child(n+4) { border-top:1px solid rgba(203,209,213,0.08); }
-.press-card:hover { background:rgba(203,209,213,0.02); }
+.press-card:nth-child(n+4) { border-top:1px solid rgba(255,255,255,0.08); }
+.press-card:hover { background:rgba(255,255,255,0.02); }
 .press-card__outlet {
   font-size:0.58rem;
   font-weight:400;
   letter-spacing:0.26em;
   text-transform:uppercase;
-  color:rgba(203,209,213,0.3);
+  color:rgba(255,255,255,0.3);
   display:block;
 }
 .press-card__date {
@@ -155,7 +155,7 @@ b,strong { font-weight:500; }
   font-weight:300;
   letter-spacing:0.18em;
   text-transform:uppercase;
-  color:rgba(203,209,213,0.2);
+  color:rgba(255,255,255,0.2);
 }
 .press-card h4 {
   font-size:clamp(1rem,1.4vw,1.25rem);
@@ -165,7 +165,7 @@ b,strong { font-weight:500; }
 .press-card p {
   font-size:0.82rem;
   line-height:1.8;
-  color:rgba(203,209,213,0.42);
+  color:rgba(255,255,255,0.42);
   flex:1;
 }
 .press-card__link {
@@ -173,8 +173,8 @@ b,strong { font-weight:500; }
   font-weight:400;
   letter-spacing:0.22em;
   text-transform:uppercase;
-  color:rgba(203,209,213,0.4);
-  border-bottom:1px solid rgba(203,209,213,0.12);
+  color:rgba(255,255,255,0.4);
+  border-bottom:1px solid rgba(255,255,255,0.12);
   padding-bottom:2px;
   align-self:flex-start;
   transition:color 0.3s,border-color 0.3s;
@@ -183,7 +183,7 @@ b,strong { font-weight:500; }
   gap:0.4rem;
 }
 .press-card__link::after { content:'→'; }
-.press-card:hover .press-card__link { color:var(--cr); border-color:rgba(203,209,213,0.35); }
+.press-card:hover .press-card__link { color:var(--cr); border-color:rgba(255,255,255,0.35); }
 
 /* FEATURED ROW */
 .featured-row {
@@ -239,26 +239,26 @@ b,strong { font-weight:500; }
 .video-grid {
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  border-top:1px solid rgba(203,209,213,0.08);
+  border-top:1px solid rgba(255,255,255,0.08);
 }
 .video-card {
   padding:2.5rem clamp(1.5rem,3vw,3rem);
-  border-right:1px solid rgba(203,209,213,0.08);
+  border-right:1px solid rgba(255,255,255,0.08);
   transition:background 0.4s;
 }
 .video-card:last-child { border-right:none; }
-.video-card:hover { background:rgba(203,209,213,0.02); }
+.video-card:hover { background:rgba(255,255,255,0.02); }
 .video-card__platform {
   font-size:0.58rem;
   font-weight:400;
   letter-spacing:0.26em;
   text-transform:uppercase;
-  color:rgba(203,209,213,0.25);
+  color:rgba(255,255,255,0.25);
   margin-bottom:0.8rem;
   display:block;
 }
 .video-card h4 { font-size:1rem; color:var(--cr); line-height:1.35; margin-bottom:0.8rem; }
-.video-card p { font-size:0.8rem; line-height:1.75; color:rgba(203,209,213,0.38); }
+.video-card p { font-size:0.8rem; line-height:1.75; color:rgba(255,255,255,0.38); }
 
 /* FOOTER */
 .footer__grid { display:grid; grid-template-columns:2fr 1fr 1fr 1fr 1fr; gap:4rem; padding-bottom:5rem; border-bottom:1px solid rgba(3,7,31,0.1); margin-bottom:2.5rem; }
@@ -276,7 +276,7 @@ a.footer__contact-line:hover { color:var(--dk); }
 
 @media (max-width:1100px) {
   .press-grid { grid-template-columns:1fr 1fr; }
-  .press-card:nth-child(3n) { border-right:1px solid rgba(203,209,213,0.08); }
+  .press-card:nth-child(3n) { border-right:1px solid rgba(255,255,255,0.08); }
   .press-card:nth-child(2n) { border-right:none; }
   .footer__grid { grid-template-columns:1fr 1fr; }
   .outlets-strip { flex-wrap:wrap; }
@@ -291,11 +291,11 @@ a.footer__contact-line:hover { color:var(--dk); }
   .nav__burger.active span:nth-child(2) { opacity:0; }
   .nav__burger.active span:nth-child(3) { transform:rotate(-45deg) translateY(-7px); }
   .press-grid { grid-template-columns:1fr; }
-  .press-card { border-right:none !important; border-bottom:1px solid rgba(203,209,213,0.08); }
+  .press-card { border-right:none !important; border-bottom:1px solid rgba(255,255,255,0.08); }
   .press-card:last-child { border-bottom:none; }
   .featured-row { grid-template-columns:1fr; }
   .video-grid { grid-template-columns:1fr; }
-  .video-card { border-right:none; border-bottom:1px solid rgba(203,209,213,0.08); }
+  .video-card { border-right:none; border-bottom:1px solid rgba(255,255,255,0.08); }
   .footer__grid { grid-template-columns:1fr; }
   .page-hero__layout { grid-template-columns:1fr; }
   .page-hero__icon { display:none; }
@@ -305,13 +305,13 @@ a.footer__contact-line:hover { color:var(--dk); }
 }
 
 /* ── EDITORIAL IMAGE BLOCKS ──────────────────────────────────────── */
-.ei-block { position:relative; overflow:hidden; margin:0; line-height:0; background:rgba(203,209,213,0.03); border:1px solid rgba(203,209,213,0.07); }
+.ei-block { position:relative; overflow:hidden; margin:0; line-height:0; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07); }
 .ei-block--portrait { aspect-ratio:3/4; }
 .ei-block--landscape { aspect-ratio:16/9; }
 .ei-block img { width:100%; height:100%; object-fit:cover; object-position:center; display:block; filter:none; transition:transform 0.9s cubic-bezier(0.25,0.46,0.45,0.94); }
 .ei-block:hover img { transform:scale(1.025); }
 .ei-block figcaption { position:absolute; bottom:0; left:0; right:0; padding:1rem 1.4rem; }
-.ei-block__label { font-family:var(--sans); font-size:0.52rem; font-weight:400; letter-spacing:0.26em; text-transform:uppercase; color:rgba(203,209,213,0.4); display:block; }
+.ei-block__label { font-family:var(--sans); font-size:0.52rem; font-weight:400; letter-spacing:0.26em; text-transform:uppercase; color:rgba(255,255,255,0.4); display:block; }
 .ei-block--cr { background:rgba(3,7,31,0.03); border-color:rgba(3,7,31,0.07); }
 .ei-block--cr .ei-block__label { color:rgba(3,7,31,0.35); }
 .ei-split { display:grid; gap:clamp(4rem,6vw,7rem); align-items:center; }
@@ -431,7 +431,7 @@ a.footer__contact-line:hover { color:var(--dk); }
         <span class="label" style="opacity:.35;margin-bottom:1.4rem;">Press Coverage</span>
         <h2>Media Features<br><em>&amp; Articles</em></h2>
       </div>
-      <p style="font-size:0.92rem;line-height:1.95;color:rgba(203,209,213,0.45);padding-bottom:0.4rem;" class="r d1">
+      <p style="font-size:0.92rem;line-height:1.95;color:rgba(255,255,255,0.45);padding-bottom:0.4rem;" class="r d1">
         Selected coverage from business publications, financial media, and immigration-focused outlets that have featured Ana Kamkhadze's expertise and perspective.
       </p>
     </div>
@@ -568,24 +568,24 @@ a.footer__contact-line:hover { color:var(--dk); }
   <div class="video-grid">
     <div class="video-card r">
       <span class="video-card__platform" style="margin-bottom:0.25rem;">BMG</span>
-      <span class="video-card__platform" style="color:rgba(203,209,213,0.4);margin-bottom:0.9rem;">Video Interview</span>
+      <span class="video-card__platform" style="color:rgba(255,255,255,0.4);margin-bottom:0.9rem;">Video Interview</span>
       <h4><a href="https://www.youtube.com/watch?v=Qmn8CJ3_xjU" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:none;">Ana Kamkhadze's Business in the USA</a></h4>
       <p>A video interview exploring Ana Kamkhadze's journey building a U.S. immigration law firm — her background, expertise in extraordinary ability pathways, and vision for Kamkhadze PA.</p>
-      <a href="https://www.youtube.com/watch?v=Qmn8CJ3_xjU" target="_blank" rel="noopener noreferrer" style="margin-top:0.8rem;display:inline-block;font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(203,209,213,0.45);border-bottom:1px solid rgba(203,209,213,0.15);padding-bottom:2px;">Watch Interview →</a>
+      <a href="https://www.youtube.com/watch?v=Qmn8CJ3_xjU" target="_blank" rel="noopener noreferrer" style="margin-top:0.8rem;display:inline-block;font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.45);border-bottom:1px solid rgba(255,255,255,0.15);padding-bottom:2px;">Watch Interview →</a>
     </div>
     <div class="video-card r d1">
       <span class="video-card__platform" style="margin-bottom:0.25rem;">BMG</span>
-      <span class="video-card__platform" style="color:rgba(203,209,213,0.4);margin-bottom:0.9rem;">Video Interview</span>
+      <span class="video-card__platform" style="color:rgba(255,255,255,0.4);margin-bottom:0.9rem;">Video Interview</span>
       <h4><a href="https://www.youtube.com/watch?v=eY2OOJ0qYZQ" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:none;">Video Interview · Ana Kamkhadze &amp; Kamkhadze PA</a></h4>
       <p>An in-depth video conversation with Attorney Ana Kamkhadze on U.S. immigration law, the O-1A and EB-1A pathways for exceptional talent, and the story behind founding Kamkhadze PA.</p>
-      <a href="https://www.youtube.com/watch?v=eY2OOJ0qYZQ" target="_blank" rel="noopener noreferrer" style="margin-top:0.8rem;display:inline-block;font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(203,209,213,0.45);border-bottom:1px solid rgba(203,209,213,0.15);padding-bottom:2px;">Watch Interview →</a>
+      <a href="https://www.youtube.com/watch?v=eY2OOJ0qYZQ" target="_blank" rel="noopener noreferrer" style="margin-top:0.8rem;display:inline-block;font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.45);border-bottom:1px solid rgba(255,255,255,0.15);padding-bottom:2px;">Watch Interview →</a>
     </div>
     <div class="video-card r d2">
       <span class="video-card__platform" style="margin-bottom:0.25rem;">ENTREPRENEUR</span>
-      <span class="video-card__platform" style="color:rgba(203,209,213,0.4);margin-bottom:0.9rem;">Feature Article · Georgian Edition</span>
+      <span class="video-card__platform" style="color:rgba(255,255,255,0.4);margin-bottom:0.9rem;">Feature Article · Georgian Edition</span>
       <h4><a href="https://www.entrepreneur.com/ka/business-news/amerikis-samushao/430455" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:none;">Working in America: What You Need to Know</a></h4>
       <p>A practical guide to employment-based immigration in the United States — covering work authorization, visa categories, and the legal requirements for foreign nationals pursuing careers in America.</p>
-      <a href="https://www.entrepreneur.com/ka/business-news/amerikis-samushao/430455" target="_blank" rel="noopener noreferrer" style="margin-top:0.8rem;display:inline-block;font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(203,209,213,0.45);border-bottom:1px solid rgba(203,209,213,0.15);padding-bottom:2px;">Read Article →</a>
+      <a href="https://www.entrepreneur.com/ka/business-news/amerikis-samushao/430455" target="_blank" rel="noopener noreferrer" style="margin-top:0.8rem;display:inline-block;font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.45);border-bottom:1px solid rgba(255,255,255,0.15);padding-bottom:2px;">Read Article →</a>
     </div>
   </div>
 </section>
