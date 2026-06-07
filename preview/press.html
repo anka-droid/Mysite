@@ -714,6 +714,8 @@ html, body { max-width:100%; overflow-x:hidden; }
   (function() {
     document.querySelectorAll('.dd__toggle').forEach(function(t) {
       t.addEventListener('click', function(e) {
+        var nl = document.querySelector('.nav__links');
+        if (nl && nl.classList.contains('open')) return;
         var dd = this.closest('.dd');
         var wasOpen = dd.classList.contains('open');
         document.querySelectorAll('.dd').forEach(function(d) { d.classList.remove('open'); });
