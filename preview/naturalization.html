@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="U.S. naturalization and citizenship — N-400 applications, eligibility, the civics and English tests, and the Oath of Allegiance. Kamkhadze PA, Hollywood Beach, Florida.">
+<title>Naturalization &amp; U.S. Citizenship | Kamkhadze PA</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --nhg:   'Neue Haas Grotesk Display', 'NeueHaasGroteskDisp', 'Neue Haas Grotesk', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --dk:    #03071F;
+  --cr:    #E8E9EB;
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --sans:  'Raleway', sans-serif;
+  --ease:  cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --pad-h: clamp(2rem, 6vw, 7rem);
+  --pad-v: clamp(5rem, 9vw, 9rem);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; background-image: none !important; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--sans); font-weight: 400; font-size: 15px; line-height: 1.82; background: var(--dk); color: var(--cr); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+img { display: block; max-width: 100%; }
+a { text-decoration: none; color: inherit; }
+button { font-family: var(--nhg); font-weight: 400; cursor: pointer; border: none; background: none; }
+h1, h2, h3, h4, h5, h6 { font-family: var(--serif); font-weight: 400; line-height: 1.06; letter-spacing: -0.01em; }
+h1 { font-size: clamp(3.8rem, 8vw, 8rem); }
+h2 { font-size: clamp(2.6rem, 5vw, 5rem); }
+h3 { font-size: clamp(1.6rem, 2.8vw, 2.6rem); }
+h4 { font-size: clamp(1.1rem, 1.8vw, 1.5rem); }
+em { font-style: italic; }
+b, strong { font-weight: 500; }
+.label { font-family: var(--sans); font-size: 0.62rem; font-weight: 400; letter-spacing: 0.3em; text-transform: uppercase; display: block; }
+.dk { background: var(--dk); color: var(--cr); }
+.dk h1, .dk h2, .dk h3, .dk h4, .dk em { color: var(--cr); }
+.dk .label { color: var(--cr); opacity: 0.45; }
+.dk .btn-solid { background: var(--cr); color: var(--dk); border: 1px solid var(--cr); }
+.dk .btn-solid:hover { background: transparent; color: var(--cr); }
+.dk .btn-line { background: transparent; color: var(--cr); border: 1px solid rgba(232,233,235,0.3); }
+.dk .btn-line:hover { border-color: var(--cr); }
+.cr { background: var(--cr); color: var(--dk); }
+.cr h1, .cr h2, .cr h3, .cr h4, .cr em { color: var(--dk); }
+.cr .label { color: var(--dk); opacity: 0.4; }
+.cr .btn-solid { background: var(--dk); color: var(--cr); border: 1px solid var(--dk); }
+.cr .btn-solid:hover { background: transparent; color: var(--dk); }
+.cr .btn-line { background: transparent; color: var(--dk); border: 1px solid rgba(3,7,31,0.3); }
+.cr .btn-line:hover { border-color: var(--dk); }
+.wrap { max-width: 1380px; margin: 0 auto; padding-left: var(--pad-h); padding-right: var(--pad-h); }
+.wrap--narrow { max-width: 940px; }
+.section { padding: var(--pad-v) 0; }
+.section--tall { padding: clamp(7rem, 13vw, 13rem) 0; }
+.btn { display: inline-flex; align-items: center; gap: 0.75em; font-family: var(--sans); font-size: 0.65rem; font-weight: 400; letter-spacing: 0.28em; text-transform: uppercase; padding: 1.2em 3em; transition: all 0.5s var(--ease); cursor: pointer; outline: none; white-space: nowrap; }
+.btn::after { content: '→'; transition: transform 0.35s ease; }
+.btn:hover::after { transform: translateX(6px); }
+.r { opacity: 0; transform: translateY(30px); transition: opacity 0.85s var(--ease), transform 0.85s var(--ease); }
+.r.on { opacity: 1; transform: translateY(0); }
+.d1 { transition-delay: 0.1s; } .d2 { transition-delay: 0.22s; } .d3 { transition-delay: 0.34s; } .d4 { transition-delay: 0.48s; }
+
+/* NAV */
+.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 500; background: var(--dk); border-bottom: 1px solid rgba(232,233,235,0.08); transition: border-color 0.4s; }
+.nav.lit { border-color: rgba(232,233,235,0.18); }
+.nav__row { display: flex; align-items: center; justify-content: space-between; height: 80px; padding: 0 var(--pad-h) 0 clamp(1.5rem, 3.5vw, 4rem); max-width: 1560px; margin: 0 auto; }
+.nav__logo { display: flex; flex-direction: row; align-items: center; gap: 0.75rem; }
+.nav__logo-text { display: flex; flex-direction: column; gap: 3px; }
+.nav__logo-name { font-family: var(--serif); font-size: 1.48rem; font-weight: 400; letter-spacing: 0.06em; color: var(--cr); line-height: 1; }
+.nav__logo-sub { font-family: var(--sans); font-size: 0.55rem; font-weight: 400; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(232,233,235,0.4); line-height: 1; }
+.nav__links { display: flex; align-items: center; gap: clamp(1rem, 2.2vw, 2.2rem); list-style: none; }
+.nav__links > li > a, .nav__links > li > span { font-family: var(--sans); font-size: 0.65rem; font-weight: 400; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(232,233,235,0.65); transition: color 0.3s; cursor: pointer; position: relative; white-space: nowrap; }
+.nav__links > li > a::after, .nav__links > li > span::after { content: ''; position: absolute; left: 0; bottom: -3px; width: 0; height: 1px; background: var(--cr); transition: width 0.4s var(--ease); }
+.nav__links > li > a:hover, .nav__links > li > span:hover { color: var(--cr); }
+.nav__links > li > a:hover::after, .nav__links > li > span:hover::after { width: 100%; }
+.dd { position: relative; }
+.dd::after { content: ''; position: absolute; left: 0; right: 0; bottom: -1.4rem; height: 1.4rem; }
+.dd__toggle { display: flex; align-items: center; gap: 0.4em; }
+.dd__caret { font-size: 0.5rem; opacity: 0.4; transition: transform 0.3s; }
+.dd:hover .dd__caret { transform: rotate(180deg); opacity: 0.8; }
+.dd__panel { position: absolute; top: calc(100% + 1.4rem); left: 50%; transform: translateX(-50%) translateY(-6px); background: var(--dk); border: 1px solid rgba(232,233,235,0.1); min-width: 280px; padding: 0.5rem 0; opacity: 0; visibility: hidden; transition: opacity 0.3s, transform 0.3s; box-shadow: 0 20px 60px rgba(0,0,0,0.08); }
+.dd:hover .dd__panel, .dd.open .dd__panel { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
+.dd__panel a { display: block; padding: 0.75rem 1.8rem; font-size: 0.65rem; font-weight: 400; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(232,233,235,0.55); transition: color 0.25s, background 0.25s; }
+.dd__panel a:hover { color: var(--cr); background: rgba(232,233,235,0.04); }
+.nav__cta { font-size: 0.62rem !important; font-weight: 400 !important; letter-spacing: 0.24em !important; padding: 0.9em 2.2em; border: 1px solid rgba(232,233,235,0.3); color: var(--cr) !important; transition: border-color 0.4s, background 0.4s; }
+.nav__cta::after { display: none !important; }
+.nav__cta:hover { border-color: var(--cr) !important; background: rgba(232,233,235,0.06) !important; }
+.nav__burger { display: none; flex-direction: column; gap: 6px; cursor: pointer; padding: 6px; }
+.nav__burger span { display: block; width: 28px; height: 1px; background: var(--cr); transition: transform 0.3s, opacity 0.3s; }
+
+/* PAGE HERO */
+.page-hero { padding-top: calc(80px + clamp(5rem, 10vw, 9rem)); padding-bottom: clamp(5rem, 9vw, 9rem); padding-left: var(--pad-h); padding-right: var(--pad-h); }
+.page-hero h1 { max-width: 14ch; margin-bottom: 2rem; }
+/* Family starts cream — text is dark chocolate */
+.page-hero__sub { font-size: clamp(0.95rem, 1.3vw, 1.1rem); color: rgba(3,7,31,0.52); max-width: 560px; line-height: 1.95; }
+/* Page-hero grid — icon right column */
+.page-hero__layout { display: grid; grid-template-columns: 1fr auto; gap: clamp(3rem, 6vw, 8rem); align-items: center; }
+.page-hero__icon { line-height: 0; flex-shrink: 0; opacity: 0.1; color: currentColor; }
+.page-hero__icon svg { width: clamp(180px, 22vw, 300px); height: auto; display: block; }
+/* Cream-on-cream: force icon to cream on cream backgrounds */
+.cr .page-hero__icon { color: var(--cr); opacity: 0.14; }
+
+/* Inline photo in hero right column */
+.page-hero__photo { line-height: 0; flex-shrink: 0; }
+.page-hero__photo img { width: clamp(180px, 22vw, 300px); height: auto; display: block; object-fit: cover; object-position: center top; border-radius: 4px; opacity: 1; filter:none; }
+
+/* PRACTICE SECTION */
+.pa-section { padding: var(--pad-v) 0; scroll-margin-top: 80px; }
+
+.pa-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(4rem, 7vw, 9rem);
+  align-items: start;
+}
+
+.pa-body .label { margin-bottom: 1.4rem; }
+.pa-body h2 { margin-bottom: 0.8rem; }
+.pa-body .pa-sub {
+  font-family: var(--serif);
+  font-style: italic;
+  margin-bottom: 2.5rem;
+}
+.dk .pa-body .pa-sub { font-size: clamp(1rem, 1.4vw, 1.2rem); color: rgba(232,233,235,0.45); }
+.cr .pa-body .pa-sub { font-size: clamp(1rem, 1.4vw, 1.2rem); color: rgba(3,7,31,0.45); }
+.pa-body p { font-size: 0.9rem; line-height: 2; margin-bottom: 1.2rem; }
+.dk .pa-body p { color: rgba(232,233,235,0.52); }
+.cr .pa-body p { color: rgba(3,7,31,0.55); }
+
+.pa-link {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  font-size: 0.62rem; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase;
+  padding-bottom: 3px; margin-top: 2rem; transition: gap 0.3s;
+}
+.dk .pa-link { color: rgba(232,233,235,0.5); border-bottom: 1px solid rgba(232,233,235,0.18); }
+.cr .pa-link { color: rgba(3,7,31,0.5); border-bottom: 1px solid rgba(3,7,31,0.18); }
+.pa-link::after { content: '→'; }
+.pa-link:hover { gap: 0.9rem; }
+.dk .pa-link:hover { color: var(--cr); border-color: rgba(232,233,235,0.4); }
+.cr .pa-link:hover { color: var(--dk); border-color: rgba(3,7,31,0.4); }
+
+/* Fact list */
+.pa-meta { display: flex; flex-direction: column; gap: 2rem; padding-top: 0.5rem; }
+.pa-tag { display: inline-block; font-size: 0.58rem; font-weight: 400; letter-spacing: 0.26em; text-transform: uppercase; padding: 0.5em 1.2em; align-self: flex-start; }
+.dk .pa-tag { border: 1px solid rgba(232,233,235,0.2); color: rgba(232,233,235,0.5); }
+.cr .pa-tag { border: 1px solid rgba(3,7,31,0.2); color: rgba(3,7,31,0.5); }
+.pa-facts { list-style: none; }
+.pa-facts li { display: flex; align-items: baseline; gap: 1rem; padding: 0.9rem 0; }
+.dk .pa-facts li { border-bottom: 1px solid rgba(232,233,235,0.07); }
+.cr .pa-facts li { border-bottom: 1px solid rgba(3,7,31,0.08); }
+.pa-facts li:last-child { border-bottom: none; }
+.pa-fact-label { font-size: 0.58rem; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; flex-shrink: 0; min-width: 8rem; }
+.dk .pa-fact-label { color: rgba(232,233,235,0.32); }
+.cr .pa-fact-label { color: rgba(3,7,31,0.35); }
+.pa-fact-val { font-size: 0.88rem; }
+.dk .pa-fact-val { color: rgba(232,233,235,0.65); }
+.cr .pa-fact-val { color: rgba(3,7,31,0.65); }
+
+/* Process timeline */
+.process-steps { margin-top: 2.5rem; }
+.process-step { display: flex; gap: 1.5rem; padding: 1.2rem 0; }
+.dk .process-step { border-bottom: 1px solid rgba(232,233,235,0.07); }
+.cr .process-step { border-bottom: 1px solid rgba(3,7,31,0.08); }
+.process-step:last-child { border-bottom: none; }
+.process-step__num { font-family: var(--serif); font-size: 1.4rem; flex-shrink: 0; line-height: 1.3; min-width: 2rem; }
+.dk .process-step__num { color: rgba(232,233,235,0.18); }
+.cr .process-step__num { color: rgba(3,7,31,0.15); }
+.process-step__text { font-size: 0.88rem; line-height: 1.75; }
+.dk .process-step__text { color: rgba(232,233,235,0.52); }
+.cr .process-step__text { color: rgba(3,7,31,0.55); }
+.process-step__title { font-size: 0.7rem; font-weight: 400; letter-spacing: 0.16em; text-transform: uppercase; margin-bottom: 0.3rem; display: block; }
+.dk .process-step__title { color: rgba(232,233,235,0.5); }
+.cr .process-step__title { color: rgba(3,7,31,0.5); }
+
+/* FOOTER */
+.footer__grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr; gap: 4rem; padding-bottom: 5rem; border-bottom: 1px solid rgba(3,7,31,0.1); margin-bottom: 2.5rem; }
+.footer__brand-name { font-family: var(--serif); font-size: 1.6rem; color: var(--dk); letter-spacing: 0.05em; display: block; margin-bottom: 0.4rem; }
+.footer__brand-sub { font-size: 0.54rem; font-weight: 400; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(3,7,31,0.35); display: block; margin-bottom: 2rem; }
+.footer__desc { font-size: 0.82rem; line-height: 1.85; color: rgba(3,7,31,0.42); max-width: 290px; }
+.footer__col-title { font-size: 0.58rem; font-weight: 400; letter-spacing: 0.28em; text-transform: uppercase; color: rgba(3,7,31,0.35); display: block; margin-bottom: 1.8rem; }
+.footer__links { list-style: none; display: flex; flex-direction: column; gap: 0.85rem; }
+.footer__links a { font-size: 0.8rem; font-weight: 400; color: rgba(3,7,31,0.5); letter-spacing: 0.04em; transition: color 0.3s; }
+.footer__links a:hover { color: var(--dk); }
+.footer__contact-line { font-size: 0.8rem; font-weight: 400; color: rgba(3,7,31,0.5); margin-bottom: 0.85rem; display: block; }
+a.footer__contact-line:hover { color: var(--dk); }
+.footer__bottom { display: flex; justify-content: space-between; gap: 2rem; flex-wrap: wrap; }
+.footer__copy { font-size: 0.68rem; font-weight: 400; line-height: 1.75; color: rgba(3,7,31,0.3); max-width: 720px; }
+
+@media (max-width: 1100px) { .footer__grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 900px) {
+  .nav__links { display: none; }
+  .nav__links.open { display: flex; flex-direction: column; position: fixed; top: 80px; left: 0; right: 0; background: var(--cr); padding: 2rem var(--pad-h) 3rem; border-top: 1px solid rgba(3,7,31,0.1); gap: 1.5rem; z-index: 499; align-items: flex-start; }
+  .nav__links.open .dd__panel { position: static; transform: none; opacity: 1; visibility: visible; border: none; box-shadow: none; padding: 0.5rem 0 0 1rem; min-width: unset; }
+  .nav__burger { display: flex; }
+  .nav__burger.active span:nth-child(1) { transform: rotate(45deg) translateY(7px); }
+  .nav__burger.active span:nth-child(2) { opacity: 0; }
+  .nav__burger.active span:nth-child(3) { transform: rotate(-45deg) translateY(-7px); }
+  .page-hero__layout { grid-template-columns: 1fr; }
+  .page-hero__icon { display: none; }
+  .page-hero__photo { display: none; }
+  .pa-grid { grid-template-columns: 1fr; }
+  .footer__grid { grid-template-columns: 1fr; }
+  h1 { font-size: clamp(2.8rem, 10vw, 4.5rem); }
+  h2 { font-size: clamp(2rem, 7vw, 3rem); }
+}
+
+/* ── EDITORIAL IMAGE BLOCKS ──────────────────────────────────────── */
+.ei-block { position:relative; overflow:hidden; margin:0; line-height:0; background:rgba(232,233,235,0.03); border:1px solid rgba(232,233,235,0.07); }
+.ei-block--portrait { aspect-ratio:3/4; }
+.ei-block--landscape { aspect-ratio:16/9; }
+.ei-block img { width:100%; height:100%; object-fit:cover; object-position:center; display:block; filter:none; transition:transform 0.9s cubic-bezier(0.25,0.46,0.45,0.94); }
+.ei-block:hover img { transform:scale(1.025); }
+.ei-block figcaption { position:absolute; bottom:0; left:0; right:0; padding:1rem 1.4rem; }
+.ei-block__label { font-family:var(--sans); font-size:0.52rem; font-weight:400; letter-spacing:0.26em; text-transform:uppercase; color:rgba(232,233,235,0.4); display:block; }
+.ei-block--cr { background:rgba(3,7,31,0.03); border-color:rgba(3,7,31,0.07); }
+.ei-block--cr .ei-block__label { color:rgba(3,7,31,0.35); }
+.ei-split { display:grid; gap:clamp(4rem,6vw,7rem); align-items:center; }
+.ei-split--right { grid-template-columns:1fr 0.6fr; }
+.ei-split--left  { grid-template-columns:0.6fr 1fr; }
+@media (max-width:900px) {
+  .ei-split { grid-template-columns:1fr; }
+  .ei-split--left .ei-block { order:-1; }
+}
+.ei-cinematic { width:100%; height:clamp(70px,9vw,140px); overflow:hidden; line-height:0; display:block; }
+.ei-cinematic img { width:100%; height:100%; object-fit:cover; object-position:center 35%; display:block; filter:none; transition:transform 1.5s cubic-bezier(0.25,0.46,0.45,0.94); }
+.ei-cinematic:hover img { transform:scale(1.03); }
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav class="nav" id="main-nav">
+  <div class="nav__row">
+    <a href="index.html" class="nav__logo">
+      <svg width="32" height="32" viewBox="0 0 38 38" fill="none" aria-hidden="true" class="nav__logo-mark">
+        <rect x="1.5" y="1.5" width="35" height="35" fill="white" stroke="#9CA3A8" stroke-width="2.5"/>
+        <path d="M28 8 L10 19 L28 30 L23 30 L15 19 L23 8 Z" fill="#C0C6CA"/>
+      </svg>
+      <div class="nav__logo-text">
+        <span class="nav__logo-name">Kamkhadze PA</span>
+        <span class="nav__logo-sub">U.S. Immigration Law Firm</span>
+      </div>
+    </a>
+    <ul class="nav__links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li class="dd">
+        <a href="employment.html" class="dd__toggle">Employment-Based <span class="dd__caret">▾</span></a>
+        <div class="dd__panel">
+          <a href="employment.html#o1a">O-1A Extraordinary Ability</a>
+          <a href="employment.html#o1b">O-1B Arts &amp; Entertainment</a>
+          <a href="employment.html#eb1a">EB-1A Green Card</a>
+          <a href="employment.html#eb1b">EB-1B Outstanding Researchers</a>
+          <a href="employment.html#eb1c">EB-1C Multinational Managers</a>
+          <a href="employment.html#eb2niw">EB-2 National Interest Waiver</a>
+          <a href="employment.html#h1b">H-1B Specialty Occupation</a>
+          <a href="employment.html#l1">L-1 Intracompany Transfer</a>
+          <a href="employment.html#e2">E-2 Treaty Investor</a>
+          <a href="employment.html#tn">TN Professional</a>
+        </div>
+      </li>
+      <li class="dd">
+        <a href="family.html" class="dd__toggle">Family-Based <span class="dd__caret">▾</span></a>
+        <div class="dd__panel">
+          <a href="family.html#marriage">Marriage-Based Green Card</a>
+          <a href="family.html#other">Other Family Petitions</a>
+        </div>
+      </li>
+      <li><a href="naturalization.html" class="active">Naturalization</a></li>
+      <li><a href="blog.html">Insights</a></li>
+      <li><a href="press.html">Press</a></li>
+      <li><a href="contact.html" class="nav__cta">Schedule Consultation</a></li>
+    </ul>
+    <div class="nav__burger" id="burger" role="button" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+
+<!-- BLOCK 1 — PAGE HERO [CREAM] -->
+<section class="page-hero cr">
+  <div class="wrap">
+    <div class="page-hero__layout">
+      <div class="page-hero__text">
+        <span class="label r" style="opacity:.35;margin-bottom:1.6rem;">Practice Areas</span>
+        <h1 class="r d1">Naturalization<br><em>&amp; Citizenship</em></h1>
+        <p class="page-hero__sub r d2">
+          Becoming a United States citizen is the final step of an immigration journey — and one of the most consequential. Kamkhadze PA guides lawful permanent residents through every stage of naturalization, from the N-400 application through the civics interview and the Oath of Allegiance.
+        </p>
+      </div>
+      <!-- Oath on the Bible — swearing in / legal milestone -->
+      <div class="page-hero__photo">
+        <img
+          src="nat-img1.webp"
+          alt="A person raising their right hand and placing the other on a Bible to take the oath in a wood-paneled courtroom — U.S. naturalization and citizenship"
+          loading="eager"
+        >
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ NATURALIZATION (N-400) ══════════════════════════════════════ -->
+<section id="naturalization" class="pa-section dk">
+  <div class="wrap">
+    <div class="pa-grid">
+      <div class="pa-body">
+        <span class="label r" style="opacity:.35;margin-bottom:1.4rem;">Citizenship · Form N-400</span>
+        <h2 class="r d1">Path to U.S.<br><em>Citizenship</em></h2>
+        <p class="pa-sub r d2">Naturalization for Lawful Permanent Residents</p>
+        <p class="r d2">
+          Naturalization is the process by which a lawful permanent resident (green card holder) becomes a citizen of the United States. It is the culmination of years of building a life in this country — and it confers the full rights of citizenship: the right to vote, to hold a U.S. passport, to petition for family members, and to remain in the United States permanently and unconditionally.
+        </p>
+        <p class="r d3">
+          The application is filed on Form N-400, Application for Naturalization. Most applicants qualify after five years of permanent residence (three years for spouses of U.S. citizens). Kamkhadze PA reviews each client's eligibility with precision before filing — confirming continuous residence, physical presence, and good moral character — so that the application is approved on the first submission.
+        </p>
+        <p class="r d3">
+          The firm prepares applicants thoroughly for the naturalization interview and the English and civics tests, and represents clients in matters where prior immigration history, travel records, or moral-character questions require careful legal handling before filing.
+        </p>
+        <a href="contact.html" class="pa-link r d4">Discuss Your Naturalization</a>
+      </div>
+      <div class="pa-meta r d1">
+        <span class="pa-tag">Citizenship · Form N-400</span>
+        <ul class="pa-facts">
+          <li><span class="pa-fact-label">Eligibility</span><span class="pa-fact-val">5 years as an LPR · 3 years if married to and living with a U.S. citizen</span></li>
+          <li><span class="pa-fact-label">Age</span><span class="pa-fact-val">At least 18 years old at the time of filing</span></li>
+          <li><span class="pa-fact-label">Residence</span><span class="pa-fact-val">Continuous residence and physical presence in the U.S.</span></li>
+          <li><span class="pa-fact-label">Character</span><span class="pa-fact-val">Good moral character during the statutory period</span></li>
+          <li><span class="pa-fact-label">Tests</span><span class="pa-fact-val">English (reading, writing, speaking) and U.S. civics</span></li>
+          <li><span class="pa-fact-label">Final Step</span><span class="pa-fact-val">Oath of Allegiance at a naturalization ceremony</span></li>
+        </ul>
+
+        <div>
+          <span class="label" style="opacity:.32;margin-bottom:1rem;">Process Overview</span>
+          <div class="process-steps">
+            <div class="process-step">
+              <span class="process-step__num">01</span>
+              <div class="process-step__text">
+                <span class="process-step__title">Eligibility Review</span>
+                Kamkhadze PA confirms the residency period, physical presence, and good moral character requirements are met before any filing is made.
+              </div>
+            </div>
+            <div class="process-step">
+              <span class="process-step__num">02</span>
+              <div class="process-step__text">
+                <span class="process-step__title">N-400 Filing &amp; Biometrics</span>
+                File the Application for Naturalization with supporting evidence, then attend the USCIS biometrics appointment for fingerprints and background checks.
+              </div>
+            </div>
+            <div class="process-step">
+              <span class="process-step__num">03</span>
+              <div class="process-step__text">
+                <span class="process-step__title">Interview &amp; Tests</span>
+                Attend the naturalization interview and complete the English and civics tests. The firm prepares every client thoroughly for this stage.
+              </div>
+            </div>
+            <div class="process-step">
+              <span class="process-step__num">04</span>
+              <div class="process-step__text">
+                <span class="process-step__title">Oath of Allegiance</span>
+                Upon approval, take the Oath of Allegiance at a naturalization ceremony and receive the Certificate of Naturalization — becoming a U.S. citizen.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- ══ ELIGIBILITY & REQUIREMENTS ══════════════════════════════════ -->
+<section id="requirements" class="pa-section cr" style="padding-bottom:0;">
+  <div class="wrap">
+    <div class="pa-grid">
+      <div class="pa-body">
+        <span class="label r" style="opacity:.35;margin-bottom:1.4rem;">Citizenship · Requirements</span>
+        <h2 class="r d1">Eligibility &amp;<br><em>Requirements</em></h2>
+        <p class="pa-sub r d2">What the Law Requires of Every Applicant</p>
+        <p class="r d2">
+          Naturalization carries strict statutory requirements, and a single overlooked detail — an extended trip abroad, an unreported tax issue, an old arrest — can delay or derail an otherwise straightforward application. Kamkhadze PA examines each requirement closely before filing, so that nothing surfaces unexpectedly at the interview.
+        </p>
+        <p class="r d3">
+          The continuous residence requirement asks that the applicant has resided in the United States as a permanent resident for the statutory period without breaking that residence through lengthy absences. The physical presence requirement asks that the applicant has actually been present in the country for at least half of that period. Both are documented carefully from travel records.
+        </p>
+        <p class="r d3">
+          Good moral character is assessed across the statutory period and up to the day of the oath. The English and civics tests are administered at the interview — and the firm provides every applicant with the preparation needed to pass with confidence.
+        </p>
+        <a href="contact.html" class="pa-link r d4">Begin Your Citizenship Journey</a>
+      </div>
+      <div class="pa-meta r d1">
+        <span class="pa-tag">Requirements · INA §316</span>
+        <ul class="pa-facts">
+          <li><span class="pa-fact-label">Continuous Residence</span><span class="pa-fact-val">5 years (or 3 years for spouses of U.S. citizens) as an LPR</span></li>
+          <li><span class="pa-fact-label">Physical Presence</span><span class="pa-fact-val">At least half of the statutory period physically in the U.S.</span></li>
+          <li><span class="pa-fact-label">State Residence</span><span class="pa-fact-val">At least 3 months in the state or USCIS district of filing</span></li>
+          <li><span class="pa-fact-label">Moral Character</span><span class="pa-fact-val">Good moral character throughout the statutory period</span></li>
+          <li><span class="pa-fact-label">English Test</span><span class="pa-fact-val">Reading, writing, and speaking (limited age/residency exemptions)</span></li>
+          <li><span class="pa-fact-label">Civics Test</span><span class="pa-fact-val">Knowledge of U.S. history and government</span></li>
+        </ul>
+
+        <div>
+          <span class="label" style="opacity:.32;margin-bottom:0.8rem;">Key Considerations</span>
+          <p style="font-size:0.82rem;line-height:1.8;color:rgba(3,7,31,0.48);margin-top:0.5rem;">
+            Extended absences from the United States, unresolved tax obligations, and prior criminal or immigration history can each affect eligibility. An honest, thorough review before filing is the difference between a smooth approval and a costly denial. Kamkhadze PA provides that review as a starting point.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ei-cinematic" aria-hidden="true" style="margin-top:clamp(3rem,5vw,5rem);">
+    <img src="nat-img2.webp" alt="Hundreds of new citizens raising their right hands to take the Oath of Allegiance beneath U.S. flags at a naturalization ceremony" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
+  </div>
+</section>
+
+
+
+<!-- CTA [DARK] -->
+<section class="section--tall dk" style="text-align:center;">
+  <div class="wrap wrap--narrow">
+    <span class="label r" style="opacity:.35;margin-bottom:1.8rem;display:block;">Begin Your Journey</span>
+    <h2 class="r d1">
+      Ready to become a<br>
+      <em>United States citizen?</em>
+    </h2>
+    <br><br>
+    <a href="contact.html" class="btn btn-solid dk r d2">Schedule a Consultation</a>
+  </div>
+</section>
+
+<!-- FOOTER [CREAM] -->
+<footer class="footer section cr">
+  <div class="wrap">
+    <div class="footer__grid">
+      <div>
+        <span class="footer__brand-name">Kamkhadze PA</span>
+        <span class="footer__brand-sub">U.S. Immigration Law Firm</span>
+        <p class="footer__desc">Elite immigration representation for extraordinary individuals — entrepreneurs, scientists, executives, artists, investors — nationwide and internationally.</p>
+      </div>
+      <div>
+        <span class="footer__col-title">Employment-Based</span>
+        <ul class="footer__links">
+          <li><a href="employment.html#eb1a">EB-1A Green Card</a></li>
+          <li><a href="employment.html#eb1b">EB-1B Researchers</a></li>
+          <li><a href="employment.html#eb1c">EB-1C Executives</a></li>
+          <li><a href="employment.html#eb2niw">EB-2 NIW</a></li>
+          <li><a href="employment.html#e2">E-2</a> / <a href="employment.html#o1a">O-1</a> / <a href="employment.html#o1b">O-2</a> / <a href="employment.html#tn">TN</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="footer__col-title">Family-Based</span>
+        <ul class="footer__links">
+          <li><a href="family.html#marriage">Marriage-Based Green Card</a></li>
+          <li><a href="naturalization.html">Naturalization &amp; Citizenship</a></li>
+          <li><a href="family.html#other">Other Family Petitions</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="footer__col-title">Firm</span>
+        <ul class="footer__links">
+          <li><a href="about.html">About Ana Kamkhadze</a></li>
+          <li><a href="blog.html">Insights &amp; Analysis</a></li>
+          <li><a href="press.html">In the Spotlight</a></li>
+          <li><a href="contact.html">Contact &amp; Location</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="footer__col-title">Contact</span>
+        <a href="mailto:anka@esq.mba" class="footer__contact-line">anka@esq.mba</a>
+        <a href="tel:+17865909400"    class="footer__contact-line">+1 (786) 590-9400</a>
+        <span class="footer__contact-line">Hollywood Beach, FL</span>
+        <span class="footer__contact-line">Consultations Worldwide</span>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p class="footer__copy">
+        © 2026 Kamkhadze PA. All rights reserved. Hollywood Beach, Florida · Serving Clients Nationwide &amp; Internationally<br>
+        Attorney Advertising. This website is for informational purposes only and does not constitute legal advice. Prior results do not guarantee a similar outcome. Kamkhadze PA is licensed to practice in New York. Immigration law is federal law; the firm represents clients in immigration matters in all U.S. states and abroad.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); } });
+  }, { threshold: 0.07, rootMargin: '0px 0px -30px 0px' });
+  document.querySelectorAll('.r').forEach(el => io.observe(el));
+
+  const nav = document.getElementById('main-nav');
+  window.addEventListener('scroll', () => { nav.classList.toggle('lit', window.scrollY > 40); }, { passive: true });
+
+  const burger = document.getElementById('burger');
+  const navLinks = document.querySelector('.nav__links');
+  if (burger && navLinks) {
+    burger.addEventListener('click', () => { navLinks.classList.toggle('open'); burger.classList.toggle('active'); });
+  }
+
+  // Click / touch dropdown support
+  (function() {
+    document.querySelectorAll('.dd__toggle').forEach(function(t) {
+      t.addEventListener('click', function(e) {
+        var dd = this.closest('.dd');
+        var wasOpen = dd.classList.contains('open');
+        document.querySelectorAll('.dd').forEach(function(d) { d.classList.remove('open'); });
+        if (!wasOpen) { dd.classList.add('open'); e.preventDefault(); }
+      });
+    });
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.dd')) {
+        document.querySelectorAll('.dd').forEach(function(d) { d.classList.remove('open'); });
+      }
+    });
+  })();
+</script>
+<script>
+(function(){
+  function hide(img){
+    var f = img.closest('figure,.ei-block,.ei-cinematic,.page-hero__photo,.page-hero__icon');
+    if(f){ f.style.display='none'; } else { img.style.display='none'; }
+  }
+  document.querySelectorAll('img').forEach(function(img){
+    if(img.complete && img.naturalWidth===0 && img.getAttribute('src')){ hide(img); }
+    img.addEventListener('error', function(){ hide(img); });
+  });
+})();
+</script>
+</body>
+</html>
