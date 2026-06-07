@@ -330,6 +330,12 @@ a.footer__contact-line:hover { color: var(--dk); }
   .ei-split { grid-template-columns:1fr; }
   .ei-split--left .ei-block { order:-1; }
 }
+
+/* Consultation Process intro — 2-col on desktop, stacked on mobile */
+.process-intro-grid { display:grid; grid-template-columns:1fr 1fr; gap:5rem; }
+@media (max-width:900px) {
+  .process-intro-grid { grid-template-columns:1fr; gap:2rem; }
+}
 </style>
 </head>
 <body>
@@ -562,7 +568,7 @@ a.footer__contact-line:hover { color: var(--dk); }
 <!-- BLOCK 3 — PROCESS [DARK] -->
 <section class="section dk">
   <div class="wrap" style="margin-bottom:4rem;">
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:end;margin-bottom:0;" class="r">
+    <div class="process-intro-grid r" style="align-items:end;margin-bottom:0;">
       <div>
         <span class="label" style="opacity:.35;margin-bottom:1.4rem;">How It Works</span>
         <h2>The Consultation<br><em>Process</em></h2>
