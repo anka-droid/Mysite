@@ -1157,11 +1157,12 @@ a.footer__contact-line:hover { color: var(--dk); }
     order: 1;
     height: auto;
   }
-  .hero__photo-col picture, .hero__photo-col img {
+  .hero__photo-col img {
     position: static;
     width: 100%;
     height: auto;
-    object-fit: fill;
+    object-fit: cover;
+    object-position: center top;
     filter: brightness(0.9) saturate(0.9);
   }
   .hero__eyebrow { margin-bottom: 1rem; }
@@ -1307,17 +1308,14 @@ a.footer__contact-line:hover { color: var(--dk); }
       </div>
     </div>
 
-    <!-- RIGHT: portrait photo — desktop only -->
+    <!-- RIGHT: portrait photo -->
     <div class="hero__photo-col">
-      <picture>
-        <source media="(max-width: 900px)" srcset="new-home-hero-mobile2.webp">
-        <img
-          src="ana-blue-standing.jpg"
-          alt="Ana Kamkhadze, Esq. MBA — immigration attorney in blue blazer"
-          class="hero__portrait"
-          loading="eager"
-        >
-      </picture>
+      <img
+        src="ana-blue-standing.jpg"
+        alt="Ana Kamkhadze, Esq. MBA — immigration attorney in blue blazer"
+        class="hero__portrait"
+        loading="eager"
+      >
     </div>
 
   </div>
