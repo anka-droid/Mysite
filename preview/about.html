@@ -507,20 +507,16 @@ b, strong { font-weight: 500; }
 .page-hero__photo {
   line-height: 0;
   flex-shrink: 0;
-  position: relative;
-  z-index: 10;
   overflow: visible;
 }
 .page-hero__photo img {
   width: clamp(340px, 46vw, 680px);
   height: auto;
-  display: inline-block !important;
+  display: block;
   object-fit: cover;
   object-position: center top;
-  filter: none;
-  opacity: 1;
-  position: relative;
-  z-index: 10;
+  mix-blend-mode: multiply;
+  filter: contrast(1.04) brightness(0.98);
 }
 
 /* ════════════════════════════════════════════════════════════════
@@ -601,7 +597,7 @@ a.footer__contact-line:hover { color: var(--dk); }
   .page-hero__layout { grid-template-columns: 1fr; }
   .page-hero__icon { display: none; }
   .page-hero__photo { display: block; margin-top: 2.5rem; }
-  .page-hero__photo img { width: clamp(260px, 80vw, 500px) !important; }
+  .page-hero__photo img { width: clamp(260px, 80vw, 500px); }
   .bio__copy { columns: 1; column-rule: none; }
   .creds__header { grid-template-columns: 1fr; gap: 2rem; }
   .creds__grid { grid-template-columns: 1fr; }
@@ -718,8 +714,8 @@ a.footer__contact-line:hover { color: var(--dk); }
       <!-- Attorney portrait — inline next to title -->
       <div class="page-hero__photo r-right d2">
         <img
-          src="ana-white-closeup.jpg"
-          alt="Ana Kamkhadze, Esq. MBA — close-up portrait in white"
+          src="ana-tan.webp"
+          alt="Ana Kamkhadze, Esq. MBA — professional portrait"
           loading="eager"
         >
       </div>
