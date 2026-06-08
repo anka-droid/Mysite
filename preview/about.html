@@ -298,10 +298,11 @@ b, strong { font-weight: 500; }
 .page-hero h1 { max-width: none; font-size: clamp(2rem, 3.8vw, 3.8rem); white-space: nowrap; margin-bottom: 2rem; }
 .page-hero__sub {
   font-size: clamp(0.95rem, 1.3vw, 1.1rem);
-  color: rgba(3,7,31,0.52);
   max-width: 560px;
   line-height: 1.95;
 }
+.cr .page-hero__sub { color: rgba(3,7,31,0.52); }
+.dk .page-hero__sub { color: rgba(203,209,213,0.55); }
 
 /* ════════════════════════════════════════════════════════════════
    BIO SECTION  [CREAM] — Editorial double-column magazine layout
@@ -515,8 +516,7 @@ b, strong { font-weight: 500; }
   display: block;
   object-fit: cover;
   object-position: center top;
-  mix-blend-mode: multiply;
-  filter: contrast(1.04) brightness(0.98);
+  filter: brightness(0.96) saturate(0.9);
 }
 
 /* ════════════════════════════════════════════════════════════════
@@ -701,7 +701,7 @@ a.footer__contact-line:hover { color: var(--dk); }
 <!-- ════════════════════════════════════════════════════════════
      BLOCK 1 — PAGE HERO  [DARK]
 ════════════════════════════════════════════════════════════ -->
-<section class="page-hero cr">
+<section class="page-hero dk">
   <div class="wrap">
     <div class="page-hero__layout">
       <div class="page-hero__text">
@@ -714,8 +714,8 @@ a.footer__contact-line:hover { color: var(--dk); }
       <!-- Attorney portrait — inline next to title -->
       <div class="page-hero__photo r-right d2">
         <img
-          src="ana-tan.webp"
-          alt="Ana Kamkhadze, Esq. MBA — professional portrait"
+          src="ana-blue-stool.jpg"
+          alt="Ana Kamkhadze, Esq. MBA — professional portrait in blue blazer"
           loading="eager"
         >
       </div>
