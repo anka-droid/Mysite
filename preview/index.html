@@ -250,12 +250,13 @@ hr.thin {
 }
 .nav__logo-sub {
   font-family: var(--sans);
-  font-size: 0.55rem;
+  font-size: 0.52rem;
   font-weight: 400;
-  letter-spacing: 0.3em;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
   color: rgba(203,209,213,0.4);
   line-height: 1;
+  white-space: nowrap;
 }
 
 .nav__links {
@@ -401,15 +402,15 @@ hr.thin {
 }
 .hero__photo-col {
   position: relative;
-  overflow: hidden;
+  overflow: visible;
 }
 .hero__portrait {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: center top;
+  object-fit: contain;
+  object-position: center bottom;
   display: block;
-  filter: brightness(0.95) contrast(1.03);
+  filter: brightness(0.97) contrast(1.02);
 }
 .hero__eyebrow {
   display: flex;
@@ -438,7 +439,7 @@ hr.thin {
   gap: 1rem;
   flex-wrap: wrap;
 }
-.hero__btns .btn { min-width: 15rem; justify-content: center; }
+.hero__btns .btn { min-width: 0; justify-content: center; }
 .hero__btns .btn-solid {
   background: #ffffff;
   color: var(--dk);
@@ -1311,7 +1312,7 @@ a.footer__contact-line:hover { color: var(--dk); }
     <!-- RIGHT: portrait photo -->
     <div class="hero__photo-col">
       <img
-        src="ana-white-closeup.jpg"
+        src="ana-white-nobg.webp"
         alt="Ana Kamkhadze, Esq. MBA — immigration attorney"
         class="hero__portrait"
         loading="eager"
