@@ -55,13 +55,13 @@ b,strong { font-weight:500; }
 /* NAV */
 .nav { position:fixed; top:0; left:0; right:0; z-index:500; background:var(--dk); border-bottom:1px solid rgba(203,209,213,0.08); transition:border-color 0.4s; }
 .nav.lit { border-color:rgba(203,209,213,0.18); }
-.nav__row { display:flex; align-items:center; justify-content:space-between; height:80px; padding:0 var(--pad-h) 0 clamp(1.5rem,3.5vw,4rem); max-width:1560px; margin:0 auto; }
+.nav__row { display:flex; align-items:center; justify-content:space-between; height:80px; padding:0 clamp(1rem,2.5vw,3rem) 0 clamp(1rem,2.5vw,3rem); max-width:1560px; margin:0 auto; }
 .nav__logo { display:flex; flex-direction:row; align-items:center; gap:0.75rem; }
 .nav__logo-text { display:flex; flex-direction:column; gap:3px; }
-.nav__logo-name { font-family:var(--serif); font-size:1.48rem; font-weight:400; letter-spacing:0.06em; color:var(--cr); line-height:1; white-space: nowrap; }
+.nav__logo-name { font-family:var(--serif); font-size:1.18rem; font-weight:400; letter-spacing:0.06em; color:var(--cr); line-height:1; white-space: nowrap; }
 .nav__logo-sub { font-family:var(--sans); font-size:0.55rem; font-weight:300; letter-spacing:0.3em; text-transform:uppercase; color:rgba(203,209,213,0.4); line-height:1; }
-.nav__links { display:flex; align-items:center; gap:clamp(1rem,2.2vw,2.2rem); list-style:none; }
-.nav__links > li > a,.nav__links > li > span { font-family:var(--sans); font-size:0.65rem; font-weight:300; letter-spacing:0.2em; text-transform:uppercase; color:rgba(203,209,213,0.65); transition:color 0.3s; cursor:pointer; position:relative; white-space:nowrap; }
+.nav__links { display:flex; align-items:center; gap:clamp(0.5rem,1.1vw,1.5rem); list-style:none; }
+.nav__links > li > a,.nav__links > li > span { font-family:var(--sans); font-size:0.6rem; font-weight:300; letter-spacing:0.18em; text-transform:uppercase; color:rgba(203,209,213,0.65); transition:color 0.3s; cursor:pointer; position:relative; white-space:nowrap; }
 .nav__links > li > a::after,.nav__links > li > span::after { content:''; position:absolute; left:0; bottom:-3px; width:0; height:1px; background:var(--cr); transition:width 0.4s var(--ease); }
 .nav__links > li > a:hover,.nav__links > li > span:hover { color:var(--cr); }
 .nav__links > li > a:hover::after,.nav__links > li > span:hover::after { width:100%; }
@@ -75,7 +75,7 @@ b,strong { font-weight:500; }
 .dd:hover .dd__panel,.dd.open .dd__panel { opacity:1; visibility:visible; transform:translateX(-50%) translateY(0); }
 .dd__panel a { display:block; padding:0.75rem 1.8rem; font-size:0.65rem; font-weight:300; letter-spacing:0.16em; text-transform:uppercase; color:rgba(203,209,213,0.55); transition:color 0.25s,background 0.25s; }
 .dd__panel a:hover { color:var(--cr); background:rgba(203,209,213,0.04); }
-.nav__cta { font-size:0.62rem !important; font-weight:400 !important; letter-spacing:0.24em !important; padding:0.9em 2.2em; border:1px solid rgba(203,209,213,0.3); color:var(--cr) !important; transition:border-color 0.4s,background 0.4s; }
+.nav__cta { font-size:0.56rem !important; font-weight:400 !important; letter-spacing:0.2em !important; padding:0.75em 1.5em; border:1px solid rgba(203,209,213,0.3); color:var(--cr) !important; transition:border-color 0.4s,background 0.4s; }
 .nav__cta::after { display:none !important; }
 .nav__cta:hover { border-color:var(--cr) !important; background:rgba(203,209,213,0.06) !important; }
 .nav__burger { display:none; flex-direction:column; gap:6px; cursor:pointer; padding:6px; }
@@ -702,7 +702,7 @@ a.footer__contact-line:hover { color:var(--dk); }
           <li><a href="employment.html#eb1b">EB-1B Researchers</a></li>
           <li><a href="employment.html#eb1c">EB-1C Executives</a></li>
           <li><a href="employment.html#eb2niw">EB-2 NIW</a></li>
-          <li><a href="employment.html#e2">E-2</a> / <a href="employment.html#o1a">O-1</a> / <a href="employment.html#o1b">O-2</a> / <a href="employment.html#tn">TN</a></li>
+          <li style="white-space:nowrap;font-size:0.7rem"><a href="employment.html#e2">E-2</a> / <a href="employment.html#o1a">O-1</a> / <a href="employment.html#o1b">O-2</a> / <a href="employment.html#tn">TN</a></li>
         </ul>
       </div>
       <div>
