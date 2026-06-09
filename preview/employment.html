@@ -13,7 +13,7 @@
 <style>
 :root {
   --nhg:   'Neue Haas Grotesk Display', 'NeueHaasGroteskDisp', 'Neue Haas Grotesk', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  --dk:    #082265;
+  --dk:    #001A80;
   --cr:    #CBD1D5;
   --serif: 'Cormorant Garamond', Georgia, serif;
   --sans:  'Raleway', sans-serif;
@@ -47,7 +47,7 @@ b, strong { font-weight: 500; }
 .cr .label { color: var(--dk); opacity: 0.4; }
 .cr .btn-solid { background: var(--dk); color: var(--cr); border: 1px solid var(--dk); }
 .cr .btn-solid:hover { background: transparent; color: var(--dk); }
-.cr .btn-line { background: transparent; color: var(--dk); border: 1px solid rgba(8,34,101,0.3); }
+.cr .btn-line { background: transparent; color: var(--dk); border: 1px solid rgba(0,26,128,0.3); }
 .cr .btn-line:hover { border-color: var(--dk); }
 .wrap { max-width: 1380px; margin: 0 auto; padding-left: var(--pad-h); padding-right: var(--pad-h); }
 .wrap--narrow { max-width: 940px; }
@@ -104,18 +104,18 @@ b, strong { font-weight: 500; }
 .qnav__grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  border-top: 1px solid rgba(8,34,101,0.1);
+  border-top: 1px solid rgba(0,26,128,0.1);
 }
 .qnav__tile {
   display: block;
   padding: 2.5rem clamp(1rem,3vw,2.5rem);
-  border-right: 1px solid rgba(8,34,101,0.1);
+  border-right: 1px solid rgba(0,26,128,0.1);
   transition: background 0.35s var(--ease);
   color: var(--dk);
 }
 .qnav__tile:last-child { border-right: none; }
-.qnav__tile:hover { background: rgba(8,34,101,0.04); }
-.qnav__code { font-size: 0.58rem; font-weight: 400; letter-spacing: 0.28em; text-transform: uppercase; color: rgba(8,34,101,0.35); display: block; margin-bottom: 0.5rem; }
+.qnav__tile:hover { background: rgba(0,26,128,0.04); }
+.qnav__code { font-size: 0.58rem; font-weight: 400; letter-spacing: 0.28em; text-transform: uppercase; color: rgba(0,26,128,0.35); display: block; margin-bottom: 0.5rem; }
 .qnav__name { font-family: var(--serif); font-size: clamp(0.9rem, 1.2vw, 1.1rem); color: var(--dk); line-height: 1.25; display: block; }
 
 /* VISA SECTION LAYOUT */
@@ -142,7 +142,7 @@ b, strong { font-weight: 500; }
   align-self: flex-start;
 }
 .dk .va-tag { border: 1px solid rgba(203,209,213,0.2); color: rgba(203,209,213,0.5); }
-.cr .va-tag { border: 1px solid rgba(8,34,101,0.2); color: rgba(8,34,101,0.5); }
+.cr .va-tag { border: 1px solid rgba(0,26,128,0.2); color: rgba(0,26,128,0.5); }
 
 .va-fact-list { list-style: none; display: flex; flex-direction: column; }
 .va-fact-list li {
@@ -152,14 +152,14 @@ b, strong { font-weight: 500; }
   padding: 0.9rem 0;
 }
 .dk .va-fact-list li { border-bottom: 1px solid rgba(203,209,213,0.07); }
-.cr .va-fact-list li { border-bottom: 1px solid rgba(8,34,101,0.08); }
+.cr .va-fact-list li { border-bottom: 1px solid rgba(0,26,128,0.08); }
 .va-fact-list li:last-child { border-bottom: none; }
 .va-fact-label { font-size: 0.58rem; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; flex-shrink: 0; min-width: 7rem; }
 .dk .va-fact-label { color: rgba(203,209,213,0.32); }
-.cr .va-fact-label { color: rgba(8,34,101,0.35); }
+.cr .va-fact-label { color: rgba(0,26,128,0.35); }
 .va-fact-val { font-size: 0.88rem; }
 .dk .va-fact-val { color: rgba(203,209,213,0.65); }
-.cr .va-fact-val { color: rgba(8,34,101,0.65); }
+.cr .va-fact-val { color: rgba(0,26,128,0.65); }
 
 .va-body .label { margin-bottom: 1.4rem; }
 .va-body h2 { margin-bottom: 1rem; }
@@ -170,10 +170,10 @@ b, strong { font-weight: 500; }
   margin-bottom: 2.5rem;
 }
 .dk .va-body .va-headline-sub { color: rgba(203,209,213,0.45); }
-.cr .va-body .va-headline-sub { color: rgba(8,34,101,0.45); }
+.cr .va-body .va-headline-sub { color: rgba(0,26,128,0.45); }
 .va-body p { font-size: 0.9rem; line-height: 2; margin-bottom: 1.2rem; }
 .dk .va-body p { color: rgba(203,209,213,0.52); }
-.cr .va-body p { color: rgba(8,34,101,0.55); }
+.cr .va-body p { color: rgba(0,26,128,0.55); }
 .va-body .cta-link {
   display: inline-flex;
   align-items: center;
@@ -187,33 +187,33 @@ b, strong { font-weight: 500; }
   transition: gap 0.3s;
 }
 .dk .va-body .cta-link { color: rgba(203,209,213,0.5); border-bottom: 1px solid rgba(203,209,213,0.18); }
-.cr .va-body .cta-link { color: rgba(8,34,101,0.5); border-bottom: 1px solid rgba(8,34,101,0.18); }
+.cr .va-body .cta-link { color: rgba(0,26,128,0.5); border-bottom: 1px solid rgba(0,26,128,0.18); }
 .va-body .cta-link::after { content: '→'; }
 .va-body .cta-link:hover { gap: 0.9rem; }
 .dk .va-body .cta-link:hover { color: var(--cr); border-color: rgba(203,209,213,0.4); }
-.cr .va-body .cta-link:hover { color: var(--dk); border-color: rgba(8,34,101,0.4); }
+.cr .va-body .cta-link:hover { color: var(--dk); border-color: rgba(0,26,128,0.4); }
 
 /* CRITERIA LIST */
 .criteria-list { list-style: none; margin: 2rem 0; }
 .criteria-list li { display: flex; gap: 1rem; padding: 0.7rem 0; font-size: 0.88rem; line-height: 1.7; }
 .dk .criteria-list li { color: rgba(203,209,213,0.52); border-bottom: 1px solid rgba(203,209,213,0.06); }
-.cr .criteria-list li { color: rgba(8,34,101,0.55); border-bottom: 1px solid rgba(8,34,101,0.08); }
+.cr .criteria-list li { color: rgba(0,26,128,0.55); border-bottom: 1px solid rgba(0,26,128,0.08); }
 .criteria-list li:last-child { border-bottom: none; }
 .criteria-num { font-family: var(--serif); font-size: 1.1rem; flex-shrink: 0; opacity: 0.3; min-width: 1.5rem; }
 
 /* FOOTER */
-.footer__grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr; gap: 4rem; padding-bottom: 5rem; border-bottom: 1px solid rgba(8,34,101,0.1); margin-bottom: 2.5rem; }
+.footer__grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr; gap: 4rem; padding-bottom: 5rem; border-bottom: 1px solid rgba(0,26,128,0.1); margin-bottom: 2.5rem; }
 .footer__brand-name { font-family: var(--serif); font-size: 1.6rem; color: var(--dk); letter-spacing: 0.05em; display: block; margin-bottom: 0.4rem; }
-.footer__brand-sub { font-size: 0.54rem; font-weight: 400; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(8,34,101,0.35); display: block; margin-bottom: 2rem; }
-.footer__desc { font-size: 0.82rem; line-height: 1.85; color: rgba(8,34,101,0.42); max-width: 290px; }
-.footer__col-title { font-size: 0.58rem; font-weight: 400; letter-spacing: 0.28em; text-transform: uppercase; color: rgba(8,34,101,0.35); display: block; margin-bottom: 1.8rem; }
+.footer__brand-sub { font-size: 0.54rem; font-weight: 400; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(0,26,128,0.35); display: block; margin-bottom: 2rem; }
+.footer__desc { font-size: 0.82rem; line-height: 1.85; color: rgba(0,26,128,0.42); max-width: 290px; }
+.footer__col-title { font-size: 0.58rem; font-weight: 400; letter-spacing: 0.28em; text-transform: uppercase; color: rgba(0,26,128,0.35); display: block; margin-bottom: 1.8rem; }
 .footer__links { list-style: none; display: flex; flex-direction: column; gap: 0.85rem; }
-.footer__links a { font-size: 0.8rem; font-weight: 400; color: rgba(8,34,101,0.5); letter-spacing: 0.04em; transition: color 0.3s; }
+.footer__links a { font-size: 0.8rem; font-weight: 400; color: rgba(0,26,128,0.5); letter-spacing: 0.04em; transition: color 0.3s; }
 .footer__links a:hover { color: var(--dk); }
-.footer__contact-line { font-size: 0.8rem; font-weight: 400; color: rgba(8,34,101,0.5); margin-bottom: 0.85rem; display: block; }
+.footer__contact-line { font-size: 0.8rem; font-weight: 400; color: rgba(0,26,128,0.5); margin-bottom: 0.85rem; display: block; }
 a.footer__contact-line:hover { color: var(--dk); }
 .footer__bottom { display: flex; justify-content: space-between; gap: 2rem; flex-wrap: wrap; }
-.footer__copy { font-size: 0.68rem; font-weight: 400; line-height: 1.75; color: rgba(8,34,101,0.3); max-width: 720px; }
+.footer__copy { font-size: 0.68rem; font-weight: 400; line-height: 1.75; color: rgba(0,26,128,0.3); max-width: 720px; }
 
 /* RESPONSIVE */
 @media (max-width: 1100px) {
@@ -222,11 +222,11 @@ a.footer__contact-line:hover { color: var(--dk); }
 }
 @media (max-width: 900px) {
   .nav__links { display: none; }
-  .nav__links.open { display: flex; flex-direction: column; position: fixed; top: 80px; left: 0; right: 0; background: var(--cr); padding: 2rem var(--pad-h) 3rem; border-top: 1px solid rgba(8,34,101,0.1); gap: 1.5rem; z-index: 499; align-items: flex-start; max-height: calc(100vh - 80px); overflow-y: auto; }
+  .nav__links.open { display: flex; flex-direction: column; position: fixed; top: 80px; left: 0; right: 0; background: var(--cr); padding: 2rem var(--pad-h) 3rem; border-top: 1px solid rgba(0,26,128,0.1); gap: 1.5rem; z-index: 499; align-items: flex-start; max-height: calc(100vh - 80px); overflow-y: auto; }
   .nav__links.open .dd__panel { position: static; transform: none; opacity: 1; visibility: visible; border: none; box-shadow: none; padding: 0.5rem 0 0 1rem; min-width: unset; background: transparent; }
-  .nav__links.open .dd__panel a { color: rgba(8,34,101,0.65); }
-  .nav__links.open > li > a, .nav__links.open > li > span { color: rgba(8,34,101,0.85); }
-  .nav__links.open .nav__cta { color: rgba(8,34,101,0.85) !important; border-color: rgba(8,34,101,0.3) !important; }
+  .nav__links.open .dd__panel a { color: rgba(0,26,128,0.65); }
+  .nav__links.open > li > a, .nav__links.open > li > span { color: rgba(0,26,128,0.85); }
+  .nav__links.open .nav__cta { color: rgba(0,26,128,0.85) !important; border-color: rgba(0,26,128,0.3) !important; }
   .nav__burger { display: flex; }
   .nav__burger.active span:nth-child(1) { transform: rotate(45deg) translateY(7px); }
   .nav__burger.active span:nth-child(2) { opacity: 0; }
@@ -253,8 +253,8 @@ a.footer__contact-line:hover { color: var(--dk); }
 .ei-block:hover img { transform:scale(1.025); }
 .ei-block figcaption { position:absolute; bottom:0; left:0; right:0; padding:1rem 1.4rem; }
 .ei-block__label { font-family:var(--sans); font-size:0.52rem; font-weight:400; letter-spacing:0.26em; text-transform:uppercase; color:rgba(203,209,213,0.4); display:block; }
-.ei-block--cr { background:rgba(8,34,101,0.03); border-color:rgba(8,34,101,0.07); }
-.ei-block--cr .ei-block__label { color:rgba(8,34,101,0.35); }
+.ei-block--cr { background:rgba(0,26,128,0.03); border-color:rgba(0,26,128,0.07); }
+.ei-block--cr .ei-block__label { color:rgba(0,26,128,0.35); }
 .ei-split { display:grid; gap:clamp(4rem,6vw,7rem); align-items:center; }
 .ei-split--right { grid-template-columns:1fr 0.6fr; }
 .ei-split--left  { grid-template-columns:0.6fr 1fr; }
@@ -467,7 +467,7 @@ a.footer__contact-line:hover { color: var(--dk); }
         </ul>
         <div>
           <span class="label" style="opacity:.32;margin-bottom:1rem;">Key Eligibility Criteria</span>
-          <p style="font-size:0.82rem;color:rgba(8,34,101,0.4);line-height:1.75;">Arts: demonstrate "distinction" — a high level of achievement above that ordinarily encountered. Film/TV: demonstrate "extraordinary achievement" in the motion picture or television industry.</p>
+          <p style="font-size:0.82rem;color:rgba(0,26,128,0.4);line-height:1.75;">Arts: demonstrate "distinction" — a high level of achievement above that ordinarily encountered. Film/TV: demonstrate "extraordinary achievement" in the motion picture or television industry.</p>
           <ul class="criteria-list" style="margin-top:1rem;">
             <li><span class="criteria-num">1</span>Lead or starring role in productions with distinguished reputations — evidenced by critical reviews, endorsements, or box-office receipts</li>
             <li><span class="criteria-num">2</span>Critical or significant role for distinguished organizations or establishments in the field</li>
@@ -569,7 +569,7 @@ a.footer__contact-line:hover { color: var(--dk); }
         </ul>
         <div>
           <span class="label" style="opacity:.32;margin-bottom:1rem;">Key Eligibility Criteria</span>
-          <p style="font-size:0.82rem;color:rgba(8,34,101,0.4);line-height:1.75;">Must demonstrate international recognition as outstanding in a specific academic area. Must satisfy at least 2 of the following 6 regulatory criteria.</p>
+          <p style="font-size:0.82rem;color:rgba(0,26,128,0.4);line-height:1.75;">Must demonstrate international recognition as outstanding in a specific academic area. Must satisfy at least 2 of the following 6 regulatory criteria.</p>
           <ul class="criteria-list" style="margin-top:1rem;">
             <li><span class="criteria-num">1</span>Receipt of major prizes or awards for outstanding work in the academic field</li>
             <li><span class="criteria-num">2</span>Membership in associations that require outstanding achievement as a condition of membership</li>
@@ -661,7 +661,7 @@ a.footer__contact-line:hover { color: var(--dk); }
         </ul>
         <div>
           <span class="label" style="opacity:.32;margin-bottom:1rem;">Dhanasar Three-Prong Framework</span>
-          <p style="font-size:0.82rem;color:rgba(8,34,101,0.4);line-height:1.75;">All three prongs of Matter of Dhanasar, 26 I&amp;N Dec. 884 (AAO 2016) must be satisfied. The petitioner must also qualify under the EB-2 base category (advanced degree or exceptional ability).</p>
+          <p style="font-size:0.82rem;color:rgba(0,26,128,0.4);line-height:1.75;">All three prongs of Matter of Dhanasar, 26 I&amp;N Dec. 884 (AAO 2016) must be satisfied. The petitioner must also qualify under the EB-2 base category (advanced degree or exceptional ability).</p>
           <ul class="criteria-list" style="margin-top:1rem;">
             <li><span class="criteria-num">1</span>The proposed endeavor has both substantial merit and national importance — implications must extend beyond a local or regional level</li>
             <li><span class="criteria-num">2</span>The petitioner is well-positioned to advance the proposed endeavor — track record, education, skills, progress, and support all considered</li>
@@ -750,7 +750,7 @@ a.footer__contact-line:hover { color: var(--dk); }
         </ul>
         <div>
           <span class="label" style="opacity:.32;margin-bottom:1rem;">Eligibility Requirements</span>
-          <p style="font-size:0.82rem;color:rgba(8,34,101,0.4);line-height:1.75;">Both L-1A (managers/executives) and L-1B (specialized knowledge) require the same four foundational eligibility elements.</p>
+          <p style="font-size:0.82rem;color:rgba(0,26,128,0.4);line-height:1.75;">Both L-1A (managers/executives) and L-1B (specialized knowledge) require the same four foundational eligibility elements.</p>
           <ul class="criteria-list" style="margin-top:1rem;">
             <li><span class="criteria-num">1</span>Employed by the petitioning company or a qualifying related entity (parent, subsidiary, affiliate, or joint venture) abroad for at least 1 continuous year within the 3 years preceding the petition</li>
             <li><span class="criteria-num">2</span>The foreign employment was in a qualifying capacity: managerial or executive (L-1A) or specialized knowledge (L-1B)</li>
@@ -841,7 +841,7 @@ a.footer__contact-line:hover { color: var(--dk); }
         </ul>
         <div>
           <span class="label" style="opacity:.32;margin-bottom:1rem;">Eligibility Requirements</span>
-          <p style="font-size:0.82rem;color:rgba(8,34,101,0.4);line-height:1.75;">All four elements must be satisfied. The USMCA Appendix lists qualifying professions and their required credentials precisely.</p>
+          <p style="font-size:0.82rem;color:rgba(0,26,128,0.4);line-height:1.75;">All four elements must be satisfied. The USMCA Appendix lists qualifying professions and their required credentials precisely.</p>
           <ul class="criteria-list" style="margin-top:1rem;">
             <li><span class="criteria-num">1</span>Citizenship of Canada or Mexico — TN is not available to permanent residents or nationals of other countries</li>
             <li><span class="criteria-num">2</span>The position must fall within a listed USMCA TN profession (e.g., accountant, engineer, lawyer, pharmacist, scientist, teacher, management consultant)</li>
