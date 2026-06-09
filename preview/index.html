@@ -230,7 +230,7 @@ hr.thin {
   align-items: center;
   justify-content: space-between;
   height: 80px;
-  padding: 0 var(--pad-h) 0 clamp(1.5rem, 3.5vw, 4rem);
+  padding: 0 clamp(1rem, 2.5vw, 3rem) 0 clamp(1rem, 2.5vw, 3rem);
   max-width: 1560px;
   margin: 0 auto;
 }
@@ -241,7 +241,7 @@ hr.thin {
 .nav__logo-text { display: flex; flex-direction: column; gap: 3px; }
 .nav__logo-name {
   font-family: var(--serif);
-  font-size: 1.48rem;
+  font-size: 1.18rem;
   font-weight: 400;
   letter-spacing: 0.06em;
   color: var(--cr);
@@ -262,15 +262,15 @@ hr.thin {
 .nav__links {
   display: flex;
   align-items: center;
-  gap: clamp(1rem, 2.2vw, 2.2rem);
+  gap: clamp(0.5rem, 1.1vw, 1.5rem);
   list-style: none;
 }
 .nav__links > li > a,
 .nav__links > li > span {
   font-family: var(--sans);
-  font-size: 0.65rem;
+  font-size: 0.6rem;
   font-weight: 400;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: rgba(203,209,213,0.65);
   transition: color 0.3s;
@@ -339,10 +339,10 @@ hr.thin {
 }
 
 .nav__cta {
-  font-size: 0.62rem !important;
+  font-size: 0.56rem !important;
   font-weight: 400 !important;
-  letter-spacing: 0.24em !important;
-  padding: 0.9em 2.2em;
+  letter-spacing: 0.2em !important;
+  padding: 0.75em 1.5em;
   border: 1px solid rgba(203,209,213,0.3);
   color: var(--cr) !important;
   transition: border-color 0.4s, background 0.4s;
@@ -394,7 +394,7 @@ hr.thin {
   display: flex;
   align-items: center;
   padding: 0 clamp(2rem, 4vw, 4rem) 0 var(--pad-h);
-  overflow: hidden;
+  overflow: visible;
 }
 .hero__body {
   width: 100%;
@@ -407,8 +407,8 @@ hr.thin {
 .hero__portrait {
   width: 100%;
   height: 100%;
-  object-fit: contain;
-  object-position: center bottom;
+  object-fit: cover;
+  object-position: center top;
   display: block;
   filter: brightness(0.97) contrast(1.02);
 }
@@ -1312,7 +1312,7 @@ a.footer__contact-line:hover { color: var(--dk); }
     <!-- RIGHT: portrait photo -->
     <div class="hero__photo-col">
       <img
-        src="ana-white-nobg.webp"
+        src="ana-white-closeup.jpg"
         alt="Ana Kamkhadze, Esq. MBA — immigration attorney"
         class="hero__portrait"
         loading="eager"
