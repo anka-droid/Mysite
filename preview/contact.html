@@ -78,10 +78,10 @@ b, strong { font-weight: 500; }
 .nav__logo { display: flex; flex-direction: row; align-items: center; gap: 0.75rem; }
 .nav__logo-mark { flex-shrink: 0; }
 .nav__logo-text { display: flex; flex-direction: column; gap: 3px; }
-.nav__logo-name { font-family: var(--serif); font-size: 1.48rem; font-weight: 400; letter-spacing: 0.06em; color: var(--cr); line-height: 1; white-space: nowrap; }
-.nav__logo-sub { font-family: var(--sans); font-size: 0.55rem; font-weight: 400; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(203,209,213,0.4); line-height: 1; }
-.nav__links { display: flex; align-items: center; gap: clamp(1rem, 2.2vw, 2.2rem); list-style: none; }
-.nav__links > li > a, .nav__links > li > span { font-family: var(--sans); font-size: 0.65rem; font-weight: 400; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(203,209,213,0.65); transition: color 0.3s; cursor: pointer; position: relative; white-space: nowrap; }
+.nav__logo-name { font-family: var(--serif); font-size: 1.18rem; font-weight: 400; letter-spacing: 0.06em; color: var(--cr); line-height: 1; white-space: nowrap; }
+.nav__logo-sub { font-family: var(--sans); font-size: 0.55rem; font-weight: 400; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(203,209,213,0.4); line-height: 1; white-space: nowrap; }
+.nav__links { display: flex; align-items: center; gap: clamp(0.5rem, 1.1vw, 1.5rem); list-style: none; }
+.nav__links > li > a, .nav__links > li > span { font-family: var(--sans); font-size: 0.6rem; font-weight: 400; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(203,209,213,0.65); transition: color 0.3s; cursor: pointer; position: relative; white-space: nowrap; }
 .nav__links > li > a::after, .nav__links > li > span::after { content: ''; position: absolute; left: 0; bottom: -3px; width: 0; height: 1px; background: var(--cr); transition: width 0.4s var(--ease); }
 .nav__links > li > a:hover, .nav__links > li > span:hover { color: var(--cr); }
 .nav__links > li > a:hover::after, .nav__links > li > span:hover::after { width: 100%; }
@@ -95,7 +95,7 @@ b, strong { font-weight: 500; }
 .dd:hover .dd__panel, .dd.open .dd__panel { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
 .dd__panel a { display: block; padding: 0.75rem 1.8rem; font-size: 0.65rem; font-weight: 400; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(203,209,213,0.55); transition: color 0.25s, background 0.25s; }
 .dd__panel a:hover { color: var(--cr); background: rgba(203,209,213,0.04); }
-.nav__cta { font-size: 0.62rem !important; font-weight: 400 !important; letter-spacing: 0.24em !important; padding: 0.9em 2.2em; border: 1px solid rgba(203,209,213,0.3); color: var(--cr) !important; transition: border-color 0.4s, background 0.4s; }
+.nav__cta { font-size: 0.56rem !important; font-weight: 400 !important; letter-spacing: 0.2em !important; padding: 0.75em 1.5em; border: 1px solid rgba(203,209,213,0.3); color: var(--cr) !important; transition: border-color 0.4s, background 0.4s; }
 .nav__cta::after { display: none !important; }
 .nav__cta:hover { border-color: var(--cr) !important; background: rgba(203,209,213,0.06) !important; }
 .nav__cta.active-page { border-color: var(--cr) !important; }
