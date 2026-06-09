@@ -1,235 +1,729 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>In the Spotlight | Kamkhadze PA Immigration Law</title>
-  <meta name="description" content="Media coverage of Ana Kamkhadze and Kamkhadze PA — interviews, press releases, and features in Entrepreneur, Yahoo Finance, Benzinga, VoyageMIA, and more.">
-  <link rel="stylesheet" href="style.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Raleway:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Ana Kamkhadze, Esq. MBA — press coverage, media features, and expert commentary. Entrepreneur, Yahoo Finance, Benzinga, VoyageMIA, and more.">
+<title>Press &amp; Media | Kamkhadze PA | In the Spotlight</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --nhg:   'Neue Haas Grotesk Display', 'NeueHaasGroteskDisp', 'Neue Haas Grotesk', 'Helvetica Neue', Helvetica, Arial, sans-serif; --dk:#002060; --cr:#CBD1D5; --serif:'Cormorant Garamond',Georgia,serif; --sans:'Raleway',sans-serif; --ease:cubic-bezier(0.25,0.46,0.45,0.94); --pad-h:clamp(2rem,6vw,7rem); --pad-v:clamp(5rem,9vw,9rem); }
+*,*::before,*::after { box-sizing:border-box; margin:0; padding:0; background-image:none !important; }
+html { scroll-behavior:smooth; }
+body { font-family:var(--sans); font-weight:400; font-size:15px; line-height:1.82; background:var(--dk); color:var(--cr); -webkit-font-smoothing:antialiased; overflow-x:hidden; }
+img { display:block; max-width:100%; }
+a { text-decoration:none; color:inherit; }
+button { font-family:var(--nhg); font-weight:400; cursor:pointer; border:none; background:none; }
+h1,h2,h3,h4,h5,h6 { font-family:var(--serif); font-weight:400; line-height:1.06; letter-spacing:-0.01em; }
+h1 { font-size:clamp(3.8rem,8vw,8rem); }
+h2 { font-size:clamp(2.6rem,5vw,5rem); }
+h3 { font-size:clamp(1.6rem,2.8vw,2.6rem); }
+h4 { font-size:clamp(1.1rem,1.8vw,1.5rem); }
+em { font-style:normal; }
+b,strong { font-weight:500; }
+.label { font-family:var(--sans); font-size:0.62rem; font-weight:400; letter-spacing:0.3em; text-transform:uppercase; display:block; }
+.dk { background:var(--dk); color:var(--cr); }
+.dk h1,.dk h2,.dk h3,.dk h4,.dk em { color:var(--cr); }
+.dk .label { color:var(--cr); opacity:0.45; }
+.dk .btn-solid { background:var(--cr); color:var(--dk); border:1px solid var(--cr); }
+.dk .btn-solid:hover { background:transparent; color:var(--cr); }
+.dk .btn-line { background:transparent; color:var(--cr); border:1px solid rgba(203,209,213,0.3); }
+.dk .btn-line:hover { border-color:var(--cr); }
+.cr { background:var(--cr); color:var(--dk); }
+.cr h1,.cr h2,.cr h3,.cr h4,.cr em { color:var(--dk); }
+.cr .label { color:var(--dk); opacity:0.4; }
+.cr .btn-solid { background:var(--dk); color:var(--cr); border:1px solid var(--dk); }
+.cr .btn-solid:hover { background:transparent; color:var(--dk); }
+.cr .btn-line { background:transparent; color:var(--dk); border:1px solid rgba(0,32,96,0.3); }
+.cr .btn-line:hover { border-color:var(--dk); }
+.wrap { max-width:1380px; margin:0 auto; padding-left:var(--pad-h); padding-right:var(--pad-h); }
+.wrap--narrow { max-width:940px; }
+.section { padding:var(--pad-v) 0; }
+.section--tall { padding:clamp(7rem,13vw,13rem) 0; }
+.btn { display:inline-flex; align-items:center; gap:0.75em; font-family:var(--sans); font-size:0.65rem; font-weight:400; letter-spacing:0.28em; text-transform:uppercase; padding:1.2em 3em; transition:all 0.5s var(--ease); cursor:pointer; outline:none; white-space:nowrap; }
+.btn::after { content:'→'; transition:transform 0.35s ease; }
+.btn:hover::after { transform:translateX(6px); }
+.r { opacity:0; transform:translateY(30px); transition:opacity 0.85s var(--ease),transform 0.85s var(--ease); }
+.r.on { opacity:1; transform:translateY(0); }
+.d1 { transition-delay:0.1s; } .d2 { transition-delay:0.22s; } .d3 { transition-delay:0.34s; } .d4 { transition-delay:0.48s; }
+
+/* NAV */
+.nav { position:fixed; top:0; left:0; right:0; z-index:500; background:var(--dk); border-bottom:1px solid rgba(203,209,213,0.08); transition:border-color 0.4s; }
+.nav.lit { border-color:rgba(203,209,213,0.18); }
+.nav__row { display:flex; align-items:center; justify-content:space-between; height:80px; padding:0 clamp(1rem,2.5vw,3rem) 0 clamp(1rem,2.5vw,3rem); max-width:1560px; margin:0 auto; }
+.nav__logo { display:flex; flex-direction:row; align-items:center; gap:0.75rem; }
+.nav__logo-text { display:flex; flex-direction:column; gap:3px; }
+.nav__logo-name { font-family:var(--serif); font-size:1.18rem; font-weight:400; letter-spacing:0.06em; color:var(--cr); line-height:1; white-space: nowrap; }
+.nav__logo-sub { font-family:var(--sans); font-size:0.55rem; font-weight:300; letter-spacing:0.3em; text-transform:uppercase; color:rgba(203,209,213,0.4); line-height:1; }
+.nav__links { display:flex; align-items:center; gap:clamp(0.5rem,1.1vw,1.5rem); list-style:none; }
+.nav__links > li > a,.nav__links > li > span { font-family:var(--sans); font-size:0.6rem; font-weight:300; letter-spacing:0.18em; text-transform:uppercase; color:rgba(203,209,213,0.92); transition:color 0.3s; cursor:pointer; position:relative; white-space:nowrap; }
+.nav__links > li > a::after,.nav__links > li > span::after { content:''; position:absolute; left:0; bottom:-3px; width:0; height:1px; background:var(--cr); transition:width 0.4s var(--ease); }
+.nav__links > li > a:hover,.nav__links > li > span:hover { color:var(--cr); }
+.nav__links > li > a:hover::after,.nav__links > li > span:hover::after { width:100%; }
+.nav__links > li > a.active { color:var(--cr); }
+.dd { position:relative; }
+.dd::after { content:''; position:absolute; left:0; right:0; bottom:-1.4rem; height:1.4rem; }
+.dd__toggle { display:flex; align-items:center; gap:0.4em; }
+.dd__caret { font-size:0.5rem; opacity:0.4; transition:transform 0.3s; }
+.dd:hover .dd__caret { transform:rotate(180deg); opacity:0.8; }
+.dd__panel { position:absolute; top:calc(100% + 1.4rem); left:50%; transform:translateX(-50%) translateY(-6px); background:var(--dk); border:1px solid rgba(203,209,213,0.1); min-width:280px; padding:0.5rem 0; opacity:0; visibility:hidden; transition:opacity 0.3s,transform 0.3s; box-shadow:0 20px 60px rgba(0,0,0,0.08); }
+.dd:hover .dd__panel,.dd.open .dd__panel { opacity:1; visibility:visible; transform:translateX(-50%) translateY(0); }
+.dd__panel a { display:block; padding:0.75rem 1.8rem; font-size:0.65rem; font-weight:300; letter-spacing:0.16em; text-transform:uppercase; color:rgba(203,209,213,0.55); transition:color 0.25s,background 0.25s; }
+.dd__panel a:hover { color:var(--cr); background:rgba(203,209,213,0.04); }
+.nav__cta { font-size:0.56rem !important; font-weight:400 !important; letter-spacing:0.2em !important; padding:0.75em 1.5em; border:1px solid rgba(203,209,213,0.3); color:var(--cr) !important; transition:border-color 0.4s,background 0.4s; }
+.nav__cta::after { display:none !important; }
+.nav__cta:hover { border-color:var(--cr) !important; background:rgba(203,209,213,0.06) !important; }
+.nav__burger { display:none; flex-direction:column; gap:6px; cursor:pointer; padding:6px; }
+.nav__burger span { display:block; width:28px; height:1px; background:var(--cr); transition:transform 0.3s,opacity 0.3s; }
+
+/* PAGE HERO */
+.page-hero { padding-top:calc(80px + clamp(5rem,10vw,9rem)); padding-bottom:clamp(5rem,9vw,9rem); padding-left:var(--pad-h); padding-right:var(--pad-h); }
+.page-hero h1 { max-width:none; margin-bottom:2rem; }
+.page-hero__sub { font-size:clamp(0.95rem,1.3vw,1.1rem); color:rgba(203,209,213,0.55); max-width:680px; line-height:1.95; }
+
+/* PAGE HERO GRID */
+.page-hero__layout { display:block; }
+.page-hero__icon { line-height:0; flex-shrink:0; opacity:0.1; color:currentColor; }
+.page-hero__icon svg { width:clamp(180px,22vw,300px); height:auto; display:block; }
+.cr .page-hero__icon { color:var(--cr); opacity:0.14; }
+
+/* Inline photo in hero right column */
+.page-hero__photo { line-height:0; flex-shrink:0; position:relative; z-index:10; overflow:visible; }
+.page-hero__photo img { width:clamp(180px,22vw,300px); height:auto; display:inline-block !important; object-fit:cover; object-position:center top; opacity:1; filter:none; position:relative; z-index:10; }
+
+/* PRESS OUTLETS STRIP */
+.outlets-strip {
+  display:flex;
+  align-items:center;
+  gap:0;
+  border-top:1px solid rgba(0,32,96,0.1);
+  border-bottom:1px solid rgba(0,32,96,0.1);
+}
+.outlet-cell {
+  flex:1;
+  padding:2.5rem clamp(1.5rem,3vw,3rem);
+  border-right:1px solid rgba(0,32,96,0.1);
+  text-align:center;
+  transition:background 0.3s;
+}
+.outlet-cell:last-child { border-right:none; }
+.outlet-cell:hover { background:rgba(0,32,96,0.04); }
+.outlet-name {
+  font-family:var(--serif);
+  font-style:normal;
+  font-size:clamp(1.1rem,1.8vw,1.6rem);
+  color:var(--dk);
+  opacity:0.5;
+  transition:opacity 0.35s, transform 0.35s cubic-bezier(0.25,0.46,0.45,0.94);
+  display:block;
+}
+.outlet-cell:hover .outlet-name { opacity:1; transform:translateY(-2px); }
+
+/* PRESS CARDS GRID */
+.press-grid {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  border-top:1px solid rgba(203,209,213,0.08);
+}
+.press-card {
+  padding:clamp(2.5rem,4vw,4rem);
+  border-right:1px solid rgba(203,209,213,0.08);
+  display:flex;
+  flex-direction:column;
+  gap:1.4rem;
+  transition:background 0.4s, transform 0.35s cubic-bezier(0.25,0.46,0.45,0.94);
+  cursor:default;
+}
+.press-card:nth-child(3n) { border-right:none; }
+.press-card:nth-child(n+4) { border-top:1px solid rgba(203,209,213,0.08); }
+.press-card:hover { background:rgba(203,209,213,0.035); }
+.press-card__outlet {
+  font-size:0.6rem;
+  font-weight:500;
+  letter-spacing:0.28em;
+  text-transform:uppercase;
+  color:rgba(203,209,213,0.55);
+  display:block;
+  transition:color 0.3s;
+}
+.press-card:hover .press-card__outlet { color:rgba(203,209,213,0.85); }
+.press-card__date {
+  font-size:0.58rem;
+  font-weight:300;
+  letter-spacing:0.18em;
+  text-transform:uppercase;
+  color:rgba(203,209,213,0.25);
+}
+.press-card h4 {
+  font-size:clamp(1.05rem,1.5vw,1.3rem);
+  color:var(--cr);
+  line-height:1.35;
+  transition:opacity 0.3s;
+}
+.press-card:hover h4 { opacity:0.9; }
+.press-card p {
+  font-size:0.84rem;
+  line-height:1.85;
+  color:rgba(203,209,213,0.42);
+  flex:1;
+}
+.press-card__link {
+  font-size:0.6rem;
+  font-weight:400;
+  letter-spacing:0.22em;
+  text-transform:uppercase;
+  color:rgba(203,209,213,0.4);
+  border-bottom:1px solid rgba(203,209,213,0.12);
+  padding-bottom:2px;
+  align-self:flex-start;
+  transition:color 0.3s,border-color 0.3s;
+  display:inline-flex;
+  align-items:center;
+  gap:0.4rem;
+}
+.press-card__link::after { content:'→'; }
+.press-card:hover .press-card__link { color:var(--cr); border-color:rgba(203,209,213,0.35); }
+
+/* FEATURED ROW */
+.featured-row {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:clamp(4rem,7vw,9rem);
+  align-items:center;
+}
+.featured-row__quote {
+  font-family:var(--serif);
+  font-style:normal;
+  font-size:clamp(1.6rem,2.5vw,2.4rem);
+  line-height:1.4;
+  color:rgba(0,32,96,0.75);
+}
+.featured-row__meta { display:flex; flex-direction:column; gap:2rem; }
+.featured-row__outlet-label {
+  font-size:0.58rem;
+  font-weight:400;
+  letter-spacing:0.3em;
+  text-transform:uppercase;
+  color:rgba(0,32,96,0.35);
+  display:block;
+}
+.featured-row__title {
+  font-family:var(--serif);
+  font-size:clamp(1.1rem,1.8vw,1.5rem);
+  color:var(--dk);
+  line-height:1.3;
+}
+.featured-row__desc {
+  font-size:0.88rem;
+  line-height:1.9;
+  color:rgba(0,32,96,0.5);
+}
+.featured-row__link {
+  display:inline-flex;
+  align-items:center;
+  gap:0.5rem;
+  font-size:0.62rem;
+  font-weight:400;
+  letter-spacing:0.22em;
+  text-transform:uppercase;
+  color:rgba(0,32,96,0.5);
+  border-bottom:1px solid rgba(0,32,96,0.18);
+  padding-bottom:3px;
+  transition:gap 0.3s,color 0.3s;
+}
+.featured-row__link::after { content:'→'; }
+.featured-row__link:hover { gap:0.9rem; color:var(--dk); border-color:rgba(0,32,96,0.4); }
+
+/* VIDEO ROW */
+.video-grid {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  border-top:1px solid rgba(203,209,213,0.08);
+}
+.video-card {
+  padding:3rem clamp(1.5rem,3vw,3rem);
+  border-right:1px solid rgba(203,209,213,0.08);
+  transition:background 0.4s;
+}
+.video-card:last-child { border-right:none; }
+.video-card:hover { background:rgba(203,209,213,0.035); }
+.video-card__platform {
+  font-size:0.6rem;
+  font-weight:500;
+  letter-spacing:0.28em;
+  text-transform:uppercase;
+  color:rgba(203,209,213,0.45);
+  display:block;
+  transition:color 0.3s;
+}
+.video-card:hover .video-card__platform { color:rgba(203,209,213,0.75); }
+.video-card h4 { font-size:1.05rem; color:var(--cr); line-height:1.35; margin-bottom:0.9rem; }
+.video-card p { font-size:0.83rem; line-height:1.8; color:rgba(203,209,213,0.42); }
+
+/* FOOTER */
+.footer__grid { display:grid; grid-template-columns:2fr 1fr 1fr 1fr 1fr; gap:4rem; padding-bottom:5rem; border-bottom:1px solid rgba(0,32,96,0.1); margin-bottom:2.5rem; }
+.footer__brand-name { font-family:var(--serif); font-size:1.6rem; color:var(--dk); letter-spacing:0.05em; display:block; margin-bottom:0.4rem; }
+.footer__brand-sub { font-size:0.54rem; font-weight:300; letter-spacing:0.3em; text-transform:uppercase; color:rgba(0,32,96,0.35); display:block; margin-bottom:2rem; }
+.footer__desc { font-size:0.82rem; line-height:1.85; color:rgba(0,32,96,0.42); max-width:290px; }
+.footer__col-title { font-size:0.58rem; font-weight:400; letter-spacing:0.28em; text-transform:uppercase; color:rgba(0,32,96,0.35); display:block; margin-bottom:1.8rem; }
+.footer__links { list-style:none; display:flex; flex-direction:column; gap:0.85rem; }
+.footer__links a { font-size:0.8rem; font-weight:300; color:rgba(0,32,96,0.5); letter-spacing:0.04em; transition:color 0.3s; }
+.footer__links a:hover { color:var(--dk); }
+.footer__contact-line { font-size:0.8rem; font-weight:300; color:rgba(0,32,96,0.5); margin-bottom:0.85rem; display:block; }
+a.footer__contact-line:hover { color:var(--dk); }
+.footer__bottom { display:flex; justify-content:space-between; gap:2rem; flex-wrap:wrap; }
+.footer__copy { font-size:0.68rem; font-weight:300; line-height:1.75; color:rgba(0,32,96,0.3); max-width:720px; }
+
+@media (max-width:1100px) {
+  .press-grid { grid-template-columns:1fr 1fr; }
+  .press-card:nth-child(3n) { border-right:1px solid rgba(203,209,213,0.08); }
+  .press-card:nth-child(2n) { border-right:none; }
+  .footer__grid { grid-template-columns:1fr 1fr; }
+  .outlets-strip { flex-wrap:wrap; }
+  .outlet-cell { flex:1 1 30%; }
+}
+@media (max-width:900px) {
+  .nav__links { display:none; }
+  .nav__links.open { display:flex; flex-direction:column; position:fixed; top:80px; left:0; right:0; background:var(--cr); padding:2rem var(--pad-h) 3rem; border-top:1px solid rgba(0,32,96,0.1); gap:1.5rem; z-index:499; align-items:flex-start; max-height:calc(100vh - 80px); overflow-y:auto; }
+  .nav__links.open .dd__panel { position:static; transform:none; opacity:1; visibility:visible; border:none; box-shadow:none; padding:0.5rem 0 0 1rem; min-width:unset; background:transparent; }
+  .nav__links.open .dd__panel a { color:rgba(0,32,96,0.65); }
+  .nav__links.open > li > a, .nav__links.open > li > span { color: rgba(0,32,96,0.85); }
+  .nav__links.open .nav__cta { color: rgba(0,32,96,0.85) !important; border-color: rgba(0,32,96,0.3) !important; }
+  .nav__burger { display:flex; }
+  .nav__burger.active span:nth-child(1) { transform:rotate(45deg) translateY(7px); }
+  .nav__burger.active span:nth-child(2) { opacity:0; }
+  .nav__burger.active span:nth-child(3) { transform:rotate(-45deg) translateY(-7px); }
+  .press-grid { grid-template-columns:1fr; }
+  .press-card { border-right:none !important; border-bottom:1px solid rgba(203,209,213,0.08); }
+  .press-card:last-child { border-bottom:none; }
+  .featured-row { grid-template-columns:1fr; }
+  .video-grid { grid-template-columns:1fr; }
+  .video-card { border-right:none; border-bottom:1px solid rgba(203,209,213,0.08); }
+  .footer__grid { grid-template-columns:1fr; }
+  .page-hero__layout { grid-template-columns:1fr; }
+  .page-hero__icon { display:none; }
+  .page-hero__photo { display:block; margin-top:2.5rem; }
+  .page-hero__photo img { width: clamp(240px, 60vw, 360px) !important; }
+  h1 { font-size:clamp(2.8rem,10vw,4.5rem); }
+  h2 { font-size:clamp(2rem,7vw,3rem); }
+}
+
+/* ── EDITORIAL IMAGE BLOCKS ──────────────────────────────────────── */
+.ei-block { position:relative; overflow:hidden; margin:0; line-height:0; background:rgba(203,209,213,0.03); border:1px solid rgba(203,209,213,0.07); }
+.ei-block--portrait { aspect-ratio:3/4; }
+.ei-block--landscape { aspect-ratio:16/9; }
+.ei-block img { width:100%; height:100%; object-fit:cover; object-position:center; display:block; filter:none; transition:transform 0.9s cubic-bezier(0.25,0.46,0.45,0.94); }
+.ei-block:hover img { transform:scale(1.025); }
+.ei-block figcaption { position:absolute; bottom:0; left:0; right:0; padding:1rem 1.4rem; }
+.ei-block__label { font-family:var(--sans); font-size:0.52rem; font-weight:400; letter-spacing:0.26em; text-transform:uppercase; color:rgba(203,209,213,0.4); display:block; }
+.ei-block--cr { background:rgba(0,32,96,0.03); border-color:rgba(0,32,96,0.07); }
+.ei-block--cr .ei-block__label { color:rgba(0,32,96,0.35); }
+.ei-split { display:grid; gap:clamp(4rem,6vw,7rem); align-items:center; }
+.ei-split--right { grid-template-columns:1fr 0.6fr; }
+.ei-split--left  { grid-template-columns:0.6fr 1fr; }
+@media (max-width:900px) {
+  .ei-split { grid-template-columns:1fr; }
+  .ei-split--left .ei-block { order:-1; }
+}
+.press-gallery { display:grid; grid-template-columns:repeat(2,1fr); gap:clamp(0.75rem,2vw,1.2rem); }
+@media (max-width:1000px) and (min-width:601px) { .press-gallery { grid-template-columns:1fr 1fr; gap:1.2rem; } }
+@media (max-width:600px) { .press-gallery { grid-template-columns:1fr; gap:1.5rem; } }
+
+/* Named grids to allow media-query overrides */
+.mi-grid { display:grid; grid-template-columns:1fr 1fr; gap:clamp(4rem,7vw,9rem); align-items:center; }
+.press-intro-grid { display:grid; grid-template-columns:1fr 1fr; gap:5rem; }
+
+/* Overflow guard */
+html, body { max-width:100%; overflow-x:hidden; }
+
+@media (max-width:900px) {
+  .mi-grid { grid-template-columns:1fr; gap:2.5rem; }
+  .press-intro-grid { grid-template-columns:1fr; gap:2rem; }
+  .outlet-cell { flex:1 1 100%; border-right:none; border-bottom:1px solid rgba(0,32,96,0.1); }
+  .outlet-cell:last-child { border-bottom:none; }
+}
+</style>
 </head>
 <body>
 
-<nav class="nav">
-  <a href="index.html" class="nav-logo">
-    <svg class="nav-logo-mark" width="38" height="38" viewBox="0 0 38 38" fill="none" aria-hidden="true"><rect x="1.5" y="1.5" width="35" height="35" fill="white" stroke="#1a52b4" stroke-width="2.5"/><path d="M28 8 L10 19 L28 30 L23 30 L15 19 L23 8 Z" fill="#5591D0"/></svg>
-    <div class="nav-logo-text">
-      <span class="nav-logo-name">Kamkhadze PA</span>
-      <span class="nav-logo-sub">U.S. Immigration Law Firm</span>
+<!-- NAVIGATION -->
+<nav class="nav" id="main-nav">
+  <div class="nav__row">
+    <a href="index.html" class="nav__logo">
+      <svg width="32" height="32" viewBox="0 0 38 38" fill="none" aria-hidden="true" class="nav__logo-mark">
+        <rect x="1.5" y="1.5" width="35" height="35" fill="white" stroke="#9CA3A8" stroke-width="2.5"/>
+        <path d="M28 8 L10 19 L28 30 L23 30 L15 19 L23 8 Z" fill="#C0C6CA"/>
+      </svg>
+      <div class="nav__logo-text">
+        <span class="nav__logo-name">Kamkhadze PA</span>
+        <span class="nav__logo-sub">U.S. Immigration Law Firm</span>
+      </div>
+    </a>
+    <ul class="nav__links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li class="dd">
+        <a href="employment.html" class="dd__toggle">Employment-Based <span class="dd__caret">▾</span></a>
+        <div class="dd__panel">
+          <a href="employment.html#o1a">O-1A Extraordinary Ability</a>
+          <a href="employment.html#o1b">O-1B Arts &amp; Entertainment</a>
+          <a href="employment.html#eb1a">EB-1A Green Card</a>
+          <a href="employment.html#eb1b">EB-1B Outstanding Researchers</a>
+          <a href="employment.html#eb1c">EB-1C Multinational Managers</a>
+          <a href="employment.html#eb2niw">EB-2 National Interest Waiver</a>
+          <a href="employment.html#h1b">H-1B Specialty Occupation</a>
+          <a href="employment.html#l1">L-1 Intracompany Transfer</a>
+          <a href="employment.html#e2">E-2 Treaty Investor</a>
+          <a href="employment.html#tn">TN Professional</a>
+        </div>
+      </li>
+      <li class="dd">
+        <a href="family.html" class="dd__toggle">Family-Based <span class="dd__caret">▾</span></a>
+        <div class="dd__panel">
+          <a href="family.html#marriage">Marriage-Based Green Card</a>
+          <a href="family.html#other">Other Family Petitions</a>
+        </div>
+      </li>
+      <li><a href="naturalization.html">Naturalization</a></li>
+      <li><a href="blog.html">Insights</a></li>
+      <li><a href="press.html" class="active">Press</a></li>
+      <li><a href="contact.html" class="nav__cta">Schedule Consultation</a></li>
+    </ul>
+    <div class="nav__burger" id="burger" role="button" aria-label="Open menu">
+      <span></span><span></span><span></span>
     </div>
-  </a>
-  <ul class="nav-links" id="navLinks">
-    <li><a href="index.html">Home</a></li>
-    <li><a href="about.html">About</a></li>
-    <li class="nav-item">
-      <a href="employment.html">Employment-Based ▾</a>
-      <div class="nav-dropdown">
-        <a href="employment.html#o1a">O-1A Extraordinary Ability</a>
-        <a href="employment.html#o1b">O-1B Arts &amp; Entertainment</a>
-        <a href="employment.html#eb1a">EB-1A Green Card</a>
-        <a href="employment.html#eb1b">EB-1B Outstanding Researchers</a>
-        <a href="employment.html#eb1c">EB-1C Multinational Managers</a>
-        <a href="employment.html#eb2niw">EB-2 National Interest Waiver</a>
-        <a href="employment.html#h1b">H-1B Specialty Occupation</a>
-        <a href="employment.html#l1">L-1 Intracompany Transfer</a>
-        <a href="employment.html#e2">E-2 Treaty Investor</a>
-        <a href="employment.html#tn">TN Professional</a>
-      </div>
-    </li>
-    <li class="nav-item">
-      <a href="family.html">Family-Based ▾</a>
-      <div class="nav-dropdown">
-        <a href="family.html#marriage">Marriage-Based Green Card</a>
-        <a href="family.html#naturalization">Naturalization &amp; Citizenship</a>
-        <a href="family.html#other">Other Family Petitions</a>
-      </div>
-    </li>
-    <li><a href="blog.html">Insights</a></li>
-    <li><a href="press.html">Press</a></li>
-    <li><a href="contact.html" class="nav-cta">Schedule Consultation</a></li>
-  </ul>
-  <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
-    <span></span><span></span><span></span>
-  </button>
+  </div>
 </nav>
 
-<div class="page-hero">
-  <p class="page-hero-label">Media &amp; Press</p>
-  <h1>In the<br><em>Spotlight.</em></h1>
-  <p>Ana Kamkhadze and Kamkhadze PA have been featured in leading business publications, financial news outlets, and international media — covering U.S. immigration law, extraordinary ability pathways, and the firm's approach to elite representation.</p>
-</div>
 
-<!-- AS SEEN IN -->
-<div class="as-seen-in">
-  <p class="as-seen-in-label">As Seen In</p>
-  <div class="as-seen-in-strip">
-    <span class="as-seen-in-item">Entrepreneur</span>
-    <span class="as-seen-in-sep">·</span>
-    <span class="as-seen-in-item">Yahoo Finance</span>
-    <span class="as-seen-in-sep">·</span>
-    <span class="as-seen-in-item">Benzinga</span>
-    <span class="as-seen-in-sep">·</span>
-    <span class="as-seen-in-item">VoyageMIA</span>
-    <span class="as-seen-in-sep">·</span>
-    <span class="as-seen-in-item">Marketer.ge</span>
-    <span class="as-seen-in-sep">·</span>
-    <span class="as-seen-in-item">YouTube</span>
-    <span class="as-seen-in-sep">·</span>
-    <span class="as-seen-in-item">TV Interviews</span>
+<!-- BLOCK 1 — PAGE HERO [DARK] -->
+<section class="page-hero dk">
+  <div class="wrap">
+    <div class="page-hero__layout">
+      <div class="page-hero__text">
+        <span class="label r" style="opacity:.35;margin-bottom:1.6rem;">Press &amp; Media</span>
+        <h1 class="r d1">In the<br><em>Spotlight</em></h1>
+        <p class="page-hero__sub r d2">
+          Ana Kamkhadze's work has been featured in leading business publications, financial media, and digital platforms — recognized as a trusted voice in U.S. immigration law.
+        </p>
+      </div>
+    </div>
   </div>
-</div>
+</section>
 
-<!-- ALL COVERAGE -->
-<section class="section">
-  <p class="section-label">All Coverage</p>
-  <h2 class="section-title">Interviews, Features &amp; Press</h2>
-  <p class="section-body">Television interviews, video features, editorial profiles, and press releases — all media coverage of Ana Kamkhadze and Kamkhadze PA.</p>
 
-  <div class="press-grid fade-up">
+<!-- BLOCK 2 — MEDIA OUTLETS [CREAM] -->
+<section class="section cr" style="padding-top:clamp(3rem,5vw,5rem);padding-bottom:0;">
+  <div class="wrap" style="margin-bottom:3rem;">
+    <span class="label r" style="opacity:.35;">Featured In</span>
+  </div>
+  <div class="outlets-strip">
+    <div class="outlet-cell r">
+      <span class="outlet-name">Entrepreneur</span>
+    </div>
+    <div class="outlet-cell r d1">
+      <span class="outlet-name">Yahoo Finance</span>
+    </div>
+    <div class="outlet-cell r d2">
+      <span class="outlet-name">Benzinga</span>
+    </div>
+    <div class="outlet-cell r d3">
+      <span class="outlet-name">VoyageMIA</span>
+    </div>
+    <div class="outlet-cell r d4">
+      <span class="outlet-name">Marketer.ge</span>
+    </div>
+  </div>
+</section>
 
-    <a href="https://www.youtube.com/watch?v=Qmn8CJ3_xjU" target="_blank" rel="noopener" class="press-card">
-      <p class="press-card-outlet">YouTube</p>
-      <p class="press-card-type">Video Interview</p>
-      <h3 class="press-card-title">Ana Kamkhadze's Business in the USA</h3>
-      <p class="press-card-desc">A video interview exploring Ana Kamkhadze's journey building a U.S. immigration law firm — her background, expertise in extraordinary ability pathways, and vision for Kamkhadze PA.</p>
-      <div class="press-card-arrow">Watch Interview →</div>
-    </a>
 
-    <a href="https://www.youtube.com/watch?v=eY2OOJ0qYZQ" target="_blank" rel="noopener" class="press-card">
-      <p class="press-card-outlet">YouTube</p>
-      <p class="press-card-type">Video Interview</p>
-      <h3 class="press-card-title">Video Interview · Ana Kamkhadze &amp; Kamkhadze PA</h3>
-      <p class="press-card-desc">An in-depth video conversation with Attorney Ana Kamkhadze on U.S. immigration law, the O-1A and EB-1A pathways for exceptional talent, and the story behind founding Kamkhadze PA.</p>
-      <div class="press-card-arrow">Watch Interview →</div>
-    </a>
+<!-- BLOCK 3 — PRESS ARTICLES [DARK] -->
+<section class="section dk" style="padding-top:clamp(9rem,16vw,16rem);padding-bottom:clamp(9rem,16vw,16rem);margin:0;width:100%;">
 
-    <a href="https://www.facebook.com/watch/106632844375554/1146183242980428/" target="_blank" rel="noopener" class="press-card">
-      <p class="press-card-outlet">TV Interview</p>
-      <p class="press-card-type">Television · Facebook</p>
-      <h3 class="press-card-title">Television Interview · Ana Kamkhadze on U.S. Immigration Law</h3>
-      <p class="press-card-desc">A television broadcast featuring Attorney Ana Kamkhadze discussing U.S. immigration law, extraordinary ability pathways, and Kamkhadze PA's approach to elite immigration representation.</p>
-      <div class="press-card-arrow">Watch Interview →</div>
-    </a>
+  <div class="wrap" style="margin-bottom:4rem;">
+    <div class="press-intro-grid" style="align-items:end;">
+      <div class="r">
+        <span class="label" style="opacity:.35;margin-bottom:1.4rem;">Press Coverage</span>
+        <h2>Media Features<br><em>&amp; Articles</em></h2>
+      </div>
+      <p style="font-size:0.92rem;line-height:1.95;color:rgba(203,209,213,0.45);padding-bottom:0.4rem;" class="r d1">
+        Selected coverage from business publications, financial media, and immigration-focused outlets that have featured Ana Kamkhadze's expertise and perspective.
+      </p>
+    </div>
+  </div>
+  <div class="press-grid">
 
-    <a href="https://voyagemia.com/interview/hidden-gems-meet-ana-kamkhadze-of-kamkhadze-pa/" target="_blank" rel="noopener" class="press-card">
-      <p class="press-card-outlet">VoyageMIA</p>
-      <p class="press-card-type">Editorial Profile · Miami</p>
-      <h3 class="press-card-title">Hidden Gems: Meet Ana Kamkhadze of Kamkhadze PA</h3>
-      <p class="press-card-desc">VoyageMIA's Hidden Gems series profiles Ana Kamkhadze — her background, her approach to immigration law, and the story behind building Kamkhadze PA into a firm for exceptional clients.</p>
-      <div class="press-card-arrow">Read Profile →</div>
-    </a>
+    <div class="press-card r">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <span class="press-card__outlet">Entrepreneur</span>
+        <span class="press-card__date">2024</span>
+      </div>
+      <h4>Kamkhadze PA: Immigration for individuals with Extraordinary Abilities and Achievements</h4>
+      <p>A deep dive into the O-1A and EB-1A categories and why the standards — and the stakes — have never been higher for professionals seeking a U.S. immigration pathway based on their achievements.</p>
+      <a href="https://www.entrepreneur.com/ka/siakhleebi-da-tendentsiebi/kamkhadze-pa-immigration-for-individuals-with/459254" target="_blank" rel="noopener" class="press-card__link">Read on Entrepreneur</a>
+    </div>
 
-    <a href="https://www.entrepreneur.com/ka/siakhleebi-da-tendentsiebi/kamkhadze-pa-immigration-for-individuals-with/459254" target="_blank" rel="noopener" class="press-card">
-      <p class="press-card-outlet">Entrepreneur</p>
-      <p class="press-card-type">Feature Article · Georgian Edition</p>
-      <h3 class="press-card-title">Kamkhadze PA: Immigration for Individuals with Extraordinary Ability</h3>
-      <p class="press-card-desc">Entrepreneur profiles Kamkhadze PA's specialized focus on extraordinary ability immigration — the O-1A visa and EB-1A green card pathways for top global talent seeking to live and work in the U.S.</p>
-      <div class="press-card-arrow">Read Article →</div>
-    </a>
+    <div class="press-card r d1">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <span class="press-card__outlet">Yahoo Finance</span>
+        <span class="press-card__date">2024</span>
+      </div>
+      <h4>KAMKHADZE PA, a Law Firm Exclusively Practicing U.S. Immigration and Nationality Law, Was Launched in Hollywood Beach, Florida</h4>
+      <p>Ana Kamkhadze discusses the intersection of business planning and immigration law — why entrepreneurs seeking U.S. market access must treat immigration as a core business decision, not an afterthought.</p>
+      <a href="https://finance.yahoo.com/news/kamkhadze-pa-law-firm-exclusively-130000879.html" target="_blank" rel="noopener" class="press-card__link">Read on Yahoo Finance</a>
+    </div>
 
-    <a href="https://www.entrepreneur.com/ka/zrdis-strategiebi/ashsh-is-grin-kardis/441806" target="_blank" rel="noopener" class="press-card">
-      <p class="press-card-outlet">Entrepreneur</p>
-      <p class="press-card-type">Feature Article · Georgian Edition</p>
-      <h3 class="press-card-title">U.S. Green Card: Pathways and Strategy</h3>
-      <p class="press-card-desc">An in-depth look at U.S. green card options and growth strategies for individuals seeking permanent residence, featuring expert insights from Ana Kamkhadze on navigating the immigration process.</p>
-      <div class="press-card-arrow">Read Article →</div>
-    </a>
+    <div class="press-card r d2">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <span class="press-card__outlet">Benzinga</span>
+        <span class="press-card__date">2023</span>
+      </div>
+      <h4>KAMKHADZE PA, a Law Firm Exclusively Practicing U.S. Immigration and Nationality Law, Was Launched in Hollywood Beach, Florida</h4>
+      <p>A comparative analysis of investor-based immigration pathways, exploring when the E-2 treaty investor visa is the right choice and when alternatives — including the EB-2 NIW — may offer stronger long-term positioning.</p>
+      <a href="https://www.benzinga.com/pressreleases/22/10/g29323008/kamkhadze-pa-a-law-firm-exclusively-practicing-u-s-immigration-and-nationality-law-was-launched-in" target="_blank" rel="noopener" class="press-card__link">Read on Benzinga</a>
+    </div>
 
-    <a href="https://www.entrepreneur.com/ka/business-news/amerikis-samushao/430455" target="_blank" rel="noopener" class="press-card">
-      <p class="press-card-outlet">Entrepreneur</p>
-      <p class="press-card-type">Feature Article · Georgian Edition</p>
-      <h3 class="press-card-title">Working in America: What You Need to Know</h3>
-      <p class="press-card-desc">A practical guide to employment-based immigration in the United States — covering work authorization, visa categories, and the legal requirements for foreign nationals pursuing careers in America.</p>
-      <div class="press-card-arrow">Read Article →</div>
-    </a>
+    <div class="press-card r">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <span class="press-card__outlet">VoyageMIA</span>
+        <span class="press-card__date">2023</span>
+      </div>
+      <h4>Hidden Gems: Meet Ana Kamkhadze of Kamkhadze PA</h4>
+      <p>A featured profile exploring Ana's path from Georgia to Florida, her dual graduate degrees, and her commitment to building a boutique immigration practice devoted to extraordinary clients.</p>
+      <a href="http://voyagemia.com" target="_blank" rel="noopener" class="press-card__link">Read on VoyageMIA</a>
+    </div>
 
-    <a href="https://finance.yahoo.com/news/kamkhadze-pa-law-firm-exclusively-130000879.html" target="_blank" rel="noopener" class="press-card">
-      <p class="press-card-outlet">Yahoo Finance</p>
-      <p class="press-card-type">Press Release · October 2022</p>
-      <h3 class="press-card-title">Kamkhadze PA — A Law Firm Exclusively Practicing U.S. Immigration and Nationality Law — Launched in Hollywood Beach, Florida</h3>
-      <p class="press-card-desc">Official press release announcing the launch of Kamkhadze PA, the boutique immigration law firm exclusively dedicated to U.S. Immigration and Nationality Law, headquartered in Hollywood Beach, Florida.</p>
-      <div class="press-card-arrow">Read Release →</div>
-    </a>
+    <div class="press-card r d1">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <span class="press-card__outlet">Marketer.ge</span>
+        <span class="press-card__date">2023</span>
+      </div>
+      <h4>Kamkhadze PA – The first Georgian-American immigration law firm in Florida, offering legal services to Georgians seeking to immigrate to the United States</h4>
+      <p>Targeted guidance for Georgian nationals navigating the U.S. immigration system — covering treaty-based pathways, extraordinary ability visas, and the critical importance of choosing the right immigration counsel.</p>
+      <a href="https://www.marketer.ge/kamkhadze-pa-usa/" target="_blank" rel="noopener" class="press-card__link">Read on Marketer.ge</a>
+    </div>
 
-    <a href="https://www.benzinga.com/pressreleases/22/10/g29323008/kamkhadze-pa-a-law-firm-exclusively-practicing-u-s-immigration-and-nationality-law-was-launched-in" target="_blank" rel="noopener" class="press-card">
-      <p class="press-card-outlet">Benzinga</p>
-      <p class="press-card-type">Press Release · October 2022</p>
-      <h3 class="press-card-title">Kamkhadze PA — A Law Firm Exclusively Practicing U.S. Immigration and Nationality Law — Launched in Hollywood Beach, Florida</h3>
-      <p class="press-card-desc">Benzinga coverage of the Kamkhadze PA firm launch — marking the establishment of a boutique immigration practice serving extraordinary individuals nationwide and internationally from South Florida.</p>
-      <div class="press-card-arrow">Read Release →</div>
-    </a>
-
-    <a href="https://www.marketer.ge/kamkhadze-pa-usa/" target="_blank" rel="noopener" class="press-card">
-      <p class="press-card-outlet">Marketer.ge</p>
-      <p class="press-card-type">Feature · Georgian Business Media</p>
-      <h3 class="press-card-title">Kamkhadze PA: U.S. Immigration Law for Exceptional Clients</h3>
-      <p class="press-card-desc">Georgia's leading business and marketing publication features Kamkhadze PA and its founder Ana Kamkhadze — on delivering elite U.S. immigration representation from Hollywood, Florida to clients worldwide.</p>
-      <div class="press-card-arrow">Read Feature →</div>
-    </a>
+    <div class="press-card r d1">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <span class="press-card__outlet">Entrepreneur</span>
+        <span class="press-card__date">2023</span>
+      </div>
+      <h4>Opportunities for obtaining a US Green Card for individuals and investors working in various fields</h4>
+      <p>An in-depth breakdown of the primary green card pathways available to internationally recognized professionals — from EB-1A extraordinary ability to EB-2 NIW — and the strategic considerations that distinguish a well-prepared petition from one that fails.</p>
+      <a href="https://www.entrepreneur.com/ka/zrdis-strategiebi/ashsh-is-grin-kardis/441806" target="_blank" rel="noopener" class="press-card__link">Read on Entrepreneur</a>
+    </div>
 
   </div>
 </section>
 
-<div class="cta-section">
-  <h2>Featured in leading media.<br><em>Ready to represent you.</em></h2>
-  <a href="contact.html" class="btn-primary" style="white-space: nowrap;">Schedule Consultation →</a>
+
+<!-- ── MEDIA RECOGNITION [CREAM] ──────────────────────────────── -->
+<div class="cr" style="padding:clamp(4rem,7vw,6rem) 0;">
+  <div class="wrap">
+    <div class="r">
+      <span class="label" style="opacity:.35;margin-bottom:1.4rem;">Media Recognition</span>
+      <h3 style="margin-bottom:1.4rem;font-size:clamp(1.6rem,2.8vw,2.8rem);color:var(--dk);">A trusted voice in <em>U.S. immigration.</em></h3>
+      <p style="font-size:0.92rem;line-height:2;color:rgba(0,32,96,0.5);max-width:680px;">
+        Ana Kamkhadze's expertise has been sought by leading publications and broadcast platforms covering business immigration, entrepreneurship, and the extraordinary ability visa landscape.
+      </p>
+    </div>
+  </div>
 </div>
 
-<footer>
-  <div class="footer-grid">
-    <div>
-      <p class="footer-brand-name">Kamkhadze PA</p>
-      <p class="footer-brand-sub">U.S. Immigration Law Firm</p>
-      <p class="footer-desc">Elite immigration representation for extraordinary individuals — scientists, executives, artists, investors, and families — nationwide and internationally.</p>
-    </div>
-    <div class="footer-col">
-      <p class="footer-col-title">Employment-Based</p>
-      <ul>
-        <li><a href="employment.html#o1a">O-1A Extraordinary Ability</a></li>
-        <li><a href="employment.html#o1b">O-1B Arts &amp; Entertainment</a></li>
-        <li><a href="employment.html#eb1a">EB-1A Green Card</a></li>
-        <li><a href="employment.html#eb1b">EB-1B Researchers</a></li>
-        <li><a href="employment.html#eb1c">EB-1C Executives</a></li>
-        <li><a href="employment.html#eb2niw">EB-2 NIW</a></li>
-        <li><a href="employment.html#h1b">H-1B</a></li>
-        <li><a href="employment.html#l1">L-1</a></li>
-        <li><a href="employment.html#e2">E-2</a></li>
-        <li><a href="employment.html#tn">TN</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <p class="footer-col-title">Family-Based</p>
-      <ul>
-        <li><a href="family.html#marriage">Marriage-Based Green Card</a></li>
-        <li><a href="family.html#naturalization">Naturalization</a></li>
-        <li><a href="family.html#other">Other Family Petitions</a></li>
-      </ul>
-      <p class="footer-col-title" style="margin-top: 24px;">Firm</p>
-      <ul>
-        <li><a href="about.html">About Ana Kamkhadze</a></li>
-        <li><a href="blog.html">Insights &amp; Analysis</a></li>
-        <li><a href="press.html">In the Spotlight</a></li>
-        <li><a href="contact.html">Contact &amp; Location</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <p class="footer-col-title">Contact</p>
-      <ul>
-        <li><a href="mailto:anka@esq.mba">anka@esq.mba</a></li>
-        <li><a href="tel:+17865909400">+1 (786) 590-9400</a></li>
-        <li><a href="contact.html">Hollywood Beach, FL</a></li>
-        <li><a href="contact.html">Consultations Worldwide</a></li>
-      </ul>
+
+<!-- BLOCK 4 — FEATURED INTERVIEW [CREAM] -->
+<section class="section cr">
+  <div class="wrap">
+    <span class="label r" style="opacity:.35;margin-bottom:4rem;">Featured Profile</span>
+    <div class="featured-row">
+      <blockquote class="featured-row__quote r">
+        "I didn't set out to build the biggest immigration firm. I set out to build the best one — where every client's case receives the same care and precision I would demand for my own."
+      </blockquote>
+      <div class="featured-row__meta r d1">
+        <div>
+          <span class="featured-row__outlet-label">VoyageMIA · Profile Feature</span>
+          <p class="featured-row__title">Ana Kamkhadze, Esq. MBA — Attorney, Strategist, Advocate</p>
+        </div>
+        <p class="featured-row__desc">
+          In this extended profile, Ana Kamkhadze discusses her decision to specialize exclusively in immigration law, the dual LL.M./MBA background that shapes her strategic approach, and why the most elite immigration clients demand — and deserve — counsel that understands both the law and the business context in which it operates.
+        </p>
+        <a href="http://voyagemia.com" target="_blank" rel="noopener" class="featured-row__link">Read the Full Profile</a>
+      </div>
     </div>
   </div>
-  <div class="footer-bottom">
-    <span>© 2024 Kamkhadze PA. All rights reserved.</span>
-    <span>Hollywood Beach, Florida · Serving Clients Nationwide &amp; Internationally</span>
+</section>
+
+
+
+
+<!-- BLOCK 5 — VIDEO & BROADCAST [DARK] -->
+<section class="section dk">
+  <div class="wrap" style="margin-bottom:4rem;">
+    <span class="label r" style="opacity:.35;margin-bottom:1.4rem;">Video &amp; Broadcast</span>
+    <h2 class="r d1">TV Interviews<br><em>&amp; Broadcasting</em></h2>
   </div>
-  <p class="footer-disclaimer">Attorney Advertising. This website is for informational purposes only and does not constitute legal advice. Prior results do not guarantee a similar outcome. Kamkhadze PA is licensed to practice in New York. Immigration law is federal law; the firm represents clients in immigration matters in all U.S. states and abroad.</p>
+  <div class="video-grid">
+    <div class="video-card r">
+      <span class="video-card__platform" style="margin-bottom:0.25rem;">BMG</span>
+      <span class="video-card__platform" style="color:rgba(203,209,213,0.4);margin-bottom:0.9rem;">Video Interview</span>
+      <h4><a href="https://www.youtube.com/watch?v=Qmn8CJ3_xjU" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:none;">Ana Kamkhadze's Business in the USA</a></h4>
+      <p>A video interview exploring Ana Kamkhadze's journey building a U.S. immigration law firm — her background, expertise in extraordinary ability pathways, and vision for Kamkhadze PA.</p>
+      <a href="https://www.youtube.com/watch?v=Qmn8CJ3_xjU" target="_blank" rel="noopener noreferrer" style="margin-top:0.8rem;display:inline-block;font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(203,209,213,0.45);border-bottom:1px solid rgba(203,209,213,0.15);padding-bottom:2px;">Watch Interview →</a>
+    </div>
+    <div class="video-card r d1">
+      <span class="video-card__platform" style="margin-bottom:0.25rem;">BMG</span>
+      <span class="video-card__platform" style="color:rgba(203,209,213,0.4);margin-bottom:0.9rem;">Video Interview</span>
+      <h4><a href="https://www.youtube.com/watch?v=eY2OOJ0qYZQ" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:none;">Video Interview · Ana Kamkhadze &amp; Kamkhadze PA</a></h4>
+      <p>An in-depth video conversation with Attorney Ana Kamkhadze on U.S. immigration law, the O-1A and EB-1A pathways for exceptional talent, and the story behind founding Kamkhadze PA.</p>
+      <a href="https://www.youtube.com/watch?v=eY2OOJ0qYZQ" target="_blank" rel="noopener noreferrer" style="margin-top:0.8rem;display:inline-block;font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(203,209,213,0.45);border-bottom:1px solid rgba(203,209,213,0.15);padding-bottom:2px;">Watch Interview →</a>
+    </div>
+    <div class="video-card r d2">
+      <span class="video-card__platform" style="margin-bottom:0.25rem;">ENTREPRENEUR</span>
+      <span class="video-card__platform" style="color:rgba(203,209,213,0.4);margin-bottom:0.9rem;">Feature Article · Georgian Edition</span>
+      <h4><a href="https://www.entrepreneur.com/ka/business-news/amerikis-samushao/430455" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:none;">Working in America: What You Need to Know</a></h4>
+      <p>A practical guide to employment-based immigration in the United States — covering work authorization, visa categories, and the legal requirements for foreign nationals pursuing careers in America.</p>
+      <a href="https://www.entrepreneur.com/ka/business-news/amerikis-samushao/430455" target="_blank" rel="noopener noreferrer" style="margin-top:0.8rem;display:inline-block;font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(203,209,213,0.45);border-bottom:1px solid rgba(203,209,213,0.15);padding-bottom:2px;">Read Article →</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- BLOCK 6 — MEDIA INQUIRIES [CREAM] -->
+<section class="section cr">
+  <div class="wrap">
+    <div class="mi-grid r">
+      <div>
+        <span class="label" style="opacity:.35;margin-bottom:1.6rem;">For Journalists &amp; Editors</span>
+        <h2>Media<br><em>Inquiries</em></h2>
+      </div>
+      <div>
+        <p style="font-size:0.92rem;line-height:2;color:rgba(0,32,96,0.55);margin-bottom:2rem;">
+          Ana Kamkhadze is available for expert commentary on U.S. immigration law — particularly extraordinary ability visas, investor pathways, and the intersection of business and immigration strategy. She provides clear, authoritative perspective for print, digital, broadcast, and podcast formats.
+        </p>
+        <p style="font-size:0.92rem;line-height:2;color:rgba(0,32,96,0.55);margin-bottom:3rem;">
+          For press inquiries, interview requests, and media kit access, please contact the firm directly.
+        </p>
+        <a href="mailto:anka@esq.mba" class="btn btn-solid cr">Media Inquiries — anka@esq.mba</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- CTA [DARK] -->
+<section class="section--tall dk" style="text-align:center;">
+  <div class="wrap wrap--narrow">
+    <span class="label r" style="opacity:.35;margin-bottom:1.8rem;display:block;">Work With Ana Kamkhadze</span>
+    <h2 class="r d1">
+      Ready to pursue your<br>
+      <em>U.S. immigration goals?</em>
+    </h2>
+    <br><br>
+    <a href="contact.html" class="btn btn-solid dk r d2">Schedule a Consultation</a>
+  </div>
+</section>
+
+<!-- FOOTER [CREAM] -->
+<footer class="footer section cr">
+  <div class="wrap">
+    <div class="footer__grid">
+      <div>
+        <span class="footer__brand-name">Kamkhadze PA</span>
+        <span class="footer__brand-sub">U.S. Immigration Law Firm</span>
+        <p class="footer__desc">Elite immigration representation for extraordinary individuals — entrepreneurs, scientists, executives, artists, investors — nationwide and internationally.</p>
+      </div>
+      <div>
+        <span class="footer__col-title">Employment-Based</span>
+        <ul class="footer__links">
+          <li><a href="employment.html#eb1a">EB-1A Green Card</a></li>
+          <li><a href="employment.html#eb1b">EB-1B Researchers</a></li>
+          <li><a href="employment.html#eb1c">EB-1C Executives</a></li>
+          <li><a href="employment.html#eb2niw">EB-2 NIW</a></li>
+          <li style="white-space:nowrap;font-size:0.7rem"><a href="employment.html#e2">E-2</a> / <a href="employment.html#o1a">O-1</a> / <a href="employment.html#o1b">O-2</a> / <a href="employment.html#tn">TN</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="footer__col-title">Family-Based</span>
+        <ul class="footer__links">
+          <li><a href="family.html#marriage">Marriage-Based Green Card</a></li>
+          <li><a href="naturalization.html">Naturalization &amp; Citizenship</a></li>
+          <li><a href="family.html#other">Other Family Petitions</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="footer__col-title">Firm</span>
+        <ul class="footer__links">
+          <li><a href="about.html">About Ana Kamkhadze</a></li>
+          <li><a href="blog.html">Insights &amp; Analysis</a></li>
+          <li><a href="press.html">In the Spotlight</a></li>
+          <li><a href="contact.html">Contact &amp; Location</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="footer__col-title">Contact</span>
+        <a href="mailto:anka@esq.mba" class="footer__contact-line">anka@esq.mba</a>
+        <a href="tel:+17865909400"    class="footer__contact-line">+1 (786) 590-9400</a>
+        <span class="footer__contact-line">Hollywood Beach, FL</span>
+        <span class="footer__contact-line">Consultations Worldwide</span>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p class="footer__copy">
+        © 2026 Kamkhadze PA. All rights reserved. Hollywood Beach, Florida · Serving Clients Nationwide &amp; Internationally<br>
+        Attorney Advertising. This website is for informational purposes only and does not constitute legal advice. Prior results do not guarantee a similar outcome. Kamkhadze PA is licensed to practice in New York. Immigration law is federal law; the firm represents clients in immigration matters in all U.S. states and abroad.
+      </p>
+    </div>
+  </div>
 </footer>
 
-<script src="script.js"></script>
+<script>
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); } });
+  }, { threshold: 0.07, rootMargin: '0px 0px -30px 0px' });
+  document.querySelectorAll('.r').forEach(el => io.observe(el));
+  const nav = document.getElementById('main-nav');
+  window.addEventListener('scroll', () => { nav.classList.toggle('lit', window.scrollY > 40); }, { passive: true });
+  const burger = document.getElementById('burger');
+  const navLinks = document.querySelector('.nav__links');
+  if (burger && navLinks) {
+    burger.addEventListener('click', () => { navLinks.classList.toggle('open'); burger.classList.toggle('active'); });
+  }
+
+  // Click / touch dropdown support
+  (function() {
+    document.querySelectorAll('.dd__toggle').forEach(function(t) {
+      t.addEventListener('click', function(e) {
+        var nl = document.querySelector('.nav__links');
+        if (nl && nl.classList.contains('open')) return;
+        var dd = this.closest('.dd');
+        var wasOpen = dd.classList.contains('open');
+        document.querySelectorAll('.dd').forEach(function(d) { d.classList.remove('open'); });
+        if (!wasOpen) { dd.classList.add('open'); e.preventDefault(); }
+      });
+    });
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.dd')) {
+        document.querySelectorAll('.dd').forEach(function(d) { d.classList.remove('open'); });
+      }
+    });
+  })();
+</script>
+<script>
+(function(){
+  function hide(img){
+    var f = img.closest('figure,.ei-block,.ei-cinematic,.page-hero__photo,.page-hero__icon');
+    if(f){ f.style.display='none'; } else { img.style.display='none'; }
+  }
+  document.querySelectorAll('img').forEach(function(img){
+    if(img.complete && img.naturalWidth===0 && img.getAttribute('src')){ hide(img); }
+    img.addEventListener('error', function(){ hide(img); });
+  });
+})();
+</script>
 </body>
 </html>

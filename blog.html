@@ -1,205 +1,787 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Insights &amp; Analysis | Kamkhadze PA Immigration Law</title>
-  <meta name="description" content="Original legal analysis on U.S. immigration law — extraordinary ability standards, NIW strategy, H-1B alternatives, USCIS trends, and more. By Ana Kamkhadze, Esq. MBA.">
-  <link rel="stylesheet" href="style.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Raleway:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Immigration law insights and analysis from Ana Kamkhadze, Esq. MBA — O-1, EB-1, EB-2 NIW, and U.S. immigration strategy for extraordinary individuals.">
+<title>Insights &amp; Analysis | Kamkhadze PA</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --nhg:   'Neue Haas Grotesk Display', 'NeueHaasGroteskDisp', 'Neue Haas Grotesk', 'Helvetica Neue', Helvetica, Arial, sans-serif; --dk:#002060; --cr:#CBD1D5; --serif:'Cormorant Garamond',Georgia,serif; --sans:'Raleway',sans-serif; --ease:cubic-bezier(0.25,0.46,0.45,0.94); --pad-h:clamp(2rem,6vw,7rem); --pad-v:clamp(5rem,9vw,9rem); }
+*,*::before,*::after { box-sizing:border-box; margin:0; padding:0; background-image:none !important; }
+html { scroll-behavior:smooth; }
+body { font-family:var(--sans); font-weight:400; font-size:15px; line-height:1.82; background:var(--dk); color:var(--cr); -webkit-font-smoothing:antialiased; overflow-x:hidden; }
+img { display:block; max-width:100%; }
+a { text-decoration:none; color:inherit; }
+button { font-family:var(--nhg); font-weight:400; cursor:pointer; border:none; background:none; }
+h1,h2,h3,h4,h5,h6 { font-family:var(--serif); font-weight:400; line-height:1.06; letter-spacing:-0.01em; }
+h1 { font-size:clamp(3.8rem,8vw,8rem); }
+h2 { font-size:clamp(2.6rem,5vw,5rem); }
+h3 { font-size:clamp(1.6rem,2.8vw,2.6rem); }
+h4 { font-size:clamp(1.1rem,1.8vw,1.5rem); }
+em { font-style:normal; }
+b,strong { font-weight:500; }
+.label { font-family:var(--sans); font-size:0.62rem; font-weight:400; letter-spacing:0.3em; text-transform:uppercase; display:block; }
+.dk { background:var(--dk); color:var(--cr); }
+.dk h1,.dk h2,.dk h3,.dk h4,.dk em { color:var(--cr); }
+.dk .label { color:var(--cr); opacity:0.45; }
+.dk .btn-solid { background:var(--cr); color:var(--dk); border:1px solid var(--cr); }
+.dk .btn-solid:hover { background:transparent; color:var(--cr); }
+.dk .btn-line { background:transparent; color:var(--cr); border:1px solid rgba(203,209,213,0.3); }
+.dk .btn-line:hover { border-color:var(--cr); }
+.cr { background:var(--cr); color:var(--dk); }
+.cr h1,.cr h2,.cr h3,.cr h4,.cr em { color:var(--dk); }
+.cr .label { color:var(--dk); opacity:0.4; }
+.cr .btn-solid { background:var(--dk); color:var(--cr); border:1px solid var(--dk); }
+.cr .btn-solid:hover { background:transparent; color:var(--dk); }
+.cr .btn-line { background:transparent; color:var(--dk); border:1px solid rgba(0,32,96,0.3); }
+.cr .btn-line:hover { border-color:var(--dk); }
+.wrap { max-width:1380px; margin:0 auto; padding-left:var(--pad-h); padding-right:var(--pad-h); }
+.wrap--narrow { max-width:940px; }
+.section { padding:var(--pad-v) 0; }
+.section--tall { padding:clamp(7rem,13vw,13rem) 0; }
+.btn { display:inline-flex; align-items:center; gap:0.75em; font-family:var(--sans); font-size:0.65rem; font-weight:400; letter-spacing:0.28em; text-transform:uppercase; padding:1.2em 3em; transition:all 0.5s var(--ease); cursor:pointer; outline:none; white-space:nowrap; }
+.btn::after { content:'→'; transition:transform 0.35s ease; }
+.btn:hover::after { transform:translateX(6px); }
+.r { opacity:0; transform:translateY(30px); transition:opacity 0.85s var(--ease),transform 0.85s var(--ease); }
+.r.on { opacity:1; transform:translateY(0); }
+.d1 { transition-delay:0.1s; } .d2 { transition-delay:0.22s; } .d3 { transition-delay:0.34s; } .d4 { transition-delay:0.48s; }
+
+/* NAV */
+.nav { position:fixed; top:0; left:0; right:0; z-index:500; background:var(--dk); border-bottom:1px solid rgba(203,209,213,0.08); transition:border-color 0.4s; }
+.nav.lit { border-color:rgba(203,209,213,0.18); }
+.nav__row { display:flex; align-items:center; justify-content:space-between; height:80px; padding:0 clamp(1rem,2.5vw,3rem) 0 clamp(1rem,2.5vw,3rem); max-width:1560px; margin:0 auto; }
+.nav__logo { display:flex; flex-direction:row; align-items:center; gap:0.75rem; }
+.nav__logo-text { display:flex; flex-direction:column; gap:3px; }
+.nav__logo-name { font-family:var(--serif); font-size:1.18rem; font-weight:400; letter-spacing:0.06em; color:var(--cr); line-height:1; white-space: nowrap; }
+.nav__logo-sub { font-family:var(--sans); font-size:0.55rem; font-weight:300; letter-spacing:0.3em; text-transform:uppercase; color:rgba(203,209,213,0.4); line-height:1; }
+.nav__links { display:flex; align-items:center; gap:clamp(0.5rem,1.1vw,1.5rem); list-style:none; }
+.nav__links > li > a,.nav__links > li > span { font-family:var(--sans); font-size:0.6rem; font-weight:300; letter-spacing:0.18em; text-transform:uppercase; color:rgba(203,209,213,0.92); transition:color 0.3s; cursor:pointer; position:relative; white-space:nowrap; }
+.nav__links > li > a::after,.nav__links > li > span::after { content:''; position:absolute; left:0; bottom:-3px; width:0; height:1px; background:var(--cr); transition:width 0.4s var(--ease); }
+.nav__links > li > a:hover,.nav__links > li > span:hover { color:var(--cr); }
+.nav__links > li > a:hover::after,.nav__links > li > span:hover::after { width:100%; }
+.nav__links > li > a.active { color:var(--cr); }
+.dd { position:relative; }
+.dd::after { content:''; position:absolute; left:0; right:0; bottom:-1.4rem; height:1.4rem; }
+.dd__toggle { display:flex; align-items:center; gap:0.4em; }
+.dd__caret { font-size:0.5rem; opacity:0.4; transition:transform 0.3s; }
+.dd:hover .dd__caret { transform:rotate(180deg); opacity:0.8; }
+.dd__panel { position:absolute; top:calc(100% + 1.4rem); left:50%; transform:translateX(-50%) translateY(-6px); background:var(--dk); border:1px solid rgba(203,209,213,0.1); min-width:280px; padding:0.5rem 0; opacity:0; visibility:hidden; transition:opacity 0.3s,transform 0.3s; box-shadow:0 20px 60px rgba(0,0,0,0.08); }
+.dd:hover .dd__panel,.dd.open .dd__panel { opacity:1; visibility:visible; transform:translateX(-50%) translateY(0); }
+.dd__panel a { display:block; padding:0.75rem 1.8rem; font-size:0.65rem; font-weight:300; letter-spacing:0.16em; text-transform:uppercase; color:rgba(203,209,213,0.55); transition:color 0.25s,background 0.25s; }
+.dd__panel a:hover { color:var(--cr); background:rgba(203,209,213,0.04); }
+.nav__cta { font-size:0.56rem !important; font-weight:400 !important; letter-spacing:0.2em !important; padding:0.75em 1.5em; border:1px solid rgba(203,209,213,0.3); color:var(--cr) !important; transition:border-color 0.4s,background 0.4s; }
+.nav__cta::after { display:none !important; }
+.nav__cta:hover { border-color:var(--cr) !important; background:rgba(203,209,213,0.06) !important; }
+.nav__burger { display:none; flex-direction:column; gap:6px; cursor:pointer; padding:6px; }
+.nav__burger span { display:block; width:28px; height:1px; background:var(--cr); transition:transform 0.3s,opacity 0.3s; }
+
+/* PAGE HERO */
+.page-hero { min-height:100vh; padding-top:calc(80px + clamp(5rem,10vw,9rem)); padding-bottom:clamp(5rem,9vw,9rem); padding-left:var(--pad-h); padding-right:var(--pad-h); }
+.page-hero h1 { max-width:14ch; margin-bottom:2rem; }
+.page-hero__sub { font-size:clamp(0.95rem,1.3vw,1.1rem); color:rgba(0,32,96,0.55); max-width:560px; line-height:1.95; }
+
+/* PAGE HERO GRID */
+.page-hero__layout { display:grid; grid-template-columns:1fr auto; gap:clamp(3rem,6vw,8rem); align-items:center; }
+.page-hero__icon { line-height:0; flex-shrink:0; opacity:0.1; color:currentColor; }
+.page-hero__icon svg { width:clamp(180px,22vw,300px); height:auto; display:block; }
+.cr .page-hero__icon { color:var(--cr); opacity:0.14; }
+
+/* FEATURED ARTICLE */
+.featured-article {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:clamp(4rem,7vw,9rem);
+  align-items:center;
+  border-top:1px solid rgba(0,32,96,0.1);
+  padding-top:clamp(4rem,6vw,7rem);
+}
+.featured-article__meta {
+  display:flex;
+  flex-direction:column;
+  gap:0.5rem;
+  margin-bottom:2rem;
+}
+.featured-article__cat { font-size:0.58rem; font-weight:400; letter-spacing:0.26em; text-transform:uppercase; color:rgba(0,32,96,0.35); }
+.featured-article__date { font-size:0.58rem; letter-spacing:0.18em; text-transform:uppercase; color:rgba(0,32,96,0.25); }
+.featured-article h3 { margin-bottom:1.5rem; }
+.featured-article p { font-size:0.9rem; line-height:2; color:rgba(0,32,96,0.55); margin-bottom:2rem; }
+.featured-article__link {
+  display:inline-flex; align-items:center; gap:0.5rem;
+  font-size:0.62rem; font-weight:400; letter-spacing:0.22em; text-transform:uppercase;
+  color:rgba(0,32,96,0.5); border-bottom:1px solid rgba(0,32,96,0.18); padding-bottom:3px;
+  transition:gap 0.3s,color 0.3s,border-color 0.3s;
+}
+.featured-article__link::after { content:'→'; }
+.featured-article__link:hover { gap:0.9rem; color:var(--dk); border-color:rgba(0,32,96,0.4); }
+.featured-article__stat {
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:flex-start;
+  gap:1rem;
+  padding:clamp(3rem,5vw,6rem) clamp(2rem,4vw,5rem);
+  border:1px solid rgba(0,32,96,0.1);
+}
+.featured-article__big-num {
+  font-family:var(--serif);
+  font-size:clamp(5rem,10vw,10rem);
+  font-weight:300;
+  color:rgba(0,32,96,0.08);
+  line-height:0.9;
+}
+.featured-article__stat-label { font-size:0.6rem; font-weight:400; letter-spacing:0.26em; text-transform:uppercase; color:rgba(0,32,96,0.35); }
+.featured-article__stat-desc { font-size:0.88rem; line-height:1.8; color:rgba(0,32,96,0.5); max-width:320px; }
+
+/* ARTICLE GRID */
+.articles-grid {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  border-top:1px solid rgba(203,209,213,0.08);
+}
+.article-card {
+  padding:clamp(2.5rem,4vw,4rem);
+  border-right:1px solid rgba(203,209,213,0.08);
+  display:flex;
+  flex-direction:column;
+  gap:1rem;
+  transition:background 0.4s;
+}
+.article-card:nth-child(3n) { border-right:none; }
+.article-card:nth-child(n+4) { border-top:1px solid rgba(203,209,213,0.08); }
+.article-card:hover { background:rgba(203,209,213,0.02); }
+.article-card__meta {
+  display:flex;
+  align-items:center;
+  gap:1rem;
+}
+.article-card__cat { font-size:0.56rem; font-weight:400; letter-spacing:0.24em; text-transform:uppercase; color:rgba(203,209,213,0.28); }
+.article-card__dot { color:rgba(203,209,213,0.15); font-size:0.6rem; }
+.article-card__date { font-size:0.56rem; letter-spacing:0.16em; text-transform:uppercase; color:rgba(203,209,213,0.2); }
+.article-card h4 { font-size:clamp(1rem,1.4vw,1.2rem); color:var(--cr); line-height:1.3; flex:1; }
+.article-card p { font-size:0.8rem; line-height:1.8; color:rgba(203,209,213,0.4); flex:1; }
+/* Article expansion panel */
+.article-expansion { display:none; margin-top:1.4rem; padding-top:1.4rem; border-top:1px solid rgba(203,209,213,0.08); }
+.article-expansion.open { display:block; }
+.article-expansion p { font-size:0.8rem; line-height:1.9; color:rgba(203,209,213,0.46); margin-bottom:1rem; }
+.article-expansion p:last-child { margin-bottom:0; }
+
+.article-card__read {
+  font-size:0.58rem; font-weight:400; letter-spacing:0.22em; text-transform:uppercase;
+  color:rgba(203,209,213,0.32); display:inline-flex; align-items:center; gap:0.4rem;
+  border-bottom:1px solid rgba(203,209,213,0.1); padding-bottom:2px;
+  transition:color 0.3s,gap 0.3s,border-color 0.3s; align-self:flex-start;
+  cursor:pointer; background:none; border-top:none; border-left:none; border-right:none;
+  font-family:var(--sans);
+}
+.article-card:hover .article-card__read { color:var(--cr); gap:0.7rem; border-color:rgba(203,209,213,0.3); }
+
+/* CATEGORY ROWS */
+.cat-row {
+  display:grid;
+  grid-template-columns:0.3fr 1fr 2fr auto;
+  gap:2.5rem;
+  align-items:center;
+  padding:2rem var(--pad-h);
+  border-bottom:1px solid rgba(0,32,96,0.08);
+  transition:background 0.35s;
+  color:var(--dk);
+}
+.cat-row:hover { background:rgba(0,32,96,0.04); }
+.cat-row__num { font-family:var(--serif); font-size:1.8rem; font-weight:300; color:rgba(0,32,96,0.12); line-height:1; }
+.cat-row__title { font-family:var(--serif); font-size:clamp(1rem,1.5vw,1.3rem); color:var(--dk); }
+.cat-row__desc { font-size:0.82rem; line-height:1.75; color:rgba(0,32,96,0.45); }
+.cat-row__count { font-size:0.6rem; font-weight:400; letter-spacing:0.22em; text-transform:uppercase; color:rgba(0,32,96,0.3); white-space:nowrap; }
+
+/* NEWSLETTER */
+.newsletter {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:clamp(4rem,7vw,9rem);
+  align-items:center;
+}
+.newsletter p { font-size:0.92rem; line-height:2; color:rgba(203,209,213,0.48); margin-bottom:2.5rem; }
+.newsletter-form { display:flex; gap:0; border-bottom:1px solid rgba(203,209,213,0.22); }
+.newsletter-input {
+  flex:1;
+  background:transparent;
+  border:none;
+  padding:0.75rem 0;
+  font-family:var(--sans);
+  font-size:0.9rem;
+  font-weight:300;
+  color:var(--cr);
+  outline:none;
+}
+.newsletter-input::placeholder { color:rgba(203,209,213,0.28); }
+.newsletter-submit {
+  background:transparent;
+  border:none;
+  color:rgba(203,209,213,0.45);
+  font-family:var(--sans);
+  font-size:0.6rem;
+  letter-spacing:0.22em;
+  text-transform:uppercase;
+  cursor:pointer;
+  padding:0 0 0 1.5rem;
+  transition:color 0.3s;
+}
+.newsletter-submit:hover { color:var(--cr); }
+.newsletter-note { font-size:0.68rem; color:rgba(203,209,213,0.25); margin-top:1rem; }
+
+/* FOOTER */
+.footer__grid { display:grid; grid-template-columns:2fr 1fr 1fr 1fr 1fr; gap:4rem; padding-bottom:5rem; border-bottom:1px solid rgba(0,32,96,0.1); margin-bottom:2.5rem; }
+.footer__brand-name { font-family:var(--serif); font-size:1.6rem; color:var(--dk); letter-spacing:0.05em; display:block; margin-bottom:0.4rem; }
+.footer__brand-sub { font-size:0.54rem; font-weight:300; letter-spacing:0.3em; text-transform:uppercase; color:rgba(0,32,96,0.35); display:block; margin-bottom:2rem; }
+.footer__desc { font-size:0.82rem; line-height:1.85; color:rgba(0,32,96,0.42); max-width:290px; }
+.footer__col-title { font-size:0.58rem; font-weight:400; letter-spacing:0.28em; text-transform:uppercase; color:rgba(0,32,96,0.35); display:block; margin-bottom:1.8rem; }
+.footer__links { list-style:none; display:flex; flex-direction:column; gap:0.85rem; }
+.footer__links a { font-size:0.8rem; font-weight:300; color:rgba(0,32,96,0.5); letter-spacing:0.04em; transition:color 0.3s; }
+.footer__links a:hover { color:var(--dk); }
+.footer__contact-line { font-size:0.8rem; font-weight:300; color:rgba(0,32,96,0.5); margin-bottom:0.85rem; display:block; }
+a.footer__contact-line:hover { color:var(--dk); }
+.footer__bottom { display:flex; justify-content:space-between; gap:2rem; flex-wrap:wrap; }
+.footer__copy { font-size:0.68rem; font-weight:300; line-height:1.75; color:rgba(0,32,96,0.3); max-width:720px; }
+
+@media (max-width:1100px) {
+  .articles-grid { grid-template-columns:1fr 1fr; }
+  .article-card:nth-child(3n) { border-right:1px solid rgba(203,209,213,0.08); }
+  .article-card:nth-child(2n) { border-right:none; }
+  .footer__grid { grid-template-columns:1fr 1fr; }
+  .cat-row { grid-template-columns:0.3fr 1fr 1fr auto; }
+}
+@media (max-width:900px) {
+  .nav__links { display:none; }
+  .nav__links.open { display:flex; flex-direction:column; position:fixed; top:80px; left:0; right:0; background:var(--cr); padding:2rem var(--pad-h) 3rem; border-top:1px solid rgba(0,32,96,0.1); gap:1.5rem; z-index:499; align-items:flex-start; max-height:calc(100vh - 80px); overflow-y:auto; }
+  .nav__links.open .dd__panel { position:static; transform:none; opacity:1; visibility:visible; border:none; box-shadow:none; padding:0.5rem 0 0 1rem; min-width:unset; background:transparent; }
+  .nav__links.open .dd__panel a { color:rgba(0,32,96,0.65); }
+  .nav__links.open > li > a, .nav__links.open > li > span { color: rgba(0,32,96,0.85); }
+  .nav__links.open .nav__cta { color: rgba(0,32,96,0.85) !important; border-color: rgba(0,32,96,0.3) !important; }
+  .nav__burger { display:flex; }
+  .nav__burger.active span:nth-child(1) { transform:rotate(45deg) translateY(7px); }
+  .nav__burger.active span:nth-child(2) { opacity:0; }
+  .nav__burger.active span:nth-child(3) { transform:rotate(-45deg) translateY(-7px); }
+  .featured-article { grid-template-columns:1fr; }
+  .articles-grid { grid-template-columns:1fr; }
+  .article-card { border-right:none !important; border-bottom:1px solid rgba(203,209,213,0.08); }
+  .cat-row { grid-template-columns:1fr 1fr; }
+  .cat-row__desc,.cat-row__num { display:none; }
+  .newsletter { grid-template-columns:1fr; }
+  .footer__grid { grid-template-columns:1fr; }
+  .page-hero__layout { grid-template-columns:1fr; }
+  .page-hero__icon { display:none; }
+  .page-hero__photo figure { width: clamp(240px, 60vw, 360px) !important; margin-top:2.5rem; }
+  h1 { font-size:clamp(2.8rem,10vw,4.5rem); }
+  h2 { font-size:clamp(2rem,7vw,3rem); }
+}
+
+/* ── EDITORIAL IMAGE BLOCKS ──────────────────────────────────────── */
+.ei-block { position:relative; overflow:hidden; margin:0; line-height:0; background:rgba(203,209,213,0.03); border:1px solid rgba(203,209,213,0.07); }
+.ei-block--portrait { aspect-ratio:3/4; }
+.ei-block--landscape { aspect-ratio:16/9; }
+.ei-block img { width:100%; height:100%; object-fit:cover; object-position:center; display:block; filter:none; transition:transform 0.9s cubic-bezier(0.25,0.46,0.45,0.94); }
+.ei-block:hover img { transform:scale(1.025); }
+.ei-block figcaption { position:absolute; bottom:0; left:0; right:0; padding:1rem 1.4rem; }
+.ei-block__label { font-family:var(--sans); font-size:0.52rem; font-weight:400; letter-spacing:0.26em; text-transform:uppercase; color:rgba(203,209,213,0.4); display:block; }
+.ei-block--cr { background:rgba(0,32,96,0.03); border-color:rgba(0,32,96,0.07); }
+.ei-block--cr .ei-block__label { color:rgba(0,32,96,0.35); }
+.ei-split { display:grid; gap:clamp(4rem,6vw,7rem); align-items:center; }
+.ei-split--right { grid-template-columns:1fr 0.6fr; }
+.ei-split--left  { grid-template-columns:0.6fr 1fr; }
+@media (max-width:900px) {
+  .ei-split { grid-template-columns:1fr; }
+  .ei-split--left .ei-block { order:-1; }
+}
+
+/* ── CINEMATIC TOPIC DIVIDERS — ultra-thin horizontal strips ─── */
+.ei-cinematic {
+  width:100%;
+  height:clamp(70px,9vw,140px);
+  overflow:hidden;
+  line-height:0;
+  display:block;
+}
+.ei-cinematic img {
+  width:100%; height:100%;
+  object-fit:cover; object-position:center 35%;
+  display:block;
+  filter:none;
+  transition:transform 1.5s cubic-bezier(0.25,0.46,0.45,0.94);
+}
+.ei-cinematic:hover img { transform:scale(1.03); }
+</style>
 </head>
 <body>
 
-<nav class="nav">
-  <a href="index.html" class="nav-logo">
-    <svg class="nav-logo-mark" width="38" height="38" viewBox="0 0 38 38" fill="none" aria-hidden="true"><rect x="1.5" y="1.5" width="35" height="35" fill="white" stroke="#1a52b4" stroke-width="2.5"/><path d="M28 8 L10 19 L28 30 L23 30 L15 19 L23 8 Z" fill="#5591D0"/></svg>
-    <div class="nav-logo-text">
-      <span class="nav-logo-name">Kamkhadze PA</span>
-      <span class="nav-logo-sub">U.S. Immigration Law Firm</span>
+<!-- NAVIGATION -->
+<nav class="nav" id="main-nav">
+  <div class="nav__row">
+    <a href="index.html" class="nav__logo">
+      <svg width="32" height="32" viewBox="0 0 38 38" fill="none" aria-hidden="true" class="nav__logo-mark">
+        <rect x="1.5" y="1.5" width="35" height="35" fill="white" stroke="#9CA3A8" stroke-width="2.5"/>
+        <path d="M28 8 L10 19 L28 30 L23 30 L15 19 L23 8 Z" fill="#C0C6CA"/>
+      </svg>
+      <div class="nav__logo-text">
+        <span class="nav__logo-name">Kamkhadze PA</span>
+        <span class="nav__logo-sub">U.S. Immigration Law Firm</span>
+      </div>
+    </a>
+    <ul class="nav__links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li class="dd">
+        <a href="employment.html" class="dd__toggle">Employment-Based <span class="dd__caret">▾</span></a>
+        <div class="dd__panel">
+          <a href="employment.html#o1a">O-1A Extraordinary Ability</a>
+          <a href="employment.html#o1b">O-1B Arts &amp; Entertainment</a>
+          <a href="employment.html#eb1a">EB-1A Green Card</a>
+          <a href="employment.html#eb1b">EB-1B Outstanding Researchers</a>
+          <a href="employment.html#eb1c">EB-1C Multinational Managers</a>
+          <a href="employment.html#eb2niw">EB-2 National Interest Waiver</a>
+          <a href="employment.html#h1b">H-1B Specialty Occupation</a>
+          <a href="employment.html#l1">L-1 Intracompany Transfer</a>
+          <a href="employment.html#e2">E-2 Treaty Investor</a>
+          <a href="employment.html#tn">TN Professional</a>
+        </div>
+      </li>
+      <li class="dd">
+        <a href="family.html" class="dd__toggle">Family-Based <span class="dd__caret">▾</span></a>
+        <div class="dd__panel">
+          <a href="family.html#marriage">Marriage-Based Green Card</a>
+          <a href="family.html#other">Other Family Petitions</a>
+        </div>
+      </li>
+      <li><a href="naturalization.html">Naturalization</a></li>
+      <li><a href="blog.html" class="active">Insights</a></li>
+      <li><a href="press.html">Press</a></li>
+      <li><a href="contact.html" class="nav__cta">Schedule Consultation</a></li>
+    </ul>
+    <div class="nav__burger" id="burger" role="button" aria-label="Open menu">
+      <span></span><span></span><span></span>
     </div>
-  </a>
-  <ul class="nav-links" id="navLinks">
-    <li><a href="index.html">Home</a></li>
-    <li><a href="about.html">About</a></li>
-    <li class="nav-item">
-      <a href="employment.html">Employment-Based ▾</a>
-      <div class="nav-dropdown">
-        <a href="employment.html#o1a">O-1A Extraordinary Ability</a>
-        <a href="employment.html#o1b">O-1B Arts &amp; Entertainment</a>
-        <a href="employment.html#eb1a">EB-1A Green Card</a>
-        <a href="employment.html#eb1b">EB-1B Outstanding Researchers</a>
-        <a href="employment.html#eb1c">EB-1C Multinational Managers</a>
-        <a href="employment.html#eb2niw">EB-2 National Interest Waiver</a>
-        <a href="employment.html#h1b">H-1B Specialty Occupation</a>
-        <a href="employment.html#l1">L-1 Intracompany Transfer</a>
-        <a href="employment.html#e2">E-2 Treaty Investor</a>
-        <a href="employment.html#tn">TN Professional</a>
-      </div>
-    </li>
-    <li class="nav-item">
-      <a href="family.html">Family-Based ▾</a>
-      <div class="nav-dropdown">
-        <a href="family.html#marriage">Marriage-Based Green Card</a>
-        <a href="family.html#naturalization">Naturalization &amp; Citizenship</a>
-        <a href="family.html#other">Other Family Petitions</a>
-      </div>
-    </li>
-    <li><a href="blog.html">Insights</a></li>
-    <li><a href="press.html">Press</a></li>
-    <li><a href="contact.html" class="nav-cta">Schedule Consultation</a></li>
-  </ul>
-  <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
-    <span></span><span></span><span></span>
-  </button>
+  </div>
 </nav>
 
-<div class="page-hero">
-  <p class="page-hero-label">Insights &amp; Analysis</p>
-  <h1>Immigration<br><em>Intelligence.</em></h1>
-  <p>Original analysis on extraordinary ability standards, adjudicatory trends, and strategic pathways — written by Attorney Ana Kamkhadze, Esq. MBA.</p>
-</div>
 
-<!-- FEATURED ARTICLE -->
-<section class="section">
-  <p class="section-label">Latest Analysis</p>
-  <h2 class="section-title">In-Depth on Extraordinary Ability</h2>
-  <p class="section-body">First-principles thinking on the legal standards that govern the most prestigious U.S. immigration categories — because the difference between approval and denial often lives in the nuance.</p>
-
-  <div class="blog-featured-post fade-up">
-    <a href="blog-o1-vs-eb1.html" class="blog-featured-left">
-      <p class="blog-card-tag">O-1A Visa &nbsp;·&nbsp; EB-1A Green Card &nbsp;·&nbsp; Extraordinary Ability</p>
-      <h3 class="blog-featured-title">O-1 vs. EB-1A: Same Words,<br>Different Worlds</h3>
-      <p class="blog-featured-excerpt">The phrase "extraordinary ability" appears in both the O-1A nonimmigrant visa and the EB-1A immigrant petition. But beneath that shared language lie meaningfully different evidentiary standards, adjudicatory philosophies, and strategic implications — with consequences that matter at every stage of a talent's immigration journey.</p>
-      <div class="blog-read-more">Read Full Analysis →</div>
-    </a>
-    <div class="blog-featured-right">
-      <p class="blog-toc-label">In This Analysis</p>
-      <div class="blog-toc">
-        <div class="blog-toc-item">Shared statutory foundations — same phrase, different intent</div>
-        <div class="blog-toc-item">The 8-criteria vs. 10-criteria evidentiary frameworks</div>
-        <div class="blog-toc-item">The "quantum of evidence" question: top 5% vs. very top</div>
-        <div class="blog-toc-item">How <em>Matter of Kazarian</em> reshaped both standards</div>
-        <div class="blog-toc-item">Structural differences: visa vs. permanent residence</div>
-        <div class="blog-toc-item">Strategic sequencing — using O-1A as EB-1A's proving ground</div>
-        <div class="blog-toc-item">What USCIS actually scrutinizes in practice</div>
-        <div class="blog-toc-item">The "comparable evidence" wildcard for non-traditional fields</div>
+<!-- BLOCK 1 — PAGE HERO [CREAM] -->
+<section class="page-hero cr">
+  <div class="wrap">
+    <div class="page-hero__layout">
+      <div class="page-hero__text">
+        <span class="label r" style="opacity:.35;margin-bottom:1.6rem;">Insights &amp; Analysis</span>
+        <h1 class="r d1">Immigration<br><em>Intelligence</em></h1>
+        <p class="page-hero__sub r d2">
+          In-depth analysis, strategic guidance, and practitioner perspective on U.S. immigration law — from the attorney who handles the cases.
+        </p>
       </div>
-      <p class="blog-card-meta" style="margin-top: 28px;">By Ana Kamkhadze, Esq. MBA &nbsp;·&nbsp; May 2026 &nbsp;·&nbsp; 15 min read</p>
+      <!-- Premium editorial portrait — practitioner perspective & insight -->
+      <div class="page-hero__photo">
+        <figure class="ei-block ei-block--portrait ei-block--cr" style="width:clamp(180px,22vw,300px);opacity:1;" aria-label="Aerial view of Washington D.C. Mall with Capitol and Washington Monument at dawn">
+          <img src="blog-img1.webp" alt="Aerial landscape of Washington D.C. — Capitol building, Washington Monument, and National Mall at golden hour" loading="lazy" style="opacity:1;filter:none;">
+        </figure>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ALL ARTICLES GRID -->
-<section class="section section-alt">
-  <p class="section-label">All Analyses</p>
-  <h2 class="section-title">The Full Library</h2>
-  <p class="section-body">Substantive analysis on the visa categories, legal standards, and strategic decisions that matter most to exceptional professionals pursuing U.S. immigration.</p>
 
-  <div class="press-grid fade-up" style="margin-top: 48px;">
-
-    <a href="blog-uscis-trends-2025.html" class="press-card">
-      <p class="press-card-outlet">Vol. V &nbsp;·&nbsp; May 2026</p>
-      <p class="press-card-type">Policy &nbsp;·&nbsp; Adjudicatory Trends &nbsp;·&nbsp; 13 min</p>
-      <h3 class="press-card-title">USCIS Under Trump: Approval Rates, New Policies, and What It Means for Your Case</h3>
-      <p class="press-card-desc">A practitioner's-eye view of the current adjudicatory environment — elevated RFE rates, extraordinary ability scrutiny, NIW third-prong pressure, and what well-prepared petitions look like today.</p>
-      <div class="press-card-arrow">Read Analysis →</div>
-    </a>
-
-    <a href="blog-h1b-alternatives.html" class="press-card">
-      <p class="press-card-outlet">Vol. IV &nbsp;·&nbsp; May 2026</p>
-      <p class="press-card-type">H-1B &nbsp;·&nbsp; Work Visas &nbsp;·&nbsp; 10 min</p>
-      <h3 class="press-card-title">Alternatives to H-1B: What to Do When the Lottery Doesn't Go Your Way</h3>
-      <p class="press-card-desc">Cap-exempt H-1B, O-1A, L-1, TN, E-3, and EB-2 NIW — a practical guide to the real alternatives for professionals who can't afford to leave their immigration future to a lottery.</p>
-      <div class="press-card-arrow">Read Analysis →</div>
-    </a>
-
-    <a href="blog-e2-vs-l1.html" class="press-card">
-      <p class="press-card-outlet">Vol. III &nbsp;·&nbsp; May 2026</p>
-      <p class="press-card-type">E-2 &nbsp;·&nbsp; L-1 &nbsp;·&nbsp; Business Immigration &nbsp;·&nbsp; 11 min</p>
-      <h3 class="press-card-title">E-2 vs. L-1: Which Visa Is Right for Your Business?</h3>
-      <p class="press-card-desc">Investment-based vs. transfer-based. Indefinitely renewable vs. capped at 7 years. No green card path vs. direct runway to EB-1C. A rigorous side-by-side comparison of two fundamentally different business visas.</p>
-      <div class="press-card-arrow">Read Analysis →</div>
-    </a>
-
-    <a href="blog-niw-denials.html" class="press-card">
-      <p class="press-card-outlet">Vol. II &nbsp;·&nbsp; May 2026</p>
-      <p class="press-card-type">EB-2 NIW &nbsp;·&nbsp; Green Card &nbsp;·&nbsp; 12 min</p>
-      <h3 class="press-card-title">EB-2 NIW Denials: Why "National Importance" Is Not Enough</h3>
-      <p class="press-card-desc">The most common reasons NIW petitions fail — and why the national importance prong is necessary but never sufficient. An analysis of the three-prong Dhanasar framework and where petitions break down.</p>
-      <div class="press-card-arrow">Read Analysis →</div>
-    </a>
-
-    <a href="blog-o1-vs-eb1.html" class="press-card">
-      <p class="press-card-outlet">Vol. I &nbsp;·&nbsp; May 2026</p>
-      <p class="press-card-type">O-1A &nbsp;·&nbsp; EB-1A &nbsp;·&nbsp; Extraordinary Ability &nbsp;·&nbsp; 15 min</p>
-      <h3 class="press-card-title">O-1 vs. EB-1A: Same Words, Different Worlds</h3>
-      <p class="press-card-desc">Two categories built on identical statutory language that operate in fundamentally different legal universes — and what that means for the extraordinary individuals pursuing them.</p>
-      <div class="press-card-arrow">Read Analysis →</div>
-    </a>
-
+<!-- BLOCK 2 — FEATURED ARTICLE [CREAM] -->
+<section class="section cr">
+  <div class="wrap">
+    <span class="label r" style="opacity:.35;margin-bottom:3rem;">Featured Article</span>
+    <div class="featured-article">
+      <div class="r">
+        <div class="featured-article__meta">
+          <span class="featured-article__cat">Extraordinary Ability · O-1A / EB-1A</span>
+          <span class="featured-article__date">May 2025</span>
+        </div>
+        <h3>The Final Merits Determination: Why Most EB-1A Petitions Fail — and How to Prevent It</h3>
+        <p>
+          Meeting three of eight criteria is necessary but not sufficient for an EB-1A green card approval. USCIS applies an additional "final merits determination" — an overall assessment of whether the petitioner truly stands among the small percentage who have risen to the top of their field. This article examines the legal standard, the common errors that lead to denials despite facially qualifying evidence, and the strategies that distinguish a successful petition from one that falls short.
+        </p>
+        <a href="contact.html" class="featured-article__link">Discuss Your EB-1A Case</a>
+      </div>
+      <div class="featured-article__stat r d1">
+        <div class="featured-article__big-num">EB-1</div>
+        <span class="featured-article__stat-label">Immigrant Visa · First Preference</span>
+        <p class="featured-article__stat-desc">
+          No employer sponsorship. No PERM labor certification. A direct path to permanent residence for those who have reached the top of their field.
+        </p>
+        <a href="employment.html#eb1a" class="featured-article__link" style="margin-top:0.5rem;">Explore the EB-1A Category</a>
+      </div>
+    </div>
   </div>
 </section>
 
-<div class="cta-section">
-  <h2>Questions about which<br><em>extraordinary ability pathway</em> is right for you?</h2>
-  <a href="contact.html" class="btn-primary" style="white-space: nowrap;">Schedule Consultation →</a>
+
+<!-- ── EDITORIAL IMAGE 1 — Editorial Magazine Hands [CREAM] — image left ── -->
+<div class="cr" style="padding:clamp(4rem,7vw,7rem) 0;">
+  <div class="wrap">
+    <div class="ei-split ei-split--left">
+      <figure class="ei-block ei-block--portrait ei-block--cr r" aria-label="Neoclassical courthouse facade at dusk — justice and legal excellence">
+        <img src="blog-img2.webp" alt="Neoclassical courthouse with Ionic columns and Justitia et Excellentia inscription at golden hour" loading="lazy">
+      </figure>
+      <div class="r d1">
+        <span class="label" style="opacity:.35;margin-bottom:1.4rem;">Insights &amp; Commentary</span>
+        <h3 style="margin-bottom:1.8rem;font-size:clamp(1.4rem,2.2vw,2.2rem);color:var(--dk);">Analysis written for<br><em>those who act.</em></h3>
+        <p style="font-size:0.88rem;line-height:2;color:rgba(0,32,96,0.5);max-width:460px;">
+          The Kamkhadze PA Insights series provides clear, precise commentary on U.S. immigration law as it applies to extraordinary individuals — executives, researchers, artists, and investors making consequential decisions.
+        </p>
+      </div>
+    </div>
+  </div>
 </div>
 
-<footer>
-  <div class="footer-grid">
-    <div>
-      <p class="footer-brand-name">Kamkhadze PA</p>
-      <p class="footer-brand-sub">U.S. Immigration Law Firm</p>
-      <p class="footer-desc">Elite immigration representation for extraordinary individuals — scientists, executives, artists, investors, and families — nationwide and internationally.</p>
-    </div>
-    <div class="footer-col">
-      <p class="footer-col-title">Employment-Based</p>
-      <ul>
-        <li><a href="employment.html#o1a">O-1A Extraordinary Ability</a></li>
-        <li><a href="employment.html#o1b">O-1B Arts &amp; Entertainment</a></li>
-        <li><a href="employment.html#eb1a">EB-1A Green Card</a></li>
-        <li><a href="employment.html#eb1b">EB-1B Researchers</a></li>
-        <li><a href="employment.html#eb1c">EB-1C Executives</a></li>
-        <li><a href="employment.html#eb2niw">EB-2 NIW</a></li>
-        <li><a href="employment.html#h1b">H-1B</a></li>
-        <li><a href="employment.html#l1">L-1</a></li>
-        <li><a href="employment.html#e2">E-2</a></li>
-        <li><a href="employment.html#tn">TN</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <p class="footer-col-title">Family-Based</p>
-      <ul>
-        <li><a href="family.html#marriage">Marriage-Based Green Card</a></li>
-        <li><a href="family.html#naturalization">Naturalization</a></li>
-        <li><a href="family.html#other">Other Family Petitions</a></li>
-      </ul>
-      <p class="footer-col-title" style="margin-top: 24px;">Firm</p>
-      <ul>
-        <li><a href="about.html">About Ana Kamkhadze</a></li>
-        <li><a href="blog.html">Insights &amp; Analysis</a></li>
-        <li><a href="press.html">In the Spotlight</a></li>
-        <li><a href="contact.html">Contact &amp; Location</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <p class="footer-col-title">Contact</p>
-      <ul>
-        <li><a href="mailto:anka@esq.mba">anka@esq.mba</a></li>
-        <li><a href="tel:+17865909400">+1 (786) 590-9400</a></li>
-        <li><a href="contact.html">Hollywood Beach, FL</a></li>
-        <li><a href="contact.html">Consultations Worldwide</a></li>
-      </ul>
+
+<!-- BLOCK 3 — ARTICLE GRID [DARK] -->
+<section class="section dk">
+  <div class="wrap" style="margin-bottom:4rem;">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:end;">
+      <h2 class="r">Recent<br><em>Articles</em></h2>
+      <p style="font-size:0.92rem;line-height:1.95;color:rgba(203,209,213,0.45);padding-bottom:0.4rem;" class="r d1">
+        Practitioner analysis on the visa categories, evidentiary standards, and strategic considerations that matter most to extraordinary individuals navigating U.S. immigration.
+      </p>
     </div>
   </div>
-  <div class="footer-bottom">
-    <span>© 2024 Kamkhadze PA. All rights reserved.</span>
-    <span>Hollywood Beach, Florida · Serving Clients Nationwide &amp; Internationally</span>
+  <div class="articles-grid">
+
+    <div class="article-card r">
+      <div class="article-card__meta">
+        <span class="article-card__cat">O-1A</span>
+        <span class="article-card__dot">·</span>
+        <span class="article-card__date">April 2025</span>
+      </div>
+      <h4>O-1A vs. EB-1A: Understanding the Difference in Standards and Strategy</h4>
+      <p>The O-1A and EB-1A share their evidentiary criteria but differ in their underlying standards and the scrutiny USCIS applies. Here is what practitioners — and petitioners — need to understand before filing either.</p>
+      <div class="article-expansion open">
+        <p>The O-1A nonimmigrant visa and the EB-1A immigrant visa both require evidence of extraordinary ability in the sciences, education, business, or athletics — and both use the same ten regulatory criteria established at 8 C.F.R. § 214.2(o) and 8 C.F.R. § 204.5(h). But the underlying legal standard differs materially. O-1A requires that the beneficiary have "extraordinary ability" and that they are coming to the U.S. to continue work in their field. EB-1A demands that the beneficiary be "one of that small percentage who have risen to the very top of the field of endeavor."</p>
+        <p>In practice, USCIS applies more rigorous scrutiny to EB-1A petitions. Adjudicators are instructed to conduct a totality-of-the-evidence final merits determination after finding that a petitioner satisfies at least three criteria — and that second step is where many otherwise strong petitions fail. The question is not merely whether the criteria are met, but whether the totality demonstrates sustained national or international acclaim placing the individual at the pinnacle of their field.</p>
+        <p>Strategic implications: a successful O-1A does not guarantee EB-1A approval. Petitioners should evaluate their evidentiary profile against both standards before committing to either pathway — or both in parallel where the facts support it.</p>
+      </div>
+      <button class="article-card__read expanded" onclick="this.classList.toggle('expanded');this.closest('.article-card').querySelector('.article-expansion').classList.toggle('open');this.textContent=this.classList.contains('expanded')?'Close ↑':'Close ↑'">Close ↑</button>
+    </div>
+
+    <div class="article-card r d1">
+      <div class="article-card__meta">
+        <span class="article-card__cat">EB-2 NIW</span>
+        <span class="article-card__dot">·</span>
+        <span class="article-card__date">March 2025</span>
+      </div>
+      <h4>The Dhanasar Framework in Practice: Building a Winning NIW Petition</h4>
+      <p>Matter of Dhanasar (2016) reshaped the National Interest Waiver analysis. Nearly a decade later, practitioners are still learning what the three-prong test requires in practice — and where most petitions fall short.</p>
+      <div class="article-expansion open">
+        <p>In Matter of Dhanasar, 26 I&amp;N Dec. 884 (AAO 2016), USCIS's Administrative Appeals Office retired the long-standing NYSDOT framework and replaced it with a three-prong test: (1) the foreign national's proposed endeavor has both substantial merit and national importance; (2) the foreign national is well-positioned to advance the endeavor; and (3) on balance, it would be beneficial to the United States to waive the job offer and labor certification requirements.</p>
+        <p>Prong one is frequently misunderstood. "National importance" does not require the petitioner to work on a nationally scaled project — it asks whether the endeavor, if successful, would have implications beyond a local or regional level. Research with the potential to influence a field broadly, entrepreneurial ventures addressing a recognized national need, and specialized technical work in critical-infrastructure sectors have all been found to satisfy this prong.</p>
+        <p>Where most petitions fail is prong three — the waiver balance. USCIS asks whether the national interest is sufficiently compelling to waive the normal protections afforded U.S. workers. Evidence of a track record of success, letters from individuals who can speak to the impact of the petitioner's work (not merely its quality), and a clear articulation of how the endeavor advances national priorities are critical to a successful NIW showing.</p>
+      </div>
+      <button class="article-card__read expanded" onclick="this.classList.toggle('expanded');this.closest('.article-card').querySelector('.article-expansion').classList.toggle('open');this.textContent=this.classList.contains('expanded')?'Close ↑':'Close ↑'">Close ↑</button>
+    </div>
+
+    <div class="article-card r d2">
+      <div class="article-card__meta">
+        <span class="article-card__cat">Business Immigration</span>
+        <span class="article-card__dot">·</span>
+        <span class="article-card__date">February 2025</span>
+      </div>
+      <h4>L-1A to EB-1C: The Intracompany Transfer Pathway to a Green Card</h4>
+      <p>For multinational executives and managers, the L-1A visa is often the beginning, not the destination. Here is how the L-1A-to-EB-1C pathway works — and what makes or breaks the immigrant visa petition that follows.</p>
+      <div class="article-expansion open">
+        <p>The L-1A nonimmigrant visa allows multinational companies to transfer executives and managers to the United States. The EB-1C immigrant visa — the third preference employment-based green card — allows those same individuals to pursue permanent residence without labor certification, provided they have been employed abroad by the qualifying organization for at least one year in the three years preceding admission as an L-1A.</p>
+        <p>The structural advantage of this pathway is significant: the EB-1C requires no PERM labor certification, is current for many countries that face backlogs in other preference categories, and benefits from a relatively straightforward evidentiary standard compared to EB-1A or EB-1B. However, USCIS scrutinizes the executive or managerial capacity of the beneficiary closely — both in the L-1A and EB-1C contexts.</p>
+        <p>Critical pitfalls include: (1) organizational charts that don't clearly reflect the beneficiary's management of professional employees (not merely administrative staff); (2) small companies where the beneficiary's role blurs executive and operational functions; and (3) gaps in the qualifying relationship between the U.S. and foreign entity. Careful documentation of the corporate relationship, the beneficiary's duties, and the organizational structure at the time of filing is essential to a successful EB-1C petition.</p>
+      </div>
+      <button class="article-card__read expanded" onclick="this.classList.toggle('expanded');this.closest('.article-card').querySelector('.article-expansion').classList.toggle('open');this.textContent=this.classList.contains('expanded')?'Close ↑':'Close ↑'">Close ↑</button>
+    </div>
+
+    <div class="article-card r">
+      <div class="article-card__meta">
+        <span class="article-card__cat">Extraordinary Ability</span>
+        <span class="article-card__dot">·</span>
+        <span class="article-card__date">January 2025</span>
+      </div>
+      <h4>What Counts as "Critical Role" for O-1A and EB-1A Purposes?</h4>
+      <p>The "critical role" criterion is among the most frequently litigated in extraordinary ability cases. USCIS has issued specific guidance — and the circuit courts have weighed in — on what evidence satisfies this standard.</p>
+      <div class="article-expansion open">
+        <p>Among the eight O-1A and ten EB-1A regulatory criteria, "critical role for organizations or establishments that have a distinguished reputation" consistently generates the most contested adjudications. USCIS's 2020 O-1A Policy Manual guidance clarified that "critical role" requires showing that the beneficiary performed in a leading, starring, or critical capacity — and that the organization or establishment in question has a distinguished reputation. Both elements must be separately established.</p>
+        <p>For scientists and researchers, a critical role might be demonstrated through evidence of leadership of a funded research project, authorship of a laboratory's defining publications, or institutional recognition of the beneficiary as a key contributor to a significant discovery. For business professionals, similar documentation might include contracts, equity positions, board-level responsibilities, or financial reports reflecting the beneficiary's contribution to organizational revenue or market positioning.</p>
+        <p>The "distinguished reputation" prong requires independent documentation of the organization — not just the petitioner's personal prestige. Ranking data, industry recognitions, significant market share, and peer commentary have all been accepted as evidence. A start-up, even a well-funded one, may struggle to satisfy this criterion without substantial third-party recognition of the entity itself.</p>
+      </div>
+      <button class="article-card__read expanded" onclick="this.classList.toggle('expanded');this.closest('.article-card').querySelector('.article-expansion').classList.toggle('open');this.textContent=this.classList.contains('expanded')?'Close ↑':'Close ↑'">Close ↑</button>
+    </div>
+
+    <div class="article-card r d1">
+      <div class="article-card__meta">
+        <span class="article-card__cat">Investment</span>
+        <span class="article-card__dot">·</span>
+        <span class="article-card__date">December 2024</span>
+      </div>
+      <h4>E-2 Visa: What "Substantial" Investment Actually Means in USCIS Practice</h4>
+      <p>The E-2 visa requires a "substantial" investment — but the regulations set no minimum dollar amount. USCIS uses a proportionality test, and the answer depends on the nature and cost of the enterprise you are investing in.</p>
+      <div class="article-expansion open">
+        <p>The E-2 treaty investor visa permits nationals of designated treaty countries to enter and work in the United States based on a substantial investment in a U.S. enterprise. The regulations do not specify a minimum dollar threshold. Instead, USCIS applies a "proportionality test" — the investment must be substantial relative to the total cost of purchasing or establishing the enterprise, sufficient to ensure the investor's financial commitment to the successful operation of the business.</p>
+        <p>In practice, adjudicators use an inverse sliding scale: lower-cost enterprises require a higher proportional investment, while higher-cost enterprises permit a lower percentage. A $100,000 investment in a $120,000 franchise may satisfy substantiality — but a $500,000 investment in a $5,000,000 commercial operation might not. The investment must be at risk, irrevocably committed, and not merely the result of borrowed funds that will be repaid from enterprise earnings.</p>
+        <p>Common denial grounds include: (1) investment structured as a loan from the investor to themselves through a corporate intermediary; (2) evidence of business activity not yet commenced at the time of filing; and (3) failure to demonstrate the marginal enterprise will generate income beyond that sufficient to provide a living for the investor and family. The enterprise must have job creation capacity or market-scale economic impact beyond personal support.</p>
+      </div>
+      <button class="article-card__read expanded" onclick="this.classList.toggle('expanded');this.closest('.article-card').querySelector('.article-expansion').classList.toggle('open');this.textContent=this.classList.contains('expanded')?'Close ↑':'Close ↑'">Close ↑</button>
+    </div>
+
+    <div class="article-card r d2">
+      <div class="article-card__meta">
+        <span class="article-card__cat">Family Immigration</span>
+        <span class="article-card__dot">·</span>
+        <span class="article-card__date">November 2024</span>
+      </div>
+      <h4>Conditional Residence and the I-751: What You Need to Know Before the Two-Year Mark</h4>
+      <p>If your green card was issued on a conditional basis, the I-751 petition to remove conditions must be filed within a narrow 90-day window. Understanding the timeline, the evidence requirements, and what happens if the marriage ends — before the window closes.</p>
+      <div class="article-expansion open">
+        <p>When a marriage-based green card is issued to a spouse who has been married for less than two years at the time of approval, USCIS grants conditional permanent residence — a two-year green card, not a standard ten-year card. To convert that status to full permanent residence, the couple must file Form I-751 (Petition to Remove Conditions on Residence) jointly within the 90-day window immediately preceding the two-year anniversary of the grant of conditional residence. Filing before that window opens — or after the card expires without an extension — carries serious legal consequences.</p>
+        <p>The evidentiary standard for I-751 requires demonstrating that the marriage was entered into in good faith and not for the purpose of evading U.S. immigration law. Joint financial accounts, a shared lease or mortgage, co-mingled insurance policies, joint travel records, birth certificates of children born of the marriage, and affidavits from individuals with personal knowledge of the relationship all serve as probative evidence. USCIS may also schedule an in-person interview.</p>
+        <p>If the marriage has ended — through divorce, separation, or the death of the sponsoring spouse — the conditional resident may still be eligible to file individually under a waiver of the joint filing requirement. Grounds for a waiver include: good faith marriage entry, extreme hardship if removed, and battery or extreme cruelty by the U.S. citizen or LPR spouse. These waivers require careful evidentiary development and, in contested cases, legal representation is strongly advised.</p>
+      </div>
+      <button class="article-card__read expanded" onclick="this.classList.toggle('expanded');this.closest('.article-card').querySelector('.article-expansion').classList.toggle('open');this.textContent=this.classList.contains('expanded')?'Close ↑':'Close ↑'">Close ↑</button>
+    </div>
+
+    <div class="article-card r">
+      <div class="article-card__meta">
+        <span class="article-card__cat">O-1A · EB-1A · Extraordinary Ability</span>
+        <span class="article-card__dot">·</span>
+        <span class="article-card__date">May 2026</span>
+      </div>
+      <h4>O-1 vs. EB-1A: Same Words, Different Worlds</h4>
+      <p>Congress embedded "extraordinary ability" in both the O-1A and EB-1A. The statutory language looks nearly identical — but these two pathways operate in distinct regulatory universes, with different burdens, different adjudicatory philosophies, and often meaningfully different outcomes for the same individual.</p>
+      <a href="blog-o1-vs-eb1.html" class="article-card__read" style="margin-top:1.2rem;">Read Full Article →</a>
+    </div>
+
+    <div class="article-card r d1">
+      <div class="article-card__meta">
+        <span class="article-card__cat">USCIS Policy · 2025 Update</span>
+        <span class="article-card__dot">·</span>
+        <span class="article-card__date">May 2026</span>
+      </div>
+      <h4>USCIS Under Trump: Approval Rates, New Policies, and What It Means for Your Case</h4>
+      <p>Since January 2025, executive orders, USCIS guidance memoranda, and administrative practice changes have collectively altered the adjudicatory environment for employment-based petitions. A practitioner's survey of the most significant developments and their practical consequences.</p>
+      <a href="blog-uscis-trends-2025.html" class="article-card__read" style="margin-top:1.2rem;">Read Full Article →</a>
+    </div>
+
+    <div class="article-card r d2">
+      <div class="article-card__meta">
+        <span class="article-card__cat">H-1B · O-1A · Work Visas</span>
+        <span class="article-card__dot">·</span>
+        <span class="article-card__date">May 2026</span>
+      </div>
+      <h4>Alternatives to H-1B: What to Do When the Lottery Doesn't Go Your Way</h4>
+      <p>The H-1B lottery now offers roughly 20–25% odds per registration. For the professionals not selected — and for those who want an immigration strategy that doesn't depend on chance — there are substantive alternatives that deserve serious analysis.</p>
+      <a href="blog-h1b-alternatives.html" class="article-card__read" style="margin-top:1.2rem;">Read Full Article →</a>
+    </div>
+
+    <div class="article-card r">
+      <div class="article-card__meta">
+        <span class="article-card__cat">E-2 · L-1 · Business Immigration</span>
+        <span class="article-card__dot">·</span>
+        <span class="article-card__date">May 2026</span>
+      </div>
+      <h4>E-2 vs. L-1: Which Visa Is Right for Your Business?</h4>
+      <p>International executives and entrepreneurs frequently face this binary early in their immigration planning. On the surface, both allow a foreign national to run a U.S. business. Below the surface, they are structurally different products designed for different circumstances — with consequences extending far beyond initial approval.</p>
+      <a href="blog-e2-vs-l1.html" class="article-card__read" style="margin-top:1.2rem;">Read Full Article →</a>
+    </div>
+
+    <div class="article-card r d1">
+      <div class="article-card__meta">
+        <span class="article-card__cat">EB-2 NIW · National Interest Waiver</span>
+        <span class="article-card__dot">·</span>
+        <span class="article-card__date">May 2026</span>
+      </div>
+      <h4>EB-2 NIW Denials: Why "National Importance" Is Not Enough</h4>
+      <p>Denial rates remain stubbornly high — not because applicants lack qualifications, but because they fundamentally misunderstand what USCIS is actually asking. The NIW is not a merit award. It is a legal test with three distinct prongs, each of which must be independently satisfied.</p>
+      <a href="blog-niw-denials.html" class="article-card__read" style="margin-top:1.2rem;">Read Full Article →</a>
+    </div>
+
   </div>
-  <p class="footer-disclaimer">Attorney Advertising. This website is for informational purposes only and does not constitute legal advice. Prior results do not guarantee a similar outcome. Kamkhadze PA is licensed to practice in New York. Immigration law is federal law; the firm represents clients in immigration matters in all U.S. states and abroad.</p>
+</section>
+
+
+
+<!-- BLOCK 4 — TOPICS [CREAM] -->
+<section class="section cr" style="padding-bottom:0;">
+  <div class="wrap" style="margin-bottom:3rem;">
+    <span class="label r" style="opacity:.35;margin-bottom:1.4rem;">Browse by Topic</span>
+    <h2 class="r d1">All Topics</h2>
+  </div>
+  <div>
+    <a href="employment.html#o1a" class="cat-row r">
+      <span class="cat-row__num">01</span>
+      <span class="cat-row__title">O-1A Extraordinary Ability</span>
+      <span class="cat-row__desc">Evidentiary standards, petition strategy, and case studies in O-1A representation.</span>
+      <span class="cat-row__count">Science · Business · Athletics</span>
+    </a>
+    <a href="employment.html#eb1a" class="cat-row r">
+      <span class="cat-row__num">02</span>
+      <span class="cat-row__title">EB-1A Green Card</span>
+      <span class="cat-row__desc">The highest-tier employment green card — self-petition, no PERM, extraordinary ability standard.</span>
+      <span class="cat-row__count">Immigrant · First Preference</span>
+    </a>
+    <a href="employment.html#eb2niw" class="cat-row r">
+      <span class="cat-row__num">03</span>
+      <span class="cat-row__title">EB-2 National Interest Waiver</span>
+      <span class="cat-row__desc">Self-petition green cards for professionals whose work serves the national interest of the U.S.</span>
+      <span class="cat-row__count">Dhanasar · Self-Petition</span>
+    </a>
+    <a href="employment.html#eb1c" class="cat-row r">
+      <span class="cat-row__num">04</span>
+      <span class="cat-row__title">Business Immigration</span>
+      <span class="cat-row__desc">L-1, H-1B, E-2, TN, EB-1C, and the intersection of corporate strategy with immigration law.</span>
+      <span class="cat-row__count">L-1 · H-1B · E-2 · TN</span>
+    </a>
+    <a href="family.html#marriage" class="cat-row r">
+      <span class="cat-row__num">05</span>
+      <span class="cat-row__title">Family Immigration</span>
+      <span class="cat-row__desc">Spousal green cards, naturalization, I-751 removal of conditions, and preference categories.</span>
+      <span class="cat-row__count">I-130 · I-485 · N-400</span>
+    </a>
+  </div>
+  <div class="ei-cinematic" style="margin-top:clamp(3rem,5vw,5rem);width:100%;overflow:hidden;" aria-hidden="true">
+    <img src="blog-img3.webp" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
+  </div>
+</section>
+
+
+<!-- BLOCK 5 — NEWSLETTER [DARK] -->
+<section class="section dk">
+  <div class="wrap">
+    <div class="newsletter">
+      <div class="r">
+        <span class="label" style="opacity:.35;margin-bottom:1.6rem;">Stay Informed</span>
+        <h2>Immigration<br><em>Updates</em></h2>
+      </div>
+      <div class="r d1">
+        <p>
+          U.S. immigration law changes constantly — USCIS policy updates, visa bulletin movements, regulatory shifts, and new case law affect strategy in real time. Subscribe to receive Kamkhadze PA's analysis when it matters.
+        </p>
+        <form class="newsletter-form" action="#" method="POST">
+          <input class="newsletter-input" type="email" name="email" placeholder="Your email address" autocomplete="email">
+          <button type="submit" class="newsletter-submit">Subscribe →</button>
+        </form>
+        <p class="newsletter-note">No spam. Practical immigration analysis only. Unsubscribe at any time.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- CTA [DARK continues — make it a visible break] -->
+<section class="section--tall dk" style="text-align:center;border-top:1px solid rgba(203,209,213,0.06);">
+  <div class="wrap wrap--narrow">
+    <span class="label r" style="opacity:.35;margin-bottom:1.8rem;display:block;">Have Questions?</span>
+    <h2 class="r d1">
+      Reading is the start.<br>
+      <em>Counsel makes the difference.</em>
+    </h2>
+    <br><br>
+    <a href="contact.html" class="btn btn-solid dk r d2">Schedule a Consultation</a>
+  </div>
+</section>
+
+<!-- FOOTER [CREAM] -->
+<footer class="footer section cr">
+  <div class="wrap">
+    <div class="footer__grid">
+      <div>
+        <span class="footer__brand-name">Kamkhadze PA</span>
+        <span class="footer__brand-sub">U.S. Immigration Law Firm</span>
+        <p class="footer__desc">Elite immigration representation for extraordinary individuals — entrepreneurs, scientists, executives, artists, investors — nationwide and internationally.</p>
+      </div>
+      <div>
+        <span class="footer__col-title">Employment-Based</span>
+        <ul class="footer__links">
+          <li><a href="employment.html#eb1a">EB-1A Green Card</a></li>
+          <li><a href="employment.html#eb1b">EB-1B Researchers</a></li>
+          <li><a href="employment.html#eb1c">EB-1C Executives</a></li>
+          <li><a href="employment.html#eb2niw">EB-2 NIW</a></li>
+          <li style="white-space:nowrap;font-size:0.7rem"><a href="employment.html#e2">E-2</a> / <a href="employment.html#o1a">O-1</a> / <a href="employment.html#o1b">O-2</a> / <a href="employment.html#tn">TN</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="footer__col-title">Family-Based</span>
+        <ul class="footer__links">
+          <li><a href="family.html#marriage">Marriage-Based Green Card</a></li>
+          <li><a href="naturalization.html">Naturalization &amp; Citizenship</a></li>
+          <li><a href="family.html#other">Other Family Petitions</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="footer__col-title">Firm</span>
+        <ul class="footer__links">
+          <li><a href="about.html">About Ana Kamkhadze</a></li>
+          <li><a href="blog.html">Insights &amp; Analysis</a></li>
+          <li><a href="press.html">In the Spotlight</a></li>
+          <li><a href="contact.html">Contact &amp; Location</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="footer__col-title">Contact</span>
+        <a href="mailto:anka@esq.mba" class="footer__contact-line">anka@esq.mba</a>
+        <a href="tel:+17865909400"    class="footer__contact-line">+1 (786) 590-9400</a>
+        <span class="footer__contact-line">Hollywood Beach, FL</span>
+        <span class="footer__contact-line">Consultations Worldwide</span>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p class="footer__copy">
+        © 2026 Kamkhadze PA. All rights reserved. Hollywood Beach, Florida · Serving Clients Nationwide &amp; Internationally<br>
+        Attorney Advertising. This website is for informational purposes only and does not constitute legal advice. Prior results do not guarantee a similar outcome. Kamkhadze PA is licensed to practice in New York. Immigration law is federal law; the firm represents clients in immigration matters in all U.S. states and abroad.
+      </p>
+    </div>
+  </div>
 </footer>
 
-<script src="script.js"></script>
+<script>
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); } });
+  }, { threshold: 0.07, rootMargin: '0px 0px -30px 0px' });
+  document.querySelectorAll('.r').forEach(el => io.observe(el));
+  const nav = document.getElementById('main-nav');
+  window.addEventListener('scroll', () => { nav.classList.toggle('lit', window.scrollY > 40); }, { passive: true });
+  const burger = document.getElementById('burger');
+  const navLinks = document.querySelector('.nav__links');
+  if (burger && navLinks) {
+    burger.addEventListener('click', () => { navLinks.classList.toggle('open'); burger.classList.toggle('active'); });
+  }
+
+  // Click / touch dropdown support
+  (function() {
+    document.querySelectorAll('.dd__toggle').forEach(function(t) {
+      t.addEventListener('click', function(e) {
+        var nl = document.querySelector('.nav__links');
+        if (nl && nl.classList.contains('open')) return;
+        var dd = this.closest('.dd');
+        var wasOpen = dd.classList.contains('open');
+        document.querySelectorAll('.dd').forEach(function(d) { d.classList.remove('open'); });
+        if (!wasOpen) { dd.classList.add('open'); e.preventDefault(); }
+      });
+    });
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.dd')) {
+        document.querySelectorAll('.dd').forEach(function(d) { d.classList.remove('open'); });
+      }
+    });
+  })();
+</script>
+<script>
+(function(){
+  function hide(img){
+    var f = img.closest('figure,.ei-block,.ei-cinematic,.page-hero__photo,.page-hero__icon');
+    if(f){ f.style.display='none'; } else { img.style.display='none'; }
+  }
+  document.querySelectorAll('img').forEach(function(img){
+    if(img.complete && img.naturalWidth===0 && img.getAttribute('src')){ hide(img); }
+    img.addEventListener('error', function(){ hide(img); });
+  });
+})();
+</script>
 </body>
 </html>
