@@ -32,7 +32,7 @@ h1 { font-size: clamp(3.8rem, 8vw, 8rem); }
 h2 { font-size: clamp(2.6rem, 5vw, 5rem); }
 h3 { font-size: clamp(1.6rem, 2.8vw, 2.6rem); }
 h4 { font-size: clamp(1.1rem, 1.8vw, 1.5rem); }
-em { font-style: italic; }
+em { font-style: normal; }
 b, strong { font-weight: 500; }
 .label { font-family: var(--sans); font-size: 0.62rem; font-weight: 400; letter-spacing: 0.3em; text-transform: uppercase; display: block; }
 .dk { background: var(--dk); color: var(--cr); }
@@ -67,7 +67,7 @@ b, strong { font-weight: 500; }
 .nav__logo { display: flex; flex-direction: row; align-items: center; gap: 0.75rem; }
 .nav__logo-text { display: flex; flex-direction: column; gap: 3px; }
 .nav__logo-name { font-family: var(--serif); font-size: 1.18rem; font-weight: 400; letter-spacing: 0.06em; color: var(--cr); line-height: 1; white-space: nowrap; }
-.nav__logo-sub { font-family: var(--sans); font-size: 0.55rem; font-weight: 400; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(203,209,213,0.4); line-height: 1; white-space: nowrap; }
+.nav__logo-sub { font-family: var(--sans); font-size: 0.55rem; font-weight: 400; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(203,209,213,0.72); line-height: 1; white-space: nowrap; }
 .nav__links { display: flex; align-items: center; gap: clamp(0.5rem, 1.1vw, 1.5rem); list-style: none; }
 .nav__links > li > a, .nav__links > li > span { font-family: var(--sans); font-size: 0.6rem; font-weight: 400; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(203,209,213,0.65); transition: color 0.3s; cursor: pointer; position: relative; white-space: nowrap; }
 .nav__links > li > a::after, .nav__links > li > span::after { content: ''; position: absolute; left: 0; bottom: -3px; width: 0; height: 1px; background: var(--cr); transition: width 0.4s var(--ease); }
@@ -103,7 +103,7 @@ b, strong { font-weight: 500; }
 .pa-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(4rem, 7vw, 9rem); align-items: start; }
 .pa-body .label { margin-bottom: 1.4rem; }
 .pa-body h2 { margin-bottom: 0.8rem; }
-.pa-body .pa-sub { font-family: var(--serif); font-style: italic; margin-bottom: 2.5rem; }
+.pa-body .pa-sub { font-family: var(--serif); font-style: normal; margin-bottom: 2.5rem; }
 .dk .pa-body .pa-sub { font-size: clamp(1rem, 1.4vw, 1.2rem); color: rgba(203,209,213,0.45); }
 .pa-body p { font-size: 0.9rem; line-height: 2; margin-bottom: 1.2rem; }
 .dk .pa-body p { color: rgba(203,209,213,0.52); }
