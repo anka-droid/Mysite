@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="A 60-second self-check for international tech founders building in the U.S. Find out whether a decision you've already made — your cap table, salary, or timing — is worth a closer look. By Ana Kamkhadze, Esq. MBA.">
+<title>Founder Immigration Scorecard | Kamkhadze PA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+/* ═══════════════════════════════════════════════════════════════════
+   STRICT TWO-COLOR SYSTEM — NO EXCEPTIONS  (dark-blue dominant)
+   --dk token:  #002060  (Midnight Blue — MAIN surface)
+   --cr token:  #CBD1D5  (Stainless Steel Silver — ACCENT)
+═══════════════════════════════════════════════════════════════════ */
+:root {
+  --dk:    #002060;
+  --cr:    #CBD1D5;
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --sans:  'Raleway', sans-serif;
+  --ease:  cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --pad-h: clamp(2rem, 6vw, 7rem);
+  --pad-v: clamp(5rem, 9vw, 9rem);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; background-image: none !important; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--sans);
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 1.82;
+  background: var(--dk);
+  color: var(--cr);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+img { display: block; max-width: 100%; }
+a { text-decoration: none; color: inherit; }
+button { font-family: var(--sans); font-weight: 400; cursor: pointer; border: none; background: none; }
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--serif);
+  font-weight: 400;
+  line-height: 1.06;
+  letter-spacing: -0.01em;
+}
+h1 { font-size: clamp(3rem, 7vw, 7rem); }
+h2 { font-size: clamp(2.2rem, 4.5vw, 4.5rem); }
+h3 { font-size: clamp(1.4rem, 2.5vw, 2.4rem); }
+em { font-style: normal; }
+
+.label {
+  font-family: var(--sans);
+  font-size: 0.62rem;
+  font-weight: 400;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  display: block;
+}
+
+/* ── Dark & Cream section helpers ──────────────────────────── */
+.dk { background: var(--dk); color: var(--cr); }
+.dk h1, .dk h2, .dk h3, .dk h4, .dk em { color: var(--cr); }
+.dk .label { color: var(--cr); opacity: 0.45; }
+.dk .btn-solid { background: var(--cr); color: var(--dk); border: 1px solid var(--cr); }
+.dk .btn-solid:hover { background: transparent; color: var(--cr); }
+.dk .btn-line { background: transparent; color: var(--cr); border: 1px solid rgba(203,209,213,0.3); }
+.dk .btn-line:hover { border-color: var(--cr); }
+
+.cr { background: var(--cr); color: var(--dk); }
+.cr h1, .cr h2, .cr h3, .cr h4, .cr em { color: var(--dk); }
+.cr .label { color: var(--dk); opacity: 0.4; }
+.cr .btn-solid { background: var(--dk); color: var(--cr); border: 1px solid var(--dk); }
+.cr .btn-solid:hover { background: transparent; color: var(--dk); }
+.cr .btn-line { background: transparent; color: var(--dk); border: 1px solid rgba(0,32,96,0.3); }
+.cr .btn-line:hover { border-color: var(--dk); }
+
+/* ── Layout ──────────────────────────────────────────────── */
+.wrap         { max-width: 1380px; margin: 0 auto; padding-left: var(--pad-h); padding-right: var(--pad-h); }
+.wrap--narrow { max-width: 940px; }
+.section      { padding: var(--pad-v) 0; }
+.section--tall{ padding: clamp(7rem, 13vw, 13rem) 0; }
+
+.rule { display: block; width: 3rem; height: 1px; margin-bottom: 2rem; }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75em;
+  font-family: var(--sans);
+  font-size: 0.65rem;
+  font-weight: 400;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  padding: 1.2em 3em;
+  transition: all 0.5s var(--ease);
+  cursor: pointer;
+  outline: none;
+  white-space: nowrap;
+}
+.btn::after { content: '→'; font-size: 1em; transition: transform 0.35s ease; }
+.btn:hover::after { transform: translateX(6px); }
+.btn.no-arr::after { display: none; }
+
+/* ── Scroll reveal ───────────────────────────────────────── */
+.r {
+  opacity: 0;
+  transform: translateY(36px);
+  transition: opacity 0.9s var(--ease), transform 0.9s var(--ease);
+}
+.r.on { opacity: 1; transform: translateY(0); }
+.d1 { transition-delay: 0.1s; }
+.d2 { transition-delay: 0.22s; }
+.d3 { transition-delay: 0.34s; }
+.d4 { transition-delay: 0.48s; }
+
+/* ════════════════════════════════════════════════════════════════
+   NAVIGATION
+════════════════════════════════════════════════════════════════ */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 500;
+  background: var(--dk);
+  border-bottom: 1px solid rgba(203,209,213,0.08);
+  transition: border-color 0.4s;
+}
+.nav.lit { border-color: rgba(203,209,213,0.18); }
+.nav__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 80px;
+  padding: 0 clamp(1rem, 2.5vw, 3rem);
+  max-width: 1560px;
+  margin: 0 auto;
+}
+.nav__logo { display: flex; align-items: center; gap: 0.75rem; }
+.nav__logo-text { display: flex; flex-direction: column; gap: 3px; }
+.nav__logo-name {
+  font-family: var(--serif);
+  font-size: 1.18rem;
+  color: var(--cr);
+  line-height: 1;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+}
+.nav__logo-sub {
+  font-family: var(--sans);
+  font-size: 0.52rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(203,209,213,0.72);
+  line-height: 1;
+  white-space: nowrap;
+}
+.nav__links {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.5rem, 1.1vw, 1.5rem);
+  list-style: none;
+}
+.nav__links > li > a {
+  font-family: var(--sans);
+  font-size: 0.6rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(203,209,213,0.92);
+  transition: color 0.3s;
+  position: relative;
+  white-space: nowrap;
+}
+.nav__links > li > a::after {
+  content: '';
+  position: absolute;
+  left: 0; bottom: -3px;
+  width: 0; height: 1px;
+  background: var(--cr);
+  transition: width 0.4s var(--ease);
+}
+.nav__links > li > a:hover { color: var(--cr); }
+.nav__links > li > a:hover::after { width: 100%; }
+.dd { position: relative; }
+.dd::after { content: ''; position: absolute; left: 0; right: 0; bottom: -1.4rem; height: 1.4rem; }
+.dd__toggle { display: flex; align-items: center; gap: 0.4em; cursor: pointer; }
+.dd__caret { font-size: 0.5rem; opacity: 0.4; transition: transform 0.3s, opacity 0.3s; }
+.dd:hover .dd__caret { transform: rotate(180deg); opacity: 0.8; }
+.dd__panel {
+  position: absolute;
+  top: calc(100% + 1.4rem);
+  left: 50%;
+  transform: translateX(-50%) translateY(-6px);
+  background: var(--dk);
+  border: 1px solid rgba(203,209,213,0.1);
+  min-width: 280px;
+  padding: 0.5rem 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, transform 0.3s;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+}
+.dd:hover .dd__panel, .dd.open .dd__panel {
+  opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0);
+}
+.dd__panel a {
+  display: block;
+  padding: 0.75rem 1.8rem;
+  font-size: 0.65rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(203,209,213,0.55);
+  transition: color 0.25s, background 0.25s;
+}
+.dd__panel a:hover { color: var(--cr); background: rgba(203,209,213,0.04); }
+.nav__cta {
+  font-size: 0.56rem !important;
+  letter-spacing: 0.2em !important;
+  padding: 0.75em 1.5em;
+  border: 1px solid rgba(203,209,213,0.3);
+  color: var(--cr) !important;
+  transition: border-color 0.4s, background 0.4s;
+}
+.nav__cta::after { display: none !important; }
+.nav__cta:hover { border-color: var(--cr) !important; background: rgba(203,209,213,0.06) !important; }
+.nav__burger {
+  display: none;
+  flex-direction: column;
+  gap: 6px;
+  cursor: pointer;
+  padding: 6px;
+}
+.nav__burger span { display: block; width: 28px; height: 1px; background: var(--cr); transition: transform 0.3s; }
+@media (max-width: 900px) {
+  .nav__links { display: none; }
+  .nav__burger { display: flex; }
+  .nav__links.open {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 80px; left: 0; right: 0;
+    background: var(--dk);
+    padding: 2rem var(--pad-h);
+    gap: 1.5rem;
+    border-bottom: 1px solid rgba(203,209,213,0.08);
+    align-items: flex-start;
+    max-height: calc(100vh - 80px);
+    overflow-y: auto;
+  }
+  .nav__links.open > li > a { font-size: 0.75rem; }
+  .dd__panel { position: static; transform: none; opacity: 1; visibility: visible; box-shadow: none; border: none; padding: 0.5rem 0 0 1rem; min-width: 0; }
+  .dd__caret { display: none; }
+}
+
+/* ════════════════════════════════════════════════════════════════
+   PAGE HERO  [DARK]
+════════════════════════════════════════════════════════════════ */
+.sc-hero {
+  padding-top: 160px;
+  padding-bottom: clamp(5rem, 9vw, 9rem);
+}
+.sc-hero__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  margin-bottom: 2rem;
+}
+.sc-hero__eyebrow::before {
+  content: '';
+  display: block;
+  width: 3rem;
+  height: 1px;
+  background: rgba(203,209,213,0.2);
+  flex-shrink: 0;
+}
+.sc-hero h1 { color: var(--cr); margin-bottom: 1.8rem; }
+.sc-hero h1 em { color: rgba(203,209,213,0.6); font-style: italic; }
+.sc-hero__sub {
+  font-size: clamp(0.92rem, 1.1vw, 1.05rem);
+  color: rgba(203,209,213,0.6);
+  line-height: 1.9;
+  max-width: 640px;
+  margin-bottom: 1.5rem;
+}
+
+/* ════════════════════════════════════════════════════════════════
+   QUIZ SECTION  [CREAM]
+════════════════════════════════════════════════════════════════ */
+.sc-intro {
+  max-width: 700px;
+  margin-bottom: clamp(3rem, 5vw, 4.5rem);
+}
+.sc-intro .label { margin-bottom: 1rem; }
+.sc-intro p {
+  font-size: 0.93rem;
+  color: rgba(0,32,96,0.62);
+  line-height: 1.95;
+}
+.sc-intro strong { color: var(--dk); font-weight: 500; }
+
+/* Question cards grid */
+.sc-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(1rem, 1.8vw, 1.8rem);
+  margin-bottom: clamp(3.5rem, 6vw, 5rem);
+}
+@media (max-width: 720px) { .sc-grid { grid-template-columns: 1fr; } }
+
+.sc-card {
+  border: 1px solid rgba(0,32,96,0.12);
+  padding: clamp(1.6rem, 2.8vw, 2.5rem);
+  position: relative;
+  transition: border-color 0.35s;
+}
+.sc-card.answered { border-color: rgba(0,32,96,0.3); }
+
+.sc-card__status {
+  position: absolute;
+  top: 1.2rem; right: 1.2rem;
+  width: 22px; height: 22px;
+  border: 1px solid rgba(0,32,96,0.15);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.58rem;
+  color: rgba(0,32,96,0.25);
+  transition: all 0.35s;
+}
+.sc-card.answered .sc-card__status {
+  background: var(--dk);
+  border-color: var(--dk);
+  color: var(--cr);
+}
+
+.sc-card__num {
+  font-family: var(--serif);
+  font-size: 3rem;
+  color: rgba(0,32,96,0.08);
+  line-height: 1;
+  margin-bottom: 0.2rem;
+}
+.sc-card__cat {
+  font-size: 0.56rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(0,32,96,0.36);
+  display: block;
+  margin-bottom: 1rem;
+}
+.sc-card__q {
+  font-family: var(--serif);
+  font-size: clamp(1rem, 1.35vw, 1.28rem);
+  color: var(--dk);
+  line-height: 1.45;
+  margin-bottom: 1.8rem;
+}
+
+/* Answer buttons */
+.sc-card__opts { display: flex; gap: 0.65rem; }
+.sc-opt {
+  flex: 1;
+  font-family: var(--sans);
+  font-size: 0.58rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 0.9em 0.75em;
+  border: 1px solid rgba(0,32,96,0.18);
+  color: rgba(0,32,96,0.48);
+  background: transparent;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.3s var(--ease);
+  line-height: 1.6;
+  outline: none;
+}
+.sc-opt small {
+  display: block;
+  font-size: 0.55rem;
+  letter-spacing: 0.1em;
+  text-transform: none;
+  opacity: 0.75;
+  margin-top: 0.25em;
+  font-weight: 300;
+}
+.sc-opt:hover { border-color: var(--dk); color: var(--dk); }
+.sc-opt.sel-ok {
+  background: var(--dk);
+  color: var(--cr);
+  border-color: var(--dk);
+}
+.sc-opt.sel-flag {
+  background: var(--dk);
+  color: var(--cr);
+  border-color: var(--dk);
+  opacity: 0.7;
+}
+
+/* Submit area */
+.sc-submit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.1rem;
+}
+.sc-submit__hint {
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(0,32,96,0.35);
+}
+#sc-see-result {
+  font-family: var(--sans);
+  font-size: 0.65rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  padding: 1.2em 3.5em;
+  background: var(--dk);
+  color: var(--cr);
+  border: 1px solid var(--dk);
+  cursor: pointer;
+  transition: all 0.5s var(--ease);
+  opacity: 0.25;
+  pointer-events: none;
+  outline: none;
+}
+#sc-see-result.ready { opacity: 1; pointer-events: auto; }
+#sc-see-result.ready:hover { background: transparent; color: var(--dk); }
+
+/* ════════════════════════════════════════════════════════════════
+   TRUST STRIP  [DARK / subtle]
+════════════════════════════════════════════════════════════════ */
+.sc-trust {
+  padding: clamp(2.5rem, 4vw, 4rem) 0;
+  border-top: 1px solid rgba(203,209,213,0.08);
+  border-bottom: 1px solid rgba(203,209,213,0.08);
+}
+.sc-trust__row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem clamp(2.5rem, 6vw, 6rem);
+  text-align: center;
+}
+.sc-trust__item {
+  font-size: 0.72rem;
+  color: rgba(203,209,213,0.38);
+  letter-spacing: 0.06em;
+  line-height: 1.7;
+}
+.sc-trust__item strong {
+  display: block;
+  font-family: var(--serif);
+  font-size: 1.35rem;
+  font-weight: 400;
+  color: rgba(203,209,213,0.75);
+  margin-bottom: 0.15rem;
+}
+
+/* ════════════════════════════════════════════════════════════════
+   RESULT  [DARK]  — revealed by JS
+════════════════════════════════════════════════════════════════ */
+#sc-result {
+  display: none;
+  padding: clamp(5rem, 9vw, 9rem) 0;
+}
+#sc-result.visible { display: block; }
+
+.sc-result__inner { max-width: 780px; }
+.sc-result__score {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+.sc-result__num {
+  font-family: var(--serif);
+  font-size: clamp(5rem, 10vw, 10rem);
+  color: var(--cr);
+  line-height: 1;
+}
+.sc-result__denom {
+  font-family: var(--serif);
+  font-size: clamp(1.1rem, 1.8vw, 1.6rem);
+  color: rgba(203,209,213,0.3);
+}
+.sc-result__verdict {
+  font-family: var(--serif);
+  font-size: clamp(1.6rem, 3vw, 3rem);
+  color: var(--cr);
+  line-height: 1.15;
+  margin-bottom: 1.5rem;
+}
+.sc-result__msg {
+  font-size: 0.93rem;
+  color: rgba(203,209,213,0.6);
+  line-height: 2;
+  margin-bottom: 2.8rem;
+  max-width: 620px;
+}
+.sc-result__ctarow { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+/* ════════════════════════════════════════════════════════════════
+   FOOTER  [CREAM]
+════════════════════════════════════════════════════════════════ */
+.footer__grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+  gap: clamp(2rem, 4vw, 5rem);
+  padding-bottom: clamp(3rem, 5vw, 5rem);
+  border-bottom: 1px solid rgba(0,32,96,0.1);
+  margin-bottom: 2.5rem;
+}
+@media (max-width: 1100px) { .footer__grid { grid-template-columns: 1fr 1fr 1fr; } }
+@media (max-width: 640px)  { .footer__grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 400px)  { .footer__grid { grid-template-columns: 1fr; } }
+.footer__brand-name {
+  font-family: var(--serif);
+  font-size: 1.3rem;
+  color: var(--dk);
+  display: block;
+  margin-bottom: 0.25rem;
+  letter-spacing: 0.04em;
+}
+.footer__brand-sub {
+  font-size: 0.52rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: rgba(0,32,96,0.4);
+  display: block;
+  margin-bottom: 1.2rem;
+}
+.footer__desc {
+  font-size: 0.8rem;
+  line-height: 1.85;
+  color: rgba(0,32,96,0.5);
+}
+.footer__col-title {
+  font-size: 0.58rem;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: rgba(0,32,96,0.38);
+  display: block;
+  margin-bottom: 1.2rem;
+}
+.footer__links { list-style: none; }
+.footer__links li { margin-bottom: 0.65rem; }
+.footer__links a, .footer__contact-line {
+  font-size: 0.78rem;
+  color: rgba(0,32,96,0.55);
+  transition: color 0.3s;
+  display: block;
+  margin-bottom: 0.6rem;
+}
+.footer__links a:hover, .footer__contact-line:hover { color: var(--dk); }
+.footer__copy {
+  font-size: 0.68rem;
+  line-height: 1.9;
+  color: rgba(0,32,96,0.35);
+}
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════════════════
+     NAVIGATION
+════════════════════════════════════════════════════════════ -->
+<nav class="nav" id="main-nav">
+  <div class="nav__row">
+    <a href="index.html" class="nav__logo">
+      <svg width="32" height="32" viewBox="0 0 38 38" fill="none" aria-hidden="true">
+        <rect x="1.5" y="1.5" width="35" height="35" fill="white" stroke="#9CA3A8" stroke-width="2.5"/>
+        <path d="M28 8 L10 19 L28 30 L23 30 L15 19 L23 8 Z" fill="#C0C6CA"/>
+      </svg>
+      <div class="nav__logo-text">
+        <span class="nav__logo-name">Kamkhadze PA</span>
+        <span class="nav__logo-sub">U.S. Immigration Law Firm</span>
+      </div>
+    </a>
+
+    <ul class="nav__links" id="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li class="dd">
+        <a href="employment.html" class="dd__toggle">Employment-Based <span class="dd__caret">▾</span></a>
+        <div class="dd__panel">
+          <a href="employment.html#o1a">O-1A Extraordinary Ability</a>
+          <a href="employment.html#o1b">O-1B Arts &amp; Entertainment</a>
+          <a href="employment.html#eb1a">EB-1A Green Card</a>
+          <a href="employment.html#eb1b">EB-1B Outstanding Researchers</a>
+          <a href="employment.html#eb1c">EB-1C Multinational Managers</a>
+          <a href="employment.html#eb2niw">EB-2 National Interest Waiver</a>
+          <a href="employment.html#h1b">H-1B Specialty Occupation</a>
+          <a href="employment.html#l1">L-1 Intracompany Transfer</a>
+          <a href="employment.html#e2">E-2 Treaty Investor</a>
+          <a href="employment.html#tn">TN Professional</a>
+        </div>
+      </li>
+      <li class="dd">
+        <a href="family.html" class="dd__toggle">Family-Based <span class="dd__caret">▾</span></a>
+        <div class="dd__panel">
+          <a href="family.html#marriage">Marriage-Based Green Card</a>
+          <a href="family.html#other">Other Family Petitions</a>
+        </div>
+      </li>
+      <li><a href="naturalization.html">Naturalization</a></li>
+      <li><a href="blog.html">Insights</a></li>
+      <li><a href="press.html">Press</a></li>
+      <li><a href="contact.html" class="nav__cta">Schedule Consultation</a></li>
+    </ul>
+
+    <div class="nav__burger" id="burger" role="button" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+
+<!-- ════════════════════════════════════════════════════════════
+     HERO  [DARK]
+════════════════════════════════════════════════════════════ -->
+<section class="sc-hero dk">
+  <div class="wrap">
+    <div class="sc-hero__eyebrow r">
+      <span class="label" style="opacity:.55;">Founder Immigration Scorecard</span>
+    </div>
+    <h1 class="r d1">Is a decision you've already made<br><em>worth a second look?</em></h1>
+    <p class="sc-hero__sub r d2">A 60-second self-check for international tech founders building in the United States. Six questions. No email required.</p>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════════════════════
+     QUIZ  [CREAM]
+════════════════════════════════════════════════════════════ -->
+<section class="section cr" id="scorecard">
+  <div class="wrap">
+
+    <div class="sc-intro r">
+      <span class="label" style="margin-bottom:1rem;">The Scorecard</span>
+      <p>The most costly U.S. immigration mistakes are business decisions made long before a visa is ever filed — how you split equity, when you leave a job, whether you pay yourself. Answer honestly. Each <strong>Flag</strong> is a sign that a decision already made may be worth a closer look. It is almost always less costly to address early than late.</p>
+    </div>
+
+    <div class="sc-grid" id="quiz"></div>
+
+    <div class="sc-submit r">
+      <p class="sc-submit__hint" id="hint">Answer all six to see your result.</p>
+      <button id="sc-see-result" class="no-arr">See my result</button>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════════════════════
+     TRUST STRIP  [DARK]
+════════════════════════════════════════════════════════════ -->
+<div class="sc-trust dk">
+  <div class="wrap">
+    <div class="sc-trust__row r">
+      <div class="sc-trust__item"><strong>Best Lawyers</strong>Ones to Watch 2026</div>
+      <div class="sc-trust__item"><strong>5.0 ★</strong>28 Google reviews</div>
+      <div class="sc-trust__item"><strong>AILA · NYSBA</strong>Member in good standing</div>
+      <div class="sc-trust__item"><strong>10 yrs</strong>Exclusive immigration focus</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════════════════════
+     RESULT  [DARK]  — revealed by JS
+════════════════════════════════════════════════════════════ -->
+<section id="sc-result" class="dk">
+  <div class="wrap">
+    <div class="sc-result__inner">
+      <span class="label r" style="opacity:.35;margin-bottom:1.8rem;">Your Result</span>
+      <div class="sc-result__score r d1">
+        <span class="sc-result__num" id="result-num">0</span>
+        <span class="sc-result__denom" id="result-denom"></span>
+      </div>
+      <h2 class="sc-result__verdict r d2" id="result-title"></h2>
+      <p class="sc-result__msg r d3" id="result-msg"></p>
+      <div class="sc-result__ctarow r d4">
+        <a href="contact.html" class="btn btn-solid dk">Schedule a consultation</a>
+        <a href="#" class="btn btn-line dk" id="result-email">Email Ana directly</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════════════════════
+     TAGLINE + CTA  [DARK]
+════════════════════════════════════════════════════════════ -->
+<section class="section--tall dk" style="text-align:center;">
+  <div class="wrap wrap--narrow">
+    <span class="label r" style="opacity:.35;margin-bottom:1.8rem;">Kamkhadze PA</span>
+    <h2 class="r d1">Your business decisions<br><em>are immigration decisions.</em></h2>
+    <br><br>
+    <a href="contact.html" class="btn btn-solid dk r d2">Schedule a Consultation</a>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════════════════════
+     FOOTER  [CREAM]
+════════════════════════════════════════════════════════════ -->
+<footer class="section cr">
+  <div class="wrap">
+    <div class="footer__grid">
+      <div>
+        <span class="footer__brand-name">Kamkhadze PA</span>
+        <span class="footer__brand-sub">U.S. Immigration Law Firm</span>
+        <p class="footer__desc">Elite immigration representation for extraordinary individuals — entrepreneurs, scientists, executives, artists, investors — nationwide and internationally.</p>
+      </div>
+      <div>
+        <span class="footer__col-title">Employment-Based</span>
+        <ul class="footer__links">
+          <li><a href="employment.html#eb1a">EB-1A Green Card</a></li>
+          <li><a href="employment.html#eb1b">EB-1B Researchers</a></li>
+          <li><a href="employment.html#eb1c">EB-1C Executives</a></li>
+          <li><a href="employment.html#eb2niw">EB-2 NIW</a></li>
+          <li style="font-size:0.7rem"><a href="employment.html#e2">E-2</a> / <a href="employment.html#o1a">O-1</a> / <a href="employment.html#o1b">O-2</a> / <a href="employment.html#tn">TN</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="footer__col-title">Family-Based</span>
+        <ul class="footer__links">
+          <li><a href="family.html#marriage">Marriage-Based Green Card</a></li>
+          <li><a href="naturalization.html">Naturalization &amp; Citizenship</a></li>
+          <li><a href="family.html#other">Other Family Petitions</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="footer__col-title">Firm</span>
+        <ul class="footer__links">
+          <li><a href="about.html">About Ana Kamkhadze</a></li>
+          <li><a href="blog.html">Insights &amp; Analysis</a></li>
+          <li><a href="press.html">In the Spotlight</a></li>
+          <li><a href="contact.html">Contact &amp; Location</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="footer__col-title">Contact</span>
+        <a href="mailto:anka@esq.mba" class="footer__contact-line">anka@esq.mba</a>
+        <a href="tel:+17865909400"    class="footer__contact-line">+1 (786) 590-9400</a>
+        <span class="footer__contact-line">Hollywood Beach, FL</span>
+        <span class="footer__contact-line">Consultations Worldwide</span>
+      </div>
+    </div>
+    <div>
+      <p class="footer__copy">
+        © 2026 Kamkhadze PA. All rights reserved. Hollywood Beach, Florida · Serving Clients Nationwide &amp; Internationally<br>
+        Attorney Advertising. This scorecard is for general informational purposes only and does not constitute legal advice. It is not a substitute for a consultation with a licensed immigration attorney and does not create an attorney-client relationship. Every case turns on its own facts; prior results do not guarantee a similar outcome. Kamkhadze PA is licensed to practice in New York; immigration matters are federal law and are handled nationwide and abroad.
+      </p>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+(function () {
+
+  /* ── Scroll reveal ─────────────────────────────────────── */
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); } });
+  }, { threshold: 0.07, rootMargin: '0px 0px -30px 0px' });
+  document.querySelectorAll('.r').forEach(el => io.observe(el));
+
+  /* ── Nav ───────────────────────────────────────────────── */
+  const nav = document.getElementById('main-nav');
+  window.addEventListener('scroll', () => nav.classList.toggle('lit', window.scrollY > 40), { passive: true });
+  const burger = document.getElementById('burger');
+  const navLinks = document.getElementById('nav-links');
+  if (burger && navLinks) burger.addEventListener('click', () => navLinks.classList.toggle('open'));
+
+  /* ── Questions data (from uploaded reference) ──────────── */
+  const QUESTIONS = [
+    { cat: 'Control',
+      q: 'Do you hold a controlling interest (50%+) in your U.S. company — and will you still after your next round?',
+      ok: 'Yes, and I\'ve modeled it forward', flag: 'No / not sure' },
+    { cat: 'Employment timing',
+      q: 'If you might transfer from your own company abroad, have you completed 12 continuous months there in a qualifying senior role?',
+      ok: 'Yes, 12+ months', flag: 'No / under 12 months' },
+    { cat: 'Compensation',
+      q: 'Do you pay yourself a documented salary from the business?',
+      ok: 'Yes, on paper', flag: 'No / undocumented' },
+    { cat: 'Presence & activity',
+      q: 'Are you directing day-to-day U.S. operations while physically in the U.S. on visitor (B-1/B-2) status?',
+      ok: 'No — I only explore on visitor status', flag: 'Yes' },
+    { cat: 'Recognition',
+      q: 'Can you evidence recognition — funding, press, awards, patents, speaking? (An opportunity: it may qualify you for the O-1A.)',
+      ok: 'Yes — I can document it', flag: 'Not yet assembled' },
+    { cat: 'Strategy',
+      q: 'Is your visa plan aligned with your fundraising and cap-table roadmap — decided on purpose, not by default?',
+      ok: 'Yes', flag: 'No / never mapped' },
+  ];
+
+  const answers = new Array(QUESTIONS.length).fill(null);
+  const quiz = document.getElementById('quiz');
+
+  /* ── Build question cards ──────────────────────────────── */
+  QUESTIONS.forEach((item, i) => {
+    const card = document.createElement('div');
+    card.className = 'sc-card r' + (i % 2 === 1 ? ' d1' : '');
+    card.id = 'card-' + i;
+    card.innerHTML =
+      '<div class="sc-card__status" id="st-' + i + '">✓</div>' +
+      '<div class="sc-card__num">0' + (i + 1) + '</div>' +
+      '<span class="sc-card__cat">' + item.cat + '</span>' +
+      '<p class="sc-card__q">' + item.q + '</p>' +
+      '<div class="sc-card__opts">' +
+        '<button class="sc-opt ok" data-i="' + i + '" data-v="0">On track<small>' + item.ok + '</small></button>' +
+        '<button class="sc-opt flag" data-i="' + i + '" data-v="1">Flag<small>' + item.flag + '</small></button>' +
+      '</div>';
+    quiz.appendChild(card);
+  });
+
+  /* re-observe dynamically built cards */
+  quiz.querySelectorAll('.r').forEach(el => io.observe(el));
+
+  /* ── Answer interaction ────────────────────────────────── */
+  const seeBtn = document.getElementById('sc-see-result');
+  const hint   = document.getElementById('hint');
+
+  quiz.addEventListener('click', e => {
+    const btn = e.target.closest('.sc-opt');
+    if (!btn) return;
+
+    const i = +btn.dataset.i;
+    const v = +btn.dataset.v;
+    answers[i] = v;
+
+    /* update button styles */
+    btn.parentElement.querySelectorAll('.sc-opt').forEach(b => b.classList.remove('sel-ok', 'sel-flag'));
+    btn.classList.add(v === 0 ? 'sel-ok' : 'sel-flag');
+
+    /* mark card answered */
+    const card = document.getElementById('card-' + i);
+    card.classList.add('answered');
+
+    /* update hint and enable submit */
+    const remaining = answers.filter(a => a === null).length;
+    if (remaining === 0) {
+      hint.textContent = 'All six answered — ready when you are.';
+      seeBtn.classList.add('ready');
+    } else {
+      hint.textContent = remaining + ' question' + (remaining !== 1 ? 's' : '') + ' remaining';
+    }
+  });
+
+  /* ── Reveal result ─────────────────────────────────────── */
+  seeBtn.addEventListener('click', () => {
+    if (answers.some(a => a === null)) return;
+
+    const flags = answers.filter(a => a === 1).length;
+    const resultSec = document.getElementById('sc-result');
+
+    document.getElementById('result-num').textContent = flags;
+    document.getElementById('result-denom').textContent = flags === 1 ? 'flag of 6' : 'flags of 6';
+
+    const title = document.getElementById('result-title');
+    const msg   = document.getElementById('result-msg');
+
+    if (flags === 0) {
+      title.textContent = 'You\'re structurally on track.';
+      msg.textContent   = 'Nothing here is raising a hand — but the right structure is a moving target. Re-check before each round, hire, and move; a short conversation now keeps an easy position easy.';
+    } else if (flags <= 2) {
+      title.textContent = 'Worth a closer look.';
+      msg.textContent   = 'You flagged ' + flags + '. Each one is a decision better examined before your next round or move than after — and almost always remediable, simply less costly early than late.';
+    } else {
+      title.textContent = 'Let\'s talk soon.';
+      msg.textContent   = 'Several flags here. That is common, and rarely fatal — but it means real decisions are running ahead of your immigration strategy. The sooner we map it, the more options you keep.';
+    }
+
+    const subject = encodeURIComponent('Founder self-check — ' + flags + ' flag' + (flags !== 1 ? 's' : ''));
+    const body    = encodeURIComponent(
+      'Hi Ana,\n\nI ran the founder immigration self-check and flagged ' + flags + ' of 6.' +
+      " I'd like to book a consult.\n\nCompany:\nWhere I'm based:\nWhat I'm planning next (round / hire / move):\n"
+    );
+    document.getElementById('result-email').href = 'mailto:anka@esq.mba?subject=' + subject + '&body=' + body;
+
+    resultSec.classList.add('visible');
+
+    /* animate result elements */
+    resultSec.querySelectorAll('.r').forEach(el => { el.classList.remove('on'); io.observe(el); });
+
+    setTimeout(() => resultSec.scrollIntoView({ behavior: 'smooth', block: 'start' }), 80);
+  });
+
+})();
+</script>
+
+</body>
+</html>
