@@ -15,6 +15,7 @@ const RBAC = (() => {
     MA: 'managing_attorney',
     AA: 'associate_attorney',
     CM: 'case_manager',
+    PL: 'paralegal',
   };
 
   // ---- Role Display Labels ----
@@ -22,6 +23,7 @@ const RBAC = (() => {
     managing_attorney:  'Managing Attorney',
     associate_attorney: 'Associate Attorney',
     case_manager:       'Case Manager',
+    paralegal:          'Paralegal',
   };
 
   // ---- Role Badge Colors ----
@@ -29,6 +31,7 @@ const RBAC = (() => {
     managing_attorney:  '#4f46e5',  // indigo
     associate_attorney: '#0891b2',  // cyan
     case_manager:       '#059669',  // emerald
+    paralegal:          '#d97706',  // amber
   };
 
   // ---- Permission Matrix ----
@@ -63,6 +66,18 @@ const RBAC = (() => {
       view_reports:    true,   // own cases only
       edit_cases:      true,   // limited — UI enforces further restrictions
       view_financials: false,
+      send_emails:     true,
+      generate_docs:   true,
+    },
+    paralegal: {
+      view_all_cases:  true,   // can see the shared caseload
+      view_billing:    false,
+      manage_users:    false,
+      reassign_cases:  false,
+      view_reports:    false,  // no firm-wide analytics
+      edit_cases:      true,   // can add & edit cases
+      add_cases:       true,
+      view_financials: false,  // no fees / invoices totals
       send_emails:     true,
       generate_docs:   true,
     },
@@ -172,7 +187,7 @@ const RBAC = (() => {
     const role = getRole();
     const allCases = (typeof State !== 'undefined' && Array.isArray(State.cases)) ? State.cases : [];
 
-    if (role === ROLES.MA) {
+    if (role === ROLES.MA || can('view_all_cases')) {
       return allCases;
     }
 
@@ -260,13 +275,22 @@ const RBAC = (() => {
 
     return `
 <div class="panel" id="rbac-user-mgmt-panel">
-  <div class="panel-title" style="display:flex;align-items:center;justify-content:space-between;">
+  <div class="panel-title" style="display:flex;align-items:center;justify-content:space-between;gap:0.5rem;">
     <span>Team Members</span>
-    <button
-      onclick="RBAC._addStaffModal()"
-      style="background:#4f46e5;color:#fff;border:none;border-radius:8px;padding:0.4rem 1rem;cursor:pointer;font-size:0.85rem;font-weight:600;"
-    >+ Add Staff</button>
+    <span style="display:flex;gap:0.5rem;">
+      <button
+        onclick="Auth.showCreateUser()"
+        style="background:#059669;color:#fff;border:none;border-radius:8px;padding:0.4rem 1rem;cursor:pointer;font-size:0.85rem;font-weight:600;"
+      >+ Create Login</button>
+      <button
+        onclick="RBAC._addStaffModal()"
+        style="background:#4f46e5;color:#fff;border:none;border-radius:8px;padding:0.4rem 1rem;cursor:pointer;font-size:0.85rem;font-weight:600;"
+      >+ Add Staff</button>
+    </span>
   </div>
+  <p style="margin:0 0 0.75rem;font-size:0.8rem;color:#6b7280;">
+    <strong>Create Login</strong> gives a paralegal or staff member their own username &amp; password to sign in on their own device and see the same cases. <strong>Add Staff</strong> only records someone for case assignment.
+  </p>
   <div style="overflow-x:auto;">
     <table style="width:100%;border-collapse:collapse;">
       <thead>

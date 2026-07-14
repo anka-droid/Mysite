@@ -110,7 +110,7 @@ Storage.save = async function() {
   try {
     const blob = localStorage.getItem('km_cases_enc_v1');
     if (blob) {
-      await SupabaseSync.push(Auth.username, 'cases', blob);
+      await SupabaseSync.push(Auth.dataOwner || Auth.username, 'cases', blob);
     }
   } catch (e) {
     console.warn('[Supabase] Push failed (cases):', e.message);
@@ -129,7 +129,7 @@ Storage.load = async function() {
   if (!Auth.isAuthenticated) return;
 
   try {
-    const remote = await SupabaseSync.pull(Auth.username, 'cases');
+    const remote = await SupabaseSync.pull(Auth.dataOwner || Auth.username, 'cases');
     if (!remote) return;
 
     const localBlob = localStorage.getItem('km_cases_enc_v1');
@@ -183,7 +183,7 @@ async function _syncSlot(slot, localKey) {
     const raw = localStorage.getItem(localKey);
     if (!raw) return;
     const encrypted = await Auth.encrypt(raw);
-    await SupabaseSync.push(Auth.username, slot, encrypted);
+    await SupabaseSync.push(Auth.dataOwner || Auth.username, slot, encrypted);
   } catch (e) {
     console.warn(`[Supabase] Push failed (${slot}):`, e.message);
   }
@@ -192,7 +192,7 @@ async function _syncSlot(slot, localKey) {
 async function _restoreSlot(slot, localKey) {
   if (!SupabaseSync.isConfigured() || !Auth.isAuthenticated) return;
   try {
-    const remote = await SupabaseSync.pull(Auth.username, slot);
+    const remote = await SupabaseSync.pull(Auth.dataOwner || Auth.username, slot);
     if (!remote?.data) return;
     const plain = await Auth.decrypt(remote.data);
     localStorage.setItem(localKey, plain);
